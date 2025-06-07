@@ -1,4 +1,4 @@
-﻿using StorageBlob.Proxy.Interfaces;
+﻿using StorageServer.Proxy;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,13 +16,12 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public string Description { get; set; }
 
         [StringLength(128)]
-		public string FileMimeType { get; set; }
+        public string? StorageFileName { get; set; }
+        public long? StorageLength { get; set; }
         [StringLength(128)]
-        public string FileName { get; set; }
-        public long FileSize { get; set; }
+		public string? StorageMimeType { get; set; }
         [StringLength(128)]
-        public string FileMD5 { get; set; }
-
+        public string? StorageMD5 { get; set; }
         [NotMapped]
         public string StorageFolder { get => "DocumentAttachment"; }
     }

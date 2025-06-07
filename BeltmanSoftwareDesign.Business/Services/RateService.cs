@@ -2,10 +2,9 @@
 using BeltmanSoftwareDesign.Business.Models;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
-using BeltmanSoftwareDesign.Shared.Attributes;
+using CodeGenerator.Attributes;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using StorageBlob.Proxy.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services
@@ -18,7 +17,6 @@ namespace BeltmanSoftwareDesign.Business.Services
 
         public RateService(
             ApplicationDbContext db,
-            IStorageFileService storageFileService,
             IAuthenticationService authenticationService)
         {
             this.db = db;

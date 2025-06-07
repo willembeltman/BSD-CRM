@@ -1,4 +1,4 @@
-﻿using StorageBlob.Proxy.Interfaces;
+﻿using StorageServer.Proxy;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,14 +17,13 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public bool IsInvoicePDF { get; set; }
         public bool IsWorkorderPDF { get; set; }
 
-
-        [StringLength(128)]
-		public string FileMimeType { get; set; }
         [StringLength(255)]
-		public string FileName { get; set; }
-        public long FileSize { get; set; }
+        public string? StorageFileName { get; set; }
+        public long? StorageLength { get; set; }
         [StringLength(128)]
-        public string FileMD5 { get; set; }
+		public string? StorageMimeType { get; set; }
+        [StringLength(128)]
+        public string? StorageMD5 { get; set; }
 
         [NotMapped]
         public string StorageFolder { get => "InvoiceAttachment"; }

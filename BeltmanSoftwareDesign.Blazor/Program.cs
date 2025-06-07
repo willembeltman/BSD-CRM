@@ -2,8 +2,6 @@ using BeltmanSoftwareDesign.Blazor.Components;
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Business.Services;
 using BeltmanSoftwareDesign.Data;
-using StorageBlob.Proxy.Interfaces;
-using StorageBlob.Proxy.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +14,6 @@ builder.Services.AddRazorComponents()
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IStorageFileService, StorageFileService>();
 builder.Services.AddScoped<IWorkorderService, WorkorderService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();

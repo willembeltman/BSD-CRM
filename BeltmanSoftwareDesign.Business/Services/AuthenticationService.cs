@@ -4,11 +4,10 @@ using BeltmanSoftwareDesign.Business.Models;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Entities;
 using BeltmanSoftwareDesign.Data.Converters;
-using BeltmanSoftwareDesign.Shared.Attributes;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using StorageBlob.Proxy.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using CodeGenerator.Attributes;
 
 namespace BeltmanSoftwareDesign.Business.Services
 {
@@ -24,13 +23,12 @@ namespace BeltmanSoftwareDesign.Business.Services
 
         public AuthenticationService(
             ApplicationDbContext db, 
-            IStorageFileService storageFileService, 
             IDateTimeService dateTimeService)
         {
             this.db = db;
             DateTime = dateTimeService;
-            UserConverter = new UserConverter(storageFileService);
-            CompanyConverter = new CompanyConverter(storageFileService);
+            UserConverter = new UserConverter();
+            CompanyConverter = new CompanyConverter();
         }
 
         [TsServiceMethod("Auth", "Login")]

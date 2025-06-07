@@ -1,13 +1,11 @@
-﻿using StorageBlob.Proxy.Interfaces;
-
-namespace BeltmanSoftwareDesign.Data.Converters
+﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
     public class WorkorderConverter 
     {
-        public WorkorderConverter(IStorageFileService storageFileService)
+        public WorkorderConverter()
         {
             InvoiceWorkorderFactory = new InvoiceWorkorderConverter();
-            WorkorderAttachmentFactory = new WorkorderAttachmentConverter(storageFileService);
+            WorkorderAttachmentFactory = new WorkorderAttachmentConverter();
         }
 
         InvoiceWorkorderConverter InvoiceWorkorderFactory { get; }

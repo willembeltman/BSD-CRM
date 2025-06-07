@@ -1,6 +1,4 @@
-﻿using StorageBlob.Proxy.Interfaces;
-
-namespace BeltmanSoftwareDesign.Data.Converters
+﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
     public class RateConverter 
     {

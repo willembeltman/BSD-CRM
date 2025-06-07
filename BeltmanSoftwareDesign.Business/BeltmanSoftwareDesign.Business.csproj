@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -23,9 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BSD-CRM-Fileserver\StorageService.Proxy\StorageServer.Proxy.csproj" />
     <ProjectReference Include="..\BeltmanSoftwareDesign.Data\BeltmanSoftwareDesign.Data.csproj" />
     <ProjectReference Include="..\BeltmanSoftwareDesign.Shared\BeltmanSoftwareDesign.Shared.csproj" />
-    <ProjectReference Include="..\BeltmanSoftwareDesign.StorageBlob.Business\StorageBlob.Proxy.csproj" />
+    <ProjectReference Include="..\CodeGenerator.Business\CodeGenerator.Business.csproj" />
   </ItemGroup>
 
 </Project>

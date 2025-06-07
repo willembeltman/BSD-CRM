@@ -11,11 +11,11 @@ namespace CodeGenerator
 
     public class GenerateFromServices
     {
-        static string angular_app_directory = @"D:\Project-Public\BeltmanSoftwareDesign.Angular\BeltmanSoftwareDesign.Angular\src\app";
+        static string angular_app_directory = @"D:\Github2\BSD-CRM\BeltmanSoftwareDesign.Angular\src\app";
 
-        static string angular_apiservices_directory = @"D:\Project-Public\BeltmanSoftwareDesign.Angular\BeltmanSoftwareDesign.Angular\src\app\apiservices";
+        static string angular_apiservices_directory = @"D:\Github2\BSD-CRM\BeltmanSoftwareDesign.Angular\src\app\apiservices";
 
-        static string dotnet_controllers_directory = @"D:\Project-Public\BeltmanSoftwareDesign.Angular\BeltmanSoftwareDesign.Api\Controllers";
+        static string dotnet_controllers_directory = @"D:\Github2\BSD-CRM\BeltmanSoftwareDesign.Api\Controllers";
 
         public void Run(string[] args)
         {

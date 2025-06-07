@@ -1,4 +1,4 @@
-﻿using BeltmanSoftwareDesign.Shared.Attributes;
+﻿using CodeGenerator.Attributes;
 using BeltmanSoftwareDesign.Shared.Jsons;
 
 namespace BeltmanSoftwareDesign.Shared.ResponseJsons

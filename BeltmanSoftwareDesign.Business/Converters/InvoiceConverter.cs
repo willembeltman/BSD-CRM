@@ -1,14 +1,7 @@
-﻿using StorageBlob.Proxy.Interfaces;
-
-
-namespace BeltmanSoftwareDesign.Data.Converters
+﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
     public class InvoiceConverter 
     {
-        public InvoiceConverter(IStorageFileService storageFileService)
-        {
-        }
-
         public Entities.Invoice Create(Shared.Jsons.Invoice a)
         {
             //throw new NotImplementedException();

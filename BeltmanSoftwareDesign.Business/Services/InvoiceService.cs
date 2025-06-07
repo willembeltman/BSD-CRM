@@ -1,10 +1,9 @@
 ﻿using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
-using BeltmanSoftwareDesign.Shared.Attributes;
+using CodeGenerator.Attributes;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using StorageBlob.Proxy.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services
@@ -17,12 +16,11 @@ namespace BeltmanSoftwareDesign.Business.Services
 
         public InvoiceService(
             ApplicationDbContext db,
-            IStorageFileService storageFileService,
             IAuthenticationService authenticationService)
         {
             this.db = db;
             AuthenticationService = authenticationService;
-            InvoiceConverter = new InvoiceConverter(storageFileService);
+            InvoiceConverter = new InvoiceConverter();
         }
 
         [TsServiceMethod("Invoice", "Create")]

@@ -1,13 +1,7 @@
-﻿using StorageBlob.Proxy.Interfaces;
-
-namespace BeltmanSoftwareDesign.Data.Converters
+﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
     public class CompanyConverter 
     {
-        public CompanyConverter(IStorageFileService storageFileService)
-        {
-        }
-
         public Shared.Jsons.Company? Create(Entities.Company? a)
         {
             if (a == null) return null;

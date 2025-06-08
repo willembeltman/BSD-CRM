@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using StorageServer.Shared.Dtos;
+using System.Text;
 
 namespace StorageServer.Proxy;
 

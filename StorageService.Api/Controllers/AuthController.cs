@@ -2,9 +2,8 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using StorageServer.Proxy;
-using StorageServer.Proxy.Requests;
+using StorageServer.Shared.Requests;
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 
 namespace StorageServer.Api.Controllers;
 

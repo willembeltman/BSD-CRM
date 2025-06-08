@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageServer.Api.Services;
-using StorageServer.Proxy.Requests;
-using StorageServer.Proxy.Responses;
+using StorageServer.Shared.Requests;
+using StorageServer.Shared.Responses;
 
 namespace StorageServer.Controllers;
 

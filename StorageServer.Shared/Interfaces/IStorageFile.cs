@@ -1,4 +1,4 @@
-﻿namespace StorageServer.Proxy
+﻿namespace StorageServer.Shared.Interfaces
 {
     public interface IStorageFile
     {

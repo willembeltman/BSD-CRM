@@ -1,4 +1,4 @@
-﻿using StorageServer.Proxy;
+﻿using StorageServer.Shared.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

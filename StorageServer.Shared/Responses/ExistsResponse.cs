@@ -1,4 +1,4 @@
-﻿namespace StorageServer.Proxy.Responses;
+﻿namespace StorageServer.Shared.Responses;
 
 public class ExistsResponse : Response
 {

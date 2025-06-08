@@ -1,5 +1,6 @@
-﻿using StorageServer.Proxy.Requests;
-using StorageServer.Proxy.Responses;
+﻿using StorageServer.Shared.Interfaces;
+using StorageServer.Shared.Requests;
+using StorageServer.Shared.Responses;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 

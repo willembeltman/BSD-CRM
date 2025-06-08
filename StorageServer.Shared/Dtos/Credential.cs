@@ -1,4 +1,4 @@
-﻿namespace StorageServer.Proxy;
+﻿namespace StorageServer.Shared.Dtos;
 
 public class Credential
 {

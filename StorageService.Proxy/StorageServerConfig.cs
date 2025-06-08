@@ -1,4 +1,6 @@
-﻿namespace StorageServer.Proxy;
+﻿using StorageServer.Shared.Dtos;
+
+namespace StorageServer.Proxy;
 
 public class StorageServerConfig
 {

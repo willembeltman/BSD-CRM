@@ -1,4 +1,4 @@
-﻿namespace StorageServer.Proxy.Requests;
+﻿namespace StorageServer.Shared.Requests;
 
 public class LoginRequest
 {

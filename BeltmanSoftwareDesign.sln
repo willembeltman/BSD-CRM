@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator", "CodeGenera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkZip", "..\EntityFrameworkZip\EntityFrameworkZip\EntityFrameworkZip.csproj", "{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageServer.Shared", "StorageServer.Shared\StorageServer.Shared.csproj", "{C05B0B2C-9762-492E-9E0D-9F226D473989}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -88,10 +88,10 @@ BenchmarkDotNet.Artifacts/
 # Build directory used by the dotnet CLI
 /bin/
 /obj/
-appsettings.Development.json
 
-*.id
-*.data
+appsettings.Main.json
+appsettings.Test.json
+appsettings.Live.json
 
-StorageFile.data
-StorageFile.id
+StorageService.Api/Database/
+StorageService.Api/Files/

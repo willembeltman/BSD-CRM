@@ -4,6 +4,6 @@
 
 public static class StorageServerSettings
 {
-    public static StorageServerConfig Config { get; set; }
+    public static Config Config { get; set; }
 }
     

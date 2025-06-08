@@ -1,7 +1,8 @@
 ﻿using StorageServer.Business.Interfaces;
 using StorageServer.Data;
 using StorageServer.Data.Entities;
-using StorageServer.Proxy.Actions;
+using StorageServer.Proxy.Requests;
+using StorageServer.Proxy.Responses;
 using System.Security.Cryptography;
 
 namespace StorageServer.Api.Storage;

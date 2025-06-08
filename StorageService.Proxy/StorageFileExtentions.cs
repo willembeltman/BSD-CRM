@@ -1,4 +1,5 @@
-﻿using StorageServer.Proxy.Actions;
+﻿using StorageServer.Proxy.Requests;
+using StorageServer.Proxy.Responses;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-public class StorageServerConfig
+public class Config
 {
     public string ServerUrl { get; set; }
     public Credential Credential { get; set; }

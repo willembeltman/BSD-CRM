@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 StorageServerSettings.Config = builder.Configuration
                         .GetSection("StorageServer")
-                        .Get<StorageServerConfig>()!;
+                        .Get<Config>()!;
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

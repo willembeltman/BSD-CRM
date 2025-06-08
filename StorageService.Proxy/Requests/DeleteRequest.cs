@@ -1,4 +1,4 @@
-﻿namespace StorageServer.Proxy.Actions;
+﻿namespace StorageServer.Proxy.Requests;
 
 public class DeleteRequest : Request
 {

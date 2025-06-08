@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageServer.Business.Interfaces;
-using StorageServer.Proxy.Actions;
+using StorageServer.Proxy.Requests;
+using StorageServer.Proxy.Responses;
 
 namespace StorageServer.Controllers;
 

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using StorageServer.Proxy;
-using StorageServer.Proxy.Actions;
+using StorageServer.Proxy.Requests;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 

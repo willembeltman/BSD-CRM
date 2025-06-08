@@ -1,4 +1,4 @@
-﻿namespace StorageServer.Proxy.Actions;
+﻿namespace StorageServer.Proxy.Responses;
 
 public class DownloadResponse : Response
 {

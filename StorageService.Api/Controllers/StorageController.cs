@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StorageServer.Business.Interfaces;
+using StorageServer.Api.Services;
 using StorageServer.Proxy.Requests;
 using StorageServer.Proxy.Responses;
 
@@ -9,7 +9,7 @@ namespace StorageServer.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]/[action]")]
-public class StorageController(IStorageService storageService) : ControllerBase
+public class StorageController(StorageService storageService) : ControllerBase
 {
     [HttpPost]
     public async Task<GetUrlResponse> GetUrl(GetUrlRequest model)

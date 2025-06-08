@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StorageService.Proxy\StorageServer.Proxy.csproj" />
-    <ProjectReference Include="..\CodeGenerator.Business\CodeGenerator.Business.csproj" />
+    <ProjectReference Include="..\CodeGenerator.Business\CodeGenerator.Attributes.csproj" />
   </ItemGroup>
 
 </Project>

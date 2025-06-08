@@ -7,9 +7,9 @@ using StorageServer.Proxy;
 
 var builder = WebApplication.CreateBuilder(args);
 
-StorageServerSettings.Config = builder.Configuration
+StorageServerConfig.Instance = builder.Configuration
                         .GetSection("StorageServer")
-                        .Get<Config>()!;
+                        .Get<StorageServerConfig>()!;
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

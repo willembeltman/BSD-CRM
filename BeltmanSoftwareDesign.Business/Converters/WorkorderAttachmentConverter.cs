@@ -10,7 +10,7 @@ namespace BeltmanSoftwareDesign.Data.Converters
             {
                 id = a.Id,
                 WorkorderId = a.WorkorderId,
-                FileUrl = await a.GetExternalUrl() ?? throw new ArgumentNullException(nameof(a)),
+                FileUrl = await a.GetUrl() ?? throw new ArgumentNullException(nameof(a)),
             };
         }
     }

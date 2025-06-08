@@ -1,15 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using StorageServer.Api.Storage;
-using StorageServer.Business.Interfaces;
+using StorageServer.Api.Services;
 using StorageServer.Data;
 using StorageServer.Proxy;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var appConfig = builder.Configuration
-                        .GetSection("AppConfig")
-                        .Get<AppConfig>()!;
+var appConfig = builder.Configuration.GetSection("AppConfig").Get<AppConfig>()!;
 
 builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfig"));
 
@@ -20,7 +17,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    options.RequireHttpsMetadata = true; // Zet op true in productie
+    options.RequireHttpsMetadata = true; 
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -33,7 +30,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddScoped<IStorageService, StorageService>();
+builder.Services.AddScoped<StorageService>();
 builder.Services.AddSingleton<ApplicationDbContext>();
 
 builder.Services.AddControllers();

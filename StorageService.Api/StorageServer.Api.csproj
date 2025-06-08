@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StorageServer.Business\StorageServer.Business.csproj" />
+    <ProjectReference Include="..\..\EntityFrameworkZip\EntityFrameworkZip\EntityFrameworkZip.csproj" />
     <ProjectReference Include="..\StorageService.Proxy\StorageServer.Proxy.csproj" />
   </ItemGroup>
 

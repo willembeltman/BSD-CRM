@@ -1,16 +1,21 @@
-﻿using StorageServer.Business.Interfaces;
-using StorageServer.Data;
+﻿using StorageServer.Data;
 using StorageServer.Data.Entities;
 using StorageServer.Proxy.Requests;
 using StorageServer.Proxy.Responses;
 using System.Security.Cryptography;
 
-namespace StorageServer.Api.Storage;
+namespace StorageServer.Api.Services;
 
-public class StorageService(ApplicationDbContext db) : IStorageService
+public class StorageService
 {
     const string BaseFolder = "Content";
     static readonly DirectoryInfo Directory = new DirectoryInfo("Files");
+    private readonly ApplicationDbContext db;
+
+    public StorageService(ApplicationDbContext db)
+    {
+        this.db = db;
+    }
 
     public async Task<SaveResponse> SaveAsync(SaveRequest model, Stream inputStream)
     {

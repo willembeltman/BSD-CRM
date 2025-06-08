@@ -7,7 +7,7 @@ namespace StorageServer.Proxy;
 
 public static class StorageFileExtentions
 {
-    public static async Task<string?> GetExternalUrl(this IStorageFile storageFile)
+    public static async Task<string> GetUrl(this IStorageFile storageFile)
     {
         if (storageFile.Id <= 0)
             throw new ArgumentException(
@@ -30,6 +30,8 @@ public static class StorageFileExtentions
             throw new Exception("Could not cast response from file server");
         if (getExternalUrlResponse.Success == false)
             throw new Exception(getExternalUrlResponse.Message);
+        if (getExternalUrlResponse.Url == null || !Uri.IsWellFormedUriString(getExternalUrlResponse.Url, UriKind.Absolute))
+            throw new Exception("getExternalUrlResponse.Url is not set or is not a valid URL. Please provide a valid server URL.");
 
         return getExternalUrlResponse.Url;
     }
@@ -156,13 +158,24 @@ public static class StorageFileExtentions
 
     private static async Task<string> AuthenticateHttpClient(HttpClient httpClient)
     {
-        httpClient.BaseAddress = new Uri(StorageServerSettings.Config.ServerUrl);
+        var config = StorageServerConfig.Instance;
+        if (config == null)
+            throw new Exception("StorageServerConfig.Instance is not set. Please initialize it before using the storage server.");  
+
+        var credential = config.Credential;
+        if (credential == null || string.IsNullOrEmpty(credential.UserName) || string.IsNullOrEmpty(credential.Password))
+            throw new Exception("StorageServerConfig.Credential is not set or incomplete. Please provide valid credentials.");
+
+        if (config.ServerUrl == null || !Uri.IsWellFormedUriString(config.ServerUrl, UriKind.Absolute))
+            throw new Exception("StorageServerConfig.ServerUrl is not set or is not a valid URL. Please provide a valid server URL.");
+
+        httpClient.BaseAddress = new Uri(config.ServerUrl);
 
         // Stap 1: Login
         var loginRequest = new LoginRequest
         {
-            Username = StorageServerSettings.Config.Credential.UserName,
-            Password = StorageServerSettings.Config.Credential.Password
+            Username = credential.UserName,
+            Password = credential.Password
         };
 
         using var response = await httpClient.PostAsJsonAsync("/Auth/Login", loginRequest);
@@ -173,7 +186,6 @@ public static class StorageFileExtentions
         if (jwtToken == null) throw new Exception("Kan geen token ophalen");
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
-
 
         return jwtToken;
     }

@@ -17,10 +17,10 @@ public class CustomerService(
     CustomerConverter CustomerConverter = new CustomerConverter();
 
     [TsServiceMethod("Customer", "Create")]
-    public CustomerCreateResponse Create(CustomerCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CustomerCreateResponse Create(CustomerCreateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new CustomerCreateResponse()
             {
@@ -47,10 +47,10 @@ public class CustomerService(
     }
 
     [TsServiceMethod("Customer", "Read")]
-    public CustomerReadResponse Read(CustomerReadRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CustomerReadResponse Read(CustomerReadRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new CustomerReadResponse()
             {
@@ -86,10 +86,10 @@ public class CustomerService(
     }
 
     [TsServiceMethod("Customer", "Update")]
-    public CustomerUpdateResponse Update(CustomerUpdateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CustomerUpdateResponse Update(CustomerUpdateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new CustomerUpdateResponse()
             {
@@ -127,10 +127,10 @@ public class CustomerService(
     }
 
     [TsServiceMethod("Customer", "Delete")]
-    public CustomerDeleteResponse Delete(CustomerDeleteRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CustomerDeleteResponse Delete(CustomerDeleteRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new CustomerDeleteResponse()
             {
@@ -169,10 +169,10 @@ public class CustomerService(
     }
 
     [TsServiceMethod("Customer", "List")]
-    public CustomerListResponse List(CustomerListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CustomerListResponse List(CustomerListRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new CustomerListResponse()
             {

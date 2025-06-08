@@ -17,22 +17,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public CustomerCreateResponse Create(CustomerCreateRequest request) 
-            => CustomerService.Create(request, IpAddress, Headers);
+            => CustomerService.Create(request);
 
         [HttpPost]
         public CustomerReadResponse Read(CustomerReadRequest request) 
-            => CustomerService.Read(request, IpAddress, Headers);
+            => CustomerService.Read(request);
 
         [HttpPost]
         public CustomerUpdateResponse Update(CustomerUpdateRequest request) 
-            => CustomerService.Update(request, IpAddress, Headers);
+            => CustomerService.Update(request);
 
         [HttpPost]
         public CustomerDeleteResponse Delete(CustomerDeleteRequest request) 
-            => CustomerService.Delete(request, IpAddress, Headers);
+            => CustomerService.Delete(request);
 
         [HttpPost]
         public CustomerListResponse List(CustomerListRequest request) 
-            => CustomerService.List(request, IpAddress, Headers);
+            => CustomerService.List(request);
     }
 }

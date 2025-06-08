@@ -17,6 +17,6 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public CountryListResponse List(CountryListRequest request) 
-            => CountryService.List(request, IpAddress, Headers);
+            => CountryService.List(request);
     }
 }

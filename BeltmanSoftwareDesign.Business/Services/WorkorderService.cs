@@ -18,10 +18,10 @@ public class WorkorderService(
     WorkorderConverter WorkorderConverter = new WorkorderConverter();
 
     [TsServiceMethod("Workorder", "Create")]
-    public async Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public async Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new WorkorderCreateResponse()
             {
@@ -44,10 +44,10 @@ public class WorkorderService(
     }
 
     [TsServiceMethod("Workorder", "Read")]
-    public async Task< WorkorderReadResponse> ReadAsync(WorkorderReadRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public async Task< WorkorderReadResponse> ReadAsync(WorkorderReadRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new WorkorderReadResponse()
             {
@@ -82,10 +82,10 @@ public class WorkorderService(
     }
 
     [TsServiceMethod("Workorder", "Update")]
-    public async Task<WorkorderUpdateResponse> UpdateAsync(WorkorderUpdateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public async Task<WorkorderUpdateResponse> UpdateAsync(WorkorderUpdateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new WorkorderUpdateResponse()
             {
@@ -123,10 +123,10 @@ public class WorkorderService(
     }
 
     [TsServiceMethod("Workorder", "Delete")]
-    public async Task<WorkorderDeleteResponse> DeleteAsync(WorkorderDeleteRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public async Task<WorkorderDeleteResponse> DeleteAsync(WorkorderDeleteRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new WorkorderDeleteResponse()
             {
@@ -168,10 +168,10 @@ public class WorkorderService(
     }
 
     [TsServiceMethod("Workorder", "List")]
-    public async Task<WorkorderListResponse> ListAsync(WorkorderListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public async Task<WorkorderListResponse> ListAsync(WorkorderListRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new WorkorderListResponse()
             {

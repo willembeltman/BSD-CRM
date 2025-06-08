@@ -17,22 +17,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public RateCreateResponse Create(RateCreateRequest request) 
-            => RateService.Create(request, IpAddress, Headers);
+            => RateService.Create(request);
 
         [HttpPost]
         public RateReadResponse Read(RateReadRequest request) 
-            => RateService.Read(request, IpAddress, Headers);
+            => RateService.Read(request);
 
         [HttpPost]
         public RateUpdateResponse Update(RateUpdateRequest request) 
-            => RateService.Update(request, IpAddress, Headers);
+            => RateService.Update(request);
 
         [HttpPost]
         public RateDeleteResponse Delete(RateDeleteRequest request) 
-            => RateService.Delete(request, IpAddress, Headers);
+            => RateService.Delete(request);
 
         [HttpPost]
         public RateListResponse List(RateListRequest request) 
-            => RateService.List(request, IpAddress, Headers);
+            => RateService.List(request);
     }
 }

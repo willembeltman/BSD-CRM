@@ -16,16 +16,10 @@ public class CountryService(
     CountryConverter CountryConverter = new CountryConverter();
 
     [TsServiceMethod("Country", "List")]
-    public CountryListResponse List(CountryListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CountryListResponse List(CountryListRequest request)
     {
-        if (ipAddress == null)
-            return new CountryListResponse()
-            {
-                ErrorAuthentication = true
-            };
-
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new CountryListResponse()
             {

@@ -5,6 +5,6 @@ namespace BeltmanSoftwareDesign.Business.Interfaces
 {
     public interface ICountryService
     {
-        CountryListResponse List(CountryListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers);
+        CountryListResponse List(CountryListRequest request);
     }
 }

@@ -17,10 +17,10 @@ public class InvoiceService(
     InvoiceConverter InvoiceConverter = new InvoiceConverter();
 
     [TsServiceMethod("Invoice", "Create")]
-    public InvoiceCreateResponse Create(InvoiceCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public InvoiceCreateResponse Create(InvoiceCreateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new InvoiceCreateResponse()
             {
@@ -86,10 +86,10 @@ public class InvoiceService(
     }
 
     [TsServiceMethod("Invoice", "Read")]
-    public InvoiceReadResponse Read(InvoiceReadRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public InvoiceReadResponse Read(InvoiceReadRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new InvoiceReadResponse()
             {
@@ -124,10 +124,10 @@ public class InvoiceService(
     }
 
     [TsServiceMethod("Invoice", "Update")]
-    public InvoiceUpdateResponse Update(InvoiceUpdateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public InvoiceUpdateResponse Update(InvoiceUpdateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new InvoiceUpdateResponse()
             {
@@ -165,10 +165,10 @@ public class InvoiceService(
     }
 
     [TsServiceMethod("Invoice", "Delete")]
-    public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new InvoiceDeleteResponse()
             {
@@ -206,10 +206,10 @@ public class InvoiceService(
     }
 
     [TsServiceMethod("Invoice", "List")]
-    public InvoiceListResponse List(InvoiceListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public InvoiceListResponse List(InvoiceListRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new InvoiceListResponse()
             {

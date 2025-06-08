@@ -17,22 +17,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public ProjectCreateResponse Create(ProjectCreateRequest request) 
-            => ProjectService.Create(request, IpAddress, Headers);
+            => ProjectService.Create(request);
 
         [HttpPost]
         public ProjectReadResponse Read(ProjectReadRequest request) 
-            => ProjectService.Read(request, IpAddress, Headers);
+            => ProjectService.Read(request);
 
         [HttpPost]
         public ProjectUpdateResponse Update(ProjectUpdateRequest request) 
-            => ProjectService.Update(request, IpAddress, Headers);
+            => ProjectService.Update(request);
 
         [HttpPost]
         public ProjectDeleteResponse Delete(ProjectDeleteRequest request) 
-            => ProjectService.Delete(request, IpAddress, Headers);
+            => ProjectService.Delete(request);
 
         [HttpPost]
         public ProjectListResponse List(ProjectListRequest request) 
-            => ProjectService.List(request, IpAddress, Headers);
+            => ProjectService.List(request);
     }
 }

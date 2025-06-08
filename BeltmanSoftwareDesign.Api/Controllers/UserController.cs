@@ -17,22 +17,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request) 
-            => UserService.SetCurrentCompany(request, IpAddress, Headers);
+            => UserService.SetCurrentCompany(request);
 
         [HttpPost]
         public ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request) 
-            => UserService.ReadKnownUser(request, IpAddress, Headers);
+            => UserService.ReadKnownUser(request);
 
         [HttpPost]
         public UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request) 
-            => UserService.UpdateMyself(request, IpAddress, Headers);
+            => UserService.UpdateMyself(request);
 
         [HttpPost]
         public DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request) 
-            => UserService.DeleteMyself(request, IpAddress, Headers);
+            => UserService.DeleteMyself(request);
 
         [HttpPost]
         public ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request) 
-            => UserService.ListKnownUsers(request, IpAddress, Headers);
+            => UserService.ListKnownUsers(request);
     }
 }

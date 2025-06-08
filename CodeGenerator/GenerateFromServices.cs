@@ -227,11 +227,11 @@ public class GenerateFromServices
 
             //        [HttpPost]
             //        public LoginResponse? Login(LoginRequest request) 
-            //            => AuthenticationService.Login(request, IpAddress, Headers);
+            //            => AuthenticationService.Login(request);
 
             //        [HttpPost]
             //        public RegisterResponse? Register(RegisterRequest request) 
-            //            => AuthenticationService.Register(request, IpAddress, Headers);
+            //            => AuthenticationService.Register(request);
             //    }
             //}
 
@@ -296,21 +296,21 @@ public class GenerateFromServices
                 {
                     //[HttpPost]
                     //public Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request)
-                    //    => WorkorderService.CreateAsync(request, IpAddress, Headers);
+                    //    => WorkorderService.CreateAsync(request);
 
                     text += $"        [HttpPost]" + Environment.NewLine;
                     text += $"        public async Task<{method.ResponseType.Name}> {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"            => await {method.Service.NameWithService}.{method.Name}({method.RequestParameterName}, IpAddress, Headers);" + Environment.NewLine;
+                    text += $"            => await {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
                 else
                 {
                     //[HttpPost]
                     //public LoginResponse? Login(LoginRequest request)
-                    //    => AuthenticationService.Login(request, IpAddress, Headers);
+                    //    => AuthenticationService.Login(request);
 
                     text += $"        [HttpPost]" + Environment.NewLine;
                     text += $"        public {method.ResponseType.Name} {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"            => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName}, IpAddress, Headers);" + Environment.NewLine;
+                    text += $"            => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
             }
 

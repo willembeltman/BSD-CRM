@@ -17,22 +17,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public InvoiceCreateResponse Create(InvoiceCreateRequest request) 
-            => InvoiceService.Create(request, IpAddress, Headers);
+            => InvoiceService.Create(request);
 
         [HttpPost]
         public InvoiceReadResponse Read(InvoiceReadRequest request) 
-            => InvoiceService.Read(request, IpAddress, Headers);
+            => InvoiceService.Read(request);
 
         [HttpPost]
         public InvoiceUpdateResponse Update(InvoiceUpdateRequest request) 
-            => InvoiceService.Update(request, IpAddress, Headers);
+            => InvoiceService.Update(request);
 
         [HttpPost]
         public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request) 
-            => InvoiceService.Delete(request, IpAddress, Headers);
+            => InvoiceService.Delete(request);
 
         [HttpPost]
         public InvoiceListResponse List(InvoiceListRequest request) 
-            => InvoiceService.List(request, IpAddress, Headers);
+            => InvoiceService.List(request);
     }
 }

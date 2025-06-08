@@ -17,7 +17,7 @@ public class CompanyService(
     CompanyConverter CompanyConverter = new CompanyConverter();
 
     [TsServiceMethod("Company", "Create")]
-    public CompanyCreateResponse Create(CompanyCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CompanyCreateResponse Create(CompanyCreateRequest request)
     {
         if (request == null)
             return new CompanyCreateResponse()
@@ -26,7 +26,7 @@ public class CompanyService(
             };
 
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new CompanyCreateResponse()
             {
@@ -90,7 +90,7 @@ public class CompanyService(
     }
 
     [TsServiceMethod("Company", "Read")]
-    public CompanyReadResponse Read(CompanyReadRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CompanyReadResponse Read(CompanyReadRequest request)
     {
         if (request == null)
             return new CompanyReadResponse()
@@ -99,7 +99,7 @@ public class CompanyService(
             };
 
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new CompanyReadResponse()
             {
@@ -134,7 +134,7 @@ public class CompanyService(
     }
 
     [TsServiceMethod("Company", "Update")]
-    public CompanyUpdateResponse Update(CompanyUpdateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CompanyUpdateResponse Update(CompanyUpdateRequest request)
     {
         if (request == null)
             return new CompanyUpdateResponse()
@@ -142,7 +142,7 @@ public class CompanyService(
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new CompanyUpdateResponse()
             {
@@ -184,7 +184,7 @@ public class CompanyService(
     }
 
     [TsServiceMethod("Company", "Delete")]
-    public CompanyDeleteResponse Delete(CompanyDeleteRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CompanyDeleteResponse Delete(CompanyDeleteRequest request)
     {
         if (request == null)
             return new CompanyDeleteResponse()
@@ -192,7 +192,7 @@ public class CompanyService(
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new CompanyDeleteResponse()
             {
@@ -237,7 +237,7 @@ public class CompanyService(
     }
 
     [TsServiceMethod("Company", "List")]
-    public CompanyListResponse List(CompanyListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public CompanyListResponse List(CompanyListRequest request)
     {
         if (request == null)
             return new CompanyListResponse()
@@ -246,7 +246,7 @@ public class CompanyService(
             };
 
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success) 
             return new CompanyListResponse()
             {

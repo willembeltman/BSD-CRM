@@ -17,10 +17,10 @@ public class RateService(
     RateConverter RateConverter = new RateConverter();
 
     [TsServiceMethod("Rate", "Create")]
-    public RateCreateResponse Create(RateCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public RateCreateResponse Create(RateCreateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new RateCreateResponse()
             {
@@ -43,10 +43,10 @@ public class RateService(
     }
 
     [TsServiceMethod("Rate", "Read")]
-    public RateReadResponse Read(RateReadRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public RateReadResponse Read(RateReadRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new RateReadResponse()
             {
@@ -78,10 +78,10 @@ public class RateService(
     }
 
     [TsServiceMethod("Rate", "Update")]
-    public RateUpdateResponse Update(RateUpdateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public RateUpdateResponse Update(RateUpdateRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new RateUpdateResponse()
             {
@@ -116,10 +116,10 @@ public class RateService(
     }
 
     [TsServiceMethod("Rate", "Delete")]
-    public RateDeleteResponse Delete(RateDeleteRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public RateDeleteResponse Delete(RateDeleteRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new RateDeleteResponse()
             {
@@ -153,10 +153,10 @@ public class RateService(
     }
 
     [TsServiceMethod("Rate", "List")]
-    public RateListResponse List(RateListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public RateListResponse List(RateListRequest request)
     {
         var authentication = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!authentication.Success)
             return new RateListResponse()
             {

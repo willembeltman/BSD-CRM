@@ -2,17 +2,19 @@
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Business.Models;
 using BeltmanSoftwareDesign.Data;
-using BeltmanSoftwareDesign.Data.Entities;
 using BeltmanSoftwareDesign.Data.Converters;
+using BeltmanSoftwareDesign.Data.Entities;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using Microsoft.EntityFrameworkCore;
 using CodeGenerator.Attributes;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
 [TsService]
 public class AuthenticationService(
+    IHttpContextAccessor httpContextAccessor,
     ApplicationDbContext db,
     IDateTimeService dateTime) : IAuthenticationService
 {
@@ -22,17 +24,16 @@ public class AuthenticationService(
     UserConverter UserConverter = new UserConverter();
     CompanyConverter CompanyConverter = new CompanyConverter();
 
+    public string? IpAddress => httpContextAccessor.HttpContext!.Connection.RemoteIpAddress?.ToString();
+    public KeyValuePair<string, string?>[]? Headers => httpContextAccessor.HttpContext!.Request.Headers
+        .Select(a => new KeyValuePair<string, string?>(a.Key, a.Value))
+        .ToArray();
+
     [TsServiceMethod("Auth", "Login")]
-    public LoginResponse Login(LoginRequest request, string? requestIpAddress, KeyValuePair<string, string?>[]? requestHeaders)
+    public LoginResponse Login(LoginRequest request)
     {
         var shortago = dateTime.Now.AddHours(shorthoursago);
         var longago = dateTime.Now.AddHours(longhoursago);
-
-        if (string.IsNullOrEmpty(requestIpAddress))
-            return new LoginResponse()
-            {
-                ErrorAuthentication = true
-            };
 
         var email = request.Email;
         var password = request.Password;
@@ -63,14 +64,14 @@ public class AuthenticationService(
                 AuthenticationError = true // Security?
             };
 
-        var clientDevice = GetClientDevice(requestHeaders);
+        var clientDevice = GetClientDevice();
         if (clientDevice == null)
             return new LoginResponse()
             {
                 AuthenticationError = true
             };
 
-        var clientIpAddress = GetIpAddress(requestIpAddress);
+        var clientIpAddress = GetIpAddress();
         if (clientIpAddress == null)
             return new LoginResponse()
             {
@@ -118,9 +119,9 @@ public class AuthenticationService(
     }
 
     [TsServiceMethod("Auth", "Register")]
-    public RegisterResponse Register(RegisterRequest request, string? requestIpAddress, KeyValuePair<string, string?>[]? requestHeaders)
+    public RegisterResponse Register(RegisterRequest request)
     {
-        if (string.IsNullOrEmpty(requestIpAddress))
+        if (string.IsNullOrEmpty(this.IpAddress))
             return new RegisterResponse()
             {
                 ErrorAuthentication = true
@@ -179,14 +180,14 @@ public class AuthenticationService(
                 ErrorCouldNotCreateUser = true
             };
 
-        var device = GetClientDevice(requestHeaders);
+        var device = GetClientDevice();
         if (device == null)
             return new RegisterResponse()
             {
                 ErrorCouldNotGetDevice = true
             };
 
-        var ipAddress = GetIpAddress(requestIpAddress);
+        var ipAddress = GetIpAddress();
         if (ipAddress == null)
             return new RegisterResponse()
             {
@@ -212,14 +213,14 @@ public class AuthenticationService(
         };
     }
 
-    public AuthenticationState GetState(Request request, string? requestIpAddress, KeyValuePair<string, string?>[]? requestHeaders)
+    public AuthenticationState GetState(Request request)
     {
-        if (requestIpAddress == null)
+        if (IpAddress == null)
             return new AuthenticationState()
             {
             };
 
-        if (requestHeaders == null)
+        if (Headers == null)
             return new AuthenticationState()
             {
             };
@@ -227,13 +228,13 @@ public class AuthenticationService(
         var shortago = dateTime.Now.AddHours(shorthoursago);
         var longago = dateTime.Now.AddHours(longhoursago);
 
-        var clientDevice = GetClientDevice(requestHeaders);
+        var clientDevice = GetClientDevice();
         if (clientDevice == null)
             return new AuthenticationState()
             {
             };
 
-        var clientIpAddress = GetIpAddress(requestIpAddress);
+        var clientIpAddress = GetIpAddress();
         if (clientIpAddress == null)
             return new AuthenticationState()
             {
@@ -341,14 +342,14 @@ public class AuthenticationService(
         db.SaveChanges();
         return dbuser;
     }
-    private ClientIpAddress GetIpAddress(string ipAddress)
+    private ClientIpAddress GetIpAddress()
     {
-        var location = db.ClientLocations.FirstOrDefault(a => a.IpAddress == ipAddress);
+        var location = db.ClientLocations.FirstOrDefault(a => a.IpAddress == IpAddress);
         if (location == null)
         {
             location = new ClientIpAddress()
             {
-                IpAddress = ipAddress,
+                IpAddress = IpAddress,
             };
             db.ClientLocations.Add(location);
             db.SaveChanges();
@@ -356,15 +357,15 @@ public class AuthenticationService(
 
         return location;
     }
-    private ClientDevice? GetClientDevice(KeyValuePair<string, string?>[]? headers)
+    private ClientDevice? GetClientDevice()
     {
-        if (headers == null)
+        if (Headers == null)
             return null;
 
-        if (!headers.Any(a => a.Key.ToLower() == "useragent" || a.Key.ToLower() == "user-agent"))
+        if (!Headers.Any(a => a.Key.ToLower() == "useragent" || a.Key.ToLower() == "user-agent"))
             return null;
 
-        var useragentheader = headers.First(a => a.Key.ToLower() == "useragent" || a.Key.ToLower() == "user-agent");
+        var useragentheader = Headers.First(a => a.Key.ToLower() == "useragent" || a.Key.ToLower() == "user-agent");
         var useragent = (useragentheader.Value ?? string.Empty).ToLower();
 
         if (useragent == null)

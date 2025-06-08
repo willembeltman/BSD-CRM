@@ -7,11 +7,11 @@ namespace BeltmanSoftwareDesign.Business.Interfaces
 {
     public interface IUserService
     {
-        //UserCreateResponse Create(UserCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers);
-        DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers);
-        ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers);
-        ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers);
-        SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers);
-        UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers);
+        //UserCreateResponse Create(UserCreateRequest request);
+        DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request);
+        ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request);
+        ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request);
+        SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request);
+        UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request);
     }
 }

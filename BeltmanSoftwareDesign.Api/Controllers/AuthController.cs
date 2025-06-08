@@ -17,10 +17,10 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public LoginResponse Login(LoginRequest request) 
-            => AuthenticationService.Login(request, IpAddress, Headers);
+            => AuthenticationService.Login(request);
 
         [HttpPost]
         public RegisterResponse Register(RegisterRequest request) 
-            => AuthenticationService.Register(request, IpAddress, Headers);
+            => AuthenticationService.Register(request);
     }
 }

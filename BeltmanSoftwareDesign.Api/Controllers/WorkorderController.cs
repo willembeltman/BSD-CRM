@@ -17,22 +17,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers
 
         [HttpPost]
         public async Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request) 
-            => await WorkorderService.CreateAsync(request, IpAddress, Headers);
+            => await WorkorderService.CreateAsync(request);
 
         [HttpPost]
         public async Task<WorkorderReadResponse> ReadAsync(WorkorderReadRequest request) 
-            => await WorkorderService.ReadAsync(request, IpAddress, Headers);
+            => await WorkorderService.ReadAsync(request);
 
         [HttpPost]
         public async Task<WorkorderUpdateResponse> UpdateAsync(WorkorderUpdateRequest request) 
-            => await WorkorderService.UpdateAsync(request, IpAddress, Headers);
+            => await WorkorderService.UpdateAsync(request);
 
         [HttpPost]
         public async Task<WorkorderDeleteResponse> DeleteAsync(WorkorderDeleteRequest request) 
-            => await WorkorderService.DeleteAsync(request, IpAddress, Headers);
+            => await WorkorderService.DeleteAsync(request);
 
         [HttpPost]
         public async Task<WorkorderListResponse> ListAsync(WorkorderListRequest request) 
-            => await WorkorderService.ListAsync(request, IpAddress, Headers);
+            => await WorkorderService.ListAsync(request);
     }
 }

@@ -19,7 +19,7 @@ public class UserService(
     CompanyConverter CompanyConverter = new CompanyConverter();
 
     [TsServiceMethod("User", "SetCurrentCompany")]
-    public SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request)
     {
         if (request == null)
             return new SetCurrentCompanyResponse()
@@ -27,7 +27,7 @@ public class UserService(
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new SetCurrentCompanyResponse()
             {
@@ -66,25 +66,15 @@ public class UserService(
     }
 
     [TsServiceMethod("User", "ReadKnownUser")]
-    public ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request)
     {
         if (request == null)
             return new ReadKnownUserResponse()
             {
                 ErrorAuthentication = true
             };
-        if (ipAddress == null)
-            return new ReadKnownUserResponse()
-            {
-                ErrorAuthentication = true
-            };
-        if (headers == null)
-            return new ReadKnownUserResponse()
-            {
-                ErrorAuthentication = true
-            };
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new ReadKnownUserResponse()
             {
@@ -115,7 +105,7 @@ public class UserService(
     }
 
     [TsServiceMethod("User", "UpdateMyself")]
-    public UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request)
     {
         if (request == null)
             return new UpdateMyselfResponse()
@@ -123,7 +113,7 @@ public class UserService(
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new UpdateMyselfResponse()
             {
@@ -156,7 +146,7 @@ public class UserService(
     }
 
     [TsServiceMethod("User", "DeleteMyself")]
-    public DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request)
     {
         if (request == null)
             return new DeleteMyselfResponse()
@@ -164,7 +154,7 @@ public class UserService(
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success)
             return new DeleteMyselfResponse()
             {
@@ -193,7 +183,7 @@ public class UserService(
     }
 
     [TsServiceMethod("User", "ListKnownUsers")]
-    public ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    public ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request)
     {
         if (request == null)
             return new ListKnownUsersResponse()
@@ -202,7 +192,7 @@ public class UserService(
             };
 
         var state = authenticationService.GetState(
-            request, ipAddress, headers);
+            request);
         if (!state.Success) 
             return new ListKnownUsersResponse()
             {

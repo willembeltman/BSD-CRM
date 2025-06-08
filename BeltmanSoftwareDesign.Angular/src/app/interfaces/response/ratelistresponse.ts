@@ -2,7 +2,7 @@ import { Rate } from "../rate";
 import { State } from "../state";
 
 export interface RateListResponse {
-    rates: Rate[] | null;
+    rates: Rate[];
     success: boolean;
     errorAuthentication: boolean;
     errorItemNotFound: boolean;

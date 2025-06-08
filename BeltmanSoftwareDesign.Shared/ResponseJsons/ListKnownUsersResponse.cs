@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {
     public class ListKnownUsersResponse : Response
     {
-        public User[]? Users {  get; set; }
+        public User[] Users { get; set; } = [];
     }
 }

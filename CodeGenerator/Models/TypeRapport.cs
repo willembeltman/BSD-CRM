@@ -75,6 +75,6 @@ namespace CodeGenerator.Models
         public string TsFullNameNotNull =>
             TsName + (List ? "[]" : "");
         public string TsFullName =>
-            TsFullNameNotNull + (Nulleble ? " | null" : "");
+            TsFullNameNotNull + (Nulleble && !List ? " | null" : "");
     }
 }

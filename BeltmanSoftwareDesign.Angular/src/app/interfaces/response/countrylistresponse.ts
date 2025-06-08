@@ -2,7 +2,7 @@ import { Country } from "../country";
 import { State } from "../state";
 
 export interface CountryListResponse {
-    countries: Country[] | null;
+    countries: Country[];
     success: boolean;
     errorAuthentication: boolean;
     errorItemNotFound: boolean;

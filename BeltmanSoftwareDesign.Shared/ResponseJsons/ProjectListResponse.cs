@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {
     public class ProjectListResponse : Response
     {
-        public Project[]? Projects {  get; set; }
+        public Project[] Projects { get; set; } = [];
     }
 }

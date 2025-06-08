@@ -18,6 +18,6 @@ export interface Invoice {
     isPayed: boolean;
     datePayed: Date | null;
     paymentCode: string | null;
-    invoiceWorkorders: InvoiceWorkorder[] | null;
+    invoiceWorkorders: InvoiceWorkorder[];
     quarter: number;
 }

@@ -16,10 +16,9 @@ import { CompanyListRequest } from '../interfaces/request/companylistrequest';
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService
-{
-  constructor(private constants:ConstantsService, private http:HttpClient) { }
-  
+export class CompanyService {
+  constructor(private constants: ConstantsService, private http: HttpClient) { }
+
   create(request: CompanyCreateRequest): Observable<CompanyCreateResponse> {
     return this.http.post<CompanyCreateResponse>(this.constants.apiUrl + '/company/create', request);
   }

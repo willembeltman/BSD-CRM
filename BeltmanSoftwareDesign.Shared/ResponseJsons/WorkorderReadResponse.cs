@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {
     public class WorkorderReadResponse : Response
     {
-        public Workorder? Workorder {  get; set; }
+        public Workorder? Workorder { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
-    public class InvoiceConverter 
+    public class InvoiceConverter
     {
         public Entities.Invoice Create(Shared.Jsons.Invoice a)
         {
@@ -8,11 +8,11 @@
             return new Entities.Invoice()
             {
                 id = a.id,
-                
+
                 Description = a.Description,
                 CustomerId = a.CustomerId,
                 ProjectId = a.ProjectId,
-                
+
             };
         }
 

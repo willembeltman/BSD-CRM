@@ -20,9 +20,9 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public bool IsPayed { get; set; }
         public DateTime? DatePayed { get; set; }
         public DateTime? DateCancelled { get; set; }
-        
+
         public virtual ICollection<InvoiceTransaction>? InvoiceTransactions { get; set; } = new List<InvoiceTransaction>();
         public virtual ICollection<TransactionLog>? TransactionLogs { get; set; } = new List<TransactionLog>();
-        public virtual ICollection<TransactionParameter>? TransactionParameters { get; set; } = new List<TransactionParameter>();  
+        public virtual ICollection<TransactionParameter>? TransactionParameters { get; set; } = new List<TransactionParameter>();
     }
 }

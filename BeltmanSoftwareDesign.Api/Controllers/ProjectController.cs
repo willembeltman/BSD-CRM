@@ -1,38 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-namespace BeltmanSoftwareDesign.Api.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace BeltmanSoftwareDesign.Api.Controllers;
+
+[ApiController]
+[Route("[controller]/[action]")]
+public class ProjectController(IProjectService ProjectService) : BaseControllerBase
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
-    public class ProjectController : BaseControllerBase
-    {
-        public ProjectController(IProjectService projectService) 
-        {
-            ProjectService = projectService;
-        }
+    [HttpPost]
+    public ProjectCreateResponse Create(ProjectCreateRequest request)
+        => ProjectService.Create(request);
 
-        public IProjectService ProjectService { get; }
+    [HttpPost]
+    public ProjectReadResponse Read(ProjectReadRequest request)
+        => ProjectService.Read(request);
 
-        [HttpPost]
-        public ProjectCreateResponse Create(ProjectCreateRequest request) 
-            => ProjectService.Create(request);
+    [HttpPost]
+    public ProjectUpdateResponse Update(ProjectUpdateRequest request)
+        => ProjectService.Update(request);
 
-        [HttpPost]
-        public ProjectReadResponse Read(ProjectReadRequest request) 
-            => ProjectService.Read(request);
+    [HttpPost]
+    public ProjectDeleteResponse Delete(ProjectDeleteRequest request)
+        => ProjectService.Delete(request);
 
-        [HttpPost]
-        public ProjectUpdateResponse Update(ProjectUpdateRequest request) 
-            => ProjectService.Update(request);
-
-        [HttpPost]
-        public ProjectDeleteResponse Delete(ProjectDeleteRequest request) 
-            => ProjectService.Delete(request);
-
-        [HttpPost]
-        public ProjectListResponse List(ProjectListRequest request) 
-            => ProjectService.List(request);
-    }
+    [HttpPost]
+    public ProjectListResponse List(ProjectListRequest request)
+        => ProjectService.List(request);
 }

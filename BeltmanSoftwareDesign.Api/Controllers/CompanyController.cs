@@ -1,38 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-namespace BeltmanSoftwareDesign.Api.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace BeltmanSoftwareDesign.Api.Controllers;
+
+[ApiController]
+[Route("[controller]/[action]")]
+public class CompanyController(ICompanyService CompanyService) : BaseControllerBase
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
-    public class CompanyController : BaseControllerBase
-    {
-        public CompanyController(ICompanyService companyService) 
-        {
-            CompanyService = companyService;
-        }
+    [HttpPost]
+    public CompanyCreateResponse Create(CompanyCreateRequest request)
+        => CompanyService.Create(request);
 
-        public ICompanyService CompanyService { get; }
+    [HttpPost]
+    public CompanyReadResponse Read(CompanyReadRequest request)
+        => CompanyService.Read(request);
 
-        [HttpPost]
-        public CompanyCreateResponse Create(CompanyCreateRequest request) 
-            => CompanyService.Create(request);
+    [HttpPost]
+    public CompanyUpdateResponse Update(CompanyUpdateRequest request)
+        => CompanyService.Update(request);
 
-        [HttpPost]
-        public CompanyReadResponse Read(CompanyReadRequest request) 
-            => CompanyService.Read(request);
+    [HttpPost]
+    public CompanyDeleteResponse Delete(CompanyDeleteRequest request)
+        => CompanyService.Delete(request);
 
-        [HttpPost]
-        public CompanyUpdateResponse Update(CompanyUpdateRequest request) 
-            => CompanyService.Update(request);
-
-        [HttpPost]
-        public CompanyDeleteResponse Delete(CompanyDeleteRequest request) 
-            => CompanyService.Delete(request);
-
-        [HttpPost]
-        public CompanyListResponse List(CompanyListRequest request) 
-            => CompanyService.List(request);
-    }
+    [HttpPost]
+    public CompanyListResponse List(CompanyListRequest request)
+        => CompanyService.List(request);
 }

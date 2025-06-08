@@ -92,7 +92,7 @@ namespace BeltmanSoftwareDesign.Data
                 .HasOne(p => p.ClientDevice)
                 .WithMany(d => d.ClientDeviceProperties)
                 .HasForeignKey(p => p.ClientDeviceId)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.CurrentCompany)

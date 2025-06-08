@@ -25,6 +25,6 @@ namespace BeltmanSoftwareDesign.Data.Entities
 
         //public override string ToString()
         //    => $"{Expense.Date.ToShortDateString()} €{ConsumentenRatePrice.ToString("F2")} {Expense.Supplier}: {Expense.Description}";
-    
+
     }
 }

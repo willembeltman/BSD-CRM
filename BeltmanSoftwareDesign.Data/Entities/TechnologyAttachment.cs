@@ -18,7 +18,7 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public string? StorageFileName { get; set; }
         public long? StorageLength { get; set; }
         [StringLength(128)]
-		public string? StorageMimeType { get; set; }
+        public string? StorageMimeType { get; set; }
 
         [NotMapped]
         public string StorageFolder { get => "TechnologyAttachment"; }

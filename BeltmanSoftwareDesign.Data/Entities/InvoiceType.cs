@@ -16,6 +16,6 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public string? Description { get; set; }
 
         public virtual ICollection<Invoice>? Invoices { get; set; }
-        
+
     }
 }

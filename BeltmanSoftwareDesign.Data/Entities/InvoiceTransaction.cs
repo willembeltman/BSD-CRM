@@ -14,6 +14,6 @@ namespace BeltmanSoftwareDesign.Data.Entities
 
         public long TransactionId { get; set; }
         public virtual Transaction? Transaction { get; set; }
-        
+
     }
 }

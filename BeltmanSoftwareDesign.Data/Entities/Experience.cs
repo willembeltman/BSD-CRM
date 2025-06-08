@@ -24,9 +24,9 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public DateTime Start { get; set; }
         public DateTime? Stop { get; set; }
         public int? AmountUur { get; set; }
-        
+
         //public virtual ICollection<ExperienceAttachment>? ExperienceAttachments { get; set; }
         //public virtual ICollection<ExperienceTechnology>? ExperienceTechnologyen { get; set; }
-        
+
     }
 }

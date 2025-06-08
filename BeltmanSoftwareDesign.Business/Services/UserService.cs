@@ -6,14 +6,10 @@ using BeltmanSoftwareDesign.Shared.Jsons;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Attributes;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class UserService(
-    ApplicationDbContext db,
-    IAuthenticationService authenticationService) : IUserService
+public class UserService(ApplicationDbContext db, IAuthenticationService authenticationService) : IUserService
 {
     UserConverter UserConverter = new UserConverter();
     CompanyConverter CompanyConverter = new CompanyConverter();
@@ -26,8 +22,7 @@ public class UserService(
             {
                 ErrorAuthentication = true
             };
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new SetCurrentCompanyResponse()
             {
@@ -73,8 +68,7 @@ public class UserService(
             {
                 ErrorAuthentication = true
             };
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ReadKnownUserResponse()
             {
@@ -112,8 +106,7 @@ public class UserService(
             {
                 ErrorAuthentication = true
             };
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new UpdateMyselfResponse()
             {
@@ -153,8 +146,7 @@ public class UserService(
             {
                 ErrorAuthentication = true
             };
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new DeleteMyselfResponse()
             {
@@ -171,13 +163,13 @@ public class UserService(
 
         db.Users.Remove(state.DbUser);
         db.SaveChanges();
-        
+
         return new DeleteMyselfResponse()
         {
             Success = true,
             State = new State()
             {
-                
+
             }
         };
     }
@@ -191,9 +183,8 @@ public class UserService(
                 ErrorAuthentication = true
             };
 
-        var state = authenticationService.GetState(
-            request);
-        if (!state.Success) 
+        var state = authenticationService.GetState(request);
+        if (!state.Success)
             return new ListKnownUsersResponse()
             {
                 ErrorAuthentication = true

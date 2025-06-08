@@ -1,6 +1,4 @@
-﻿using CodeGenerator.Models;
-
-namespace CodeGenerator.Services
+﻿namespace CodeGenerator.Services
 {
     public class ServiceNamespacesList
     {

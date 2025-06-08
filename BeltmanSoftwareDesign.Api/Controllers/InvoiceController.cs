@@ -1,38 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-namespace BeltmanSoftwareDesign.Api.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace BeltmanSoftwareDesign.Api.Controllers;
+
+[ApiController]
+[Route("[controller]/[action]")]
+public class InvoiceController(IInvoiceService InvoiceService) : BaseControllerBase
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
-    public class InvoiceController : BaseControllerBase
-    {
-        public InvoiceController(IInvoiceService invoiceService) 
-        {
-            InvoiceService = invoiceService;
-        }
+    [HttpPost]
+    public InvoiceCreateResponse Create(InvoiceCreateRequest request)
+        => InvoiceService.Create(request);
 
-        public IInvoiceService InvoiceService { get; }
+    [HttpPost]
+    public InvoiceReadResponse Read(InvoiceReadRequest request)
+        => InvoiceService.Read(request);
 
-        [HttpPost]
-        public InvoiceCreateResponse Create(InvoiceCreateRequest request) 
-            => InvoiceService.Create(request);
+    [HttpPost]
+    public InvoiceUpdateResponse Update(InvoiceUpdateRequest request)
+        => InvoiceService.Update(request);
 
-        [HttpPost]
-        public InvoiceReadResponse Read(InvoiceReadRequest request) 
-            => InvoiceService.Read(request);
+    [HttpPost]
+    public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request)
+        => InvoiceService.Delete(request);
 
-        [HttpPost]
-        public InvoiceUpdateResponse Update(InvoiceUpdateRequest request) 
-            => InvoiceService.Update(request);
-
-        [HttpPost]
-        public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request) 
-            => InvoiceService.Delete(request);
-
-        [HttpPost]
-        public InvoiceListResponse List(InvoiceListRequest request) 
-            => InvoiceService.List(request);
-    }
+    [HttpPost]
+    public InvoiceListResponse List(InvoiceListRequest request)
+        => InvoiceService.List(request);
 }

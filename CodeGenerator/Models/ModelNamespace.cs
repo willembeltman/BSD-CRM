@@ -13,7 +13,7 @@ namespace CodeGenerator.Models
             Models = assembly.GetTypes()
                 .Where(a =>
                     a.IsVisible &&
-                    a.Namespace == name && 
+                    a.Namespace == name &&
                     !a.CustomAttributes.Any(b => b.AttributeType.Name == "TsHiddenAttribute"))
                 .Select(a => new Model(this, a))
                 .ToArray();

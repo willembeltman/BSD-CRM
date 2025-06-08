@@ -1,6 +1,6 @@
 ﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
-    public class CompanyConverter 
+    public class CompanyConverter
     {
         public Shared.Jsons.Company? Create(Entities.Company? a)
         {
@@ -9,7 +9,7 @@
             {
                 id = a.id,
                 Name = a.Name,
-             
+
                 Address = a.Address,
                 BtwNumber = a.BtwNumber,
                 CountryId = a.CountryId,

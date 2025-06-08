@@ -1,18 +1,14 @@
 ﻿using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
-using CodeGenerator.Attributes;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using CodeGenerator.Attributes;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class CompanyService(
-    ApplicationDbContext db,
-    IAuthenticationService authenticationService) : ICompanyService
+public class CompanyService(ApplicationDbContext db, IAuthenticationService authenticationService) : ICompanyService
 {
     CompanyConverter CompanyConverter = new CompanyConverter();
 
@@ -25,8 +21,7 @@ public class CompanyService(
                 ErrorAuthentication = true
             };
 
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyCreateResponse()
             {
@@ -78,7 +73,7 @@ public class CompanyService(
         state.DbUser.CurrentCompanyId = dbcompany.id;
         state.User.currentCompanyId = dbcompany.id;
         state.DbCurrentCompany = dbcompany;
-        state.CurrentCompany = company; 
+        state.CurrentCompany = company;
         db.SaveChanges();
 
         return new CompanyCreateResponse()
@@ -98,8 +93,7 @@ public class CompanyService(
                 ErrorAuthentication = true
             };
 
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyReadResponse()
             {
@@ -141,8 +135,7 @@ public class CompanyService(
             {
                 ErrorAuthentication = true
             };
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyUpdateResponse()
             {
@@ -191,8 +184,7 @@ public class CompanyService(
             {
                 ErrorAuthentication = true
             };
-        var state = authenticationService.GetState(
-            request);
+        var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyDeleteResponse()
             {
@@ -213,7 +205,7 @@ public class CompanyService(
             };
 
 
-        var userscurrentcompanywillbedeleted = 
+        var userscurrentcompanywillbedeleted =
             state.DbUser.CurrentCompanyId == dbcompany.id;
 
         if (userscurrentcompanywillbedeleted)
@@ -232,7 +224,7 @@ public class CompanyService(
         return new CompanyDeleteResponse()
         {
             Success = true,
-            State = state                
+            State = state
         };
     }
 
@@ -245,9 +237,8 @@ public class CompanyService(
                 ErrorAuthentication = true
             };
 
-        var state = authenticationService.GetState(
-            request);
-        if (!state.Success) 
+        var state = authenticationService.GetState(request);
+        if (!state.Success)
             return new CompanyListResponse()
             {
                 ErrorAuthentication = true

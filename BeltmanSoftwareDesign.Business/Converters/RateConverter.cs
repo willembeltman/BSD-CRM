@@ -1,6 +1,6 @@
 ﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
-    public class RateConverter 
+    public class RateConverter
     {
         public Entities.Rate Create(Shared.Jsons.Rate source, Entities.Company currentCompany, ApplicationDbContext db)
         {

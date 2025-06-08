@@ -23,7 +23,7 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public string? InvoiceEmail { get; set; }
 
         public bool Publiekelijk { get; set; }
-        
+
         public virtual ICollection<Workorder>? Workorders { get; set; }
         public virtual ICollection<Project>? Projects { get; set; }
         public virtual ICollection<Invoice>? Invoices { get; set; }

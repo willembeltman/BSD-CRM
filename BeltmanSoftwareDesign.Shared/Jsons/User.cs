@@ -9,5 +9,5 @@
         public string? phoneNumber { get; set; }
         public long? currentCompanyId { get; set; }
     }
-    
+
 }

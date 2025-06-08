@@ -1,10 +1,4 @@
-﻿using BeltmanSoftwareDesign.Business.Services;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Reflection.PortableExecutable;
+﻿using CodeGenerator.Helpers;
 
 namespace CodeGenerator;
 
@@ -244,13 +238,12 @@ public class GenerateFromServices
                 text += $"using {name};" + Environment.NewLine;
             }
 
-            text += @"namespace BeltmanSoftwareDesign.Api.Controllers" + Environment.NewLine;
-            text += @"{" + Environment.NewLine;
-            text += @"    [ApiController]" + Environment.NewLine;
-            text += @"    [Route(""[controller]/[action]"")]" + Environment.NewLine;
-            text += $"    public class {tsService.Key}Controller : BaseControllerBase" + Environment.NewLine;
-            text += @"    {" + Environment.NewLine;
-            text += $"        public {tsService.Key}Controller(";
+            text += @"" + Environment.NewLine;
+            text += @"namespace BeltmanSoftwareDesign.Api.Controllers;" + Environment.NewLine;
+            text += @"" + Environment.NewLine;
+            text += @"[ApiController]" + Environment.NewLine;
+            text += @"[Route(""[controller]/[action]"")]" + Environment.NewLine;
+            text += $"public class {tsService.Key}Controller(";
 
             var first = true;
             foreach (var servicename in servicenames)
@@ -259,30 +252,12 @@ public class GenerateFromServices
                     first = false;
                 else
                     text += ", ";
-
-                text += $"I{servicename} {NameHelper.LowerCaseFirstLetter(servicename)}";
+                text += $"I{servicename} {servicename}";
             }
 
-            text += @") " + Environment.NewLine;
-            text += @"        {" + Environment.NewLine;
+            text += @") : BaseControllerBase" + Environment.NewLine;
+            text += @"{" + Environment.NewLine;
 
-            foreach (var servicename in servicenames)
-            {
-                text += $"            {servicename} = {NameHelper.LowerCaseFirstLetter(servicename)};" + Environment.NewLine;
-            }
-
-            text += @"        }" + Environment.NewLine;
-            text += Environment.NewLine;
-
-            foreach (var servicename in servicenames)
-            {
-                text += $"        public I{servicename} {servicename} {{ get; }}" + Environment.NewLine;
-            }
-
-            if (servicenames.Any())
-            {
-                text += Environment.NewLine;
-            }
 
             first = true;
             foreach (var method in tsService)
@@ -298,9 +273,9 @@ public class GenerateFromServices
                     //public Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request)
                     //    => WorkorderService.CreateAsync(request);
 
-                    text += $"        [HttpPost]" + Environment.NewLine;
-                    text += $"        public async Task<{method.ResponseType.Name}> {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"            => await {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
+                    text += $"    [HttpPost]" + Environment.NewLine;
+                    text += $"    public async Task<{method.ResponseType.Name}> {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
+                    text += $"        => await {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
                 else
                 {
@@ -308,13 +283,12 @@ public class GenerateFromServices
                     //public LoginResponse? Login(LoginRequest request)
                     //    => AuthenticationService.Login(request);
 
-                    text += $"        [HttpPost]" + Environment.NewLine;
-                    text += $"        public {method.ResponseType.Name} {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"            => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
+                    text += $"    [HttpPost]" + Environment.NewLine;
+                    text += $"    public {method.ResponseType.Name} {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
+                    text += $"        => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
             }
 
-            text += @"    }" + Environment.NewLine;
             text += @"}" + Environment.NewLine;
 
             #region Saven

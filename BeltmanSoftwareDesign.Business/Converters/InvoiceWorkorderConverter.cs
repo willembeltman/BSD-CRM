@@ -1,6 +1,6 @@
 ﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
-    public class InvoiceWorkorderConverter 
+    public class InvoiceWorkorderConverter
     {
         public Shared.Jsons.InvoiceWorkorder Create(Entities.InvoiceWorkorder a)
         {

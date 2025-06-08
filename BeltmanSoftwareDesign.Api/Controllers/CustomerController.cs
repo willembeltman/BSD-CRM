@@ -1,38 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-namespace BeltmanSoftwareDesign.Api.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace BeltmanSoftwareDesign.Api.Controllers;
+
+[ApiController]
+[Route("[controller]/[action]")]
+public class CustomerController(ICustomerService CustomerService) : BaseControllerBase
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
-    public class CustomerController : BaseControllerBase
-    {
-        public CustomerController(ICustomerService customerService) 
-        {
-            CustomerService = customerService;
-        }
+    [HttpPost]
+    public CustomerCreateResponse Create(CustomerCreateRequest request)
+        => CustomerService.Create(request);
 
-        public ICustomerService CustomerService { get; }
+    [HttpPost]
+    public CustomerReadResponse Read(CustomerReadRequest request)
+        => CustomerService.Read(request);
 
-        [HttpPost]
-        public CustomerCreateResponse Create(CustomerCreateRequest request) 
-            => CustomerService.Create(request);
+    [HttpPost]
+    public CustomerUpdateResponse Update(CustomerUpdateRequest request)
+        => CustomerService.Update(request);
 
-        [HttpPost]
-        public CustomerReadResponse Read(CustomerReadRequest request) 
-            => CustomerService.Read(request);
+    [HttpPost]
+    public CustomerDeleteResponse Delete(CustomerDeleteRequest request)
+        => CustomerService.Delete(request);
 
-        [HttpPost]
-        public CustomerUpdateResponse Update(CustomerUpdateRequest request) 
-            => CustomerService.Update(request);
-
-        [HttpPost]
-        public CustomerDeleteResponse Delete(CustomerDeleteRequest request) 
-            => CustomerService.Delete(request);
-
-        [HttpPost]
-        public CustomerListResponse List(CustomerListRequest request) 
-            => CustomerService.List(request);
-    }
+    [HttpPost]
+    public CustomerListResponse List(CustomerListRequest request)
+        => CustomerService.List(request);
 }

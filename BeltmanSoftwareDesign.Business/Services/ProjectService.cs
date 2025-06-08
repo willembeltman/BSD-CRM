@@ -4,24 +4,18 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Attributes;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class ProjectService(
-    ApplicationDbContext db,
-    IAuthenticationService authenticationService) : IProjectService
+public class ProjectService(ApplicationDbContext db, IAuthenticationService authenticationService) : IProjectService
 {
     ProjectConverter ProjectConverter = new ProjectConverter();
 
     [TsServiceMethod("Project", "Create")]
     public ProjectCreateResponse Create(ProjectCreateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new ProjectCreateResponse()
             {
@@ -47,8 +41,7 @@ public class ProjectService(
     [TsServiceMethod("Project", "Read")]
     public ProjectReadResponse Read(ProjectReadRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new ProjectReadResponse()
             {
@@ -65,7 +58,7 @@ public class ProjectService(
             .Include(a => a.Invoices)
             .Include(a => a.Workorders)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.ProjectId);
         if (dbproject == null)
             return new ProjectReadResponse()
@@ -84,8 +77,7 @@ public class ProjectService(
     [TsServiceMethod("Project", "Update")]
     public ProjectUpdateResponse Update(ProjectUpdateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new ProjectUpdateResponse()
             {
@@ -102,7 +94,7 @@ public class ProjectService(
             .Include(a => a.Invoices)
             .Include(a => a.Workorders)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.Project.id);
         if (dbproject == null)
             return new ProjectUpdateResponse()
@@ -124,8 +116,7 @@ public class ProjectService(
     [TsServiceMethod("Project", "Delete")]
     public ProjectDeleteResponse Delete(ProjectDeleteRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new ProjectDeleteResponse()
             {
@@ -142,7 +133,7 @@ public class ProjectService(
             .Include(a => a.Invoices)
             .Include(a => a.Workorders)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.ProjectId);
         if (dbproject == null)
             return new ProjectDeleteResponse()
@@ -164,8 +155,7 @@ public class ProjectService(
     [TsServiceMethod("Project", "List")]
     public ProjectListResponse List(ProjectListRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new ProjectListResponse()
             {

@@ -20,8 +20,8 @@ namespace CodeGenerator.Models
             //Name = FullName.Substring(modelNamespace.Name.Length + 1, FullName.Length - modelNamespace.Name.Length - 1);
             NameLower = NameHelper.LowerCaseFirstLetter(Name);
             Properties = type.GetProperties()
-                .Where(a => 
-                    !string.IsNullOrEmpty(a.Name) && 
+                .Where(a =>
+                    !string.IsNullOrEmpty(a.Name) &&
                     !string.IsNullOrEmpty(a.PropertyType?.FullName))
                 .Select(a => new ModelProperty(this, a))
                 .ToArray();

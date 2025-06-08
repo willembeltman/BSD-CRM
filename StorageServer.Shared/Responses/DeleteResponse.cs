@@ -2,5 +2,5 @@
 
 public class DeleteResponse : Response
 {
-    public bool Deleted { get; set; }  
+    public bool Deleted { get; set; }
 }

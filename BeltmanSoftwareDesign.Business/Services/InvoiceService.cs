@@ -4,23 +4,19 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Attributes;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class InvoiceService(
-    ApplicationDbContext db,
-    IAuthenticationService authenticationService) : IInvoiceService
+
+public class InvoiceService(ApplicationDbContext db, IAuthenticationService authenticationService) : IInvoiceService
 {
     InvoiceConverter InvoiceConverter = new InvoiceConverter();
 
     [TsServiceMethod("Invoice", "Create")]
     public InvoiceCreateResponse Create(InvoiceCreateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new InvoiceCreateResponse()
             {
@@ -88,8 +84,7 @@ public class InvoiceService(
     [TsServiceMethod("Invoice", "Read")]
     public InvoiceReadResponse Read(InvoiceReadRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new InvoiceReadResponse()
             {
@@ -106,7 +101,7 @@ public class InvoiceService(
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.InvoiceAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.InvoiceId);
         if (dbinvoice == null)
             return new InvoiceReadResponse()
@@ -126,8 +121,7 @@ public class InvoiceService(
     [TsServiceMethod("Invoice", "Update")]
     public InvoiceUpdateResponse Update(InvoiceUpdateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new InvoiceUpdateResponse()
             {
@@ -144,7 +138,7 @@ public class InvoiceService(
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.InvoiceAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.Invoice.id);
         if (dbinvoice == null)
             return new InvoiceUpdateResponse()
@@ -167,8 +161,7 @@ public class InvoiceService(
     [TsServiceMethod("Invoice", "Delete")]
     public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new InvoiceDeleteResponse()
             {
@@ -185,7 +178,7 @@ public class InvoiceService(
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.InvoiceAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.InvoiceId);
 
         if (dbinvoice == null)
@@ -208,8 +201,7 @@ public class InvoiceService(
     [TsServiceMethod("Invoice", "List")]
     public InvoiceListResponse List(InvoiceListRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new InvoiceListResponse()
             {

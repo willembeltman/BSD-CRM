@@ -1,5 +1,4 @@
 ﻿using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Xml.Linq;
 
 namespace CodeGenerator.Entities.Models
 {

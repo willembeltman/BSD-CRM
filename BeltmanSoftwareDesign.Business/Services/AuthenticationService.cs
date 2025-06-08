@@ -12,10 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[TsService]
-public class AuthenticationService(
-    IHttpContextAccessor httpContextAccessor,
-    ApplicationDbContext db,
+public class AuthenticationService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext db,
     IDateTimeService dateTime) : IAuthenticationService
 {
     static int shorthoursago = -1;
@@ -84,7 +81,7 @@ public class AuthenticationService(
                 a.UserId == dbuser.Id &&
                 a.ClientIpAddressId == clientIpAddress.id &&
                 a.ClientDeviceId == clientDevice.id &&
-                a.Date > shortago) ;
+                a.Date > shortago);
         if (clientBearer == null)
         {
             // Automatisch vernieuwen
@@ -100,7 +97,7 @@ public class AuthenticationService(
 
         var dbcurrentcompany = db.Companies
             .Include(a => a.Country)
-            .FirstOrDefault(a => 
+            .FirstOrDefault(a =>
                 a.id == user.currentCompanyId &&
                 a.CompanyUsers.Any(a => a.UserId == user.id));
 
@@ -242,10 +239,10 @@ public class AuthenticationService(
 
         var clientBearer = db.ClientBearers
             .OrderByDescending(a => a.Date)
-            .FirstOrDefault(a => 
+            .FirstOrDefault(a =>
                 a.id == request.BearerId &&
                 a.Date > longago);
-        if (clientBearer == null || clientBearer.UserId == null) 
+        if (clientBearer == null || clientBearer.UserId == null)
             return new AuthenticationState()
             {
             };
@@ -253,8 +250,8 @@ public class AuthenticationService(
         if (clientBearer.ClientDeviceId != clientDevice.id)
             return new AuthenticationState()
             {
-            }; 
-        
+            };
+
         if (clientBearer.Date < longago)
             return new AuthenticationState()
             {
@@ -283,10 +280,10 @@ public class AuthenticationService(
         // Get current company from database
         var currentcompany = db.Companies
             .Include(a => a.Country)
-            .FirstOrDefault(a => 
+            .FirstOrDefault(a =>
                 a.CompanyUsers.Any(a => a.UserId == user.Id) &&
                 a.id == request.CurrentCompanyId);
-   
+
         var userJson = UserConverter.Create(user);
         var companyJson = CompanyConverter.Create(currentcompany);
 
@@ -317,7 +314,7 @@ public class AuthenticationService(
             ClientDevice = clientDevice,
             ClientDeviceId = clientDevice?.id,
             ClientIpAddress = clientIpAddress,
-            ClientIpAddressId = clientIpAddress?.id,    
+            ClientIpAddressId = clientIpAddress?.id,
             User = user,
             UserId = user.Id,
         };

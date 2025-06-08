@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace CodeGenerator.Entities.Models
+﻿namespace CodeGenerator.Entities.Models
 {
     public class DbSetInfo
     {

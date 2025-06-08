@@ -1,6 +1,4 @@
-﻿using BeltmanSoftwareDesign.Business.Models;
-using BeltmanSoftwareDesign.Shared.Jsons;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
+﻿using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 
 namespace BeltmanSoftwareDesign.Business.Interfaces

@@ -20,6 +20,6 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public string? StorageMimeType { get; set; }
         [NotMapped]
         public string StorageFolder { get => "WorkorderAttachment"; }
-        
+
     }
 }

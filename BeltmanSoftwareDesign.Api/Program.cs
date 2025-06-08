@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Business.Services;
 using BeltmanSoftwareDesign.Data;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args); 
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();

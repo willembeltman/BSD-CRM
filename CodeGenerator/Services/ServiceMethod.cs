@@ -23,11 +23,7 @@ namespace CodeGenerator.Services
             TsMethodName = serviceandmethod.ConstructorArguments.LastOrDefault().ToString().Replace("\"", "");
 
             var parameters = method.GetParameters();
-            if (parameters.Length != 3)
-                throw new Exception("Too many parameters");
-            if (parameters[1].ParameterType != typeof(string))
-                throw new Exception("Too many parameters");
-            if (parameters[2].ParameterType != typeof(KeyValuePair<string, string?>[]))
+            if (parameters.Length != 1)
                 throw new Exception("Too many parameters");
 
             RequestParameterName = parameters[0].Name;

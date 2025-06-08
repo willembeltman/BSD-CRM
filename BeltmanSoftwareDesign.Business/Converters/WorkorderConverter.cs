@@ -1,6 +1,6 @@
 ﻿namespace BeltmanSoftwareDesign.Data.Converters
 {
-    public class WorkorderConverter 
+    public class WorkorderConverter
     {
         public WorkorderConverter()
         {

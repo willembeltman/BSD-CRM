@@ -1,6 +1,4 @@
-﻿using CodeGenerator.Entities.Models;
-
-namespace CodeGenerator.Entities.Templates
+﻿namespace CodeGenerator.Entities.Templates
 {
     internal interface ITemplate
     {

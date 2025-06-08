@@ -1,5 +1,4 @@
 ﻿using CodeGenerator.Helpers;
-using System.Reflection;
 
 namespace CodeGenerator.Entities.Models
 {

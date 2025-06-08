@@ -161,7 +161,7 @@ public static class StorageFileExtentions
     {
         var config = StorageServerConfig.Instance;
         if (config == null)
-            throw new Exception("StorageServerConfig.Instance is not set. Please initialize it before using the storage server.");  
+            throw new Exception("StorageServerConfig.Instance is not set. Please initialize it before using the storage server.");
 
         var credential = config.Credential;
         if (credential == null || string.IsNullOrEmpty(credential.UserName) || string.IsNullOrEmpty(credential.Password))

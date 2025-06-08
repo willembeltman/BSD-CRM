@@ -4,23 +4,18 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Attributes;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class RateService(
-    ApplicationDbContext db,
-    IAuthenticationService authenticationService) : IRateService
+public class RateService(ApplicationDbContext db, IAuthenticationService authenticationService) : IRateService
 {
     RateConverter RateConverter = new RateConverter();
 
     [TsServiceMethod("Rate", "Create")]
     public RateCreateResponse Create(RateCreateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new RateCreateResponse()
             {
@@ -45,8 +40,7 @@ public class RateService(
     [TsServiceMethod("Rate", "Read")]
     public RateReadResponse Read(RateReadRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new RateReadResponse()
             {
@@ -60,7 +54,7 @@ public class RateService(
             .Include(a => a.Company)
             .Include(a => a.TaxRate)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.RateId);
         if (dbrate == null)
             return new RateReadResponse()
@@ -80,8 +74,7 @@ public class RateService(
     [TsServiceMethod("Rate", "Update")]
     public RateUpdateResponse Update(RateUpdateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new RateUpdateResponse()
             {
@@ -118,8 +111,7 @@ public class RateService(
     [TsServiceMethod("Rate", "Delete")]
     public RateDeleteResponse Delete(RateDeleteRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new RateDeleteResponse()
             {
@@ -133,7 +125,7 @@ public class RateService(
             .Include(a => a.Company)
             .Include(a => a.TaxRate)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.RateId);
         if (dbrate == null)
             return new RateDeleteResponse()
@@ -155,8 +147,7 @@ public class RateService(
     [TsServiceMethod("Rate", "List")]
     public RateListResponse List(RateListRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new RateListResponse()
             {

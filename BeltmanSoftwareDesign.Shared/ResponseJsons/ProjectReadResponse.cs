@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {
     public class ProjectReadResponse : Response
     {
-        public Project? Project {  get; set; }
+        public Project? Project { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public long id { get; set; }
 
         public long InvoiceId { get; set; }
-        public virtual Invoice? Invoice { get; set; }      
+        public virtual Invoice? Invoice { get; set; }
 
         public string? EmailFrom { get; set; }
         public string? EmailTo { get; set; }

@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Xml.Linq;
-
-namespace CodeGenerator.Entities.Models
+﻿namespace CodeGenerator.Entities.Models
 {
     public class PropertyInfo
     {

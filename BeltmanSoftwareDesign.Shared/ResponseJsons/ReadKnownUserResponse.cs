@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {
     public class ReadKnownUserResponse : Response
     {
-        public User? User {  get; set; }
+        public User? User { get; set; }
     }
 }

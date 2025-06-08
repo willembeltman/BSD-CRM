@@ -1,6 +1,4 @@
-﻿using CodeGenerator.Models;
-
-namespace CodeGenerator.Models
+﻿namespace CodeGenerator.Models
 {
     public class ModelNamespacesList
     {

@@ -1,5 +1,4 @@
 ﻿using CodeGenerator;
-using CodeGenerator.Entities;
 
 GenerateFromServices app = new GenerateFromServices();
 app.Run(args);

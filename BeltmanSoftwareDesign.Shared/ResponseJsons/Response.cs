@@ -1,5 +1,5 @@
-﻿using CodeGenerator.Attributes;
-using BeltmanSoftwareDesign.Shared.Jsons;
+﻿using BeltmanSoftwareDesign.Shared.Jsons;
+using CodeGenerator.Attributes;
 
 namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {
@@ -9,7 +9,7 @@ namespace BeltmanSoftwareDesign.Shared.ResponseJsons
         public bool Success { get; set; }
         public bool ErrorAuthentication { get; set; }
         public bool ErrorItemNotFound { get; set; }
-        
+
         public State State { get; set; } = new State();
     }
 }

@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {
     public class InvoiceCreateResponse : Response
     {
-        public Invoice? Invoice {  get; set; }
+        public Invoice? Invoice { get; set; }
     }
 }

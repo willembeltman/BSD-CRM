@@ -1,7 +1,5 @@
 ﻿using CodeGenerator.Helpers;
 using CodeGenerator.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace CodeGenerator.Controllers
@@ -54,9 +52,9 @@ namespace CodeGenerator.Controllers
                     var returnTypeName = method.ReturnType.FullName;
                     var returnTsType =
                         CsToTs(
-                            returnTypeName, 
-                            out bool returnTypeNulleble, 
-                            out bool returnTypeIsList, 
+                            returnTypeName,
+                            out bool returnTypeNulleble,
+                            out bool returnTypeIsList,
                             out bool returnTypeImport,
                             out ModelNamespace? returnTypeImportNamespace);
 
@@ -103,18 +101,18 @@ namespace CodeGenerator.Controllers
                         var parameterTsType =
                             CsToTs(
                                 parameterType,
-                                out bool parameterNulleble, 
-                                out bool parameterIsList, 
+                                out bool parameterNulleble,
+                                out bool parameterIsList,
                                 out bool parameterImport,
                                 out ModelNamespace? parameterImportNamespace);
 
-                        var controllerparameter = 
+                        var controllerparameter =
                             new ControllerParameter(
-                                parameterName, 
-                                parameterType, 
-                                parameterTsType, 
-                                parameterNulleble, 
-                                parameterIsList, 
+                                parameterName,
+                                parameterType,
+                                parameterTsType,
+                                parameterNulleble,
+                                parameterIsList,
                                 parameterImport,
                                 parameterImportNamespace);
                         controller.Parameters.Add(controllerparameter);

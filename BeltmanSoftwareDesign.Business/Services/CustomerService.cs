@@ -4,23 +4,18 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Attributes;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class CustomerService(
-    ApplicationDbContext db,
-    IAuthenticationService authenticationService) : ICustomerService
+public class CustomerService(ApplicationDbContext db, IAuthenticationService authenticationService) : ICustomerService
 {
     CustomerConverter CustomerConverter = new CustomerConverter();
 
     [TsServiceMethod("Customer", "Create")]
     public CustomerCreateResponse Create(CustomerCreateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new CustomerCreateResponse()
             {
@@ -49,8 +44,7 @@ public class CustomerService(
     [TsServiceMethod("Customer", "Read")]
     public CustomerReadResponse Read(CustomerReadRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new CustomerReadResponse()
             {
@@ -67,7 +61,7 @@ public class CustomerService(
             .Include(a => a.Invoices)
             .Include(a => a.Expenses)
             .Include(a => a.Documents)
-            .FirstOrDefault(a => 
+            .FirstOrDefault(a =>
                 a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.CustomerId);
 
@@ -88,8 +82,7 @@ public class CustomerService(
     [TsServiceMethod("Customer", "Update")]
     public CustomerUpdateResponse Update(CustomerUpdateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new CustomerUpdateResponse()
             {
@@ -129,8 +122,7 @@ public class CustomerService(
     [TsServiceMethod("Customer", "Delete")]
     public CustomerDeleteResponse Delete(CustomerDeleteRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new CustomerDeleteResponse()
             {
@@ -171,8 +163,7 @@ public class CustomerService(
     [TsServiceMethod("Customer", "List")]
     public CustomerListResponse List(CustomerListRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new CustomerListResponse()
             {
@@ -189,7 +180,7 @@ public class CustomerService(
             .Include(a => a.Invoices)
             .Include(a => a.Expenses)
             .Include(a => a.Documents)
-            .Where(a => 
+            .Where(a =>
                 a.CompanyId == authentication.DbCurrentCompany.id)
             .Select(a => CustomerConverter.Create(a))
             .ToArray();

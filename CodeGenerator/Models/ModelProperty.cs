@@ -17,7 +17,7 @@ namespace CodeGenerator.Models
         Model Model { get; }
         public string Name { get; }
         public string NameLower { get; }
-        
+
         Type _Type { get; }
         TypeRapport _TypeRapport { get; set; }
         public TypeRapport Type

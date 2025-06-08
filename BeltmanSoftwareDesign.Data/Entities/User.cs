@@ -31,5 +31,5 @@ namespace BeltmanSoftwareDesign.Data.Entities
         public virtual ICollection<ClientBearer> ClientBearers { get; set; } = new List<ClientBearer>();
         public virtual ICollection<CompanyUser> CompanyUsers { get; set; } = new List<CompanyUser>();
     }
-    
+
 }

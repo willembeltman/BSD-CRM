@@ -9,7 +9,7 @@
 
         public long? ProjectId { get; set; }
         public string? ProjectName { get; set; }
-        
+
         public long? CustomerId { get; set; }
         public string? CustomerName { get; set; }
 
@@ -18,9 +18,9 @@
         public double? TaxRatePercentage { get; set; }
 
         public DateTime Date { get; set; }
-        public string? InvoiceNumber { get; set; }        
+        public string? InvoiceNumber { get; set; }
         public string? Description { get; set; }
-        
+
         public bool IsPayedInCash { get; set; }
         public bool IsPayed { get; set; }
 

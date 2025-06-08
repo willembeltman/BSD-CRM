@@ -4,22 +4,17 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Attributes;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class CountryService(
-    ApplicationDbContext db,
-    IAuthenticationService authenticationService) : ICountryService
+public class CountryService(ApplicationDbContext db, IAuthenticationService authenticationService) : ICountryService
 {
     CountryConverter CountryConverter = new CountryConverter();
 
     [TsServiceMethod("Country", "List")]
     public CountryListResponse List(CountryListRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new CountryListResponse()
             {

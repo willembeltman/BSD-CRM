@@ -4,24 +4,19 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Attributes;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using StorageServer.Proxy;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-[Authorize, TsService]
-public class WorkorderService(
-    ApplicationDbContext db, 
-    IAuthenticationService authenticationService) : IWorkorderService
+public class WorkorderService(ApplicationDbContext db, IAuthenticationService authenticationService) : IWorkorderService
 {
     WorkorderConverter WorkorderConverter = new WorkorderConverter();
 
     [TsServiceMethod("Workorder", "Create")]
     public async Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new WorkorderCreateResponse()
             {
@@ -44,10 +39,9 @@ public class WorkorderService(
     }
 
     [TsServiceMethod("Workorder", "Read")]
-    public async Task< WorkorderReadResponse> ReadAsync(WorkorderReadRequest request)
+    public async Task<WorkorderReadResponse> ReadAsync(WorkorderReadRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new WorkorderReadResponse()
             {
@@ -64,7 +58,7 @@ public class WorkorderService(
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.WorkorderAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.WorkorderId);
         if (dbworkorder == null)
             return new WorkorderReadResponse()
@@ -84,8 +78,7 @@ public class WorkorderService(
     [TsServiceMethod("Workorder", "Update")]
     public async Task<WorkorderUpdateResponse> UpdateAsync(WorkorderUpdateRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new WorkorderUpdateResponse()
             {
@@ -125,8 +118,7 @@ public class WorkorderService(
     [TsServiceMethod("Workorder", "Delete")]
     public async Task<WorkorderDeleteResponse> DeleteAsync(WorkorderDeleteRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new WorkorderDeleteResponse()
             {
@@ -143,7 +135,7 @@ public class WorkorderService(
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.WorkorderAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.CompanyId == authentication.DbCurrentCompany.id &&
                 a.id == request.WorkorderId);
         if (dbworkorder == null)
             return new WorkorderDeleteResponse()
@@ -170,8 +162,7 @@ public class WorkorderService(
     [TsServiceMethod("Workorder", "List")]
     public async Task<WorkorderListResponse> ListAsync(WorkorderListRequest request)
     {
-        var authentication = authenticationService.GetState(
-            request);
+        var authentication = authenticationService.GetState(request);
         if (!authentication.Success)
             return new WorkorderListResponse()
             {

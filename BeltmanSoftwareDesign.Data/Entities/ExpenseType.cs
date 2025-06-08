@@ -21,7 +21,7 @@ namespace BeltmanSoftwareDesign.Data.Entities
 
         public BedrijfsKostenTypeEnum BedrijfsKostenType { get; set; } // Operationele kosten
         public AfschrijfKostenTypeEnum AfschrijfKostenType { get; set; }
-        
+
         public virtual ICollection<Expense>? Expenses { get; set; }
 
         public override string ToString()

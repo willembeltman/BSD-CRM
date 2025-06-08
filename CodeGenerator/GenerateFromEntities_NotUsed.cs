@@ -1,7 +1,6 @@
 ﻿using BeltmanSoftwareDesign.Data;
 using CodeGenerator.Entities.Models;
 using CodeGenerator.Entities.Templates;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CodeGenerator
 {

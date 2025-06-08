@@ -1,15 +1,14 @@
-﻿namespace CodeGenerator.Attributes
-{
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class TsServiceMethodAttribute : Attribute
-    {
-        public string ServiceName { get; }
-        public string MethodName { get; }
+﻿namespace CodeGenerator.Attributes;
 
-        public TsServiceMethodAttribute(string serviceName, string methodName)
-        {
-            ServiceName = serviceName;
-            MethodName = methodName;
-        }
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+public class TsServiceMethodAttribute : Attribute
+{
+    public string ServiceName { get; }
+    public string MethodName { get; }
+
+    public TsServiceMethodAttribute(string serviceName, string methodName)
+    {
+        ServiceName = serviceName;
+        MethodName = methodName;
     }
 }

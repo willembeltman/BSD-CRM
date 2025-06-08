@@ -37,6 +37,7 @@ namespace CodeGenerator.Services
         public Service Service { get; }
 
         public string Name { get; }
+        public string PublicName { get; }
         public string TsServiceName { get; }
         public string TsMethodName { get; }
         public string RequestParameterName { get; }

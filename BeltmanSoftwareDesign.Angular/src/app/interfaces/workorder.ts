@@ -11,7 +11,7 @@ export interface Workorder {
     projectName: string | null;
     customerId: number | null;
     customerName: string | null;
-    invoiceWorkorders: InvoiceWorkorder[];
-    workorderAttachments: WorkorderAttachment[];
+    invoiceWorkorders: InvoiceWorkorder | null;
+    workorderAttachments: WorkorderAttachment | null;
     amountUur: number;
 }

@@ -1,202 +1,194 @@
 ﻿using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
-using CodeGenerator.Attributes;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using CodeGenerator.Attributes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
-namespace BeltmanSoftwareDesign.Business.Services
+namespace BeltmanSoftwareDesign.Business.Services;
+
+[Authorize, TsService]
+public class ProjectService(
+    ApplicationDbContext db,
+    IAuthenticationService authenticationService) : IProjectService
 {
-    public class ProjectService : IProjectService
+    ProjectConverter ProjectConverter = new ProjectConverter();
+
+    [TsServiceMethod("Project", "Create")]
+    public ProjectCreateResponse Create(ProjectCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
     {
-        ApplicationDbContext db { get; }
-        IAuthenticationService AuthenticationService { get; }
-        ProjectConverter ProjectConverter { get; }
-
-        public ProjectService(
-            ApplicationDbContext db,
-            IAuthenticationService authenticationService)
-        {
-            this.db = db;
-            AuthenticationService = authenticationService;
-            ProjectConverter = new ProjectConverter();
-        }
-
-        [TsServiceMethod("Project", "Create")]
-        public ProjectCreateResponse Create(ProjectCreateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
-        {
-            var authentication = AuthenticationService.GetState(
-                request, ipAddress, headers);
-            if (!authentication.Success)
-                return new ProjectCreateResponse()
-                {
-                    ErrorAuthentication = true
-                };
-
-            if (authentication.DbCurrentCompany == null)
-                throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
-
-            var dbproject = ProjectConverter.Create(request.Project);
-            dbproject.CompanyId = authentication.DbCurrentCompany.id;
-            db.Projects.Add(dbproject);
-            db.SaveChanges();
-
+        var authentication = authenticationService.GetState(
+            request, ipAddress, headers);
+        if (!authentication.Success)
             return new ProjectCreateResponse()
             {
-                Success = true,
-                State = authentication,
-                Project = ProjectConverter.Create(dbproject)
+                ErrorAuthentication = true
             };
-        }
 
-        [TsServiceMethod("Project", "Read")]
-        public ProjectReadResponse Read(ProjectReadRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+        if (authentication.DbCurrentCompany == null)
+            throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
+
+        var dbproject = ProjectConverter.Create(request.Project);
+        dbproject.CompanyId = authentication.DbCurrentCompany.id;
+        db.Projects.Add(dbproject);
+        db.SaveChanges();
+
+        return new ProjectCreateResponse()
         {
-            var authentication = AuthenticationService.GetState(
-                request, ipAddress, headers);
-            if (!authentication.Success)
-                return new ProjectReadResponse()
-                {
-                    ErrorAuthentication = true
-                };
+            Success = true,
+            State = authentication,
+            Project = ProjectConverter.Create(dbproject)
+        };
+    }
 
-            if (authentication.DbCurrentCompany == null)
-                throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
-
-            var dbproject = db.Projects
-                .Include(a => a.Company)
-                .Include(a => a.Documents)
-                .Include(a => a.Expenses)
-                .Include(a => a.Invoices)
-                .Include(a => a.Workorders)
-                .FirstOrDefault(a =>
-                    a.CompanyId == authentication.DbCurrentCompany.id && 
-                    a.id == request.ProjectId);
-            if (dbproject == null)
-                return new ProjectReadResponse()
-                {
-                    ErrorItemNotFound = true
-                };
-
+    [TsServiceMethod("Project", "Read")]
+    public ProjectReadResponse Read(ProjectReadRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    {
+        var authentication = authenticationService.GetState(
+            request, ipAddress, headers);
+        if (!authentication.Success)
             return new ProjectReadResponse()
             {
-                Success = true,
-                State = authentication,
-                Project = ProjectConverter.Create(dbproject)
+                ErrorAuthentication = true
             };
-        }
 
-        [TsServiceMethod("Project", "Update")]
-        public ProjectUpdateResponse Update(ProjectUpdateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+        if (authentication.DbCurrentCompany == null)
+            throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
+
+        var dbproject = db.Projects
+            .Include(a => a.Company)
+            .Include(a => a.Documents)
+            .Include(a => a.Expenses)
+            .Include(a => a.Invoices)
+            .Include(a => a.Workorders)
+            .FirstOrDefault(a =>
+                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.id == request.ProjectId);
+        if (dbproject == null)
+            return new ProjectReadResponse()
+            {
+                ErrorItemNotFound = true
+            };
+
+        return new ProjectReadResponse()
         {
-            var authentication = AuthenticationService.GetState(
-                request, ipAddress, headers);
-            if (!authentication.Success)
-                return new ProjectUpdateResponse()
-                {
-                    ErrorAuthentication = true
-                };
+            Success = true,
+            State = authentication,
+            Project = ProjectConverter.Create(dbproject)
+        };
+    }
 
-            if (authentication.DbCurrentCompany == null)
-                throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
-
-            var dbproject = db.Projects
-                .Include(a => a.Company)
-                .Include(a => a.Documents)
-                .Include(a => a.Expenses)
-                .Include(a => a.Invoices)
-                .Include(a => a.Workorders)
-                .FirstOrDefault(a =>
-                    a.CompanyId == authentication.DbCurrentCompany.id && 
-                    a.id == request.Project.id);
-            if (dbproject == null)
-                return new ProjectUpdateResponse()
-                {
-                    ErrorItemNotFound = true,
-                };
-
-            if (ProjectConverter.Copy(request.Project, dbproject))
-                db.SaveChanges();
-
+    [TsServiceMethod("Project", "Update")]
+    public ProjectUpdateResponse Update(ProjectUpdateRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    {
+        var authentication = authenticationService.GetState(
+            request, ipAddress, headers);
+        if (!authentication.Success)
             return new ProjectUpdateResponse()
             {
-                Success = true,
-                State = authentication,
-                Project = ProjectConverter.Create(dbproject)
+                ErrorAuthentication = true
             };
-        }
 
-        [TsServiceMethod("Project", "Delete")]
-        public ProjectDeleteResponse Delete(ProjectDeleteRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
-        {
-            var authentication = AuthenticationService.GetState(
-                request, ipAddress, headers);
-            if (!authentication.Success)
-                return new ProjectDeleteResponse()
-                {
-                    ErrorAuthentication = true
-                };
+        if (authentication.DbCurrentCompany == null)
+            throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
 
-            if (authentication.DbCurrentCompany == null)
-                throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
+        var dbproject = db.Projects
+            .Include(a => a.Company)
+            .Include(a => a.Documents)
+            .Include(a => a.Expenses)
+            .Include(a => a.Invoices)
+            .Include(a => a.Workorders)
+            .FirstOrDefault(a =>
+                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.id == request.Project.id);
+        if (dbproject == null)
+            return new ProjectUpdateResponse()
+            {
+                ErrorItemNotFound = true,
+            };
 
-            var dbproject = db.Projects
-                .Include(a => a.Company)
-                .Include(a => a.Documents)
-                .Include(a => a.Expenses)
-                .Include(a => a.Invoices)
-                .Include(a => a.Workorders)
-                .FirstOrDefault(a =>
-                    a.CompanyId == authentication.DbCurrentCompany.id && 
-                    a.id == request.ProjectId);
-            if (dbproject == null)
-                return new ProjectDeleteResponse()
-                {
-                    ErrorItemNotFound = true,
-                    State = authentication
-                };
-
-            db.Projects.Remove(dbproject);
+        if (ProjectConverter.Copy(request.Project, dbproject))
             db.SaveChanges();
 
+        return new ProjectUpdateResponse()
+        {
+            Success = true,
+            State = authentication,
+            Project = ProjectConverter.Create(dbproject)
+        };
+    }
+
+    [TsServiceMethod("Project", "Delete")]
+    public ProjectDeleteResponse Delete(ProjectDeleteRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    {
+        var authentication = authenticationService.GetState(
+            request, ipAddress, headers);
+        if (!authentication.Success)
             return new ProjectDeleteResponse()
             {
-                Success = true,
+                ErrorAuthentication = true
+            };
+
+        if (authentication.DbCurrentCompany == null)
+            throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
+
+        var dbproject = db.Projects
+            .Include(a => a.Company)
+            .Include(a => a.Documents)
+            .Include(a => a.Expenses)
+            .Include(a => a.Invoices)
+            .Include(a => a.Workorders)
+            .FirstOrDefault(a =>
+                a.CompanyId == authentication.DbCurrentCompany.id && 
+                a.id == request.ProjectId);
+        if (dbproject == null)
+            return new ProjectDeleteResponse()
+            {
+                ErrorItemNotFound = true,
                 State = authentication
             };
-        }
 
-        [TsServiceMethod("Project", "List")]
-        public ProjectListResponse List(ProjectListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+        db.Projects.Remove(dbproject);
+        db.SaveChanges();
+
+        return new ProjectDeleteResponse()
         {
-            var authentication = AuthenticationService.GetState(
-                request, ipAddress, headers);
-            if (!authentication.Success)
-                return new ProjectListResponse()
-                {
-                    ErrorAuthentication = true
-                };
+            Success = true,
+            State = authentication
+        };
+    }
 
-            if (authentication.DbCurrentCompany == null)
-                throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
-
-            var list = db.Projects
-                .Include(a => a.Company)
-                .Include(a => a.Documents)
-                .Include(a => a.Expenses)
-                .Include(a => a.Invoices)
-                .Include(a => a.Workorders)
-                .Where(a => a.CompanyId == authentication.DbCurrentCompany.id)
-                .Select(a => ProjectConverter.Create(a))
-                .ToArray();
-
+    [TsServiceMethod("Project", "List")]
+    public ProjectListResponse List(ProjectListRequest request, string? ipAddress, KeyValuePair<string, string?>[]? headers)
+    {
+        var authentication = authenticationService.GetState(
+            request, ipAddress, headers);
+        if (!authentication.Success)
             return new ProjectListResponse()
             {
-                Success = true,
-                State = authentication,
-                Projects = list
+                ErrorAuthentication = true
             };
-        }
+
+        if (authentication.DbCurrentCompany == null)
+            throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
+
+        var list = db.Projects
+            .Include(a => a.Company)
+            .Include(a => a.Documents)
+            .Include(a => a.Expenses)
+            .Include(a => a.Invoices)
+            .Include(a => a.Workorders)
+            .Where(a => a.CompanyId == authentication.DbCurrentCompany.id)
+            .Select(a => ProjectConverter.Create(a))
+            .ToArray();
+
+        return new ProjectListResponse()
+        {
+            Success = true,
+            State = authentication,
+            Projects = list
+        };
     }
 }

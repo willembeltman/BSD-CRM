@@ -24,35 +24,41 @@ public static class ReflectionHelper
         typeof(DateTime),
     ];
 
-    private static bool IsICollection(PropertyInfo prop)
+    public static bool IsICollection(PropertyInfo prop)
     {
         var type = prop.PropertyType;
         return type.IsGenericType &&
                type.GetGenericTypeDefinition() == typeof(ICollection<>);
     }
-    private static bool IsIEnumerable(PropertyInfo prop)
+    public static bool IsIEnumerable(PropertyInfo prop)
     {
         var type = prop.PropertyType;
+        return IsIEnumerable(type);
+    }
+
+    public static bool IsIEnumerable(Type type)
+    {
         return type.IsGenericType &&
                type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
     }
-    private static bool IsLazy(PropertyInfo prop)
+
+    public static bool IsLazy(PropertyInfo prop)
     {
         var type = prop.PropertyType;
         return type.IsGenericType &&
                type.GetGenericTypeDefinition() == typeof(Lazy<>);
     }
-    private static bool IsVirtual(PropertyInfo prop)
+    public static bool IsVirtual(PropertyInfo prop)
     {
         var method = prop.GetGetMethod(true);
         if (method == null)
             return false;
         return method.IsVirtual && !method.IsFinal;
     }
-    private static bool HasAnyProperties(Type propType)
-    {
-        return propType.GetProperties().Length != 0;
-    }
+    //private static bool HasAnyProperties(Type propType)
+    //{
+    //    return propType.GetProperties().Length != 0;
+    //}
 
     public static bool HasPublicGetter(PropertyInfo prop)
     {
@@ -97,9 +103,31 @@ public static class ReflectionHelper
     {
         return prop.PropertyType.GenericTypeArguments[0];
     }
+    public static bool IsArray(Type type)
+    {
+        return type.IsArray;
+    }
+
+    internal static bool IsAsync(Type type)
+    {
+        return type.IsGenericType &&
+               type.GetGenericTypeDefinition() == typeof(Task<>);
+    }
     public static bool IsNulleble(PropertyInfo prop)
     {
-        var type = prop.PropertyType;
+        return IsNulleble(prop.PropertyType);
+        //var type = prop.PropertyType;
+        //if (type.IsValueType)
+        //{
+        //    return Nullable.GetUnderlyingType(type) != null;
+        //}
+        //else
+        //{
+        //    return true; // Referentietypen zijn altijd nullable
+        //}
+    }
+    public static bool IsNulleble(Type type)
+    {
         if (type.IsValueType)
         {
             return Nullable.GetUnderlyingType(type) != null;
@@ -215,5 +243,6 @@ public static class ReflectionHelper
     {
         return Nullable.GetUnderlyingType(type) ?? type;
     }
+
 }
 

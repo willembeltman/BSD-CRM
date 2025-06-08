@@ -4,40 +4,35 @@ namespace CodeGenerator.Models
 {
     public class TypeRapport
     {
-        static string nulleblestring = "System.Nullable`1[[";
-        static string nulleblestringend = "]]";
-
-        static string isliststring = "System.Collections.Generic.List`1[[";
-        static string isliststringend = "]]";
-
-        static string isarraystringend = "[]";
         public TypeRapport(Type type, ModelNamespacesList modelNamespaceList)
         {
-            FullName = type.FullName;
-
-            if (FullName.StartsWith(nulleblestring))
+            Async = ReflectionHelper.IsAsync(type);
+            if (Async)
             {
-                Nulleble = true;
-                var end = FullName.IndexOf(nulleblestringend);
-                var csv = FullName.Substring(nulleblestring.Length, end - nulleblestring.Length);
-                var csvlines = csv.Split(new string[] { "," }, StringSplitOptions.None);
-                FullName = csvlines.First();
+                type = type.GenericTypeArguments[0];
             }
 
-            if (FullName.StartsWith(isliststring))
+            Nulleble = ReflectionHelper.IsNulleble(type);
+            if (Nulleble && type.GenericTypeArguments.Length > 0)
             {
-                List = true;
-                var end = FullName.IndexOf(isliststringend);
-                var csv = FullName.Substring(isliststring.Length, end - isliststring.Length);
-                var csvlines = csv.Split(new string[] { "," }, StringSplitOptions.None);
-                FullName = csvlines.First();
+                type = type.GenericTypeArguments[0];
             }
 
-            if (FullName.EndsWith(isarraystringend))
+            var isIEnumerable = ReflectionHelper.IsIEnumerable(type);
+            var isArray = ReflectionHelper.IsArray(type);
+
+            List = isIEnumerable || isArray;
+
+            if (isIEnumerable)
             {
-                List = true;
-                FullName = FullName.Substring(0, FullName.Length - isarraystringend.Length);
+                type = type.GenericTypeArguments[0];
             }
+            if (isArray)
+            {
+                type = type.GetElementType()!;
+            }
+
+            FullName = type.FullName!;
 
             TsName = NameHelper.GetTsType(FullName);
             Name = FullName;
@@ -71,6 +66,7 @@ namespace CodeGenerator.Models
         public string FullName { get; }
         public string Name { get; }
         public string TsName { get; set; }
+        public bool Async { get; }
         public bool Nulleble { get; set; }
         public bool List { get; set; }
         public bool Import { get; set; }

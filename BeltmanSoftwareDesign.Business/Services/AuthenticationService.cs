@@ -11,31 +11,22 @@ using CodeGenerator.Attributes;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-public class AuthenticationService : IAuthenticationService
+[TsService]
+public class AuthenticationService(
+    ApplicationDbContext db,
+    IDateTimeService dateTime) : IAuthenticationService
 {
     static int shorthoursago = -1;
     static int longhoursago = -72;
 
-    ApplicationDbContext db { get; }
-    IDateTimeService DateTime { get; }
-    UserConverter UserConverter { get; }
-    CompanyConverter CompanyConverter { get; }
-
-    public AuthenticationService(
-        ApplicationDbContext db, 
-        IDateTimeService dateTimeService)
-    {
-        this.db = db;
-        DateTime = dateTimeService;
-        UserConverter = new UserConverter();
-        CompanyConverter = new CompanyConverter();
-    }
+    UserConverter UserConverter = new UserConverter();
+    CompanyConverter CompanyConverter = new CompanyConverter();
 
     [TsServiceMethod("Auth", "Login")]
     public LoginResponse Login(LoginRequest request, string? requestIpAddress, KeyValuePair<string, string?>[]? requestHeaders)
     {
-        var shortago = DateTime.Now.AddHours(shorthoursago);
-        var longago = DateTime.Now.AddHours(longhoursago);
+        var shortago = dateTime.Now.AddHours(shorthoursago);
+        var longago = dateTime.Now.AddHours(longhoursago);
 
         if (string.IsNullOrEmpty(requestIpAddress))
             return new LoginResponse()
@@ -233,8 +224,8 @@ public class AuthenticationService : IAuthenticationService
             {
             };
 
-        var shortago = DateTime.Now.AddHours(shorthoursago);
-        var longago = DateTime.Now.AddHours(longhoursago);
+        var shortago = dateTime.Now.AddHours(shorthoursago);
+        var longago = dateTime.Now.AddHours(longhoursago);
 
         var clientDevice = GetClientDevice(requestHeaders);
         if (clientDevice == null)

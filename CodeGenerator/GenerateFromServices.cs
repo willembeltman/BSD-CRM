@@ -1,4 +1,10 @@
-﻿using CodeGenerator.Helpers;
+﻿using BeltmanSoftwareDesign.Business.Services;
+using BeltmanSoftwareDesign.Shared.RequestJsons;
+using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using CodeGenerator.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Reflection.PortableExecutable;
 
 namespace CodeGenerator;
 
@@ -281,18 +287,31 @@ public class GenerateFromServices
             first = true;
             foreach (var method in tsService)
             {
-                //        [HttpPost]
-                //        public LoginResponse? Login(LoginRequest request) 
-                //            => AuthenticationService.Login(request, IpAddress, Headers);
-
-                if (first)  
+                if (first)
                     first = false;
                 else
                     text += Environment.NewLine;
 
-                text += $"        [HttpPost]" + Environment.NewLine;
-                text += $"        public {method.ResponseType.Name} {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                text += $"            => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName}, IpAddress, Headers);" + Environment.NewLine;
+                if (method.ResponseType.Async)
+                {
+                    //[HttpPost]
+                    //public Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request)
+                    //    => WorkorderService.CreateAsync(request, IpAddress, Headers);
+
+                    text += $"        [HttpPost]" + Environment.NewLine;
+                    text += $"        public async Task<{method.ResponseType.Name}> {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
+                    text += $"            => await {method.Service.NameWithService}.{method.Name}({method.RequestParameterName}, IpAddress, Headers);" + Environment.NewLine;
+                }
+                else
+                {
+                    //[HttpPost]
+                    //public LoginResponse? Login(LoginRequest request)
+                    //    => AuthenticationService.Login(request, IpAddress, Headers);
+
+                    text += $"        [HttpPost]" + Environment.NewLine;
+                    text += $"        public {method.ResponseType.Name} {method.Name}({method.RequestParameterType.Name} {method.RequestParameterName}) " + Environment.NewLine;
+                    text += $"            => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName}, IpAddress, Headers);" + Environment.NewLine;
+                }
             }
 
             text += @"    }" + Environment.NewLine;

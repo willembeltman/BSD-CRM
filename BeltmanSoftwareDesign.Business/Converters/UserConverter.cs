@@ -2,6 +2,8 @@
 {
     public class UserConverter
     {
+        public static UserConverter NewInstance = new UserConverter();
+
         public Shared.Jsons.User? Create(Entities.User? a)
         {
             if (a == null) return null;

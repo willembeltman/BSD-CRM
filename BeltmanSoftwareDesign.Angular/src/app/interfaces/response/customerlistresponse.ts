@@ -2,7 +2,7 @@ import { Customer } from "../customer";
 import { State } from "../state";
 
 export interface CustomerListResponse {
-    customers: Customer[];
+    customers: Customer[] | null;
     success: boolean;
     errorAuthentication: boolean;
     errorItemNotFound: boolean;

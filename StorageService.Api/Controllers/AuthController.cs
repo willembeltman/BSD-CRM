@@ -18,10 +18,7 @@ public class AuthController(IOptions<AppConfig> config) : ControllerBase
             .FirstOrDefault(a => a.UserName == request.Username && a.Password == request.Password);
 
         if (cred != null)
-        //if (request.Username == "server" && request.Password == "topgeheim")
         {
-            //var key = Encoding.ASCII.GetBytes("ditIsEenSuperGeheimeSleutel123!!");
-
             var key = new SymmetricSecurityKey(config.Value.SuperSecretKeyArray);
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor

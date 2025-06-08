@@ -8,10 +8,10 @@ using StorageServer.Proxy;
 var builder = WebApplication.CreateBuilder(args);
 
 var appConfig = builder.Configuration
-                        .GetSection("Application")
+                        .GetSection("AppConfig")
                         .Get<AppConfig>()!;
 
-builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("Application"));
+builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfig"));
 
 builder.Services.AddAuthentication(options =>
 {

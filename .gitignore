@@ -89,3 +89,9 @@ BenchmarkDotNet.Artifacts/
 /bin/
 /obj/
 appsettings.Development.json
+
+*.id
+*.data
+
+StorageFile.data
+StorageFile.id

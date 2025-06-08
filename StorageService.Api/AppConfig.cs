@@ -7,7 +7,7 @@ namespace StorageServer.Proxy;
 public class AppConfig
 {
     public string SuperSecretKey { get; set; }
-    public AppCredential[] Credentials { get; set; }
+    public Credential[] Credentials { get; set; }
 
     private byte[] _SuperSecretKeyArray { get; set; }
     public byte[] SuperSecretKeyArray

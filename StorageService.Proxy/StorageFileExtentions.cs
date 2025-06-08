@@ -155,14 +155,16 @@ public static class StorageFileExtentions
 
     private static async Task<string> AuthenticateHttpClient(HttpClient httpClient)
     {
+        httpClient.BaseAddress = new Uri(StorageServerSettings.Config.ServerUrl);
+
         // Stap 1: Login
         var loginRequest = new LoginRequest
         {
-            Username = "server",
-            Password = "topgeheim"
+            Username = StorageServerSettings.Config.Credential.UserName,
+            Password = StorageServerSettings.Config.Credential.Password
         };
 
-        using var response = await httpClient.PostAsJsonAsync("https://localhost:7190/Auth/Login", loginRequest);
+        using var response = await httpClient.PostAsJsonAsync("/Auth/Login", loginRequest);
         response.EnsureSuccessStatusCode();
 
         var loginResult = await response.Content.ReadFromJsonAsync<LoginResponse>();

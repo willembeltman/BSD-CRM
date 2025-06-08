@@ -3,13 +3,17 @@ using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Business.Services;
 using BeltmanSoftwareDesign.Data;
 using Microsoft.EntityFrameworkCore;
+using StorageServer.Proxy;
 
 var builder = WebApplication.CreateBuilder(args);
+
+StorageServerSettings.Config = builder.Configuration
+                        .GetSection("StorageServer")
+                        .Get<StorageServerConfig>()!;
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

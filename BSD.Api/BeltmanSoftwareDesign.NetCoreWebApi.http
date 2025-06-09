@@ -1,0 +1,6 @@
+@BSD.NetCoreWebApi_HostAddress = http://localhost:5111
+
+GET {{BSD.NetCoreWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

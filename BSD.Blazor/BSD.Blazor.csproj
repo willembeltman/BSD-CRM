@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Components\Pages\Weather.razor" />
+    <Content Remove="Components\Pages\Workorders.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Storage.Proxy\Storage.Proxy.csproj" />
+    <ProjectReference Include="..\BSD.Business\BSD.Business.csproj" />
+    <ProjectReference Include="..\BSD.Data\BSD.Data.csproj" />
+    <ProjectReference Include="..\BSD.Shared\BSD.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

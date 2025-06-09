@@ -1,0 +1,33 @@
+﻿@page "/"
+@using BSD.Blazor
+@using BSD.Blazor.Components
+@using BSD.Data.Entities
+@using Storage.Proxy
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<button @onclick="TestFunction">Test API call</button>
+
+@code {
+    private async void TestFunction()
+    {
+        Console.WriteLine("Test knop ingedrukt!");
+
+        var attachment = new DocumentAttachment()
+        {
+            Id = 1
+        };
+        using var stream = new MemoryStream();
+        using var writer = new StreamWriter(stream);
+        writer.Write("Hoi dit is een test");
+        writer.Flush();
+        stream.Position = 0;
+
+        await attachment.Save("file.txt", "text/plain", stream);
+
+    }
+}

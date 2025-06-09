@@ -7,14 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\**" />
-    <EmbeddedResource Remove="Entities\**" />
-    <None Remove="Entities\**" />
+    <Compile Remove="GenerateFromEntities_NotUsed.cs" />
+    <Compile Remove="WeetIkVeel.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="GenerateFromEntities_NotUsed.cs" />
-    <Compile Remove="WeetIkVeel.cs" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeGenerator.Shared\CodeGenerator.Shared.csproj" />
   </ItemGroup>
 
 </Project>

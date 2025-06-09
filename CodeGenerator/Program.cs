@@ -1,34 +1,38 @@
-﻿using CodeGenerator.ApiAndProxies;
+﻿using BSD.Data;
+using CodeGenerator.ApiAndProxies;
 using CodeGenerator.ApiAndProxies.Shared;
 
+var generator2 = new CodeGenerator.DtoConvertersAndServices.Generator();
+generator2.GenerateCode(typeof(ApplicationDbContext), "", "", "", "", "", "");
+
 var codeGeneratorConfiguration = new GeneratorConfig(
-    AngularAppDirectory:                    @"..\..\..\..\BeltmanSoftwareDesign.Angular\src\app",
-    AngularApiServicesDirectory:            @"..\..\..\..\BeltmanSoftwareDesign.Angular\src\app\apiservices",
+    AngularAppDirectory:                    @"..\..\..\..\BSD.Angular\src\app",
+    AngularApiServicesDirectory:            @"..\..\..\..\BSD.Angular\src\app\apiservices",
     AngularApiServicesDirectoryShortName:   "apiservices",
-    DotNetControllersDirectory:             @"..\..\..\..\BeltmanSoftwareDesign.Api\Controllers",
-    DotNetControllersNamespace:             "BeltmanSoftwareDesign.Api.Controllers",
-    DotNetProxiesDirectory:                 @"..\..\..\..\BeltmanSoftwareDesign.Proxy",
-    DotNetProxiesNamespace:                 "BeltmanSoftwareDesign.Proxy",
+    DotNetControllersDirectory:             @"..\..\..\..\BSD.Api\Controllers",
+    DotNetControllersNamespace:             "BSD.Api.Controllers",
+    DotNetProxiesDirectory:                 @"..\..\..\..\BSD.Proxy",
+    DotNetProxiesNamespace:                 "BSD.Proxy",
     ModelNamespaces:
         [(
-            Assembly:                       typeof(BeltmanSoftwareDesign.Shared.Dtos.Company).Assembly,
-            CsNamespace:                    "BeltmanSoftwareDesign.Shared.Dtos",
+            Assembly:                       typeof(BSD.Shared.Dtos.Company).Assembly,
+            CsNamespace:                    "BSD.Shared.Dtos",
             TsNamespace:                    "interfaces"
         ),
         (
-            Assembly:                       typeof(BeltmanSoftwareDesign.Shared.Requests.LoginRequest).Assembly,
-            CsNamespace:                    "BeltmanSoftwareDesign.Shared.Requests",
+            Assembly:                       typeof(BSD.Shared.Requests.LoginRequest).Assembly,
+            CsNamespace:                    "BSD.Shared.Requests",
             TsNamespace:                    "interfaces/request"
         ),
         (
-            Assembly:                       typeof(BeltmanSoftwareDesign.Shared.Responses.LoginResponse).Assembly,
-            CsNamespace:                    "BeltmanSoftwareDesign.Shared.Responses",
+            Assembly:                       typeof(BSD.Shared.Responses.LoginResponse).Assembly,
+            CsNamespace:                    "BSD.Shared.Responses",
             TsNamespace:                    "interfaces/response"
         )],
     ServiceNamespaces:
         [(  
-            Assembly:                       typeof(BeltmanSoftwareDesign.Business.Services.AuthenticationService).Assembly,
-            CsNamespace:                    "BeltmanSoftwareDesign.Business.Services"
+            Assembly:                       typeof(BSD.Business.Services.AuthenticationService).Assembly,
+            CsNamespace:                    "BSD.Business.Services"
         )]);
 
 Generator app = new Generator(codeGeneratorConfiguration);

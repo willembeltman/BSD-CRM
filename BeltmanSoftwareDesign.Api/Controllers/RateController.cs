@@ -8,25 +8,25 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class RateController(IRate Rate) : BaseControllerBase
+public class RateController(IRateService rate) : ControllerBase
 {
     [HttpPost]
     public RateCreateResponse Create(RateCreateRequest request) 
-        => Rate.Create(request);
+        => rate.Create(request);
 
     [HttpPost]
     public RateReadResponse Read(RateReadRequest request) 
-        => Rate.Read(request);
+        => rate.Read(request);
 
     [HttpPost]
     public RateUpdateResponse Update(RateUpdateRequest request) 
-        => Rate.Update(request);
+        => rate.Update(request);
 
     [HttpPost]
     public RateDeleteResponse Delete(RateDeleteRequest request) 
-        => Rate.Delete(request);
+        => rate.Delete(request);
 
     [HttpPost]
     public RateListResponse List(RateListRequest request) 
-        => Rate.List(request);
+        => rate.List(request);
 }

@@ -1,4 +1,4 @@
-﻿using CodeGenerator.ApiAndProxies.Helpers;
+﻿using CodeGenerator.Shared.Helpers;
 
 namespace CodeGenerator.ApiAndProxies.Models;
 

@@ -8,25 +8,25 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class ProjectController(IProject Project) : BaseControllerBase
+public class ProjectController(IProjectService project) : ControllerBase
 {
     [HttpPost]
     public ProjectCreateResponse Create(ProjectCreateRequest request) 
-        => Project.Create(request);
+        => project.Create(request);
 
     [HttpPost]
     public ProjectReadResponse Read(ProjectReadRequest request) 
-        => Project.Read(request);
+        => project.Read(request);
 
     [HttpPost]
     public ProjectUpdateResponse Update(ProjectUpdateRequest request) 
-        => Project.Update(request);
+        => project.Update(request);
 
     [HttpPost]
     public ProjectDeleteResponse Delete(ProjectDeleteRequest request) 
-        => Project.Delete(request);
+        => project.Delete(request);
 
     [HttpPost]
     public ProjectListResponse List(ProjectListRequest request) 
-        => Project.List(request);
+        => project.List(request);
 }

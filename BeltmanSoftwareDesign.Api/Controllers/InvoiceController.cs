@@ -8,25 +8,25 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class InvoiceController(IInvoice Invoice) : BaseControllerBase
+public class InvoiceController(IInvoiceService invoice) : ControllerBase
 {
     [HttpPost]
     public InvoiceCreateResponse Create(InvoiceCreateRequest request) 
-        => Invoice.Create(request);
+        => invoice.Create(request);
 
     [HttpPost]
     public InvoiceReadResponse Read(InvoiceReadRequest request) 
-        => Invoice.Read(request);
+        => invoice.Read(request);
 
     [HttpPost]
     public InvoiceUpdateResponse Update(InvoiceUpdateRequest request) 
-        => Invoice.Update(request);
+        => invoice.Update(request);
 
     [HttpPost]
     public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request) 
-        => Invoice.Delete(request);
+        => invoice.Delete(request);
 
     [HttpPost]
     public InvoiceListResponse List(InvoiceListRequest request) 
-        => Invoice.List(request);
+        => invoice.List(request);
 }

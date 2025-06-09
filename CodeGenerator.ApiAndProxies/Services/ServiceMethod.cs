@@ -1,4 +1,4 @@
-﻿using CodeGenerator.ApiAndProxies.Helpers;
+﻿using CodeGenerator.Shared.Helpers;
 using CodeGenerator.ApiAndProxies.Shared;
 using System.Reflection;
 

@@ -8,25 +8,25 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class CustomerController(ICustomer Customer) : BaseControllerBase
+public class CustomerController(ICustomerService customer) : ControllerBase
 {
     [HttpPost]
     public CustomerCreateResponse Create(CustomerCreateRequest request) 
-        => Customer.Create(request);
+        => customer.Create(request);
 
     [HttpPost]
     public CustomerReadResponse Read(CustomerReadRequest request) 
-        => Customer.Read(request);
+        => customer.Read(request);
 
     [HttpPost]
     public CustomerUpdateResponse Update(CustomerUpdateRequest request) 
-        => Customer.Update(request);
+        => customer.Update(request);
 
     [HttpPost]
     public CustomerDeleteResponse Delete(CustomerDeleteRequest request) 
-        => Customer.Delete(request);
+        => customer.Delete(request);
 
     [HttpPost]
     public CustomerListResponse List(CustomerListRequest request) 
-        => Customer.List(request);
+        => customer.List(request);
 }

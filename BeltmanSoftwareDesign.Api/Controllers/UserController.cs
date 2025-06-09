@@ -8,25 +8,25 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class UserController(IUser User) : BaseControllerBase
+public class UserController(IUserService user) : ControllerBase
 {
     [HttpPost]
     public SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request) 
-        => User.SetCurrentCompany(request);
+        => user.SetCurrentCompany(request);
 
     [HttpPost]
     public ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request) 
-        => User.ReadKnownUser(request);
+        => user.ReadKnownUser(request);
 
     [HttpPost]
     public UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request) 
-        => User.UpdateMyself(request);
+        => user.UpdateMyself(request);
 
     [HttpPost]
     public DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request) 
-        => User.DeleteMyself(request);
+        => user.DeleteMyself(request);
 
     [HttpPost]
     public ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request) 
-        => User.ListKnownUsers(request);
+        => user.ListKnownUsers(request);
 }

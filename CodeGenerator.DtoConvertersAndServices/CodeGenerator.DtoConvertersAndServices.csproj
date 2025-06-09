@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Entities\**" />
+    <EmbeddedResource Remove="Entities\**" />
+    <None Remove="Entities\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="GenerateFromEntities_NotUsed.cs" />
+    <Compile Remove="WeetIkVeel.cs" />
+  </ItemGroup>
+
 </Project>

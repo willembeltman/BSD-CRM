@@ -1,4 +1,4 @@
-﻿using CodeGenerator.ApiAndProxies.Helpers;
+﻿using CodeGenerator.Shared.Helpers;
 using CodeGenerator.ApiAndProxies.Shared;
 
 namespace CodeGenerator.ApiAndProxies;
@@ -10,7 +10,6 @@ public class Generator(GeneratorConfig generatorConfig)
     public void Run()
     {
         ExportTsModels();
-
         ExportTsProxies();
         ExportCsControllers();
         ExportCsProxies();
@@ -256,10 +255,10 @@ public class Generator(GeneratorConfig generatorConfig)
                     first = false;
                 else
                     text += ", ";
-                text += $"I{servicename} {servicename}";
+                text += $"I{servicename}Service {servicename.ToLower()}";
             }
 
-            text += @") : BaseControllerBase" + Environment.NewLine;
+            text += @") : ControllerBase" + Environment.NewLine;
             text += @"{" + Environment.NewLine;
 
 
@@ -279,7 +278,7 @@ public class Generator(GeneratorConfig generatorConfig)
 
                     text += $"    [HttpPost]" + Environment.NewLine;
                     text += $"    public async Task<{method.ResponseTypeRapport.Name}> {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"        => await {method.Service.Name}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
+                    text += $"        => await {method.Service.Name.ToLower()}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
                 else
                 {
@@ -289,7 +288,7 @@ public class Generator(GeneratorConfig generatorConfig)
 
                     text += $"    [HttpPost]" + Environment.NewLine;
                     text += $"    public {method.ResponseTypeRapport.Name} {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"        => {method.Service.Name}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
+                    text += $"        => {method.Service.Name.ToLower()}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
             }
 

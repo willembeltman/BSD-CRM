@@ -8,13 +8,13 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class AuthController(IAuthentication Authentication) : BaseControllerBase
+public class AuthController(IAuthenticationService authentication) : ControllerBase
 {
     [HttpPost]
     public LoginResponse Login(LoginRequest request) 
-        => Authentication.Login(request);
+        => authentication.Login(request);
 
     [HttpPost]
     public RegisterResponse Register(RegisterRequest request) 
-        => Authentication.Register(request);
+        => authentication.Register(request);
 }

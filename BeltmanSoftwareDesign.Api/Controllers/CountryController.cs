@@ -8,9 +8,9 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class CountryController(ICountry Country) : BaseControllerBase
+public class CountryController(ICountryService country) : ControllerBase
 {
     [HttpPost]
     public CountryListResponse List(CountryListRequest request) 
-        => Country.List(request);
+        => country.List(request);
 }

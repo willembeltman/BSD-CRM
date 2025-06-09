@@ -23,4 +23,8 @@
     <ProjectReference Include="..\BeltmanSoftwareDesign.Shared\BeltmanSoftwareDesign.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

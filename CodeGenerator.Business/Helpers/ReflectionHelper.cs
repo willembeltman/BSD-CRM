@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace CodeGenerator.ApiAndProxies.Helpers;
+namespace CodeGenerator.Shared.Helpers;
 
 public static class ReflectionHelper
 {
@@ -108,7 +108,7 @@ public static class ReflectionHelper
         return type.IsArray;
     }
 
-    internal static bool IsAsync(Type type)
+    public static bool IsAsync(Type type)
     {
         return type.IsGenericType &&
                type.GetGenericTypeDefinition() == typeof(Task<>);

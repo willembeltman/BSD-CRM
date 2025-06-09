@@ -2,12 +2,11 @@
 {
     public class CustomerConverter
     {
-        public Shared.Jsons.Customer Create(Entities.Customer? a)
+        public Shared.Jsons.Customer Create(Entities.Customer a)
         {
-            if (a == null) return null;
             return new Shared.Jsons.Customer()
             {
-                id = a.id,
+                Id = a.Id,
                 Address = a.Address,
                 CountryId = a.CountryId,
                 CountryName = a.Country?.Name,
@@ -20,12 +19,11 @@
                 Publiekelijk = a.Publiekelijk,
             };
         }
-        public Entities.Customer Create(Shared.Jsons.Customer? a)
+        public Entities.Customer Create(Shared.Jsons.Customer a)
         {
-            if (a == null) return null;
             return new Entities.Customer()
             {
-                id = a.id,
+                Id = a.Id,
                 Address = a.Address,
                 CountryId = a.CountryId,
                 Description = a.Description,
@@ -38,7 +36,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Customer? source, Entities.Customer dest)
+        public bool Copy(Shared.Jsons.Customer source, Entities.Customer dest)
         {
             var changed = false;
             if (dest.Address != source.Address) { dest.Address = source.Address; changed = true; }

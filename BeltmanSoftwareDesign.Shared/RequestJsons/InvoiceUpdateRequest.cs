@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.RequestJsons
 {
     public class InvoiceUpdateRequest : Request
     {
-        public Invoice? Invoice { get; set; }
+        public Invoice Invoice { get; set; } = new Invoice();
     }
 }

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageServer.Proxy", "Stor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageServer.Api", "StorageService.Api\StorageServer.Api.csproj", "{43DA8FA6-071D-BF2F-A4DD-C3D68CEED5D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Attributes", "CodeGenerator.Business\CodeGenerator.Attributes.csproj", "{A7B92E71-8EFF-C516-C2EA-33AB27A02573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Library", "CodeGenerator.Business\CodeGenerator.Library.csproj", "{A7B92E71-8EFF-C516-C2EA-33AB27A02573}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeltmanSoftwareDesign.Shared", "BeltmanSoftwareDesign.Shared\BeltmanSoftwareDesign.Shared.csproj", "{10F3882F-E677-D28A-4C22-EB903DF64E5B}"
 EndProject
@@ -23,9 +23,9 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "BeltmanSoftwareDesign.Angul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator", "CodeGenerator\CodeGenerator.csproj", "{ACAEFC88-9C91-A6A4-BBB7-C5B2BFE7C2E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkZip", "..\EntityFrameworkZip\EntityFrameworkZip\EntityFrameworkZip.csproj", "{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageServer.Shared", "StorageServer.Shared\StorageServer.Shared.csproj", "{C05B0B2C-9762-492E-9E0D-9F226D473989}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeltmanSoftwareDesign.Proxy", "BeltmanSoftwareDesign.Proxy\BeltmanSoftwareDesign.Proxy.csproj", "{BABA97D3-2872-46B0-AF77-2EE2EFDD561A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,14 +75,14 @@ Global
 		{ACAEFC88-9C91-A6A4-BBB7-C5B2BFE7C2E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAEFC88-9C91-A6A4-BBB7-C5B2BFE7C2E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAEFC88-9C91-A6A4-BBB7-C5B2BFE7C2E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA06C4B9-76CE-8448-B6CE-92AF8E7D45D1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C05B0B2C-9762-492E-9E0D-9F226D473989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABA97D3-2872-46B0-AF77-2EE2EFDD561A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABA97D3-2872-46B0-AF77-2EE2EFDD561A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABA97D3-2872-46B0-AF77-2EE2EFDD561A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABA97D3-2872-46B0-AF77-2EE2EFDD561A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,16 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BeltmanSoftwareDesign.Shared;
+using System.ComponentModel.DataAnnotations;
 
-namespace BeltmanSoftwareDesign.Data.Entities
+namespace BeltmanSoftwareDesign.Data.Entities;
+
+public class ClientDevice : IEntity
 {
-    public class ClientDevice
-    {
-        [Key]
-        public long id { get; set; }
+    [Key]
+    public long Id { get; set; }
 
-        [StringLength(128)]
-        public string DeviceHash { get; set; } = string.Empty;
+    [StringLength(128)]
+    public string DeviceHash { get; set; } = string.Empty;
 
-        public virtual ICollection<ClientBearer>? ClientBearers { get; set; } = new List<ClientBearer>();
-        public virtual ICollection<ClientDeviceProperty>? ClientDeviceProperties { get; set; } = new List<ClientDeviceProperty>();
-    }
+    public virtual ICollection<ClientBearer>? ClientBearers { get; set; } = new List<ClientBearer>();
+    public virtual ICollection<ClientDeviceProperty>? ClientDeviceProperties { get; set; } = new List<ClientDeviceProperty>();
 }

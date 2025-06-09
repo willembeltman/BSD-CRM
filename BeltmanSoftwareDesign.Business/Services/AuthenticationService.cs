@@ -6,7 +6,7 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Data.Entities;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +21,7 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
     UserConverter UserConverter = new UserConverter();
     CompanyConverter CompanyConverter = new CompanyConverter();
 
-    public string? IpAddress => httpContextAccessor.HttpContext!.Connection.RemoteIpAddress?.ToString();
+    public string? IpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
     public KeyValuePair<string, string?>[]? Headers => httpContextAccessor.HttpContext!.Request.Headers
         .Select(a => new KeyValuePair<string, string?>(a.Key, a.Value))
         .ToArray();
@@ -79,8 +79,8 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
             .OrderByDescending(a => a.Date)
             .FirstOrDefault(a =>
                 a.UserId == dbuser.Id &&
-                a.ClientIpAddressId == clientIpAddress.id &&
-                a.ClientDeviceId == clientDevice.id &&
+                a.ClientIpAddressId == clientIpAddress.Id &&
+                a.ClientDeviceId == clientDevice.Id &&
                 a.Date > shortago);
         if (clientBearer == null)
         {
@@ -98,8 +98,13 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
         var dbcurrentcompany = db.Companies
             .Include(a => a.Country)
             .FirstOrDefault(a =>
-                a.id == user.currentCompanyId &&
+                a.Id == user.currentCompanyId &&
                 a.CompanyUsers.Any(a => a.UserId == user.id));
+        if (dbcurrentcompany == null)
+            return new LoginResponse()
+            {
+                AuthenticationError = true
+            };
 
         var currentcompany = CompanyConverter.Create(dbcurrentcompany);
 
@@ -110,7 +115,7 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
             {
                 User = user,
                 CurrentCompany = currentcompany,
-                BearerId = clientBearer.id,
+                BearerId = clientBearer.Id,
             }
         };
     }
@@ -205,7 +210,7 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
             State = new Shared.Jsons.State()
             {
                 User = user,
-                BearerId = bearer.id,
+                BearerId = bearer.Id,
             }
         };
     }
@@ -240,14 +245,14 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
         var clientBearer = db.ClientBearers
             .OrderByDescending(a => a.Date)
             .FirstOrDefault(a =>
-                a.id == request.BearerId &&
+                a.Id == request.BearerId &&
                 a.Date > longago);
         if (clientBearer == null || clientBearer.UserId == null)
             return new AuthenticationState()
             {
             };
 
-        if (clientBearer.ClientDeviceId != clientDevice.id)
+        if (clientBearer.ClientDeviceId != clientDevice.Id)
             return new AuthenticationState()
             {
             };
@@ -265,7 +270,7 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
             {
             };
 
-        if (clientBearer.ClientIpAddressId != clientIpAddress.id)
+        if (clientBearer.ClientIpAddressId != clientIpAddress.Id)
         {
             // Ip veranderd, toch automatisch vernieuwen
             clientBearer = CreateBearer(user, clientDevice, clientIpAddress);
@@ -282,7 +287,11 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
             .Include(a => a.Country)
             .FirstOrDefault(a =>
                 a.CompanyUsers.Any(a => a.UserId == user.Id) &&
-                a.id == request.CurrentCompanyId);
+                a.Id == request.CurrentCompanyId);
+        if (currentcompany == null)
+            return new AuthenticationState()
+            {
+            };
 
         var userJson = UserConverter.Create(user);
         var companyJson = CompanyConverter.Create(currentcompany);
@@ -293,7 +302,7 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
 
             User = userJson,
             CurrentCompany = companyJson,
-            BearerId = clientBearer.id,
+            BearerId = clientBearer.Id,
 
             DbUser = user,
             DbCurrentCompany = currentcompany,
@@ -310,11 +319,11 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
         var bearerid = HashGeneratorHelper.GenerateCode(64);
         var bearer = new ClientBearer()
         {
-            id = bearerid,
+            Id = bearerid,
             ClientDevice = clientDevice,
-            ClientDeviceId = clientDevice?.id,
+            ClientDeviceId = clientDevice?.Id,
             ClientIpAddress = clientIpAddress,
-            ClientIpAddressId = clientIpAddress?.id,
+            ClientIpAddressId = clientIpAddress?.Id,
             User = user,
             UserId = user.Id,
         };
@@ -339,8 +348,11 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
         db.SaveChanges();
         return dbuser;
     }
-    private ClientIpAddress GetIpAddress()
+    private ClientIpAddress? GetIpAddress()
     {
+        if (IpAddress == null)
+            return null;
+
         var location = db.ClientLocations.FirstOrDefault(a => a.IpAddress == IpAddress);
         if (location == null)
         {

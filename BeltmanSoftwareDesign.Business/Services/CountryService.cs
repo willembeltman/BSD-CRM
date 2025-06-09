@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 

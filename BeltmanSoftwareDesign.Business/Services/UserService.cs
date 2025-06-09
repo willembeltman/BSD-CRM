@@ -5,7 +5,7 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Jsons;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
@@ -23,7 +23,7 @@ public class UserService(ApplicationDbContext db, IAuthenticationService authent
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(request);
-        if (!state.Success)
+        if (!state.Success || state.User == null || state.DbUser == null)
             return new SetCurrentCompanyResponse()
             {
                 ErrorAuthentication = true
@@ -33,7 +33,7 @@ public class UserService(ApplicationDbContext db, IAuthenticationService authent
 
         var dbcompany = db.Companies
             .FirstOrDefault(a =>
-                a.id == request.CurrentCompanyId &&
+                a.Id == request.CurrentCompanyId &&
                 a.CompanyUsers.Any(a => a.UserId == state.User.id));
         if (dbcompany == null)
             return new SetCurrentCompanyResponse()
@@ -46,8 +46,8 @@ public class UserService(ApplicationDbContext db, IAuthenticationService authent
         var company = CompanyConverter.Create(dbcompany);
 
         // Set current company to 
-        state.User.currentCompanyId = company.id;
-        state.DbUser.CurrentCompanyId = dbcompany.id;
+        state.User.currentCompanyId = company.Id;
+        state.DbUser.CurrentCompanyId = dbcompany.Id;
         state.DbUser.CurrentCompany = dbcompany;
         state.CurrentCompany = company;
         state.DbCurrentCompany = dbcompany;
@@ -79,9 +79,7 @@ public class UserService(ApplicationDbContext db, IAuthenticationService authent
 
         var knownusers = GetKnownUsers(state);
 
-        var dbuser = knownusers
-            .FirstOrDefault(a =>
-                a.Id == request.UserId);
+        var dbuser = knownusers.FirstOrDefault(a => a.Id == request.UserId);
         if (dbuser == null)
             return new ReadKnownUserResponse()
             {
@@ -107,7 +105,7 @@ public class UserService(ApplicationDbContext db, IAuthenticationService authent
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(request);
-        if (!state.Success)
+        if (!state.Success || state.User == null || state.DbUser == null)
             return new UpdateMyselfResponse()
             {
                 ErrorAuthentication = true
@@ -147,7 +145,7 @@ public class UserService(ApplicationDbContext db, IAuthenticationService authent
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(request);
-        if (!state.Success)
+        if (!state.Success || state.User == null || state.DbUser == null)
             return new DeleteMyselfResponse()
             {
                 ErrorAuthentication = true
@@ -205,15 +203,16 @@ public class UserService(ApplicationDbContext db, IAuthenticationService authent
         };
     }
 
-    private List<Data.Entities.User?> GetKnownUsers(AuthenticationState state)
+    private List<Data.Entities.User> GetKnownUsers(AuthenticationState state)
     {
+        if (state.DbUser == null) return [];
         var loggedinuser = state.DbUser;
         var knownusers =
             db.CompanyUsers
                 .Where(a => a.UserId == loggedinuser.Id)
-                .Select(a => a.Company)
+                .Select(a => a.Company!)
                 .SelectMany(c => c.CompanyUsers)
-                .Select(cu => cu.User)
+                .Select(cu => cu.User!)
                 .ToList();
         knownusers.Add(loggedinuser);
         knownusers = knownusers

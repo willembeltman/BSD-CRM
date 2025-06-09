@@ -1,19 +1,19 @@
+using BeltmanSoftwareDesign.Shared;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BeltmanSoftwareDesign.Data.Entities
+namespace BeltmanSoftwareDesign.Data.Entities;
+
+public partial class Residence : IEntity
 {
-    public partial class Residence
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long id { get; set; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public long Id { get; set; }
 
-        public long CompanyId { get; set; }
-        public virtual Company? Company { get; set; }
+    public long CompanyId { get; set; }
+    public virtual Company? Company { get; set; }
 
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public double WOZWaarde { get; set; }
-    }
+    public DateTime StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public double WOZWaarde { get; set; }
 }

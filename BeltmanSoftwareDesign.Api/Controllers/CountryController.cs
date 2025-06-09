@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BeltmanSoftwareDesign.Api.Controllers;
 
@@ -10,6 +10,6 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 public class CountryController(ICountryService CountryService) : BaseControllerBase
 {
     [HttpPost]
-    public CountryListResponse List(CountryListRequest request)
+    public CountryListResponse List(CountryListRequest request) 
         => CountryService.List(request);
 }

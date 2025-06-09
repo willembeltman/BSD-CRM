@@ -1,10 +1,9 @@
-﻿namespace BeltmanSoftwareDesign.Shared.Jsons
-{
-    public class InvoiceWorkorder
-    {
-        public long id { get; set; }
+﻿namespace BeltmanSoftwareDesign.Shared.Jsons;
 
-        public long? InvoiceId { get; set; }
-        public long? WorkorderId { get; set; }
-    }
+public class InvoiceWorkorder : IEntity
+{
+    public long Id { get; set; }
+
+    public long? InvoiceId { get; set; }
+    public long? WorkorderId { get; set; }
 }

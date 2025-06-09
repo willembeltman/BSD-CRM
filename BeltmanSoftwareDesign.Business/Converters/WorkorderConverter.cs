@@ -15,7 +15,7 @@
         {
             var dest = new Entities.Workorder()
             {
-                id = source.id,
+                Id = source.Id,
                 Start = source.Start,
                 Stop = source.Stop,
                 Name = source.Name,
@@ -37,7 +37,7 @@
 
             return new Shared.Jsons.Workorder
             {
-                id = a.id,
+                Id = a.Id,
                 Start = a.Start,
                 Stop = a.Stop,
                 Name = a.Name,
@@ -54,14 +54,9 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Workorder? source, Entities.Workorder? dest, Entities.Company? currentCompany, ApplicationDbContext db)
+        public bool Copy(Shared.Jsons.Workorder source, Entities.Workorder dest, Entities.Company currentCompany, ApplicationDbContext db)
         {
-            if (source == null ||
-                dest == null ||
-                currentCompany == null)
-                throw new NotImplementedException();
-
-            if (dest.CompanyId != currentCompany.id)
+            if (dest.CompanyId != currentCompany.Id)
                 throw new Exception("Cannot change companies");
 
             var changed = false;
@@ -93,43 +88,43 @@
             if (!string.IsNullOrEmpty(source.CustomerName))
             {
                 dest.Customer = db.Customers.FirstOrDefault(a =>
-                    a.CompanyId == currentCompany.id &&
+                    a.CompanyId == currentCompany.Id &&
                     a.Name.ToLower() == source.CustomerName.ToLower());
                 if (dest.Customer == null)
                 {
                     dest.Customer = new Data.Entities.Customer()
                     {
                         Name = source.CustomerName,
-                        CompanyId = currentCompany.id,
+                        CompanyId = currentCompany.Id,
                         Company = currentCompany,
                     };
                     db.Customers.Add(dest.Customer);
                     changed = true;
                 }
             }
-            dest.CustomerId = dest.Customer?.id;
+            dest.CustomerId = dest.Customer?.Id;
 
             dest.Project = null;
             if (!string.IsNullOrEmpty(source.ProjectName))
             {
                 dest.Project = db.Projects.FirstOrDefault(a =>
-                    a.CompanyId == currentCompany.id &&
+                    a.CompanyId == currentCompany.Id &&
                     a.Name.ToLower() == source.ProjectName.ToLower());
                 if (dest.Project == null)
                 {
                     dest.Project = new Data.Entities.Project()
                     {
                         Name = source.ProjectName,
-                        CompanyId = currentCompany.id,
+                        CompanyId = currentCompany.Id,
                         Company = currentCompany,
                         Customer = dest.Customer,
-                        CustomerId = dest.Customer?.id,
+                        CustomerId = dest.Customer?.Id,
                     };
                     db.Projects.Add(dest.Project);
                     changed = true;
                 }
             }
-            dest.ProjectId = dest.Project?.id;
+            dest.ProjectId = dest.Project?.Id;
 
 
             return changed;

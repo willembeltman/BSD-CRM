@@ -7,7 +7,7 @@ namespace BeltmanSoftwareDesign.Data.Entities
         [Key]
         [StringLength(64)]
         [Required]
-        public string? Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         public long? CurrentCompanyId { get; set; }
         public virtual Company? CurrentCompany { get; set; }

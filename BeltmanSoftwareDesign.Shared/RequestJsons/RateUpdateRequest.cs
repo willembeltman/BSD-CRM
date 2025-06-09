@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.RequestJsons
 {
     public class RateUpdateRequest : Request
     {
-        public Rate? Rate { get; set; }
+        public Rate Rate { get; set; } = new Rate();
     }
 }

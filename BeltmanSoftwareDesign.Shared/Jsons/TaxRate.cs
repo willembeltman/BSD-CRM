@@ -1,14 +1,13 @@
-﻿namespace BeltmanSoftwareDesign.Shared.Jsons
+﻿namespace BeltmanSoftwareDesign.Shared.Jsons;
+
+public class TaxRate : IEntity
 {
-    public class TaxRate
-    {
-        public long id { get; set; }
+    public long Id { get; set; }
 
-        public long? CountryId { get; set; }
-        public string? CountryName { get; set; }
+    public long? CountryId { get; set; }
+    public string? CountryName { get; set; }
 
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public double Percentage { get; set; }
-    }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public double Percentage { get; set; }
 }

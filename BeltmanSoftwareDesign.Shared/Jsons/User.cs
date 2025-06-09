@@ -1,13 +1,11 @@
-﻿namespace BeltmanSoftwareDesign.Shared.Jsons
+﻿namespace BeltmanSoftwareDesign.Shared.Jsons;
+
+public class User
 {
-    public class User
-    {
-        public string? id { get; set; }
+    public string id { get; set; } = string.Empty;
 
-        public string? userName { get; set; }
-        public string? email { get; set; }
-        public string? phoneNumber { get; set; }
-        public long? currentCompanyId { get; set; }
-    }
-
+    public string userName { get; set; } = string.Empty;
+    public string email { get; set; } = string.Empty;
+    public string phoneNumber { get; set; } = string.Empty;
+    public long? currentCompanyId { get; set; }
 }

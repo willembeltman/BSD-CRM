@@ -1,4 +1,4 @@
-﻿using CodeGenerator.Attributes;
+﻿using CodeGenerator.Library.Attributes;
 
 namespace BeltmanSoftwareDesign.Shared.RequestJsons
 {

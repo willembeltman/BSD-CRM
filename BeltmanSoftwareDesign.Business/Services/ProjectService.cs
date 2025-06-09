@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
@@ -26,7 +26,7 @@ public class ProjectService(ApplicationDbContext db, IAuthenticationService auth
             throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
 
         var dbproject = ProjectConverter.Create(request.Project);
-        dbproject.CompanyId = authentication.DbCurrentCompany.id;
+        dbproject.CompanyId = authentication.DbCurrentCompany.Id;
         db.Projects.Add(dbproject);
         db.SaveChanges();
 
@@ -58,8 +58,8 @@ public class ProjectService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.Invoices)
             .Include(a => a.Workorders)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.ProjectId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.ProjectId);
         if (dbproject == null)
             return new ProjectReadResponse()
             {
@@ -94,8 +94,8 @@ public class ProjectService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.Invoices)
             .Include(a => a.Workorders)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.Project.id);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.Project.Id);
         if (dbproject == null)
             return new ProjectUpdateResponse()
             {
@@ -133,8 +133,8 @@ public class ProjectService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.Invoices)
             .Include(a => a.Workorders)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.ProjectId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.ProjectId);
         if (dbproject == null)
             return new ProjectDeleteResponse()
             {
@@ -171,7 +171,7 @@ public class ProjectService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.Expenses)
             .Include(a => a.Invoices)
             .Include(a => a.Workorders)
-            .Where(a => a.CompanyId == authentication.DbCurrentCompany.id)
+            .Where(a => a.CompanyId == authentication.DbCurrentCompany.Id)
             .Select(a => ProjectConverter.Create(a))
             .ToArray();
 

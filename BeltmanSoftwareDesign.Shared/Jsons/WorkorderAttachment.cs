@@ -1,11 +1,10 @@
-﻿namespace BeltmanSoftwareDesign.Shared.Jsons
+﻿namespace BeltmanSoftwareDesign.Shared.Jsons;
+
+public class WorkorderAttachment : IEntity
 {
-    public class WorkorderAttachment
-    {
-        public long id { get; set; }
+    public long Id { get; set; }
 
-        public long WorkorderId { get; set; }
+    public long WorkorderId { get; set; }
 
-        public string? FileUrl { get; set; }
-    }
+    public string? FileUrl { get; set; }
 }

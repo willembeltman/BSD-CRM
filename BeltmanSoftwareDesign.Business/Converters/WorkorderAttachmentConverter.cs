@@ -8,7 +8,7 @@ namespace BeltmanSoftwareDesign.Data.Converters
         {
             return new Shared.Jsons.WorkorderAttachment()
             {
-                id = a.Id,
+                Id = a.Id,
                 WorkorderId = a.WorkorderId,
                 FileUrl = await a.GetUrl() ?? throw new ArgumentNullException(nameof(a)),
             };

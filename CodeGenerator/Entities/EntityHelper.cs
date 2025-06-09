@@ -16,6 +16,7 @@ namespace CodeGenerator.Entities
                 .ToArray();
             foreach (var parent in parents)
             {
+                if (parent.Type.Entity == null) continue;
                 var found = FindInParents(parent.Type.Entity, entitiesToFind, ConstrainedProperties);
                 if (found) return true;
             }

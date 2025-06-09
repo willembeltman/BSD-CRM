@@ -4,18 +4,14 @@
     {
         public Entities.Rate Create(Shared.Jsons.Rate source, Entities.Company currentCompany, ApplicationDbContext db)
         {
-            if (source == null ||
-                currentCompany == null)
-                throw new NotImplementedException();
-
             var dest = new Entities.Rate()
             {
-                id = source.id,
+                Id = source.Id,
                 Name = source.Name,
                 Description = source.Description,
                 Price = source.Price,
                 Company = currentCompany,
-                CompanyId = currentCompany.id,
+                CompanyId = currentCompany.Id,
             };
 
             Copy(source, dest, currentCompany, db);
@@ -27,7 +23,7 @@
         {
             return new Shared.Jsons.Rate
             {
-                id = a.id,
+                Id = a.Id,
                 TaxRateId = a.TaxRateId,
                 TaxRateName = a.TaxRate?.Name,
                 Name = a.Name,
@@ -36,14 +32,14 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Rate? source, Entities.Rate? dest, Entities.Company? currentCompany, ApplicationDbContext db)
+        public bool Copy(Shared.Jsons.Rate source, Entities.Rate dest, Entities.Company currentCompany, ApplicationDbContext db)
         {
             if (source == null ||
                 dest == null ||
                 currentCompany == null)
                 throw new NotImplementedException();
 
-            if (dest.CompanyId != currentCompany.id)
+            if (dest.CompanyId != currentCompany.Id)
                 throw new Exception("Cannot change companies");
 
             var changed = false;
@@ -66,24 +62,24 @@
 
             var taxRateNameLower = (source.TaxRateName ?? "").ToLower();
             var taxRate = db.TaxRates.FirstOrDefault(a =>
-                a.CompanyId == currentCompany.id &&
-                a.Name.ToLower() == taxRateNameLower);
+                a.CompanyId == currentCompany.Id &&
+                (a.Name ?? "").ToLower() == taxRateNameLower);
 
             if (taxRate == null)
             {
                 taxRate = new Data.Entities.TaxRate()
                 {
                     Name = source.TaxRateName,
-                    CompanyId = currentCompany.id,
+                    CompanyId = currentCompany.Id,
                     Company = currentCompany,
                 };
                 db.TaxRates.Add(taxRate);
                 changed = true;
             }
 
-            if (dest.TaxRateId != taxRate.id)
+            if (dest.TaxRateId != taxRate.Id)
             {
-                dest.TaxRateId = taxRate.id;
+                dest.TaxRateId = taxRate.Id;
                 changed = true;
             }
 

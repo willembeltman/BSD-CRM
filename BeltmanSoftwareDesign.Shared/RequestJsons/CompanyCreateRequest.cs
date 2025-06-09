@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.RequestJsons
 {
     public class CompanyCreateRequest : Request
     {
-        public Company? Company { get; set; }
+        public Company Company { get; set; } = new Company();
     }
 }

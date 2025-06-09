@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BeltmanSoftwareDesign.Shared;
+using System.ComponentModel.DataAnnotations;
 
-namespace BeltmanSoftwareDesign.Data.Entities
+namespace BeltmanSoftwareDesign.Data.Entities;
+
+public class ClientIpAddress : IEntity
 {
-    public class ClientIpAddress
-    {
-        [Key]
-        public long id { get; set; }
+    [Key]
+    public long Id { get; set; }
 
-        [StringLength(128)]
-        public string IpAddress { get; set; } = string.Empty;
+    [StringLength(128)]
+    public string IpAddress { get; set; } = string.Empty;
 
-        public virtual ICollection<ClientBearer> ClientBearers { get; set; } = new List<ClientBearer>();
-    }
+    public virtual ICollection<ClientBearer> ClientBearers { get; set; } = new List<ClientBearer>();
 }

@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
@@ -54,8 +54,8 @@ public class RateService(ApplicationDbContext db, IAuthenticationService authent
             .Include(a => a.Company)
             .Include(a => a.TaxRate)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.RateId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.RateId);
         if (dbrate == null)
             return new RateReadResponse()
             {
@@ -88,8 +88,8 @@ public class RateService(ApplicationDbContext db, IAuthenticationService authent
             .Include(a => a.Company)
             .Include(a => a.TaxRate)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.Rate.id);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.Rate.Id);
         if (dbrate == null)
             return new RateUpdateResponse()
             {
@@ -125,8 +125,8 @@ public class RateService(ApplicationDbContext db, IAuthenticationService authent
             .Include(a => a.Company)
             .Include(a => a.TaxRate)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.RateId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.RateId);
         if (dbrate == null)
             return new RateDeleteResponse()
             {
@@ -160,7 +160,7 @@ public class RateService(ApplicationDbContext db, IAuthenticationService authent
         var list = db.Rates
             .Include(a => a.Company)
             .Include(a => a.TaxRate)
-            .Where(a => a.CompanyId == authentication.DbCurrentCompany.id)
+            .Where(a => a.CompanyId == authentication.DbCurrentCompany.Id)
             .Select(a => RateConverter.Create(a))
             .ToArray();
 

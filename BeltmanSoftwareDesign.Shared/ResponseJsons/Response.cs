@@ -1,5 +1,5 @@
 ﻿using BeltmanSoftwareDesign.Shared.Jsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 
 namespace BeltmanSoftwareDesign.Shared.ResponseJsons
 {

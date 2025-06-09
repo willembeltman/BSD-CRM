@@ -1,11 +1,10 @@
-﻿namespace BeltmanSoftwareDesign.Shared.Jsons
+﻿namespace BeltmanSoftwareDesign.Shared.Jsons;
+
+public class Country : IEntity
 {
-    public class Country
-    {
-        public long id { get; set; }
+    public long Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
-        public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
 
-    }
 }

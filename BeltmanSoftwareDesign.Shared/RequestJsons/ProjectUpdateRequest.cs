@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.RequestJsons
 {
     public class ProjectUpdateRequest : Request
     {
-        public Project? Project { get; set; }
+        public Project Project { get; set; } = new Project();
     }
 }

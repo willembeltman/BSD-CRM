@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
@@ -56,7 +56,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
         var dbcompanyuser = new Data.Entities.CompanyUser()
         {
             Company = dbcompany,
-            CompanyId = dbcompany.id,
+            CompanyId = dbcompany.Id,
             User = state.DbUser,
             UserId = state.DbUser.Id,
             Eigenaar = true,
@@ -70,8 +70,8 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
         var company = CompanyConverter.Create(dbcompany);
 
         state.DbUser.CurrentCompany = dbcompany;
-        state.DbUser.CurrentCompanyId = dbcompany.id;
-        state.User.currentCompanyId = dbcompany.id;
+        state.DbUser.CurrentCompanyId = dbcompany.Id;
+        state.User.currentCompanyId = dbcompany.Id;
         state.DbCurrentCompany = dbcompany;
         state.CurrentCompany = company;
         db.SaveChanges();
@@ -108,7 +108,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
         var dbcompany = db.Companies
             .Include(a => a.Country)
             .FirstOrDefault(a =>
-                a.id == request.CompanyId &&
+                a.Id == request.CompanyId &&
                 a.CompanyUsers.Any(a => a.UserId == state.User.id));
         if (dbcompany == null)
             return new CompanyReadResponse()
@@ -136,7 +136,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(request);
-        if (!state.Success)
+        if (!state.Success || state.User == null || state.DbUser == null)
             return new CompanyUpdateResponse()
             {
                 ErrorAuthentication = true
@@ -145,7 +145,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
         // ===========================
 
         var dbcompany = db.Companies.FirstOrDefault(a =>
-            a.id == request.Company.id &&
+            a.Id == request.Company.Id &&
             a.CompanyUsers.Any(a => a.UserId == state.User.id));
         if (dbcompany == null)
             return new CompanyUpdateResponse()
@@ -159,10 +159,15 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
 
         // Convert it back
         var company = CompanyConverter.Create(dbcompany);
+        if (company == null)
+            return new CompanyUpdateResponse()
+            {
+                ErrorItemNotFound = true
+            };
 
         // Set current company to 
-        state.User.currentCompanyId = company.id;
-        state.DbUser.CurrentCompanyId = dbcompany.id;
+        state.User.currentCompanyId = company.Id;
+        state.DbUser.CurrentCompanyId = dbcompany.Id;
         state.DbUser.CurrentCompany = dbcompany;
         state.CurrentCompany = company;
         state.DbCurrentCompany = dbcompany;
@@ -185,7 +190,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
                 ErrorAuthentication = true
             };
         var state = authenticationService.GetState(request);
-        if (!state.Success)
+        if (!state.Success || state.User == null || state.DbUser == null)
             return new CompanyDeleteResponse()
             {
                 ErrorAuthentication = true
@@ -196,7 +201,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
         var dbcompany = db.Companies
             .Include(a => a.CompanyUsers)
             .FirstOrDefault(a =>
-                a.id == request.CompanyId &&
+                a.Id == request.CompanyId &&
                 a.CompanyUsers.Any(b => b.UserId == state.User.id && (b.Admin || b.Eigenaar)));
         if (dbcompany == null)
             return new CompanyDeleteResponse()
@@ -206,7 +211,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
 
 
         var userscurrentcompanywillbedeleted =
-            state.DbUser.CurrentCompanyId == dbcompany.id;
+            state.DbUser.CurrentCompanyId == dbcompany.Id;
 
         if (userscurrentcompanywillbedeleted)
         {
@@ -238,7 +243,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
             };
 
         var state = authenticationService.GetState(request);
-        if (!state.Success)
+        if (!state.Success || state.User == null || state.DbUser == null)
             return new CompanyListResponse()
             {
                 ErrorAuthentication = true
@@ -246,7 +251,7 @@ public class CompanyService(ApplicationDbContext db, IAuthenticationService auth
 
         var list = db.Companies
             .Where(a => a.CompanyUsers.Any(a => a.UserId == state.User.id))
-            .Select(a => CompanyConverter.Create(a))
+            .Select(a => CompanyConverter.Create(a)!)
             .ToArray();
 
         return new CompanyListResponse()

@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
@@ -28,7 +28,7 @@ public class InvoiceService(ApplicationDbContext db, IAuthenticationService auth
 
         var dbinvoice = InvoiceConverter.Create(request.Invoice);
 
-        dbinvoice.CompanyId = authentication.DbCurrentCompany.id;
+        dbinvoice.CompanyId = authentication.DbCurrentCompany.Id;
         dbinvoice.Company = authentication.DbCurrentCompany;
 
         //dbinvoice.Customer = null;
@@ -101,8 +101,8 @@ public class InvoiceService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.InvoiceAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.InvoiceId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.InvoiceId);
         if (dbinvoice == null)
             return new InvoiceReadResponse()
             {
@@ -138,8 +138,8 @@ public class InvoiceService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.InvoiceAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.Invoice.id);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.Invoice.Id);
         if (dbinvoice == null)
             return new InvoiceUpdateResponse()
             {
@@ -178,8 +178,8 @@ public class InvoiceService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.InvoiceAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.InvoiceId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.InvoiceId);
 
         if (dbinvoice == null)
             return new InvoiceDeleteResponse()
@@ -217,7 +217,7 @@ public class InvoiceService(ApplicationDbContext db, IAuthenticationService auth
             .Include(a => a.Project)
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.InvoiceAttachments)
-            .Where(a => a.CompanyId == authentication.DbCurrentCompany.id)
+            .Where(a => a.CompanyId == authentication.DbCurrentCompany.Id)
             .Select(a => InvoiceConverter.Create(a))
             .ToArray();
 

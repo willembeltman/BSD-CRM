@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BeltmanSoftwareDesign.Api.Controllers;
 
@@ -10,10 +10,10 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 public class AuthController(IAuthenticationService AuthenticationService) : BaseControllerBase
 {
     [HttpPost]
-    public LoginResponse Login(LoginRequest request)
+    public LoginResponse Login(LoginRequest request) 
         => AuthenticationService.Login(request);
 
     [HttpPost]
-    public RegisterResponse Register(RegisterRequest request)
+    public RegisterResponse Register(RegisterRequest request) 
         => AuthenticationService.Register(request);
 }

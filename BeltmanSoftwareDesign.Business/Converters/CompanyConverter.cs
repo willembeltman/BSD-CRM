@@ -2,12 +2,11 @@
 {
     public class CompanyConverter
     {
-        public Shared.Jsons.Company? Create(Entities.Company? a)
+        public Shared.Jsons.Company Create(Entities.Company a)
         {
-            if (a == null) return null;
             return new Shared.Jsons.Company
             {
-                id = a.id,
+                Id = a.Id,
                 Name = a.Name,
 
                 Address = a.Address,
@@ -26,12 +25,11 @@
                 Website = a.Website,
             };
         }
-        public Entities.Company? Create(Shared.Jsons.Company? a)
+        public Entities.Company Create(Shared.Jsons.Company a)
         {
-            if (a == null) return null;
             return new Entities.Company
             {
-                id = a.id,
+                Id = a.Id,
                 Name = a.Name,
                 Address = a.Address,
                 BtwNumber = a.BtwNumber,
@@ -49,15 +47,10 @@
             };
         }
 
-        public bool? Copy(Shared.Jsons.Company? source, Entities.Company dest)
+        public bool Copy(Shared.Jsons.Company source, Entities.Company dest)
         {
-            if (source == null || dest == null)
-            {
-                return null;
-            }
-
             var dirty = false;
-            if (dest.id != source.id) { dest.id = source.id; dirty = true; }
+            if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
             if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
             if (dest.Address != source.Address) { dest.Address = source.Address; dirty = true; }
             if (dest.BtwNumber != source.BtwNumber) { dest.BtwNumber = source.BtwNumber; dirty = true; }

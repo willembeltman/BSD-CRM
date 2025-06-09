@@ -2,9 +2,7 @@
 
 namespace BeltmanSoftwareDesign.Shared.RequestJsons;
 
-#nullable disable
-
 public class WorkorderUpdateRequest : Request
 {
-    public Workorder Workorder { get; set; }
+    public Workorder Workorder { get; set; } = new Workorder();
 }

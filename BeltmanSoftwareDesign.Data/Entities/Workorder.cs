@@ -1,4 +1,5 @@
 ﻿using BeltmanSoftwareDesign.Data.Attributes;
+using BeltmanSoftwareDesign.Shared;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,11 +7,11 @@ namespace BeltmanSoftwareDesign.Data.Entities;
 
 #nullable disable
 
-public class Workorder
+public class Workorder : IEntity
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public long id { get; set; }
+    public long Id { get; set; }
 
     public long CompanyId { get; set; }
     public virtual Company Company { get; set; }

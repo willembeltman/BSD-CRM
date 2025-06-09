@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 using StorageServer.Proxy;
 
@@ -58,8 +58,8 @@ public class WorkorderService(ApplicationDbContext db, IAuthenticationService au
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.WorkorderAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.WorkorderId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.WorkorderId);
         if (dbworkorder == null)
             return new WorkorderReadResponse()
             {
@@ -95,8 +95,8 @@ public class WorkorderService(ApplicationDbContext db, IAuthenticationService au
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.WorkorderAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.Workorder.id);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.Workorder.Id);
         if (dbworkorder == null)
             return new WorkorderUpdateResponse()
             {
@@ -135,8 +135,8 @@ public class WorkorderService(ApplicationDbContext db, IAuthenticationService au
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.WorkorderAttachments)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.WorkorderId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.WorkorderId);
         if (dbworkorder == null)
             return new WorkorderDeleteResponse()
             {
@@ -178,7 +178,7 @@ public class WorkorderService(ApplicationDbContext db, IAuthenticationService au
             .Include(a => a.Project)
             .Include(a => a.InvoiceWorkorders)
             .Include(a => a.WorkorderAttachments)
-            .Where(a => a.CompanyId == authentication.DbCurrentCompany.id)
+            .Where(a => a.CompanyId == authentication.DbCurrentCompany.Id)
             .ToListAsync();
 
         var list = new List<Shared.Jsons.Workorder>();

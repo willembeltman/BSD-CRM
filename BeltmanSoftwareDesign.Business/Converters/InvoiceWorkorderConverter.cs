@@ -6,7 +6,7 @@
         {
             return new Shared.Jsons.InvoiceWorkorder()
             {
-                id = a.id,
+                Id = a.Id,
                 InvoiceId = a.InvoiceId,
                 WorkorderId = a.WorkorderId,
             };

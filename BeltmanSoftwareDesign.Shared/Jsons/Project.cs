@@ -1,13 +1,12 @@
-﻿namespace BeltmanSoftwareDesign.Shared.Jsons
+﻿namespace BeltmanSoftwareDesign.Shared.Jsons;
+
+public class Project : IEntity
 {
-    public class Project
-    {
-        public long id { get; set; }
+    public long Id { get; set; }
 
-        public long? CustomerId { get; set; }
-        public string? CustomerName { get; set; }
+    public long? CustomerId { get; set; }
+    public string? CustomerName { get; set; }
 
-        public string? Name { get; set; }
-        public bool Publiekelijk { get; set; }
-    }
+    public string Name { get; set; } = string.Empty;
+    public bool Publiekelijk { get; set; }
 }

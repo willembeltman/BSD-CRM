@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
-using CodeGenerator.Attributes;
+using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
@@ -26,9 +26,14 @@ public class CustomerService(ApplicationDbContext db, IAuthenticationService aut
             throw new Exception("Current company not chosen or doesn't exist, please create a company or select one.");
 
         var dbcustomer = CustomerConverter.Create(request.Customer);
+        if (dbcustomer == null)
+            return new CustomerCreateResponse()
+            {
+                ErrorAuthentication = true
+            };
 
         dbcustomer.Company = authentication.DbCurrentCompany;
-        dbcustomer.CompanyId = authentication.DbCurrentCompany.id;
+        dbcustomer.CompanyId = authentication.DbCurrentCompany.Id;
 
         db.Customers.Add(dbcustomer);
         db.SaveChanges();
@@ -62,8 +67,8 @@ public class CustomerService(ApplicationDbContext db, IAuthenticationService aut
             .Include(a => a.Expenses)
             .Include(a => a.Documents)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.CustomerId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.CustomerId);
 
         if (dbcustomer == null)
             return new CustomerReadResponse()
@@ -100,8 +105,8 @@ public class CustomerService(ApplicationDbContext db, IAuthenticationService aut
             .Include(a => a.Expenses)
             .Include(a => a.Documents)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.Customer.id);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.Customer.Id);
         if (dbcustomer == null)
             return new CustomerUpdateResponse()
             {
@@ -140,8 +145,8 @@ public class CustomerService(ApplicationDbContext db, IAuthenticationService aut
             .Include(a => a.Expenses)
             .Include(a => a.Documents)
             .FirstOrDefault(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id &&
-                a.id == request.CustomerId);
+                a.CompanyId == authentication.DbCurrentCompany.Id &&
+                a.Id == request.CustomerId);
 
         if (dbcustomer == null)
             return new CustomerDeleteResponse()
@@ -180,9 +185,8 @@ public class CustomerService(ApplicationDbContext db, IAuthenticationService aut
             .Include(a => a.Invoices)
             .Include(a => a.Expenses)
             .Include(a => a.Documents)
-            .Where(a =>
-                a.CompanyId == authentication.DbCurrentCompany.id)
-            .Select(a => CustomerConverter.Create(a))
+            .Where(a => a.CompanyId == authentication.DbCurrentCompany.Id)
+            .Select(a => CustomerConverter.Create(a)!)
             .ToArray();
 
         return new CustomerListResponse()

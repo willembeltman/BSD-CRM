@@ -4,10 +4,9 @@
     {
         public Entities.Invoice Create(Shared.Jsons.Invoice a)
         {
-            //throw new NotImplementedException();
             return new Entities.Invoice()
             {
-                id = a.id,
+                Id = a.Id,
 
                 Description = a.Description,
                 CustomerId = a.CustomerId,
@@ -18,11 +17,9 @@
 
         public Shared.Jsons.Invoice Create(Entities.Invoice a)
         {
-            //var test = Convert.ToInt32(1);
-            //throw new NotImplementedException();
             return new Shared.Jsons.Invoice
             {
-                id = a.id,
+                Id = a.Id,
                 Date = a.Date,
                 IsPayed = a.IsPayedInCash,
                 IsPayedInCash = a.IsPayedInCash,
@@ -35,9 +32,8 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Invoice? source, Entities.Invoice dest)
+        public bool Copy(Shared.Jsons.Invoice source, Entities.Invoice dest)
         {
-            //throw new NotImplementedException();
             var changed = false;
             if (dest.CustomerId != source.CustomerId)
             {

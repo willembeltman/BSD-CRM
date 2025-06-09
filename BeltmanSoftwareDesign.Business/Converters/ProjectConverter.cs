@@ -6,7 +6,7 @@
         {
             return new Shared.Jsons.Project()
             {
-                id = a.id,
+                Id = a.Id,
                 CustomerId = a.CustomerId,
                 CustomerName = a.Customer?.Name,
                 Name = a.Name,
@@ -17,14 +17,14 @@
         {
             return new Entities.Project()
             {
-                id = a.id,
+                Id = a.Id,
                 CustomerId = a.CustomerId,
                 Name = a.Name,
                 Publiekelijk = a.Publiekelijk,
             };
         }
 
-        public bool Copy(Shared.Jsons.Project? source, Entities.Project dest)
+        public bool Copy(Shared.Jsons.Project source, Entities.Project dest)
         {
             var changed = false;
             if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; changed = true; }

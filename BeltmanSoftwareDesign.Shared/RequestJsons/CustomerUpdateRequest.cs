@@ -4,6 +4,6 @@ namespace BeltmanSoftwareDesign.Shared.RequestJsons
 {
     public class CustomerUpdateRequest : Request
     {
-        public Customer? Customer { get; set; }
+        public Customer Customer { get; set; } = new Customer();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CodeGenerator.Helpers;
+﻿namespace CodeGenerator.ApiAndProxies.Helpers;
 
 public static class NameHelper
 {

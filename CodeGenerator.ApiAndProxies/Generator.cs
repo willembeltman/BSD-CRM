@@ -1,7 +1,7 @@
-﻿using CodeGenerator.Helpers;
-using CodeGenerator.Shared;
+﻿using CodeGenerator.ApiAndProxies.Helpers;
+using CodeGenerator.ApiAndProxies.Shared;
 
-namespace CodeGenerator;
+namespace CodeGenerator.ApiAndProxies;
 
 public class Generator(GeneratorConfig generatorConfig)
 {
@@ -201,7 +201,7 @@ public class Generator(GeneratorConfig generatorConfig)
             var namespaces1 = tsService.GroupBy(a => a.RequestTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
             var namespaces2 = tsService.GroupBy(a => a.ResponseTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
             var namespaces = namespaces1.Concat(namespaces2).GroupBy(a => a).Select(a => a.Key).ToArray();
-            var servicenames = tsService.GroupBy(a => a.Service.NameWithService).Select(a => a.Key).ToArray();
+            var servicenames = tsService.GroupBy(a => a.Service.Name).Select(a => a.Key).ToArray();
 
 
             //using Microsoft.AspNetCore.Mvc;
@@ -279,7 +279,7 @@ public class Generator(GeneratorConfig generatorConfig)
 
                     text += $"    [HttpPost]" + Environment.NewLine;
                     text += $"    public async Task<{method.ResponseTypeRapport.Name}> {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"        => await {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
+                    text += $"        => await {method.Service.Name}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
                 else
                 {
@@ -289,7 +289,7 @@ public class Generator(GeneratorConfig generatorConfig)
 
                     text += $"    [HttpPost]" + Environment.NewLine;
                     text += $"    public {method.ResponseTypeRapport.Name} {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
-                    text += $"        => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
+                    text += $"        => {method.Service.Name}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
                 }
             }
 
@@ -325,7 +325,7 @@ public class Generator(GeneratorConfig generatorConfig)
             var namespaces1 = tsService.GroupBy(a => a.RequestTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
             var namespaces2 = tsService.GroupBy(a => a.ResponseTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
             var namespaces = namespaces1.Concat(namespaces2).GroupBy(a => a).Select(a => a.Key).ToArray();
-            var servicenames = tsService.GroupBy(a => a.Service.NameWithService).Select(a => a.Key).ToArray();
+            var servicenames = tsService.GroupBy(a => a.Service.Name).Select(a => a.Key).ToArray();
 
             //using BeltmanSoftwareDesign.Shared.RequestJsons;
             //using BeltmanSoftwareDesign.Shared.ResponseJsons;

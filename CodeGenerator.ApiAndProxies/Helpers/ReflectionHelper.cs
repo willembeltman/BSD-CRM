@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace CodeGenerator.Helpers;
+namespace CodeGenerator.ApiAndProxies.Helpers;
 
 public static class ReflectionHelper
 {

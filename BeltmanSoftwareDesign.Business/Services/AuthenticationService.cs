@@ -4,7 +4,7 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.Requests;
 using BeltmanSoftwareDesign.Shared.Responses;
-using CodeGenerator.Library.Attributes;
+using CodeGenerator.Shared.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

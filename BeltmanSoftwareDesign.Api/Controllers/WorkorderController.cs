@@ -8,25 +8,25 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class WorkorderController(IWorkorderService WorkorderService) : BaseControllerBase
+public class WorkorderController(IWorkorder Workorder) : BaseControllerBase
 {
     [HttpPost]
     public async Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request) 
-        => await WorkorderService.CreateAsync(request);
+        => await Workorder.CreateAsync(request);
 
     [HttpPost]
     public async Task<WorkorderReadResponse> ReadAsync(WorkorderReadRequest request) 
-        => await WorkorderService.ReadAsync(request);
+        => await Workorder.ReadAsync(request);
 
     [HttpPost]
     public async Task<WorkorderUpdateResponse> UpdateAsync(WorkorderUpdateRequest request) 
-        => await WorkorderService.UpdateAsync(request);
+        => await Workorder.UpdateAsync(request);
 
     [HttpPost]
     public async Task<WorkorderDeleteResponse> DeleteAsync(WorkorderDeleteRequest request) 
-        => await WorkorderService.DeleteAsync(request);
+        => await Workorder.DeleteAsync(request);
 
     [HttpPost]
     public async Task<WorkorderListResponse> ListAsync(WorkorderListRequest request) 
-        => await WorkorderService.ListAsync(request);
+        => await Workorder.ListAsync(request);
 }

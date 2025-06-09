@@ -1,8 +1,8 @@
-﻿using CodeGenerator.Models;
-using CodeGenerator.Services;
+﻿using CodeGenerator.ApiAndProxies.Models;
+using CodeGenerator.ApiAndProxies.Services;
 using System.Reflection;
 
-namespace CodeGenerator.Shared;
+namespace CodeGenerator.ApiAndProxies.Shared;
 
 public class GeneratorConfig
 {

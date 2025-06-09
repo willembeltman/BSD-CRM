@@ -1,4 +1,4 @@
-﻿namespace CodeGenerator.Services;
+﻿namespace CodeGenerator.ApiAndProxies.Services;
 
 public class ServiceInterface
 {

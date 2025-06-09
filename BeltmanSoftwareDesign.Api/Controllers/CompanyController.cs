@@ -8,25 +8,25 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class CompanyController(ICompanyService CompanyService) : BaseControllerBase
+public class CompanyController(ICompany Company) : BaseControllerBase
 {
     [HttpPost]
     public CompanyCreateResponse Create(CompanyCreateRequest request) 
-        => CompanyService.Create(request);
+        => Company.Create(request);
 
     [HttpPost]
     public CompanyReadResponse Read(CompanyReadRequest request) 
-        => CompanyService.Read(request);
+        => Company.Read(request);
 
     [HttpPost]
     public CompanyUpdateResponse Update(CompanyUpdateRequest request) 
-        => CompanyService.Update(request);
+        => Company.Update(request);
 
     [HttpPost]
     public CompanyDeleteResponse Delete(CompanyDeleteRequest request) 
-        => CompanyService.Delete(request);
+        => Company.Delete(request);
 
     [HttpPost]
     public CompanyListResponse List(CompanyListRequest request) 
-        => CompanyService.List(request);
+        => Company.List(request);
 }

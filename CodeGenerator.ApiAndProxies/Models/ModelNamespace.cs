@@ -1,7 +1,7 @@
-﻿using CodeGenerator.Shared;
+﻿using CodeGenerator.ApiAndProxies.Shared;
 using System.Reflection;
 
-namespace CodeGenerator.Models
+namespace CodeGenerator.ApiAndProxies.Models
 {
     public class ModelNamespace
     {

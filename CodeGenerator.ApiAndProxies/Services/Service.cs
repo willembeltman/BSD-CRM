@@ -1,4 +1,6 @@
-﻿namespace CodeGenerator.Services;
+﻿using CodeGenerator.ApiAndProxies.Services;
+
+namespace CodeGenerator.ApiAndProxies.Services;
 
 public class Service
 {
@@ -12,10 +14,10 @@ public class Service
         if (type.FullName == null) throw new ArgumentException("Type must have a full name.", nameof(type));
 
         Fullname = type.FullName;
-        NameWithService = type.Name;
-        if (NameWithService.ToLower().EndsWith(ServiceNameEnd.ToLower()))
-            Name = NameWithService
-                .Substring(0, NameWithService.Length - ServiceNameEnd.Length);
+        Name = type.Name;
+        if (Name.ToLower().EndsWith(ServiceNameEnd.ToLower()))
+            Name = Name
+                .Substring(0, Name.Length - ServiceNameEnd.Length);
 
         Methods = type
             .GetMethods()
@@ -31,13 +33,7 @@ public class Service
 
     public ServiceNamespace ServicesNamespace { get; }
     public string Fullname { get; }
-    public string NameWithService { get; }
     public string Name { get; }
     public ServiceMethod[] Methods { get; }
     internal ServiceInterface[] Interfaces { get; }
-
-    public override string ToString()
-    {
-        return Name;
-    }
 }

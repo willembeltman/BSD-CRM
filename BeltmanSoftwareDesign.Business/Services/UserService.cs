@@ -6,7 +6,7 @@ using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.Dtos;
 using BeltmanSoftwareDesign.Shared.Requests;
 using BeltmanSoftwareDesign.Shared.Responses;
-using CodeGenerator.Library.Attributes;
+using CodeGenerator.Shared.Attributes;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 

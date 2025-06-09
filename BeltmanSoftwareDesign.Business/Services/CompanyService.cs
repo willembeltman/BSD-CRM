@@ -4,7 +4,7 @@ using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.Requests;
 using BeltmanSoftwareDesign.Shared.Responses;
-using CodeGenerator.Library.Attributes;
+using CodeGenerator.Shared.Attributes;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
@@ -19,12 +19,6 @@ public class CompanyService(
     [TsServiceMethod("Company", "Create")]
     public CompanyCreateResponse Create(CompanyCreateRequest request)
     {
-        if (request == null)
-            return new CompanyCreateResponse()
-            {
-                ErrorAuthentication = true
-            };
-
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyCreateResponse()
@@ -32,10 +26,6 @@ public class CompanyService(
                 ErrorAuthentication = true
             };
 
-        // ===========================
-
-        if (request.Company == null)
-            return new CompanyCreateResponse();
         if (state.User == null)
             return new CompanyCreateResponse();
         if (state.DbUser == null)

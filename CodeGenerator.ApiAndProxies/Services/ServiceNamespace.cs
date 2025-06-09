@@ -1,8 +1,8 @@
-﻿using CodeGenerator.Library.Attributes;
-using CodeGenerator.Shared;
+﻿using CodeGenerator.ApiAndProxies.Shared;
+using CodeGenerator.Shared.Attributes;
 using System.Reflection;
 
-namespace CodeGenerator.Services
+namespace CodeGenerator.ApiAndProxies.Services
 {
     public class ServiceNamespace
     {

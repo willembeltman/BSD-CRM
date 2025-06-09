@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StorageService.Proxy\StorageServer.Proxy.csproj" />
+    <ProjectReference Include="..\CodeGenerator.Business\CodeGenerator.Shared.csproj" />
     <ProjectReference Include="..\BeltmanSoftwareDesign.Shared\BeltmanSoftwareDesign.Shared.csproj" />
   </ItemGroup>
 

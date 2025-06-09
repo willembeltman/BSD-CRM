@@ -1,8 +1,6 @@
-﻿
-using CodeGenerator.Helpers;
+﻿using CodeGenerator.ApiAndProxies.Helpers;
 
-namespace CodeGenerator.Models;
-
+namespace CodeGenerator.ApiAndProxies.Models;
 
 public class Model
 {

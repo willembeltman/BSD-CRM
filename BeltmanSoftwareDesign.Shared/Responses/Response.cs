@@ -1,5 +1,5 @@
 ﻿using BeltmanSoftwareDesign.Shared.Dtos;
-using CodeGenerator.Library.Attributes;
+using CodeGenerator.Shared.Attributes;
 
 namespace BeltmanSoftwareDesign.Shared.Responses
 {

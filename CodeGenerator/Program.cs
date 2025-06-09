@@ -1,5 +1,5 @@
-﻿using CodeGenerator;
-using CodeGenerator.Shared;
+﻿using CodeGenerator.ApiAndProxies;
+using CodeGenerator.ApiAndProxies.Shared;
 
 var codeGeneratorConfiguration = new GeneratorConfig(
     AngularAppDirectory:                    @"..\..\..\..\BeltmanSoftwareDesign.Angular\src\app",

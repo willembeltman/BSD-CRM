@@ -1,4 +1,4 @@
-﻿using BeltmanSoftwareDesign.Business.Interfaces;
+﻿using BeltmanSoftwareDesign.Shared.Interfaces;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 

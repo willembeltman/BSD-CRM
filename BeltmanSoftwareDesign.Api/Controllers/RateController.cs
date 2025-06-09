@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using BeltmanSoftwareDesign.Business.Interfaces;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BeltmanSoftwareDesign.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 public class RateController(IRateService RateService) : BaseControllerBase
 {
     [HttpPost]
-    public RateCreateResponse Create(RateCreateRequest request) 
+    public RateCreateResponse Create(RateCreateRequest request)
         => RateService.Create(request);
 
     [HttpPost]
-    public RateReadResponse Read(RateReadRequest request) 
+    public RateReadResponse Read(RateReadRequest request)
         => RateService.Read(request);
 
     [HttpPost]
-    public RateUpdateResponse Update(RateUpdateRequest request) 
+    public RateUpdateResponse Update(RateUpdateRequest request)
         => RateService.Update(request);
 
     [HttpPost]
-    public RateDeleteResponse Delete(RateDeleteRequest request) 
+    public RateDeleteResponse Delete(RateDeleteRequest request)
         => RateService.Delete(request);
 
     [HttpPost]
-    public RateListResponse List(RateListRequest request) 
+    public RateListResponse List(RateListRequest request)
         => RateService.List(request);
 }

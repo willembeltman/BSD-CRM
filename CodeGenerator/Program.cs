@@ -2,11 +2,13 @@
 using CodeGenerator.Shared;
 
 var codeGeneratorConfiguration = new GeneratorConfig(
-    AngularApiServicesDirectory:        @"..\..\..\..\BeltmanSoftwareDesign.Angular\src\app\apiservices",
-    AngularApiServicesDirectoryName:    @"apiservices",
-    DotNetControllersDirectory:         @"..\..\..\..\BeltmanSoftwareDesign.Api\Controllers",
-    AngularAppDirectory:                @"..\..\..\..\BeltmanSoftwareDesign.Angular\src\app",
-    ControllersNamespace:               @"BeltmanSoftwareDesign.Api.Controllers",
+    AngularAppDirectory:                    @"..\..\..\..\BeltmanSoftwareDesign.Angular\src\app",
+    AngularApiServicesDirectory:            @"..\..\..\..\BeltmanSoftwareDesign.Angular\src\app\apiservices",
+    AngularApiServicesDirectoryShortName:   @"apiservices",
+    DotNetControllersDirectory:             @"..\..\..\..\BeltmanSoftwareDesign.Api\Controllers",
+    DotNetControllersNamespace:             @"BeltmanSoftwareDesign.Api.Controllers",
+    DotNetProxiesDirectory:                 @"..\..\..\..\BeltmanSoftwareDesign.Proxy",
+    DotNetProxiesNamespace:                 @"BeltmanSoftwareDesign.Proxy",
     ModelNamespaces:
         [(
             Assembly:                   typeof(BeltmanSoftwareDesign.Shared.Jsons.Company).Assembly,

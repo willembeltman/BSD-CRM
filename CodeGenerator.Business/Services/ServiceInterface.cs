@@ -5,7 +5,7 @@ public class ServiceInterface
     public Service Service { get; }
     public string Name { get; }
     public string FullName { get; }
-    public string Namespace { get;}
+    public string Namespace { get; }
 
     public ServiceInterface(Service service, Type type)
     {

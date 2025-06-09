@@ -238,6 +238,6 @@ public static class ReflectionHelper
     public static string GetNamespace(Type type)
     {
         return type.Namespace ?? string.Empty;
-    }   
+    }
 }
 

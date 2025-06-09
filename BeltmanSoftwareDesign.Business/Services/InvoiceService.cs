@@ -1,6 +1,7 @@
 ﻿using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Library.Attributes;
@@ -9,7 +10,10 @@ using Microsoft.EntityFrameworkCore;
 namespace BeltmanSoftwareDesign.Business.Services;
 
 
-public class InvoiceService(ApplicationDbContext db, IAuthenticationService authenticationService) : IInvoiceService
+public class InvoiceService(
+    ApplicationDbContext db,
+    IAuthenticationStateService authenticationService)
+    : IInvoiceService
 {
     InvoiceConverter InvoiceConverter = new InvoiceConverter();
 

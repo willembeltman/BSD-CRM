@@ -2,6 +2,7 @@
 using BeltmanSoftwareDesign.Business.Models;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.Jsons;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
@@ -9,7 +10,10 @@ using CodeGenerator.Library.Attributes;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-public class UserService(ApplicationDbContext db, IAuthenticationService authenticationService) : IUserService
+public class UserService(
+    ApplicationDbContext db,
+    IAuthenticationStateService authenticationService)
+    : IUserService
 {
     UserConverter UserConverter = new UserConverter();
     CompanyConverter CompanyConverter = new CompanyConverter();

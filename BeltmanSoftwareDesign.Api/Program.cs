@@ -1,6 +1,6 @@
-using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Business.Services;
 using BeltmanSoftwareDesign.Data;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

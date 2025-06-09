@@ -1,6 +1,7 @@
 ﻿using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Library.Attributes;
@@ -9,7 +10,10 @@ using StorageServer.Proxy;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-public class WorkorderService(ApplicationDbContext db, IAuthenticationService authenticationService) : IWorkorderService
+public class WorkorderService(
+    ApplicationDbContext db,
+    IAuthenticationStateService authenticationService)
+    : IWorkorderService
 {
     WorkorderConverter WorkorderConverter = new WorkorderConverter();
 

@@ -1,7 +1,7 @@
 using BeltmanSoftwareDesign.Blazor.Components;
-using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Business.Services;
 using BeltmanSoftwareDesign.Data;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using StorageServer.Proxy;
 

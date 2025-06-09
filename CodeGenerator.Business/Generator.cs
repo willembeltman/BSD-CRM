@@ -1,6 +1,6 @@
 ﻿using CodeGenerator.Helpers;
-using CodeGenerator.Services;
 using CodeGenerator.Shared;
+using System.Net.Http.Json;
 
 namespace CodeGenerator;
 
@@ -87,7 +87,7 @@ public class Generator(GeneratorConfig generatorConfig)
     }
     private void ExportTsProxies()
     {
-        var huidigeTsFolder = Config.AngularApiServicesDirectoryName;
+        var huidigeTsFolder = Config.AngularApiServicesDirectoryShortName;
 
         var allmethods = Config.ServiceNamespaces
             .SelectMany(a => a.Services)
@@ -244,7 +244,7 @@ public class Generator(GeneratorConfig generatorConfig)
             }
 
             text += @"" + Environment.NewLine;
-            text += $"namespace {Config.ControllersNamespace};" + Environment.NewLine;
+            text += $"namespace {Config.DotNetControllersNamespace};" + Environment.NewLine;
             text += @"" + Environment.NewLine;
             text += @"[ApiController]" + Environment.NewLine;
             text += @"[Route(""[controller]/[action]"")]" + Environment.NewLine;
@@ -308,130 +308,115 @@ public class Generator(GeneratorConfig generatorConfig)
     }
     private void ExportCsProxies()
     {
-        //var list = NamespacesList.ServiceNamespaces
-        //    .SelectMany(a => a.Services)
-        //    .SelectMany(a => a.Methods);
+        var list = Config.ServiceNamespaces
+            .SelectMany(a => a.Services)
+            .SelectMany(a => a.Methods);
 
-        //var interfaceNamespaces = NamespacesList.ServiceNamespaces
-        //    .SelectMany(a => a.Services)
-        //    .SelectMany(a => a.Interfaces)
-        //    .GroupBy(a => a.Namespace)
-        //    .Select(a => a.Key)
-        //    .ToArray();
+        var interfaceNamespaces = Config.ServiceNamespaces
+            .SelectMany(a => a.Services)
+            .SelectMany(a => a.Interfaces)
+            .GroupBy(a => a.Namespace)
+            .Select(a => a.Key)
+            .ToArray();
 
-        //var tsServices = list.GroupBy(a => a.TsServiceName);
-        //foreach (var tsService in tsServices)
-        //{
-        //    var imports = new List<string>();
-        //    var namespaces1 = tsService.GroupBy(a => a.RequestTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
-        //    var namespaces2 = tsService.GroupBy(a => a.ResponseTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
-        //    var namespaces = namespaces1.Concat(namespaces2).GroupBy(a => a).Select(a => a.Key).ToArray();
-        //    var servicenames = tsService.GroupBy(a => a.Service.NameWithService).Select(a => a.Key).ToArray();
+        var tsServices = list.GroupBy(a => a.TsServiceName);
+        foreach (var tsService in tsServices)
+        {
+            var imports = new List<string>();
+            var namespaces1 = tsService.GroupBy(a => a.RequestTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
+            var namespaces2 = tsService.GroupBy(a => a.ResponseTypeRapport.Model!.ModelsNamespace.Name).Select(a => a.Key).ToArray();
+            var namespaces = namespaces1.Concat(namespaces2).GroupBy(a => a).Select(a => a.Key).ToArray();
+            var servicenames = tsService.GroupBy(a => a.Service.NameWithService).Select(a => a.Key).ToArray();
 
-        //    //using StorageServer.Shared.Interfaces;
+            //using BeltmanSoftwareDesign.Shared.RequestJsons;
+            //using BeltmanSoftwareDesign.Shared.ResponseJsons;
+            //using System.Net.Http.Json;
 
-        //    //namespace StorageServer.Proxy;
+            //namespace BeltmanSoftwareDesign.Proxy;
 
-        //    //public class ProxyService : IProxyService
-        //    //{
-        //    //    public async Task<string> GetUrl(IStorageFile storageFile)
-        //    //    {
-        //    //        return await storageFile.GetUrl();
-        //    //    }
-        //    //    public async Task<bool> Exists(IStorageFile storageFile)
-        //    //    {
-        //    //        return await storageFile.Exists();
-        //    //    }
-        //    //    public async Task<Stream> Open(IStorageFile storageFile)
-        //    //    {
-        //    //        return await storageFile.Open();
-        //    //    }
-        //    //    public async Task Save(IStorageFile storageFile, string fileName, string mimeType, Stream stream, bool allowOverwrite = true)
-        //    //    {
-        //    //        await storageFile.Save(fileName, mimeType, stream, allowOverwrite);
-        //    //    }
-        //    //    public async Task<bool> Delete(IStorageFile storageFile, bool throwIfNotFound = true)
-        //    //    {
-        //    //        return await storageFile.Delete(throwIfNotFound);
-        //    //    }
-        //    //}
+            //public class AuthProxy(HttpClient httpClient)
+            //{
+            //    public async Task<LoginResponse> Login(LoginRequest request)
+            //    {
+            //        var response = await httpClient.PostAsJsonAsync("/Auth/Login", request);
+            //        response.EnsureSuccessStatusCode();
 
+            //        var responseData = await response.Content.ReadFromJsonAsync<LoginResponse>()
+            //            ?? throw new Exception("Could not cast response data");
 
-        //    var text = string.Empty;
-        //    text += @"using Microsoft.AspNetCore.Mvc;" + Environment.NewLine;
+            //        return responseData;
+            //    }
+            //    public async Task<RegisterResponse> Register(RegisterRequest request)
+            //    {
+            //        using var response = await httpClient.PostAsJsonAsync("/Auth/Register", request);
+            //        response.EnsureSuccessStatusCode();
 
-        //    foreach (var name in interfaceNamespaces)
-        //    {
-        //        text += $"using {name};" + Environment.NewLine;
-        //    }
+            //        var responseData = await response.Content.ReadFromJsonAsync<RegisterResponse>()
+            //            ?? throw new Exception("Could not cast response data");
 
-        //    foreach (var name in namespaces)
-        //    {
-        //        text += $"using {name};" + Environment.NewLine;
-        //    }
-
-        //    text += @"" + Environment.NewLine;
-        //    text += @"namespace BeltmanSoftwareDesign.Api.Controllers;" + Environment.NewLine;
-        //    text += @"" + Environment.NewLine;
-        //    text += @"[ApiController]" + Environment.NewLine;
-        //    text += @"[Route(""[controller]/[action]"")]" + Environment.NewLine;
-        //    text += $"public class {tsService.Key}Controller(";
-
-        //    var first = true;
-        //    foreach (var servicename in servicenames)
-        //    {
-        //        if (first)
-        //            first = false;
-        //        else
-        //            text += ", ";
-        //        text += $"I{servicename} {servicename}";
-        //    }
-
-        //    text += @") : BaseControllerBase" + Environment.NewLine;
-        //    text += @"{" + Environment.NewLine;
+            //        return responseData;
+            //    }
+            //}
 
 
-        //    first = true;
-        //    foreach (var method in tsService)
-        //    {
-        //        if (first)
-        //            first = false;
-        //        else
-        //            text += Environment.NewLine;
+            var text = string.Empty;
+            text += @"using System.Net.Http.Json;" + Environment.NewLine;
+            //foreach (var name in interfaceNamespaces)
+            //{
+            //    text += $"using {name};" + Environment.NewLine;
+            //}
 
-        //        if (method.ResponseTypeRapport.Async)
-        //        {
-        //            //[HttpPost]
-        //            //public Task<WorkorderCreateResponse> CreateAsync(WorkorderCreateRequest request)
-        //            //    => WorkorderService.CreateAsync(request);
+            foreach (var name in namespaces)
+            {
+                text += $"using {name};" + Environment.NewLine;
+            }
 
-        //            text += $"    [HttpPost]" + Environment.NewLine;
-        //            text += $"    public async Task<{method.ResponseTypeRapport.Name}> {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
-        //            text += $"        => await {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
-        //        }
-        //        else
-        //        {
-        //            //[HttpPost]
-        //            //public LoginResponse? Login(LoginRequest request)
-        //            //    => AuthenticationService.Login(request);
+            text += @"" + Environment.NewLine;
+            text += $"namespace {Config.DotNetProxiesNamespace};" + Environment.NewLine;
+            text += @"" + Environment.NewLine;
+            text += $"public class {tsService.Key}Proxy(HttpClient httpClient)" + Environment.NewLine;
+            text += @"{" + Environment.NewLine;
 
-        //            text += $"    [HttpPost]" + Environment.NewLine;
-        //            text += $"    public {method.ResponseTypeRapport.Name} {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
-        //            text += $"        => {method.Service.NameWithService}.{method.Name}({method.RequestParameterName});" + Environment.NewLine;
-        //        }
-        //    }
+            var first = true;
+            foreach (var method in tsService)
+            {
+                if (first)
+                    first = false;
+                else
+                    text += Environment.NewLine;
 
-        //    text += @"}" + Environment.NewLine;
+                //    public async Task<LoginResponse> Login(LoginRequest request)
+                //    {
+                //        var response = await httpClient.PostAsJsonAsync("/Auth/Login", request);
+                //        response.EnsureSuccessStatusCode();
 
-        //    #region Saven
+                //        var responseData = await response.Content.ReadFromJsonAsync<LoginResponse>()
+                //            ?? throw new Exception("Could not cast response data");
 
-        //    var filename = NamespacesList.DotNetControllersDirectory + "\\" + tsService.Key + "Controller.cs";
-        //    WriteToFile(filename, text);
+                //        return responseData;
+                //    }
 
-        //    Console.WriteLine(filename + Environment.NewLine + text + Environment.NewLine);
+                text += $"    public async Task<{method.ResponseTypeRapport.Name}> {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
+                text += $"    {{" + Environment.NewLine;
+                text += $"        var response = await httpClient.PostAsJsonAsync(\"/{method.Service.Name}/{method.Name}\", ({method.RequestParameterName});" + Environment.NewLine;
+                text += $"        response.EnsureSuccessStatusCode();" + Environment.NewLine;
+                text += $"        var responseData = await response.Content.ReadFromJsonAsync<{method.ResponseTypeRapport.Name}>()" + Environment.NewLine;
+                text += $"            ?? throw new Exception(\"Could not cast response data\");" + Environment.NewLine;
+                text += $"        return responseData;" + Environment.NewLine;
+                text += $"    }}" + Environment.NewLine;
+            }
 
-        //    #endregion
-        //}
+            text += @"}" + Environment.NewLine;
+
+            #region Saven
+
+            var filename = Config.DotNetProxiesDirectory + "\\" + tsService.Key + "Proxy.cs";
+            WriteToFile(filename, text);
+
+            Console.WriteLine(filename + Environment.NewLine + text + Environment.NewLine);
+
+            #endregion
+        }
     }
 
 
@@ -473,7 +458,7 @@ public class Generator(GeneratorConfig generatorConfig)
         return folder;
     }
 
-    
+
 
     private static void WriteToFile(string filename, string filecontents)
     {

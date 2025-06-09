@@ -1,9 +1,7 @@
 ﻿using BeltmanSoftwareDesign.Business.Helpers;
-using BeltmanSoftwareDesign.Business.Interfaces;
-using BeltmanSoftwareDesign.Business.Models;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
-using BeltmanSoftwareDesign.Data.Entities;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Library.Attributes;
@@ -12,27 +10,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-public class AuthenticationService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext db,
-    IDateTimeService dateTime) : IAuthenticationService
+public class AuthenticationService(
+    IHttpContextAccessor httpContextAccessor,
+    ApplicationDbContext db,
+    IDateTimeService dateTime)
+    : AuthenticationBaseService(httpContextAccessor, db), 
+    IAuthenticationService
 {
-    static int shorthoursago = -1;
-    static int longhoursago = -72;
-
-    UserConverter UserConverter = new UserConverter();
-    CompanyConverter CompanyConverter = new CompanyConverter();
-
-    public string? IpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-    public KeyValuePair<string, string?>[]? Headers => httpContextAccessor.HttpContext!.Request.Headers
-        .Select(a => new KeyValuePair<string, string?>(a.Key, a.Value))
-        .ToArray();
+    readonly ApplicationDbContext db = db;
+    readonly int ShortHoursAgo = -1;
+    readonly int LongHoursAgo = -72;
+    readonly UserConverter UserConverter = new();
+    readonly CompanyConverter CompanyConverter = new();
 
     [TsServiceMethod("Auth", "Login")]
     public LoginResponse Login(LoginRequest request)
     {
-        var shortago = dateTime.Now.AddHours(shorthoursago);
-        var longago = dateTime.Now.AddHours(longhoursago);
+        var shortago = dateTime.Now.AddHours(ShortHoursAgo);
+        var longago = dateTime.Now.AddHours(LongHoursAgo);
 
-        var email = request.Email;
+        var email = request.UserName;
         var password = request.Password;
 
         if (!EmailAddressHelper.IsEmailAddress(email))
@@ -213,193 +210,5 @@ public class AuthenticationService(IHttpContextAccessor httpContextAccessor, App
                 BearerId = bearer.Id,
             }
         };
-    }
-
-    public AuthenticationState GetState(Request request)
-    {
-        if (IpAddress == null)
-            return new AuthenticationState()
-            {
-            };
-
-        if (Headers == null)
-            return new AuthenticationState()
-            {
-            };
-
-        var shortago = dateTime.Now.AddHours(shorthoursago);
-        var longago = dateTime.Now.AddHours(longhoursago);
-
-        var clientDevice = GetClientDevice();
-        if (clientDevice == null)
-            return new AuthenticationState()
-            {
-            };
-
-        var clientIpAddress = GetIpAddress();
-        if (clientIpAddress == null)
-            return new AuthenticationState()
-            {
-            };
-
-        var clientBearer = db.ClientBearers
-            .OrderByDescending(a => a.Date)
-            .FirstOrDefault(a =>
-                a.Id == request.BearerId &&
-                a.Date > longago);
-        if (clientBearer == null || clientBearer.UserId == null)
-            return new AuthenticationState()
-            {
-            };
-
-        if (clientBearer.ClientDeviceId != clientDevice.Id)
-            return new AuthenticationState()
-            {
-            };
-
-        if (clientBearer.Date < longago)
-            return new AuthenticationState()
-            {
-            };
-
-        // Get user from database
-        var user = db.Users
-            .FirstOrDefault(a => a.Id == clientBearer.UserId);
-        if (user == null)
-            return new AuthenticationState()
-            {
-            };
-
-        if (clientBearer.ClientIpAddressId != clientIpAddress.Id)
-        {
-            // Ip veranderd, toch automatisch vernieuwen
-            clientBearer = CreateBearer(user, clientDevice, clientIpAddress);
-        }
-
-        if (clientBearer.Date < shortago && clientBearer.Date > longago)
-        {
-            // Automatisch vernieuwen
-            clientBearer = CreateBearer(user, clientDevice, clientIpAddress);
-        }
-
-        // Get current company from database
-        var currentcompany = db.Companies
-            .Include(a => a.Country)
-            .FirstOrDefault(a =>
-                a.CompanyUsers.Any(a => a.UserId == user.Id) &&
-                a.Id == request.CurrentCompanyId);
-        if (currentcompany == null)
-            return new AuthenticationState()
-            {
-            };
-
-        var userJson = UserConverter.Create(user);
-        var companyJson = CompanyConverter.Create(currentcompany);
-
-        return new AuthenticationState()
-        {
-            Success = true,
-
-            User = userJson,
-            CurrentCompany = companyJson,
-            BearerId = clientBearer.Id,
-
-            DbUser = user,
-            DbCurrentCompany = currentcompany,
-            DbClientBearer = clientBearer,
-            DbClientDevice = clientDevice,
-            DbClientLocation = clientIpAddress,
-        };
-    }
-
-
-    private ClientBearer CreateBearer(User user, ClientDevice clientDevice, ClientIpAddress clientIpAddress)
-    {
-        // Te oud, vernieuwen
-        var bearerid = HashGeneratorHelper.GenerateCode(64);
-        var bearer = new ClientBearer()
-        {
-            Id = bearerid,
-            ClientDevice = clientDevice,
-            ClientDeviceId = clientDevice?.Id,
-            ClientIpAddress = clientIpAddress,
-            ClientIpAddressId = clientIpAddress?.Id,
-            User = user,
-            UserId = user.Id,
-        };
-        db.ClientBearers.Add(bearer);
-        db.SaveChanges();
-        return bearer;
-    }
-    private User CreateUser(string username, string email, string phoneNumber, string password)
-    {
-        // Create user
-        var passwordHash = StringHelper.HashString(password);
-        var userid = HashGeneratorHelper.GenerateCode(64);
-        var dbuser = new User()
-        {
-            Id = userid,
-            UserName = username,
-            Email = email,
-            PhoneNumber = phoneNumber,
-            PasswordHash = passwordHash,
-        };
-        db.Users.Add(dbuser);
-        db.SaveChanges();
-        return dbuser;
-    }
-    private ClientIpAddress? GetIpAddress()
-    {
-        if (IpAddress == null)
-            return null;
-
-        var location = db.ClientLocations.FirstOrDefault(a => a.IpAddress == IpAddress);
-        if (location == null)
-        {
-            location = new ClientIpAddress()
-            {
-                IpAddress = IpAddress,
-            };
-            db.ClientLocations.Add(location);
-            db.SaveChanges();
-        }
-
-        return location;
-    }
-    private ClientDevice? GetClientDevice()
-    {
-        if (Headers == null)
-            return null;
-
-        if (!Headers.Any(a => a.Key.ToLower() == "useragent" || a.Key.ToLower() == "user-agent"))
-            return null;
-
-        var useragentheader = Headers.First(a => a.Key.ToLower() == "useragent" || a.Key.ToLower() == "user-agent");
-        var useragent = (useragentheader.Value ?? string.Empty).ToLower();
-
-        if (useragent == null)
-            return null;
-
-        var deviceHash = StringHelper.HashString(useragent);
-        var device = db.ClientDevices.FirstOrDefault(a => a.DeviceHash == deviceHash);
-        if (device == null)
-        {
-            device = new ClientDevice()
-            {
-                DeviceHash = deviceHash,
-                ClientDeviceProperties = new List<ClientDeviceProperty>()
-                {
-                    new ClientDeviceProperty()
-                    {
-                        Name = "UserAgent",
-                        Value = useragent
-                    },
-                }
-            };
-            db.ClientDevices.Add(device);
-            db.SaveChanges();
-        }
-
-        return device;
     }
 }

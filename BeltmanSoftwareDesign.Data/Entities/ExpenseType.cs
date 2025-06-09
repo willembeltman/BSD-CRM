@@ -1,5 +1,5 @@
-﻿using BeltmanSoftwareDesign.Shared.Enums;
-using BeltmanSoftwareDesign.Shared;
+﻿using BeltmanSoftwareDesign.Shared;
+using BeltmanSoftwareDesign.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

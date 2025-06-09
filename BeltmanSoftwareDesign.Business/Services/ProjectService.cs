@@ -1,6 +1,7 @@
 ﻿using BeltmanSoftwareDesign.Business.Interfaces;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
+using BeltmanSoftwareDesign.Shared.Interfaces;
 using BeltmanSoftwareDesign.Shared.RequestJsons;
 using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using CodeGenerator.Library.Attributes;
@@ -8,7 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeltmanSoftwareDesign.Business.Services;
 
-public class ProjectService(ApplicationDbContext db, IAuthenticationService authenticationService) : IProjectService
+public class ProjectService(
+    ApplicationDbContext db,
+    IAuthenticationStateService authenticationService)
+    : IProjectService
 {
     ProjectConverter ProjectConverter = new ProjectConverter();
 

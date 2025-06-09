@@ -2,7 +2,7 @@
 {
     public class RateConverter
     {
-        public Entities.Rate Create(Shared.Jsons.Rate source, Entities.Company currentCompany, ApplicationDbContext db)
+        public Entities.Rate Create(Shared.Dtos.Rate source, Entities.Company currentCompany, ApplicationDbContext db)
         {
             var dest = new Entities.Rate()
             {
@@ -19,9 +19,9 @@
             return dest;
         }
 
-        public Shared.Jsons.Rate Create(Entities.Rate a)
+        public Shared.Dtos.Rate Create(Entities.Rate a)
         {
-            return new Shared.Jsons.Rate
+            return new Shared.Dtos.Rate
             {
                 Id = a.Id,
                 TaxRateId = a.TaxRateId,
@@ -32,7 +32,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Rate source, Entities.Rate dest, Entities.Company currentCompany, ApplicationDbContext db)
+        public bool Copy(Shared.Dtos.Rate source, Entities.Rate dest, Entities.Company currentCompany, ApplicationDbContext db)
         {
             if (source == null ||
                 dest == null ||

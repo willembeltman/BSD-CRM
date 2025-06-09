@@ -2,8 +2,8 @@
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Interfaces;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using BeltmanSoftwareDesign.Shared.Requests;
+using BeltmanSoftwareDesign.Shared.Responses;
 using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 

@@ -3,7 +3,7 @@ using BeltmanSoftwareDesign.Business.Models;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Interfaces;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
+using BeltmanSoftwareDesign.Shared.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,5 @@
-﻿using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
+﻿using BeltmanSoftwareDesign.Shared.Requests;
+using BeltmanSoftwareDesign.Shared.Responses;
 
 namespace BeltmanSoftwareDesign.Shared.Interfaces;
 

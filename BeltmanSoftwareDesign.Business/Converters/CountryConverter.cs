@@ -2,9 +2,9 @@
 {
     public class CountryConverter
     {
-        public Shared.Jsons.Country Create(Entities.Country a)
+        public Shared.Dtos.Country Create(Entities.Country a)
         {
-            return new Shared.Jsons.Country()
+            return new Shared.Dtos.Country()
             {
                 Id = a.Id,
                 Code = a.Code,

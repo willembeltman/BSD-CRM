@@ -11,7 +11,7 @@
         InvoiceWorkorderConverter InvoiceWorkorderFactory { get; }
         WorkorderAttachmentConverter WorkorderAttachmentFactory { get; }
 
-        public Entities.Workorder Create(Shared.Jsons.Workorder source, Entities.Company currentCompany, ApplicationDbContext db)
+        public Entities.Workorder Create(Shared.Dtos.Workorder source, Entities.Company currentCompany, ApplicationDbContext db)
         {
             var dest = new Entities.Workorder()
             {
@@ -29,13 +29,13 @@
             return dest;
         }
 
-        public async Task<Shared.Jsons.Workorder> CreateAsync(Entities.Workorder a)
+        public async Task<Shared.Dtos.Workorder> CreateAsync(Entities.Workorder a)
         {
             var workorderAttachments = a.WorkorderAttachments != null
                 ? await Task.WhenAll(a.WorkorderAttachments.Select(b => WorkorderAttachmentFactory.Create(b)))
                 : null;
 
-            return new Shared.Jsons.Workorder
+            return new Shared.Dtos.Workorder
             {
                 Id = a.Id,
                 Start = a.Start,
@@ -54,7 +54,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Workorder source, Entities.Workorder dest, Entities.Company currentCompany, ApplicationDbContext db)
+        public bool Copy(Shared.Dtos.Workorder source, Entities.Workorder dest, Entities.Company currentCompany, ApplicationDbContext db)
         {
             if (dest.CompanyId != currentCompany.Id)
                 throw new Exception("Cannot change companies");

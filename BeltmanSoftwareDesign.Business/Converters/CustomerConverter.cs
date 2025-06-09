@@ -2,9 +2,9 @@
 {
     public class CustomerConverter
     {
-        public Shared.Jsons.Customer Create(Entities.Customer a)
+        public Shared.Dtos.Customer Create(Entities.Customer a)
         {
-            return new Shared.Jsons.Customer()
+            return new Shared.Dtos.Customer()
             {
                 Id = a.Id,
                 Address = a.Address,
@@ -19,7 +19,7 @@
                 Publiekelijk = a.Publiekelijk,
             };
         }
-        public Entities.Customer Create(Shared.Jsons.Customer a)
+        public Entities.Customer Create(Shared.Dtos.Customer a)
         {
             return new Entities.Customer()
             {
@@ -36,7 +36,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Customer source, Entities.Customer dest)
+        public bool Copy(Shared.Dtos.Customer source, Entities.Customer dest)
         {
             var changed = false;
             if (dest.Address != source.Address) { dest.Address = source.Address; changed = true; }

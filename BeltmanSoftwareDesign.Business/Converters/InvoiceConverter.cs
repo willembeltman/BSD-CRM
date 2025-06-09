@@ -2,7 +2,7 @@
 {
     public class InvoiceConverter
     {
-        public Entities.Invoice Create(Shared.Jsons.Invoice a)
+        public Entities.Invoice Create(Shared.Dtos.Invoice a)
         {
             return new Entities.Invoice()
             {
@@ -15,9 +15,9 @@
             };
         }
 
-        public Shared.Jsons.Invoice Create(Entities.Invoice a)
+        public Shared.Dtos.Invoice Create(Entities.Invoice a)
         {
-            return new Shared.Jsons.Invoice
+            return new Shared.Dtos.Invoice
             {
                 Id = a.Id,
                 Date = a.Date,
@@ -32,7 +32,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Invoice source, Entities.Invoice dest)
+        public bool Copy(Shared.Dtos.Invoice source, Entities.Invoice dest)
         {
             var changed = false;
             if (dest.CustomerId != source.CustomerId)

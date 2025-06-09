@@ -1,7 +1,8 @@
-using BeltmanSoftwareDesign.Shared.Interfaces;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using Microsoft.AspNetCore.Mvc;
+using BeltmanSoftwareDesign.Shared.Interfaces;
+using BeltmanSoftwareDesign.Business.Interfaces;
+using BeltmanSoftwareDesign.Shared.Requests;
+using BeltmanSoftwareDesign.Shared.Responses;
 
 namespace BeltmanSoftwareDesign.Api.Controllers;
 
@@ -10,22 +11,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 public class InvoiceController(IInvoiceService InvoiceService) : BaseControllerBase
 {
     [HttpPost]
-    public InvoiceCreateResponse Create(InvoiceCreateRequest request)
+    public InvoiceCreateResponse Create(InvoiceCreateRequest request) 
         => InvoiceService.Create(request);
 
     [HttpPost]
-    public InvoiceReadResponse Read(InvoiceReadRequest request)
+    public InvoiceReadResponse Read(InvoiceReadRequest request) 
         => InvoiceService.Read(request);
 
     [HttpPost]
-    public InvoiceUpdateResponse Update(InvoiceUpdateRequest request)
+    public InvoiceUpdateResponse Update(InvoiceUpdateRequest request) 
         => InvoiceService.Update(request);
 
     [HttpPost]
-    public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request)
+    public InvoiceDeleteResponse Delete(InvoiceDeleteRequest request) 
         => InvoiceService.Delete(request);
 
     [HttpPost]
-    public InvoiceListResponse List(InvoiceListRequest request)
+    public InvoiceListResponse List(InvoiceListRequest request) 
         => InvoiceService.List(request);
 }

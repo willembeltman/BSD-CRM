@@ -3,9 +3,9 @@ using BeltmanSoftwareDesign.Business.Models;
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Interfaces;
-using BeltmanSoftwareDesign.Shared.Jsons;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using BeltmanSoftwareDesign.Shared.Dtos;
+using BeltmanSoftwareDesign.Shared.Requests;
+using BeltmanSoftwareDesign.Shared.Responses;
 using CodeGenerator.Library.Attributes;
 
 namespace BeltmanSoftwareDesign.Business.Services;

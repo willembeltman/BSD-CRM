@@ -2,8 +2,8 @@
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Interfaces;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using BeltmanSoftwareDesign.Shared.Requests;
+using BeltmanSoftwareDesign.Shared.Responses;
 using CodeGenerator.Library.Attributes;
 using Microsoft.EntityFrameworkCore;
 using StorageServer.Proxy;
@@ -185,7 +185,7 @@ public class WorkorderService(
             .Where(a => a.CompanyId == authentication.DbCurrentCompany.Id)
             .ToListAsync();
 
-        var list = new List<Shared.Jsons.Workorder>();
+        var list = new List<Shared.Dtos.Workorder>();
         foreach (var dbworkorder in dbworkorders)
         {
             list.Add(await WorkorderConverter.CreateAsync(dbworkorder));

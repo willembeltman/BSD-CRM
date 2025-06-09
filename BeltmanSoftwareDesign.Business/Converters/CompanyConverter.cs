@@ -2,9 +2,9 @@
 {
     public class CompanyConverter
     {
-        public Shared.Jsons.Company Create(Entities.Company a)
+        public Shared.Dtos.Company Create(Entities.Company a)
         {
-            return new Shared.Jsons.Company
+            return new Shared.Dtos.Company
             {
                 Id = a.Id,
                 Name = a.Name,
@@ -25,7 +25,7 @@
                 Website = a.Website,
             };
         }
-        public Entities.Company Create(Shared.Jsons.Company a)
+        public Entities.Company Create(Shared.Dtos.Company a)
         {
             return new Entities.Company
             {
@@ -47,7 +47,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Company source, Entities.Company dest)
+        public bool Copy(Shared.Dtos.Company source, Entities.Company dest)
         {
             var dirty = false;
             if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }

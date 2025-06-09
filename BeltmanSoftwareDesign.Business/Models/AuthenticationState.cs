@@ -2,7 +2,7 @@
 
 namespace BeltmanSoftwareDesign.Business.Models;
 
-public class AuthenticationState : Shared.Jsons.State
+public class AuthenticationState : Shared.Dtos.State
 {
     public bool Success { get; set; }
 

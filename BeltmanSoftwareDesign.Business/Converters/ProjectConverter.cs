@@ -2,9 +2,9 @@
 {
     public class ProjectConverter
     {
-        public Shared.Jsons.Project Create(Entities.Project a)
+        public Shared.Dtos.Project Create(Entities.Project a)
         {
-            return new Shared.Jsons.Project()
+            return new Shared.Dtos.Project()
             {
                 Id = a.Id,
                 CustomerId = a.CustomerId,
@@ -13,7 +13,7 @@
                 Publiekelijk = a.Publiekelijk,
             };
         }
-        public Entities.Project Create(Shared.Jsons.Project a)
+        public Entities.Project Create(Shared.Dtos.Project a)
         {
             return new Entities.Project()
             {
@@ -24,7 +24,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.Project source, Entities.Project dest)
+        public bool Copy(Shared.Dtos.Project source, Entities.Project dest)
         {
             var changed = false;
             if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; changed = true; }

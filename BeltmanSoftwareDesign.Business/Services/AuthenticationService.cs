@@ -2,8 +2,8 @@
 using BeltmanSoftwareDesign.Data;
 using BeltmanSoftwareDesign.Data.Converters;
 using BeltmanSoftwareDesign.Shared.Interfaces;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
+using BeltmanSoftwareDesign.Shared.Requests;
+using BeltmanSoftwareDesign.Shared.Responses;
 using CodeGenerator.Library.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -108,7 +108,7 @@ public class AuthenticationService(
         return new LoginResponse()
         {
             Success = true,
-            State = new Shared.Jsons.State()
+            State = new Shared.Dtos.State()
             {
                 User = user,
                 CurrentCompany = currentcompany,
@@ -204,7 +204,7 @@ public class AuthenticationService(
         return new RegisterResponse()
         {
             Success = true,
-            State = new Shared.Jsons.State()
+            State = new Shared.Dtos.State()
             {
                 User = user,
                 BearerId = bearer.Id,

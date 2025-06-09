@@ -4,9 +4,9 @@
     {
         public static UserConverter NewInstance = new UserConverter();
 
-        public Shared.Jsons.User Create(Entities.User a)
+        public Shared.Dtos.User Create(Entities.User a)
         {
-            return new Shared.Jsons.User
+            return new Shared.Dtos.User
             {
                 id = a.Id,
                 userName = a.UserName,
@@ -15,7 +15,7 @@
                 email = a.Email
             };
         }
-        public Entities.User Create(Shared.Jsons.User a)
+        public Entities.User Create(Shared.Dtos.User a)
         {
             return new Entities.User
             {
@@ -27,7 +27,7 @@
             };
         }
 
-        public bool Copy(Shared.Jsons.User source, Entities.User dest)
+        public bool Copy(Shared.Dtos.User source, Entities.User dest)
         {
             var dirty = false;
             //if (dest.Id != source.id) { dest.Id = source.id; dirty = true; }

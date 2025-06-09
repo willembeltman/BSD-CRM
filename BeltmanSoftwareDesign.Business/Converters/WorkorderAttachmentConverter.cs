@@ -4,9 +4,9 @@ namespace BeltmanSoftwareDesign.Data.Converters
 {
     public class WorkorderAttachmentConverter
     {
-        public async Task<Shared.Jsons.WorkorderAttachment> Create(Entities.WorkorderAttachment a)
+        public async Task<Shared.Dtos.WorkorderAttachment> Create(Entities.WorkorderAttachment a)
         {
-            return new Shared.Jsons.WorkorderAttachment()
+            return new Shared.Dtos.WorkorderAttachment()
             {
                 Id = a.Id,
                 WorkorderId = a.WorkorderId,

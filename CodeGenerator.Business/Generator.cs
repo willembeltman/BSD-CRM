@@ -1,6 +1,5 @@
 ﻿using CodeGenerator.Helpers;
 using CodeGenerator.Shared;
-using System.Net.Http.Json;
 
 namespace CodeGenerator;
 
@@ -398,7 +397,7 @@ public class Generator(GeneratorConfig generatorConfig)
 
                 text += $"    public async Task<{method.ResponseTypeRapport.Name}> {method.Name}({method.RequestTypeRapport.Name} {method.RequestParameterName}) " + Environment.NewLine;
                 text += $"    {{" + Environment.NewLine;
-                text += $"        var response = await httpClient.PostAsJsonAsync(\"/{method.Service.Name}/{method.Name}\", ({method.RequestParameterName});" + Environment.NewLine;
+                text += $"        var response = await httpClient.PostAsJsonAsync(\"/{tsService.Key}/{method.Name}\", {method.RequestParameterName});" + Environment.NewLine;
                 text += $"        response.EnsureSuccessStatusCode();" + Environment.NewLine;
                 text += $"        var responseData = await response.Content.ReadFromJsonAsync<{method.ResponseTypeRapport.Name}>()" + Environment.NewLine;
                 text += $"            ?? throw new Exception(\"Could not cast response data\");" + Environment.NewLine;

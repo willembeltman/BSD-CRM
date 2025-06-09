@@ -2,9 +2,9 @@
 {
     public class InvoiceWorkorderConverter
     {
-        public Shared.Jsons.InvoiceWorkorder Create(Entities.InvoiceWorkorder a)
+        public Shared.Dtos.InvoiceWorkorder Create(Entities.InvoiceWorkorder a)
         {
-            return new Shared.Jsons.InvoiceWorkorder()
+            return new Shared.Dtos.InvoiceWorkorder()
             {
                 Id = a.Id,
                 InvoiceId = a.InvoiceId,

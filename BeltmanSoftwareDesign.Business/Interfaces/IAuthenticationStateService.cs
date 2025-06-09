@@ -1,5 +1,5 @@
 ﻿using BeltmanSoftwareDesign.Business.Models;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
+using BeltmanSoftwareDesign.Shared.Requests;
 
 namespace BeltmanSoftwareDesign.Business.Interfaces;
 

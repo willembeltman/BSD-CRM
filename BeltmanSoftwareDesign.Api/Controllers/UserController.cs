@@ -1,7 +1,8 @@
-using BeltmanSoftwareDesign.Shared.Interfaces;
-using BeltmanSoftwareDesign.Shared.RequestJsons;
-using BeltmanSoftwareDesign.Shared.ResponseJsons;
 using Microsoft.AspNetCore.Mvc;
+using BeltmanSoftwareDesign.Shared.Interfaces;
+using BeltmanSoftwareDesign.Business.Interfaces;
+using BeltmanSoftwareDesign.Shared.Requests;
+using BeltmanSoftwareDesign.Shared.Responses;
 
 namespace BeltmanSoftwareDesign.Api.Controllers;
 
@@ -10,22 +11,22 @@ namespace BeltmanSoftwareDesign.Api.Controllers;
 public class UserController(IUserService UserService) : BaseControllerBase
 {
     [HttpPost]
-    public SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request)
+    public SetCurrentCompanyResponse SetCurrentCompany(SetCurrentCompanyRequest request) 
         => UserService.SetCurrentCompany(request);
 
     [HttpPost]
-    public ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request)
+    public ReadKnownUserResponse ReadKnownUser(ReadKnownUserRequest request) 
         => UserService.ReadKnownUser(request);
 
     [HttpPost]
-    public UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request)
+    public UpdateMyselfResponse UpdateMyself(UpdateMyselfRequest request) 
         => UserService.UpdateMyself(request);
 
     [HttpPost]
-    public DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request)
+    public DeleteMyselfResponse DeleteMyself(DeleteMyselfRequest request) 
         => UserService.DeleteMyself(request);
 
     [HttpPost]
-    public ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request)
+    public ListKnownUsersResponse ListKnownUsers(ListKnownUsersRequest request) 
         => UserService.ListKnownUsers(request);
 }

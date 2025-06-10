@@ -11,6 +11,7 @@ public class ServiceInterfaceGenerator : BaseGenerator
 
     public void GenerateCode()
     {
+        //// Example output:
         //using BSD.Shared.RequestDtos;
         //using BSD.Shared.ResponseDtos;
 

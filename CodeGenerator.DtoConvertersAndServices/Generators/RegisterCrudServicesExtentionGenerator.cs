@@ -11,6 +11,7 @@ public class RegisterCrudServicesExtentionGenerator : BaseGenerator
 
     public void GenerateCode()
     {
+        //// Example output:
         //namespace BSD.Api.Extentions;
 
         //public static class RegisterCrudServicesExtention

@@ -1,17 +1,19 @@
-﻿using BSD.Business.Helpers;
-using BSD.Data;
-using BSD.Business.Converters;
+﻿using BSD.Business.Converters;
 using BSD.Business.Interfaces;
+using BSD.Data;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
 using CodeGenerator.Shared.Attributes;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BSD.Business.Services;
 
 public class AuthenticationService(
-    AuthenticationStateService authenticationState,
+    IForgotPasswordService forgotPasswordService,
+    AuthenticationStateService authenticationStateService,
     ApplicationDbContext db,
     IDateTimeService dateTime)
     : IAuthenticationService
@@ -30,7 +32,7 @@ public class AuthenticationService(
         var email = request.UserName;
         var password = request.Password;
 
-        if (!EmailAddressHelper.IsEmailAddress(email))
+        if (!AuthenticationStateService.EmailAddressHelper.IsEmailAddress(email))
             return new LoginResponse()
             {
                 ErrorEmailNotValid = true
@@ -49,21 +51,21 @@ public class AuthenticationService(
             };
 
         // Password correct?
-        var passwordHash = StringHelper.HashString(password);
+        var passwordHash = AuthenticationStateService.StringHelper.HashString(password);
         if (dbuser.PasswordHash != passwordHash)
             return new LoginResponse()
             {
                 AuthenticationError = true // Security?
             };
 
-        var clientDevice = authenticationState.GetClientDevice();
+        var clientDevice = authenticationStateService.GetClientDevice();
         if (clientDevice == null)
             return new LoginResponse()
             {
                 AuthenticationError = true
             };
 
-        var clientIpAddress = authenticationState.GetIpAddress();
+        var clientIpAddress = authenticationStateService.GetIpAddress();
         if (clientIpAddress == null)
             return new LoginResponse()
             {
@@ -80,7 +82,7 @@ public class AuthenticationService(
         if (clientBearer == null)
         {
             // Automatisch vernieuwen
-            clientBearer = authenticationState.CreateBearer(dbuser, clientDevice, clientIpAddress);
+            clientBearer = authenticationStateService.CreateBearer(dbuser, clientDevice, clientIpAddress);
         }
 
         var user = dbuser.ToDto();
@@ -118,7 +120,7 @@ public class AuthenticationService(
     [TsServiceMethod("Auth", "Register")]
     public RegisterResponse Register(RegisterRequest request)
     {
-        if (string.IsNullOrEmpty(authenticationState.IpAddress))
+        if (string.IsNullOrEmpty(authenticationStateService.IpAddress))
             return new RegisterResponse()
             {
                 ErrorGettingState = true
@@ -135,7 +137,7 @@ public class AuthenticationService(
             {
                 ErrorEmailNotValid = true
             };
-        if (!EmailAddressHelper.IsEmailAddress(email))
+        if (!AuthenticationStateService.EmailAddressHelper.IsEmailAddress(email))
             return new RegisterResponse()
             {
                 ErrorEmailNotValid = true
@@ -170,28 +172,28 @@ public class AuthenticationService(
                 ErrorEmailInUse = true
             };
 
-        var dbuser = authenticationState.CreateUser(username, email, phoneNumber, password);
+        var dbuser = authenticationStateService.CreateUser(username, email, phoneNumber, password);
         if (dbuser == null)
             return new RegisterResponse()
             {
                 ErrorCouldNotCreateUser = true
             };
 
-        var device = authenticationState.GetClientDevice();
+        var device = authenticationStateService.GetClientDevice();
         if (device == null)
             return new RegisterResponse()
             {
                 ErrorCouldNotGetDevice = true
             };
 
-        var ipAddress = authenticationState.GetIpAddress();
+        var ipAddress = authenticationStateService.GetIpAddress();
         if (ipAddress == null)
             return new RegisterResponse()
             {
                 ErrorEmailInUse = true
             };
 
-        var bearer = authenticationState.CreateBearer(dbuser, device, ipAddress);
+        var bearer = authenticationStateService.CreateBearer(dbuser, device, ipAddress);
         if (bearer == null)
             return new RegisterResponse()
             {
@@ -209,4 +211,42 @@ public class AuthenticationService(
             }
         };
     }
+
+    [TsServiceMethod("Auth", "ForgotPassword")]
+    public ForgotPasswordResponse ForgotPassword(ForgotPasswordRequest request)
+    {
+        if (string.IsNullOrEmpty(authenticationStateService.IpAddress))
+            return new ForgotPasswordResponse()
+            {
+                ErrorGettingState = true
+            };
+
+        var email = request.Email;
+
+        // Add validation
+        if (email == null)
+            return new ForgotPasswordResponse()
+            {
+                ErrorEmailNotValid = true
+            };
+        if (!AuthenticationStateService.EmailAddressHelper.IsEmailAddress(email))
+            return new ForgotPasswordResponse()
+            {
+                ErrorEmailNotValid = true
+            };
+
+        var dbuser = db.Users.FirstOrDefault(a => a.Email.ToLower() == email.ToLower());
+        if (dbuser == null)
+            return new ForgotPasswordResponse()
+            {
+                Success = true, // Security? Don't tell if email exists
+            };
+
+        forgotPasswordService.Handle(dbuser);
+        return new ForgotPasswordResponse()
+        {
+            Success = true
+        };
+    }
+
 }

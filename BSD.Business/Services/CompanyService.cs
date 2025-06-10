@@ -5,7 +5,6 @@ using BSD.Data;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
 using CodeGenerator.Shared.Attributes;
-using Microsoft.EntityFrameworkCore;
 
 namespace BSD.Business.Services;
 
@@ -25,7 +24,7 @@ public class CompanyService(
             if (state.User == null || state.DbUser == null)
                 return new CompanyCreateResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new CompanyHandler(state);
+        var handler = new CompanyServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Company);
         if (entity != null)
             return new CompanyCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -58,7 +57,7 @@ public class CompanyService(
             if (state.User == null || state.DbUser == null)
                 return new CompanyReadResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new CompanyHandler(state);
+        var handler = new CompanyServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyId);
         if (entity == null)
             return new CompanyReadResponse() { State = state, ErrorItemNotFound = true };
@@ -81,7 +80,7 @@ public class CompanyService(
             if (state.User == null || state.DbUser == null)
                 return new CompanyUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new CompanyHandler(state);
+        var handler = new CompanyServiceHandler(state);
         var entity = handler.FindById(db, request.Company.Id);
         if (entity == null)
             return new CompanyUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -110,7 +109,7 @@ public class CompanyService(
             if (state.User == null || state.DbUser == null)
                 return new CompanyDeleteResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new CompanyHandler(state);
+        var handler = new CompanyServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyId);
         if (entity == null)
             return new CompanyDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -139,7 +138,7 @@ public class CompanyService(
             if (state.User == null || state.DbUser == null)
                 return new CompanyListResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new CompanyHandler(state);
+        var handler = new CompanyServiceHandler(state);
         if (!handler.CanList(db))
             return new CompanyListResponse() { State = state, ErrorNotAuthorized = true };
 

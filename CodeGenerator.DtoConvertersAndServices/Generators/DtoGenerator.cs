@@ -1,5 +1,4 @@
-﻿using CodeGenerator.Step1.DtosConvertersAndServices;
-using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
+﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
@@ -51,18 +50,6 @@ public class DtoGenerator : BaseGenerator
 
     public void GenerateCode()
     {
-
-        CreateRequest.GenerateCode();
-        ReadRequest.GenerateCode();
-        UpdateRequest.GenerateCode();
-        DeleteRequest.GenerateCode();
-        ListRequest.GenerateCode();
-        CreateResponse.GenerateCode();
-        ReadResponse.GenerateCode();
-        UpdateResponse.GenerateCode();
-        DeleteResponse.GenerateCode();
-        ListResponse.GenerateCode();
-
         //namespace BSD.Shared.Dtos;
 
         //public class Company 
@@ -162,6 +149,17 @@ public class DtoGenerator : BaseGenerator
         Code = usingCode + "\r\n\r\n" + propertiesCode;
 
         Save();
+
+        CreateRequest.GenerateCode();
+        ReadRequest.GenerateCode();
+        UpdateRequest.GenerateCode();
+        DeleteRequest.GenerateCode();
+        ListRequest.GenerateCode();
+        CreateResponse.GenerateCode();
+        ReadResponse.GenerateCode();
+        UpdateResponse.GenerateCode();
+        DeleteResponse.GenerateCode();
+        ListResponse.GenerateCode();
     }
 
     private string AddNamespace(string usingCode, string @using)

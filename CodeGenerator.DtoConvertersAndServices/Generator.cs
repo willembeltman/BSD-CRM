@@ -22,32 +22,32 @@ public class Generator
         DtoConverters = Dtos
             .Select(dto => new DtoConverterGenerator(
                 dto,
-                config.DtoConvertersDirectory,
-                config.DtoConvertersNamespace))
+                config.ConvertersDirectory,
+                config.ConvertersNamespace))
             .ToArray();
 
         // Generate Service Handlers
         ServiceHandlers = DtoConverters
             .Select(dtoConverter => new ServiceHandlerGenerator(
                 dtoConverter,
-                config.DtoConvertersDirectory,
-                config.DtoConvertersNamespace))
+                config.ServiceHandlersDirectory,
+                config.ServiceHandlersNamespace))
             .ToArray();
 
         // Generate Service Interfaces
         ServiceInterfaces = ServiceHandlers
             .Select(serviceHandler => new ServiceInterfaceGenerator(
                 serviceHandler,
-                config.DtoConvertersDirectory,
-                config.DtoConvertersNamespace))
+                config.ConvertersDirectory,
+                config.ConvertersNamespace))
             .ToArray();
 
         // Generate Services
         Services = ServiceInterfaces
             .Select(serviceInterface => new ServiceGenerator(
                 serviceInterface,
-                config.DtoConvertersDirectory,
-                config.DtoConvertersNamespace))
+                config.ConvertersDirectory,
+                config.ConvertersNamespace))
             .ToArray();
     }
 
@@ -61,6 +61,12 @@ public class Generator
 
     public void Run()
     {
+        // To render:
+        // Requests/BaseRequest
+        // Interfaces/IAuthenticationStateService
+        // Models/AuthenticationState
+        // Shared/Dtos/State
+
         foreach (var dto in Dtos) dto.GenerateCode();
         foreach (var dtoConverter in DtoConverters) dtoConverter.GenerateCode();
         foreach (var serviceHandler in ServiceHandlers) serviceHandler.GenerateCode();

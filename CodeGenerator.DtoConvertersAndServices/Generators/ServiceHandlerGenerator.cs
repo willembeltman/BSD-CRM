@@ -1,269 +1,244 @@
-﻿namespace CodeGenerator.Dtos_Converters_Services.Generators;
+﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
+using System.IO;
+
+namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
 public class ServiceHandlerGenerator : BaseGenerator
 {
     public ServiceHandlerGenerator(
-        DtoConverterGenerator dtoConverter, 
-        DirectoryInfo dtoConvertersDirectory, 
-        string dtoConvertersNamespace)
+        DtoConverterGenerator dtoConverter,
+        DirectoryInfo directory,
+        string @namespace)
     {
+        DtoConverter = dtoConverter;
+        Dto = DtoConverter.Dto;
+        DbSet = Dto.DbSet;
+        Entity = DbSet.Entity;
+        Directory = directory;
+        Namespace = @namespace;
+        Name = $"{Entity.Name}ServiceHander";
     }
+
+    public DtoConverterGenerator DtoConverter { get; }
+    public DtoGenerator Dto { get; }
+    public DbSet DbSet { get; }
+    public Entity Entity { get; }
+    public string Namespace { get; private set; }
 
     public void GenerateCode()
     {
-        //using BSD.Business.Interfaces;
+        #region Example code
+
+        //using BSD.Business.Models;
         //using BSD.Data;
-        //using BSD.Data.Converters;
-        //using BSD.Business.Interfaces;
-        //using BSD.Shared.RequestDtos;
-        //using BSD.Shared.ResponseDtos;
-        //using CodeGenerator.Shared.Attributes;
+        //using BSD.Data.Entities;
         //using Microsoft.EntityFrameworkCore;
 
-        //namespace BSD.Business.Services;
+        //namespace BSD.Business.ServiceHandlers;
 
-        //public class CompanyService(
-        //    ApplicationDbContext db,
-        //    IAuthenticationStateService authenticationService)
-        //    : ICompanyService
+        //public class CompanyServiceHandler
         //{
-        //    CompanyConverter CompanyConverter = new CompanyConverter();
+        //    private readonly AuthenticationState State;
 
-        //    [TsServiceMethod("Company", "Create")]
-        //    public CompanyCreateResponse Create(CompanyCreateRequest request)
+        //    public CompanyServiceHandler(AuthenticationState authenticationState)
         //    {
-        //        var state = authenticationService.GetState(request);
-        //        if (!state.Success)
-        //            return new CompanyCreateResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
+        //        State = authenticationState;
+        //    }
 
-        //        if (state.User == null)
-        //            return new CompanyCreateResponse();
-        //        if (state.DbUser == null)
-        //            return new CompanyCreateResponse();
+        //    public bool CanCreate(ApplicationDbContext db, Company entity) => true;
+        //    public bool CanRead(ApplicationDbContext db, Company entity) => true;
+        //    public bool CanUpdate(ApplicationDbContext db, Company entity) =>
+        //        State.DbUser != null &&
+        //        State.DbUser.CompanyUsers.Any(a => a.Admin && a.CompanyId == entity.Id);
+        //    public bool CanDelete(ApplicationDbContext db, Company entity) =>
+        //        State.DbUser != null &&
+        //        State.DbUser.CompanyUsers.Any(a => (a.Admin || a.Eigenaar) && a.CompanyId == entity.Id);
+        //    public bool CanList(ApplicationDbContext db) => true;
 
-        //        var dbCompany = db.Companies.FirstOrDefault(a =>
-        //            a.Name == request.Company.Name &&
-        //            a.CompanyUsers.Any(a => a.UserId == state.User.id));
-        //        if (dbCompany != null)
-        //            return new CompanyCreateResponse()
-        //            {
-        //                ErrorCompanyNameAlreadyUsed = true
-        //            };
+        //    public Company? FindByMatch(ApplicationDbContext db, Shared.Dtos.Company dto)
+        //    {
+        //        var userId = State.User?.Id;
+        //        return db.Companies
+        //            .Include(a => a.Country)
+        //            .FirstOrDefault(a =>
+        //                (a.Id == dto.Id || a.Name == dto.Name) &&
+        //                a.CompanyUsers.Any(a => a.UserId == userId));
+        //    }
+        //    public Company? FindById(ApplicationDbContext db, long id)
+        //    {
+        //        var userId = State.User?.Id;
+        //        return db.Companies
+        //            .Include(a => a.Country)
+        //            .FirstOrDefault(a =>
+        //                a.Id == id &&
+        //                a.CompanyUsers.Any(a => a.UserId == userId));
+        //    }
+        //    public IQueryable<Company> ListAll(ApplicationDbContext db)
+        //    {
+        //        var userId = State.User?.Id;
+        //        return db.Companies
+        //            .Include(a => a.Country)
+        //            .Where(a => a.CompanyUsers.Any(a => a.UserId == userId));
+        //    }
 
-        //        // Convert it to db item
-        //        dbCompany = CompanyConverter.Create(request.Company);
-        //        if (dbCompany == null)
-        //            return new CompanyCreateResponse();
-        //        db.Companies.Add(dbCompany);
-        //        db.SaveChanges();
+        //    public bool AttachToState(ApplicationDbContext db, Company entity)
+        //    {
+        //        if (State.DbUser == null || State.User == null || entity == null)
+        //            return false;
 
-        //        var dbCompanyuser = new Data.Entities.CompanyUser()
+        //        var dbcompanyuser = new CompanyUser()
         //        {
-        //            Company = dbCompany,
-        //            CompanyId = dbCompany.Id,
-        //            User = state.DbUser,
-        //            UserId = state.DbUser.Id,
+        //            Company = entity,
+        //            User = State.DbUser,
         //            Eigenaar = true,
         //            Admin = true,
         //            Actief = true,
         //        };
-        //        db.CompanyUsers.Add(dbCompanyuser);
+        //        db.CompanyUsers.Add(dbcompanyuser);
+
+        //        return true;
+        //    }
+        //    public bool UpdateToState(ApplicationDbContext db, Company entity, Shared.Dtos.Company dto)
+        //    {
+        //        if (State.DbUser == null || State.User == null)
+        //            return false;
+
+        //        State.DbUser.CurrentCompany = entity;
+        //        State.DbUser.CurrentCompanyId = entity.Id;
+        //        State.User.CurrentCompanyId = entity.Id;
+        //        State.DbCurrentCompany = entity;
+        //        State.CurrentCompany = dto;
         //        db.SaveChanges();
 
-        //        // Convert it back
-        //        var company = CompanyConverter.Create(dbCompany);
-
-        //        state.DbUser.CurrentCompany = dbCompany;
-        //        state.DbUser.CurrentCompanyId = dbCompany.Id;
-        //        state.User.currentCompanyId = dbCompany.Id;
-        //        state.DbCurrentCompany = dbCompany;
-        //        state.CurrentCompany = company;
-        //        db.SaveChanges();
-
-        //        return new CompanyCreateResponse()
-        //        {
-        //            Success = true,
-        //            Company = company,
-        //            State = state
-        //        };
+        //        return true;
         //    }
-
-        //    [TsServiceMethod("Company", "Read")]
-        //    public CompanyReadResponse Read(CompanyReadRequest request)
+        //    public bool DeleteFromState(ApplicationDbContext db, Company entity)
         //    {
-        //        if (request == null)
-        //            return new CompanyReadResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
-        //        var state = authenticationService.GetState(request);
-        //        if (!state.Success)
-        //            return new CompanyReadResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
-        //        // ===========================
-
-        //        if (state.User == null)
-        //            return new CompanyReadResponse();
-
-        //        var dbCompany = db.Companies
-        //            .Include(a => a.Country)
-        //            .FirstOrDefault(a =>
-        //                a.Id == request.CompanyId &&
-        //                a.CompanyUsers.Any(a => a.UserId == state.User.id));
-        //        if (dbCompany == null)
-        //            return new CompanyReadResponse()
-        //            {
-        //                CompanyNotFound = true
-        //            };
-
-        //        // Convert it back
-        //        var company = CompanyConverter.Create(dbCompany);
-
-        //        return new CompanyReadResponse()
-        //        {
-        //            Success = true,
-        //            Company = company,
-        //            State = state
-        //        };
-        //    }
-
-        //    [TsServiceMethod("Company", "Update")]
-        //    public CompanyUpdateResponse Update(CompanyUpdateRequest request)
-        //    {
-        //        if (request == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-        //        var state = authenticationService.GetState(request);
-        //        if (!state.Success || state.User == null || state.DbUser == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
-        //        var dbCompany = db.Companies.FirstOrDefault(a =>
-        //            a.Id == request.Company.Id &&
-        //            a.CompanyUsers.Any(a => a.UserId == state.User.id));
-        //        if (dbCompany == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorItemNotFound = true
-        //            };
-
-        //        // Convert it to db item
-        //        if (CompanyConverter.Copy(request.Company, dbCompany) == true)
-        //            db.SaveChanges();
-
-        //        // Convert it back
-        //        var company = CompanyConverter.Create(dbCompany);
-        //        if (company == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorItemNotFound = true
-        //            };
-
-        //        // Set current company to 
-        //        state.User.currentCompanyId = company.Id;
-        //        state.DbUser.CurrentCompanyId = dbCompany.Id;
-        //        state.DbUser.CurrentCompany = dbCompany;
-        //        state.CurrentCompany = company;
-        //        state.DbCurrentCompany = dbCompany;
-        //        db.SaveChanges();
-
-        //        return new CompanyUpdateResponse()
-        //        {
-        //            Success = true,
-        //            Company = company,
-        //            State = state
-        //        };
-        //    }
-
-        //    [TsServiceMethod("Company", "Delete")]
-        //    public CompanyDeleteResponse Delete(CompanyDeleteRequest request)
-        //    {
-        //        if (request == null)
-        //            return new CompanyDeleteResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-        //        var state = authenticationService.GetState(request);
-        //        if (!state.Success || state.User == null || state.DbUser == null)
-        //            return new CompanyDeleteResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
-        //        var dbCompany = db.Companies
-        //            .Include(a => a.CompanyUsers)
-        //            .FirstOrDefault(a =>
-        //                a.Id == request.CompanyId &&
-        //                a.CompanyUsers.Any(b => b.UserId == state.User.id && (b.Admin || b.Eigenaar)));
-        //        if (dbCompany == null)
-        //            return new CompanyDeleteResponse()
-        //            {
-        //                ErrorItemNotFound = true
-        //            };
-
+        //        if (State.DbUser == null || State.User == null)
+        //            return false;
 
         //        var userscurrentcompanywillbedeleted =
-        //            state.DbUser.CurrentCompanyId == dbCompany.Id;
+        //            State.DbUser.CurrentCompanyId == entity.Id;
 
         //        if (userscurrentcompanywillbedeleted)
         //        {
-        //            state.DbUser.CurrentCompany = null;
-        //            state.DbCurrentCompany = null;
-        //            state.CurrentCompany = null;
-        //            state.User.currentCompanyId = null;
-        //            state.DbUser.CurrentCompanyId = null;
+        //            State.DbUser.CurrentCompany = null;
+        //            State.DbCurrentCompany = null;
+        //            State.CurrentCompany = null;
+        //            State.User.CurrentCompanyId = null;
+        //            State.DbUser.CurrentCompanyId = null;
         //        }
 
-        //        db.CompanyUsers.RemoveRange(dbCompany.CompanyUsers);
-        //        db.Companies.Remove(dbCompany);
-        //        db.SaveChanges();
-
-        //        return new CompanyDeleteResponse()
-        //        {
-        //            Success = true,
-        //            State = state
-        //        };
-        //    }
-
-        //    [TsServiceMethod("Company", "List")]
-        //    public CompanyListResponse List(CompanyListRequest request)
-        //    {
-        //        if (request == null)
-        //            return new CompanyListResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
-        //        var state = authenticationService.GetState(request);
-        //        if (!state.Success || state.User == null || state.DbUser == null)
-        //            return new CompanyListResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
-        //        var list = db.Companies
-        //            .Where(a => a.CompanyUsers.Any(a => a.UserId == state.User.id))
-        //            .Select(a => CompanyConverter.Create(a)!)
-        //            .ToArray();
-
-        //        return new CompanyListResponse()
-        //        {
-        //            Success = true,
-        //            State = state,
-        //            Companies = list
-        //        };
+        //        return true;
         //    }
         //}
+
+        #endregion
+
+        Code = $@"
+using BSD.Business.Models;
+using BSD.Data;
+using BSD.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace {Namespace};
+
+public class {Name}
+{{
+    private readonly AuthenticationState State;
+
+    public {Name}(AuthenticationState authenticationState)
+    {{
+        State = authenticationState;
+    }}
+
+    public bool CanCreate(ApplicationDbContext db, Company entity) => true;
+    public bool CanRead(ApplicationDbContext db, Company entity) => true;
+    public bool CanUpdate(ApplicationDbContext db, Company entity) =>
+        State.DbUser != null &&
+        State.DbUser.CompanyUsers.Any(a => a.Admin && a.CompanyId == entity.Id);
+    public bool CanDelete(ApplicationDbContext db, Company entity) =>
+        State.DbUser != null &&
+        State.DbUser.CompanyUsers.Any(a => (a.Admin || a.Eigenaar) && a.CompanyId == entity.Id);
+    public bool CanList(ApplicationDbContext db) => true;
+
+    public Company? FindByMatch(ApplicationDbContext db, Shared.Dtos.Company dto)
+    {{
+        var userId = State.User?.Id;
+        return db.Companies
+            .Include(a => a.Country)
+            .FirstOrDefault(a =>
+                (a.Id == dto.Id || a.Name == dto.Name) &&
+                a.CompanyUsers.Any(a => a.UserId == userId));
+    }}
+    public Company? FindById(ApplicationDbContext db, long id)
+    {{
+        var userId = State.User?.Id;
+        return db.Companies
+            .Include(a => a.Country)
+            .FirstOrDefault(a =>
+                a.Id == id &&
+                a.CompanyUsers.Any(a => a.UserId == userId));
+    }}
+    public IQueryable<Company> ListAll(ApplicationDbContext db)
+    {{
+        var userId = State.User?.Id;
+        return db.Companies
+            .Include(a => a.Country)
+            .Where(a => a.CompanyUsers.Any(a => a.UserId == userId));
+    }}
+
+    public bool AttachToState(ApplicationDbContext db, Company entity)
+    {{
+        if (State.DbUser == null || State.User == null || entity == null)
+            return false;
+
+        var dbcompanyuser = new CompanyUser()
+        {{
+            Company = entity,
+            User = State.DbUser,
+            Eigenaar = true,
+            Admin = true,
+            Actief = true,
+        }};
+        db.CompanyUsers.Add(dbcompanyuser);
+
+        return true;
+    }}
+    public bool UpdateToState(ApplicationDbContext db, Company entity, Shared.Dtos.Company dto)
+    {{
+        if (State.DbUser == null || State.User == null)
+            return false;
+
+        State.DbUser.CurrentCompany = entity;
+        State.DbUser.CurrentCompanyId = entity.Id;
+        State.User.CurrentCompanyId = entity.Id;
+        State.DbCurrentCompany = entity;
+        State.CurrentCompany = dto;
+        db.SaveChanges();
+
+        return true;
+    }}
+    public bool DeleteFromState(ApplicationDbContext db, Company entity)
+    {{
+        if (State.DbUser == null || State.User == null)
+            return false;
+
+        var userscurrentcompanywillbedeleted =
+            State.DbUser.CurrentCompanyId == entity.Id;
+
+        if (userscurrentcompanywillbedeleted)
+        {{
+            State.DbUser.CurrentCompany = null;
+            State.DbCurrentCompany = null;
+            State.CurrentCompany = null;
+            State.User.CurrentCompanyId = null;
+            State.DbUser.CurrentCompanyId = null;
+        }}
+
+        return true;
+    }}
+}}
+";
     }
 }

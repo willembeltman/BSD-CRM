@@ -11,6 +11,7 @@ public class ServiceGenerator : BaseGenerator
 
     public void GenerateCode()
     {
+        //// Example output:
         //using BSD.Business.Interfaces;
         //using BSD.Data;
         //using BSD.Data.Converters;

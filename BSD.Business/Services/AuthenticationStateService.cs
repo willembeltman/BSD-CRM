@@ -1,5 +1,4 @@
 ﻿using BSD.Business.Converters;
-using BSD.Business.Helpers;
 using BSD.Business.Interfaces;
 using BSD.Business.Models;
 using BSD.Data;
@@ -7,6 +6,9 @@ using BSD.Data.Entities;
 using BSD.Shared.RequestDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BSD.Business.Services;
 
@@ -211,5 +213,47 @@ public class AuthenticationStateService(
         }
 
         return device;
+    }
+
+    internal static class HashGeneratorHelper
+    {
+        static Random random = new Random();
+        static string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        internal static string GenerateCode(int length)
+        {
+            char[] code = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                code[i] = chars[random.Next(chars.Length)];
+            }
+            return new string(code);
+        }
+    }
+    internal static class StringHelper
+    {
+        internal static string HashString(string input)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // Convert the input string to a byte array and compute the hash.
+                byte[] data = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                // Convert the byte array to a hexadecimal string.
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    builder.Append(data[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+    }
+    internal static class EmailAddressHelper
+    {
+        static readonly Regex emailRegex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+        internal static bool IsEmailAddress(string email)
+        {
+            return emailRegex.IsMatch(email);
+        }
     }
 }

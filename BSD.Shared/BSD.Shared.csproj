@@ -16,8 +16,4 @@
     <ProjectReference Include="..\CodeGenerator.Shared\CodeGenerator.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="RequestDtos\" />
-  </ItemGroup>
-
 </Project>

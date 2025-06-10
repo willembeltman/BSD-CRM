@@ -42,6 +42,8 @@ using CodeGenerator.DtoConvertersAndServices;
 var generator2 = new Generator(typeof(ApplicationDbContext));
 generator2.Run(
     new DirectoryInfo("..\\..\\..\\..\\BSD.Shared\\Dtos"), "BSD.Shared.Dtos",
+    new DirectoryInfo("..\\..\\..\\..\\BSD.Shared\\RequestDtos"), "BSD.Shared.RequestDtos",
+    new DirectoryInfo("..\\..\\..\\..\\BSD.Shared\\ResponseDtos"), "BSD.Shared.ResponseDtos",
     new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Converters"), "BSD.Business.Converters",
     new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Interfaces"), "BSD.Business.Interfaces",
     new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Services"), "BSD.Business.Services");

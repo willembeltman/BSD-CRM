@@ -1,25 +1,17 @@
 ﻿using CodeGenerator.DtoConvertersAndServices;
 
-namespace CodeGenerator.Dtos_Converters_Services.Generators
+namespace CodeGenerator.Dtos_Converters_Services.Generators;
+
+public class ServiceGenerator : BaseGenerator
 {
-    public class ServiceGenerator
+    public ServiceGenerator(Generator generator, ServiceInterfaceGenerator serviceInterface, DirectoryInfo dtoConvertersDirectory, string dtoConvertersNamespace)
     {
-        private Generator generator;
-        private ServiceInterfaceGenerator serviceInterface;
-        private DirectoryInfo dtoConvertersDirectory;
-        private string dtoConvertersNamespace;
+        Generator = generator;
+    }
 
-        public ServiceGenerator(Generator generator, ServiceInterfaceGenerator serviceInterface, DirectoryInfo dtoConvertersDirectory, string dtoConvertersNamespace)
-        {
-            this.generator = generator;
-            this.serviceInterface = serviceInterface;
-            this.dtoConvertersDirectory = dtoConvertersDirectory;
-            this.dtoConvertersNamespace = dtoConvertersNamespace;
-        }
+    public Generator Generator { get; }
 
-        internal void GenerateCode()
-        {
-            throw new NotImplementedException();
-        }
+    internal void GenerateCode()
+    {
     }
 }

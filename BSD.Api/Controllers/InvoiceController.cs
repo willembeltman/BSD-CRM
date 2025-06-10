@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
-using BSD.Shared.Requests;
-using BSD.Shared.Responses;
+using BSD.Shared.RequestDtos;
+using BSD.Shared.ResponseDtos;
 
 namespace BSD.Api.Controllers;
 

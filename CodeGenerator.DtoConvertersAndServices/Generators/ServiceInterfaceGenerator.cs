@@ -2,23 +2,16 @@
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
-public class ServiceInterfaceGenerator
+public class ServiceInterfaceGenerator : BaseGenerator
 {
-    private Generator generator;
-    private DtoConverterGenerator dtoConverter;
-    private DirectoryInfo dtoConvertersDirectory;
-    private string dtoConvertersNamespace;
-
     public ServiceInterfaceGenerator(Generator generator, DtoConverterGenerator dtoConverter, DirectoryInfo dtoConvertersDirectory, string dtoConvertersNamespace)
     {
-        this.generator = generator;
-        this.dtoConverter = dtoConverter;
-        this.dtoConvertersDirectory = dtoConvertersDirectory;
-        this.dtoConvertersNamespace = dtoConvertersNamespace;
+        Generator = generator;
     }
+
+    public Generator Generator { get; }
 
     internal void GenerateCode()
     {
-        throw new NotImplementedException();
     }
 }

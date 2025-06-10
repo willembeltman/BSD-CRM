@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
-using BSD.Shared.Requests;
-using BSD.Shared.Responses;
+using BSD.Shared.RequestDtos;
+using BSD.Shared.ResponseDtos;
 
 namespace BSD.Proxy;
 

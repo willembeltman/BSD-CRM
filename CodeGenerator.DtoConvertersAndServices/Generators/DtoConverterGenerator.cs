@@ -3,25 +3,26 @@ using CodeGenerator.DtoConvertersAndServices.Entities;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
-public class DtoConverterGenerator
+public class DtoConverterGenerator : BaseGenerator
 {
     public DtoConverterGenerator(Generator generator, DtoGenerator dto, DirectoryInfo directory, string @namespace)
     {
-        Dto = dto;
+        Generator = generator;
+        DtoGenerator = dto;
         DbSet = dto.DbSet;
         Entity = DbSet.Entity;
         Directory = directory;
         Namespace = @namespace;
+        Name = $"{Entity.Name}Converter";
     }
 
-    public DtoGenerator Dto { get; }
+    public Generator Generator { get;}
+    public DtoGenerator DtoGenerator { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
-    public DirectoryInfo Directory { get; }
     public string Namespace { get; }
-    public string? Code { get; private set; }
 
-    public string GenerateCode()
+    public void GenerateCode()
     {
         //namespace BSD.Data.Converters;
 
@@ -64,31 +65,31 @@ public class DtoConverterGenerator
         Code = string.Empty;
         Code += $"namespace {Namespace};\r\n";
         Code += $"\r\n";
-        Code += $"public static class {Entity.Name}Converter\r\n";
+        Code += $"public static class {Name}\r\n";
         Code += $"{{\r\n";
 
-        Code += $"    public static {Dto.FullName} ToDto(this {Entity.FullName} item)\r\n";
+        Code += $"    public static {DtoGenerator.FullName} ToDto(this {Entity.FullName} item)\r\n";
         Code += $"    {{\r\n";
-        Code += $"        var newItem = new {Dto.FullName}();\r\n";
+        Code += $"        var newItem = new {DtoGenerator.FullName}();\r\n";
         Code += $"        item.CopyTo(newItem);\r\n";
         Code += $"        return newItem;\r\n";
         Code += $"    }}\r\n";
 
-        Code += $"    public static {Entity.FullName} ToEntity(this {Dto.FullName} item)\r\n";
+        Code += $"    public static {Entity.FullName} ToEntity(this {DtoGenerator.FullName} item)\r\n";
         Code += $"    {{\r\n";
         Code += $"        var newItem = new {Entity.FullName}();\r\n";
         Code += $"        item.CopyTo(newItem);\r\n";
         Code += $"        return newItem;\r\n";
         Code += $"    }}\r\n";
 
-        Code += $"    public static bool CopyTo(this {Dto.FullName} source, {Entity.FullName} dest)\r\n";
+        Code += $"    public static bool CopyTo(this {DtoGenerator.FullName} source, {Entity.FullName} dest)\r\n";
         Code += $"    {{\r\n";
         Code += $"        var dirty = false;\r\n";
         Code += toEntityCode;
         Code += $"        return dirty;\r\n";
         Code += $"    }}\r\n";
 
-        Code += $"    public static bool CopyTo(this {Entity.FullName} source, {Dto.FullName} dest)\r\n";
+        Code += $"    public static bool CopyTo(this {Entity.FullName} source, {DtoGenerator.FullName} dest)\r\n";
         Code += $"    {{\r\n";
         Code += $"        var dirty = false;\r\n";
         Code += toDtoCode;
@@ -97,7 +98,7 @@ public class DtoConverterGenerator
 
         Code += $"}}";
 
-        return Code;
+        Save();
     }
 
 }

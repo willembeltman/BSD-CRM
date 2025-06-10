@@ -4,8 +4,8 @@ using BSD.Data;
 using BSD.Data.Converters;
 using BSD.Business.Interfaces;
 using BSD.Shared.Dtos;
-using BSD.Shared.Requests;
-using BSD.Shared.Responses;
+using BSD.Shared.RequestDtos;
+using BSD.Shared.ResponseDtos;
 using CodeGenerator.Shared.Attributes;
 
 namespace BSD.Business.Services;

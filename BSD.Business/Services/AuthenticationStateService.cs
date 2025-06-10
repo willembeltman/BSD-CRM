@@ -3,7 +3,7 @@ using BSD.Business.Models;
 using BSD.Data;
 using BSD.Data.Converters;
 using BSD.Business.Interfaces;
-using BSD.Shared.Requests;
+using BSD.Shared.RequestDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +22,7 @@ public class AuthenticationStateService(
     UserConverter UserConverter = new UserConverter();
     CompanyConverter CompanyConverter = new CompanyConverter();
 
-    public AuthenticationState GetState(Request request)
+    public AuthenticationState GetState(BaseRequest request)
     {
         if (IpAddress == null)
             return new AuthenticationState()

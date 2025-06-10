@@ -3,26 +3,68 @@ using CodeGenerator.DtoConvertersAndServices.Entities;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
-public class DtoGenerator
+public class DtoGenerator : BaseGenerator
 {
-    public DtoGenerator(Generator generator, DbSet dbSet, DirectoryInfo directory, string @namespace)
+    public DtoGenerator(
+        Generator generator,
+        DbSet dbSet,
+        DirectoryInfo dtoDirectory, string dtoNamespace,
+        DirectoryInfo requestDtoDirectory, string requestDtoNamespace,
+        DirectoryInfo responseDtoDirectory, string responseDtoNamespace)
     {
+        Generator = generator;
         DbSet = dbSet;
         Entity = DbSet.Entity;
-        Directory = directory;
-        Namespace = @namespace;
+        Directory = dtoDirectory;
+        Namespace = dtoNamespace;
+
+        CreateRequest = new CreateRequestDtoGenerator(this, requestDtoDirectory, requestDtoNamespace);
+        ReadRequest = new ReadRequestDtoGenerator(this, requestDtoDirectory, requestDtoNamespace);
+        UpdateRequest = new UpdateRequestDtoGenerator(this, requestDtoDirectory, requestDtoNamespace);
+        DeleteRequest = new DeleteRequestDtoGenerator(this, requestDtoDirectory, requestDtoNamespace);
+        ListRequest = new ListRequestDtoGenerator(this, requestDtoDirectory, requestDtoNamespace);
+
+        CreateResponse = new CreateResponseDtoGenerator(this, responseDtoDirectory, responseDtoNamespace);
+        ReadResponse = new ReadResponseDtoGenerator(this, responseDtoDirectory, responseDtoNamespace);
+        UpdateResponse = new UpdateResponseDtoGenerator(this, responseDtoDirectory, responseDtoNamespace);
+        DeleteResponse = new DeleteResponseDtoGenerator(this, responseDtoDirectory, responseDtoNamespace);
+        ListResponse = new ListResponseDtoGenerator(this, responseDtoDirectory, responseDtoNamespace);
+
+        Name = Entity.Name;
     }
 
+    public Generator Generator { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
-    public DirectoryInfo Directory { get; }
     public string Namespace { get; }
+
+    internal CreateRequestDtoGenerator CreateRequest { get; }
+    internal ReadRequestDtoGenerator ReadRequest { get; }
+    internal UpdateRequestDtoGenerator UpdateRequest { get; }
+    internal DeleteRequestDtoGenerator DeleteRequest { get; }
+    internal ListRequestDtoGenerator ListRequest { get; }
+
+    internal CreateResponseDtoGenerator CreateResponse { get; }
+    internal ReadResponseDtoGenerator ReadResponse { get; }
+    internal UpdateResponseDtoGenerator UpdateResponse { get; }
+    internal DeleteResponseDtoGenerator DeleteResponse { get; }
+    internal ListResponseDtoGenerator ListResponse { get; }
+
     public string FullName => $"{Namespace}.{Entity.Name}";
 
-    public string? Code { get; private set; }
-
-    public string GenerateCode()
+    public void GenerateCode()
     {
+
+        CreateRequest.GenerateCode();
+        ReadRequest.GenerateCode();
+        UpdateRequest.GenerateCode();
+        DeleteRequest.GenerateCode();
+        ListRequest.GenerateCode();
+        CreateResponse.GenerateCode();
+        ReadResponse.GenerateCode();
+        UpdateResponse.GenerateCode();
+        DeleteResponse.GenerateCode();
+
         //namespace BSD.Shared.Dtos;
 
         //public class Company 
@@ -49,7 +91,7 @@ public class DtoGenerator
 
         propertiesCode += $"namespace {Namespace};\r\n";
         propertiesCode += $"\r\n";
-        propertiesCode += $"public class {Entity.Name}\r\n";
+        propertiesCode += $"public class {Name}\r\n";
         propertiesCode += $"{{\r\n";
 
         foreach (var property in Entity.Properties)
@@ -95,7 +137,7 @@ public class DtoGenerator
                     usingCode = AddNamespace(usingCode, $"using System;");
                     propertiesCode += $"    public {property.TypeSimpleName} {property.PropertyName} {{ get; set; }} = string.Empty;\r\n";
                 }
-                else 
+                else
                 {
                     if (!string.IsNullOrEmpty(property.Type.Namespace))
                         usingCode = AddNamespace(usingCode, $"using {property.Type.Namespace};");
@@ -108,7 +150,7 @@ public class DtoGenerator
 
         Code = usingCode + "\r\n\r\n" + propertiesCode;
 
-        return Code;
+        Save();
     }
 
     private string AddNamespace(string usingCode, string @using)

@@ -19,13 +19,20 @@ public class Generator
 
     public void Run(
         DirectoryInfo dtoDirectory, string dtoNamespace,
+        DirectoryInfo requestDtoDirectory, string requestDtoNamespace,
+        DirectoryInfo responseDtoDirectory, string responseDtoNamespace,
         DirectoryInfo dtoConvertersDirectory, string dtoConvertersNamespace,
         DirectoryInfo interfacesDirectory, string interfacesNamespace,
         DirectoryInfo servicesDirectory, string servicesNamespace)
     {
         // Generate DTOs
         Dtos = DbContext.DbSets
-            .Select(dbSet => new DtoGenerator(this, dbSet, dtoDirectory, dtoNamespace))
+            .Select(dbSet => new DtoGenerator(
+                this, 
+                dbSet,
+                dtoDirectory, dtoNamespace,
+                requestDtoDirectory, requestDtoNamespace,
+                responseDtoDirectory, responseDtoNamespace))
             .ToArray();
 
         // Generate DTO Converters

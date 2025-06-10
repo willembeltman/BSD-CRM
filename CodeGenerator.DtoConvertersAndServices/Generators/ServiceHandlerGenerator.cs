@@ -1,10 +1,10 @@
 ﻿namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
-public class ServiceGenerator : BaseGenerator
+public class ServiceHandlerGenerator : BaseGenerator
 {
-    public ServiceGenerator(
-        ServiceInterfaceGenerator serviceInterface,
-        DirectoryInfo dtoConvertersDirectory,
+    public ServiceHandlerGenerator(
+        DtoConverterGenerator dtoConverter, 
+        DirectoryInfo dtoConvertersDirectory, 
         string dtoConvertersNamespace)
     {
     }

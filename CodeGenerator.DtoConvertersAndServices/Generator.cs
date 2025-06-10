@@ -5,62 +5,65 @@ namespace CodeGenerator.DtoConvertersAndServices;
 
 public class Generator
 {
-    public Generator(Type dbContextType)
+    public Generator(GeneratorConfig config)
     {
-        DbContext = new DbContext(dbContextType);
-    }
-
-    public DbContext DbContext { get; }
-
-    public DtoGenerator[]? Dtos { get; private set; }
-    public DtoConverterGenerator[]? DtoConverters { get; private set; }
-    public ServiceInterfaceGenerator[]? ServiceInterfaces { get; private set; }
-    public ServiceGenerator[]? Services { get; private set; }
-
-    public void Run(
-        DirectoryInfo dtoDirectory, string dtoNamespace,
-        DirectoryInfo requestDtoDirectory, string requestDtoNamespace,
-        DirectoryInfo responseDtoDirectory, string responseDtoNamespace,
-        DirectoryInfo dtoConvertersDirectory, string dtoConvertersNamespace,
-        DirectoryInfo interfacesDirectory, string interfacesNamespace,
-        DirectoryInfo servicesDirectory, string servicesNamespace)
-    {
+        DbContext = new DbContext(config.DbContextType);
         // Generate DTOs
         Dtos = DbContext.DbSets
             .Where(a => !a.Entity.IsHidden)
             .Select(dbSet => new DtoGenerator(
                 dbSet,
-                dtoDirectory, dtoNamespace,
-                requestDtoDirectory, requestDtoNamespace,
-                responseDtoDirectory, responseDtoNamespace))
+                config.DtoDirectory, config.DtoNamespace,
+                config.RequestDtoDirectory, config.RequestDtoNamespace,
+                config.ResponseDtoDirectory, config.ResponseDtoNamespace))
             .ToArray();
 
         // Generate DTO Converters
         DtoConverters = Dtos
             .Select(dto => new DtoConverterGenerator(
-                dto, 
-                dtoConvertersDirectory, 
-                dtoConvertersNamespace))
+                dto,
+                config.DtoConvertersDirectory,
+                config.DtoConvertersNamespace))
+            .ToArray();
+
+        // Generate Service Handlers
+        ServiceHandlers = DtoConverters
+            .Select(dtoConverter => new ServiceHandlerGenerator(
+                dtoConverter,
+                config.DtoConvertersDirectory,
+                config.DtoConvertersNamespace))
             .ToArray();
 
         // Generate Service Interfaces
-        ServiceInterfaces = DtoConverters
-            .Select(dtoConverter => new ServiceInterfaceGenerator(
-                dtoConverter, 
-                dtoConvertersDirectory,
-                dtoConvertersNamespace))
+        ServiceInterfaces = ServiceHandlers
+            .Select(serviceHandler => new ServiceInterfaceGenerator(
+                serviceHandler,
+                config.DtoConvertersDirectory,
+                config.DtoConvertersNamespace))
             .ToArray();
 
         // Generate Services
         Services = ServiceInterfaces
             .Select(serviceInterface => new ServiceGenerator(
-                serviceInterface, 
-                dtoConvertersDirectory, 
-                dtoConvertersNamespace))
+                serviceInterface,
+                config.DtoConvertersDirectory,
+                config.DtoConvertersNamespace))
             .ToArray();
+    }
 
+    public DbContext DbContext { get; }
+
+    public DtoGenerator[] Dtos { get; private set; }
+    public DtoConverterGenerator[] DtoConverters { get; private set; }
+    public ServiceHandlerGenerator[] ServiceHandlers { get; private set; }
+    public ServiceInterfaceGenerator[] ServiceInterfaces { get; private set; }
+    public ServiceGenerator[] Services { get; private set; }
+
+    public void Run()
+    {
         foreach (var dto in Dtos) dto.GenerateCode();
         foreach (var dtoConverter in DtoConverters) dtoConverter.GenerateCode();
+        foreach (var serviceHandler in ServiceHandlers) serviceHandler.GenerateCode();
         foreach (var serviceInterface in ServiceInterfaces) serviceInterface.GenerateCode();
         foreach (var service in Services) service.GenerateCode();
     }

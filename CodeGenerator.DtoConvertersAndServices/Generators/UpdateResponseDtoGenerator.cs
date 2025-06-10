@@ -1,5 +1,4 @@
-﻿
-namespace CodeGenerator.Dtos_Converters_Services.Generators;
+﻿namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
 public class UpdateResponseDtoGenerator : BaseGenerator
 {

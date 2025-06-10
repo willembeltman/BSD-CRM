@@ -11,11 +11,10 @@ using Microsoft.EntityFrameworkCore;
 namespace BSD.Business.Services;
 
 public class AuthenticationService(
-    IHttpContextAccessor httpContextAccessor,
+    AuthenticationStateService authenticationState,
     ApplicationDbContext db,
     IDateTimeService dateTime)
-    : AuthenticationBaseService(httpContextAccessor, db), 
-    IAuthenticationService
+    : IAuthenticationService
 {
     readonly ApplicationDbContext db = db;
     readonly int ShortHoursAgo = -1;
@@ -24,8 +23,9 @@ public class AuthenticationService(
     [TsServiceMethod("Auth", "Login")]
     public LoginResponse Login(LoginRequest request)
     {
-        var shortago = dateTime.Now.AddHours(ShortHoursAgo);
-        var longago = dateTime.Now.AddHours(LongHoursAgo);
+        var now = dateTime.GetNow();
+        var shortago = now.AddHours(ShortHoursAgo);
+        var longago = now.AddHours(LongHoursAgo);
 
         var email = request.UserName;
         var password = request.Password;
@@ -56,14 +56,14 @@ public class AuthenticationService(
                 AuthenticationError = true // Security?
             };
 
-        var clientDevice = GetClientDevice();
+        var clientDevice = authenticationState.GetClientDevice();
         if (clientDevice == null)
             return new LoginResponse()
             {
                 AuthenticationError = true
             };
 
-        var clientIpAddress = GetIpAddress();
+        var clientIpAddress = authenticationState.GetIpAddress();
         if (clientIpAddress == null)
             return new LoginResponse()
             {
@@ -80,7 +80,7 @@ public class AuthenticationService(
         if (clientBearer == null)
         {
             // Automatisch vernieuwen
-            clientBearer = CreateBearer(dbuser, clientDevice, clientIpAddress);
+            clientBearer = authenticationState.CreateBearer(dbuser, clientDevice, clientIpAddress);
         }
 
         var user = dbuser.ToDto();
@@ -118,7 +118,7 @@ public class AuthenticationService(
     [TsServiceMethod("Auth", "Register")]
     public RegisterResponse Register(RegisterRequest request)
     {
-        if (string.IsNullOrEmpty(this.IpAddress))
+        if (string.IsNullOrEmpty(authenticationState.IpAddress))
             return new RegisterResponse()
             {
                 ErrorGettingState = true
@@ -170,28 +170,28 @@ public class AuthenticationService(
                 ErrorEmailInUse = true
             };
 
-        var dbuser = CreateUser(username, email, phoneNumber, password);
+        var dbuser = authenticationState.CreateUser(username, email, phoneNumber, password);
         if (dbuser == null)
             return new RegisterResponse()
             {
                 ErrorCouldNotCreateUser = true
             };
 
-        var device = GetClientDevice();
+        var device = authenticationState.GetClientDevice();
         if (device == null)
             return new RegisterResponse()
             {
                 ErrorCouldNotGetDevice = true
             };
 
-        var ipAddress = GetIpAddress();
+        var ipAddress = authenticationState.GetIpAddress();
         if (ipAddress == null)
             return new RegisterResponse()
             {
                 ErrorEmailInUse = true
             };
 
-        var bearer = CreateBearer(dbuser, device, ipAddress);
+        var bearer = authenticationState.CreateBearer(dbuser, device, ipAddress);
         if (bearer == null)
             return new RegisterResponse()
             {

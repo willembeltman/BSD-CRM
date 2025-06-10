@@ -2,53 +2,56 @@ using BSD.Business.Services;
 using BSD.Data;
 using BSD.Business.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BSD.Api.Extentions;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace BSD.Api;
 
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
+internal class Program
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
-});
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddDbContext<ApplicationDbContext>(
-//    options => options.UseInMemoryDatabase("InMemoryDatabase"));
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin",
+                builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+        });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+        //builder.Services.AddDbContext<ApplicationDbContext>(
+        //    options => options.UseInMemoryDatabase("InMemoryDatabase"));
 
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-builder.Services.AddScoped<IDateTimeService, DateTimeService>();
-//builder.Services.AddScoped<IWorkorderService, WorkorderService>();
-//builder.Services.AddScoped<ICompanyService, CompanyService>();
-//builder.Services.AddScoped<ICountryService, CountryService>();
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IProjectService, ProjectService>();
-//builder.Services.AddScoped<ICustomerService, CustomerService>();
-//builder.Services.AddScoped<IInvoiceService, InvoiceService>();
-//builder.Services.AddScoped<IRateService, RateService>();
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-var app = builder.Build();
+        builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+        builder.Services.AddScoped<IDateTimeService, DateTimeService>();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+        builder.Services.RegisterCrudServices();
+
+        var app = builder.Build();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseCors("AllowSpecificOrigin");
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseCors("AllowSpecificOrigin");
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

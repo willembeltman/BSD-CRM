@@ -17,6 +17,7 @@
     <ProjectReference Include="..\BSD.Api\BSD.Api.csproj" />
     <ProjectReference Include="..\BSD.Proxy\BSD.Proxy.csproj" />
     <ProjectReference Include="..\BSD.Shared\BSD.Shared.csproj" />
+    <ProjectReference Include="..\CodeGenerator.ApiAndProxies\CodeGenerator.Apis_Proxies.csproj" />
     <ProjectReference Include="..\CodeGenerator.DtoConvertersAndServices\CodeGenerator.Dtos_Converters_Services.csproj" />
     <ProjectReference Include="..\CodeGenerator.Shared\CodeGenerator.Shared.csproj" />
   </ItemGroup>

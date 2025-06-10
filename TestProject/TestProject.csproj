@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
+    <Compile Remove="Request\**" />
+    <Content Remove="Request\**" />
+    <EmbeddedResource Remove="Request\**" />
+    <None Remove="Request\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Request\" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
   </ItemGroup>
 
   <ItemGroup>

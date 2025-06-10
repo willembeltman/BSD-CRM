@@ -11,19 +11,20 @@ public class Generator
     {
         DbContext = new DbContext(config.DbContextType);
 
-        // Requests/BaseRequest
+        // RequestDtos/BaseRequest
         BaseRequest = new BaseRequestGenerator(
             DbContext,
             config.RequestDtoDirectory, config.RequestDtoNamespace);
 
-        // Shared/Dtos/State
+        // Dtos/State
         StateDto = new StateDtoGenerator(
             BaseRequest,
             config.DtoDirectory, config.DtoNamespace);
 
+        // ResponseDtos/BaseResponse
         BaseResponse = new BaseResponseGenerator(
             StateDto,
-            config.RequestDtoDirectory, config.RequestDtoNamespace);
+            config.ResponseDtoDirectory, config.ResponseDtoNamespace);
 
         // Models/AuthenticationState
         AuthenticationState = new AuthenticationStateGenerator(

@@ -20,12 +20,9 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Generators
         }
 
         public BaseResponseGenerator BaseResponse { get; }
-        public string Namespace { get; }
         public StateDtoGenerator StateDto { get; }
         public BaseRequestGenerator BaseRequest { get; }
         public DbContext DbContext { get; }
-
-        public string FullName => $"{Namespace}.{Name}";
 
         public void GenerateCode()
         {
@@ -63,19 +60,11 @@ namespace {Namespace};
 public class {Name} : {StateDto.FullName}
 {{
     public bool Success {{ get; set; }}
-    public {DbContext.UserEntity.Name}? {DbContext.UserEntity.Name} {{ get; set; }}
+    public {DbContext.UserEntity.Name}? Db{DbContext.UserEntity.Name} {{ get; set; }}
 {propertyCode}}}
 ";
 
             Save();
-        }
-        private string AddNamespace(string usingCode, string @using)
-        {
-            if (!usingCode.Contains(@using))
-            {
-                usingCode += $"{@using}\r\n";
-            }
-            return usingCode;
         }
     }
 }

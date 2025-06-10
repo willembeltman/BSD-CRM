@@ -15,7 +15,6 @@ public class BaseRequestGenerator : BaseGenerator
     }
 
     public DbContext DbContext { get; }
-    public string Namespace { get; }
 
     public void GenerateCode()
     {

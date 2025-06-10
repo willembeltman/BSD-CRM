@@ -56,16 +56,22 @@ public class EntityProperty
             IsNullable = nullabilityInfo.ReadState == NullabilityState.Nullable;
         }
 
-        TypeSimpleName = NameHelper.GetSimpleCsType(Type.FullName ?? Type.Name) ?? (Type.FullName ?? Type.Name);
-        if (IsNullable)
-        {
-            TypeSimpleName += "?";
-        }
 
         IsPrimitiveType = ReflectionHelper.IsPrimitiveType(Type);
         IsEnum = Type.IsEnum;
         IsValueType = Type.IsValueType;
         IsPrimitiveTypeOrEnumOrValueType = ReflectionHelper.IsPrimitiveType(Type) || Type.IsEnum || Type.IsValueType;
+
+
+        TypeSimpleName = NameHelper.GetSimpleCsType(Type.FullName ?? Type.Name) ?? (Type.FullName ?? Type.Name);
+        if (IsEnum)
+        {
+            TypeSimpleName = Type.Name;
+        }
+        if (IsNullable)
+        {
+            TypeSimpleName += "?";
+        }
     }
 
     public Entity PropertyEntity { get; }

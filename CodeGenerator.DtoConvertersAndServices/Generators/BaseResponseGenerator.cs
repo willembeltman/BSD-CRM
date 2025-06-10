@@ -4,11 +4,11 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Generators
 {
     public class BaseResponseGenerator : BaseGenerator
     {
-        public BaseResponseGenerator(StateDtoGenerator stateDto, DirectoryInfo requestDtoDirectory, string requestDtoNamespace)
+        public BaseResponseGenerator(StateDtoGenerator stateDto, DirectoryInfo responseDtoDirectory, string responseDtoNamespace)
         {
             StateDto = stateDto;
-            Directory = requestDtoDirectory;
-            Namespace = requestDtoNamespace;
+            Directory = responseDtoDirectory;
+            Namespace = responseDtoNamespace;
 
             BaseRequest = StateDto.BaseRequest;
 
@@ -16,8 +16,6 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Generators
         }
 
         public StateDtoGenerator StateDto { get; }
-        public string Namespace { get; }
-
         public BaseRequestGenerator BaseRequest { get; }
 
         public void GenerateCode()

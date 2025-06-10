@@ -3,8 +3,20 @@
 public class BaseGenerator
 {
     public DirectoryInfo? Directory { get; protected set; }
+    public string? Namespace { get; protected set; }
     public string? Name { get; protected set; }
     public string? Code { get; protected set; }
+
+    public string FullName => $"{Namespace}.{Name}";
+
+    public string AddNamespace(string usingCode, string @using)
+    {
+        if (!usingCode.Contains(@using))
+        {
+            usingCode += $"{@using}\r\n";
+        }
+        return usingCode;
+    }
 
     public void Save(bool overwrite = true)
     {
@@ -16,7 +28,7 @@ public class BaseGenerator
         var fileInfo = new FileInfo(filePath);
         if (overwrite || !fileInfo.Exists)
         {
-            if (!fileInfo.Directory.Exists)
+            if (!fileInfo.Directory!.Exists)
             {
                 fileInfo.Directory.Create();
             }

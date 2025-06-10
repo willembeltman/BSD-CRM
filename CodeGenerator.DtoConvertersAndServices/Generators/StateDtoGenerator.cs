@@ -17,10 +17,7 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Generators
         }
 
         public BaseRequestGenerator BaseRequest { get; }
-        public string Namespace { get; }
         public DbContext DbContext { get; }
-
-        public string FullName => $"{Namespace}.{Name}";
 
         public void GenerateCode()
         {
@@ -49,6 +46,7 @@ public class {Name}
 {propertieCode}}}
 ";
 
+            Save();
         }
     }
 }

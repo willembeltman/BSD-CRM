@@ -7,12 +7,11 @@ public class DeleteRequestDtoGenerator : BaseGenerator
     {
         DtoGenerator = dtoGenerator;
         Directory = directory;
-        ResquestDtoNamespace = @namespace;
+        Namespace = @namespace;
         Name = $"{dtoGenerator.Entity.Name}DeleteRequest";
     }
 
     public DtoGenerator DtoGenerator { get; }
-    public string ResquestDtoNamespace { get; private set; }
 
     public void GenerateCode()
     {
@@ -25,7 +24,7 @@ public class DeleteRequestDtoGenerator : BaseGenerator
 
         var id = DtoGenerator.Entity.Properties.First(a => a.IsKey);
 
-        Code = @$"namespace {ResquestDtoNamespace};
+        Code = @$"namespace {Namespace};
 
 public class {Name} : BaseRequest
 {{

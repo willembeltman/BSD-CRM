@@ -6,12 +6,11 @@ public class UpdateResponseDtoGenerator : BaseGenerator
     {
         DtoGenerator = dtoGenerator;
         Directory = directory;
-        ResponseDtoNamespace = @namespace;
+        Namespace = @namespace;
         Name = $"{dtoGenerator.Entity.Name}UpdateResponse";
     }
 
     public DtoGenerator DtoGenerator { get; }
-    public string ResponseDtoNamespace { get; private set; }
 
     public void GenerateCode()
     {
@@ -28,7 +27,7 @@ public class UpdateResponseDtoGenerator : BaseGenerator
 
         Code += $"using {DtoGenerator.Namespace};\r\n";
         Code += $"\r\n";
-        Code += $"namespace {ResponseDtoNamespace};\r\n";
+        Code += $"namespace {Namespace};\r\n";
         Code += $"\r\n";
         Code += $"public class {Name} : BaseResponse\r\n";
         Code += $"{{\r\n";

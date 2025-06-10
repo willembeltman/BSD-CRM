@@ -20,7 +20,6 @@ public class IAuthenticationStateServiceGenerator : BaseGenerator
     }
 
     public AuthenticationStateGenerator AuthenticationState { get; }
-    public string Namespace { get; }
     public StateDtoGenerator StateDto { get; }
     public BaseResponseGenerator BaseResponse { get; }
     public BaseRequestGenerator BaseRequest { get; }

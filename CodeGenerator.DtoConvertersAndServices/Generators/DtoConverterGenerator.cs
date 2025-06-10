@@ -19,7 +19,6 @@ public class DtoConverterGenerator : BaseGenerator
     public DtoGenerator Dto { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
-    public string Namespace { get; }
 
     public void GenerateCode()
     {

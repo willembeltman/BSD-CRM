@@ -47,7 +47,6 @@ public class DtoGenerator : BaseGenerator
     public DbContext DbContext { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
-    public string Namespace { get; }
 
     internal CreateRequestDtoGenerator CreateRequest { get; }
     internal ReadRequestDtoGenerator ReadRequest { get; }
@@ -161,7 +160,7 @@ public class DtoGenerator : BaseGenerator
 
         propertiesCode += $"}}";
 
-        Code = usingCode + "\r\n\r\n" + propertiesCode;
+        Code = usingCode + "\r\n" + propertiesCode;
 
         Save();
 
@@ -177,12 +176,4 @@ public class DtoGenerator : BaseGenerator
         ListResponse.GenerateCode();
     }
 
-    private string AddNamespace(string usingCode, string @using)
-    {
-        if (!usingCode.Contains(@using))
-        {
-            usingCode += $"{@using}\r\n";
-        }
-        return usingCode;
-    }
 }

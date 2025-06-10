@@ -7,12 +7,11 @@ public class ListRequestDtoGenerator : BaseGenerator
     {
         DtoGenerator = dtoGenerator;
         Directory = directory;
-        RequestDtoNamespace = @namespace;
+        Namespace = @namespace;
         Name = $"{dtoGenerator.Entity.Name}ListRequest";
     }
 
     public DtoGenerator DtoGenerator { get; }
-    public string RequestDtoNamespace { get; private set; }
 
     public void GenerateCode()
     {
@@ -26,7 +25,7 @@ public class ListRequestDtoGenerator : BaseGenerator
 
         Code += $"using {DtoGenerator.Namespace};\r\n";
         Code += $"\r\n";
-        Code += $"namespace {RequestDtoNamespace};\r\n";
+        Code += $"namespace {Namespace};\r\n";
         Code += $"\r\n";
         Code += $"public class {Name} : BaseRequest\r\n";
         Code += $"{{\r\n";

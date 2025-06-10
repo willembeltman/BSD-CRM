@@ -38,7 +38,6 @@ public class ServiceHandlerGenerator : BaseGenerator
     public StateDtoGenerator StateDto { get; }
     public BaseRequestGenerator BaseRequest { get; }
     public DbContext DbContext { get; }
-    public string Namespace { get; private set; }
 
     public void GenerateCode()
     {
@@ -157,8 +156,7 @@ public class ServiceHandlerGenerator : BaseGenerator
         var keyType = Entity.Properties.FirstOrDefault(a => a.IsKey)?.TypeSimpleName ?? "long";
 
 
-        Code = $@"
-using {AuthenticationState.Namespace};
+        Code = $@"using {AuthenticationState.Namespace};
 using {DbContext.Type.Namespace};
 using {Entity.Type.Namespace};
 
@@ -179,12 +177,12 @@ public class {Name}
     public bool CanDelete(ApplicationDbContext db, {Entity.Name} entity) => State.DbUser != null;
     public bool CanList(ApplicationDbContext db) => true;
 
-    public {Entity.Name}? FindByMatch(ApplicationDbContext db, Shared.Dtos.{Entity.Name} dto) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == dto.Id);
+    public {Entity.Name}? FindByMatch(ApplicationDbContext db, {Dto.FullName} dto) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == dto.Id);
     public {Entity.Name}? FindById(ApplicationDbContext db, {keyType} id) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == id);
     public IQueryable<{Entity.Name}> ListAll(ApplicationDbContext db) => db.{DbSet.Name};
 
     public bool AttachToState(ApplicationDbContext db, {Entity.Name} entity) => true;
-    public bool UpdateToState(ApplicationDbContext db, {Entity.Name} entity, Shared.Dtos.{Entity.Name} dto) => true;
+    public bool UpdateToState(ApplicationDbContext db, {Entity.Name} entity, {Dto.FullName} dto) => true;
     public bool DeleteFromState(ApplicationDbContext db, {Entity.Name} entity) => true;
 }}
 ";

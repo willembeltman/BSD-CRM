@@ -7,12 +7,11 @@ public class DeleteResponseDtoGenerator : BaseGenerator
     {
         DtoGenerator = dtoGenerator;
         Directory = directory;
-        ResponseDtoNamespace = @namespace;
+        Namespace = @namespace;
         Name = $"{dtoGenerator.Entity.Name}DeleteResponse";
     }
 
     public DtoGenerator DtoGenerator { get; }
-    public string ResponseDtoNamespace { get; private set; }
 
     public void GenerateCode()
     {
@@ -24,7 +23,7 @@ public class DeleteResponseDtoGenerator : BaseGenerator
 
         Code = @$"using {DtoGenerator.Namespace};
 
-namespace {ResponseDtoNamespace};
+namespace {Namespace};
 
 public class {Name} : BaseResponse
 {{

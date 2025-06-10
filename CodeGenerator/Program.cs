@@ -17,6 +17,23 @@ var config1 = new CodeGenerator.Step1.DtosConvertersAndServices.GeneratorConfig(
     interfacesNamespace: "BSD.Business.Interfaces",
     servicesDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Services"),
     servicesNamespace: "BSD.Business.Services");
+
+config1 = new CodeGenerator.Step1.DtosConvertersAndServices.GeneratorConfig(
+    dbContextType: typeof(ApplicationDbContext),
+    dtoDirectory: new DirectoryInfo("..\\..\\..\\..\\TestProject\\Dtos"),
+    dtoNamespace: "TestProject.Dtos",
+    requestDtoDirectory: new DirectoryInfo("..\\..\\..\\..\\TestProject\\RequestDtos"),
+    requestDtoNamespace: "TestProject.RequestDtos",
+    responseDtoDirectory: new DirectoryInfo("..\\..\\..\\..\\TestProject\\ResponseDtos"),
+    responseDtoNamespace: "TestProject.ResponseDtos",
+    convertersDirectory: new DirectoryInfo("..\\..\\..\\..\\TestProject\\Converters"),
+    convertersNamespace: "TestProject.Converters",
+    serviceHandlersDirectory: new DirectoryInfo("..\\..\\..\\..\\TestProject\\ServiceHandlers"),
+    serviceHandlersNamespace: "TestProject.ServiceHandlers",
+    interfacesDirectory: new DirectoryInfo("..\\..\\..\\..\\TestProject\\Interfaces"),
+    interfacesNamespace: "TestProject.Interfaces",
+    servicesDirectory: new DirectoryInfo("..\\..\\..\\..\\TestProject\\Services"),
+    servicesNamespace: "TestProject.Services");
 var generator1 = new CodeGenerator.Step1.DtosConvertersAndServices.Generator(config1);
 generator1.Run();
 

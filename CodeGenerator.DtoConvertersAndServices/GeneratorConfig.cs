@@ -10,7 +10,8 @@ public class GeneratorConfig
         DirectoryInfo convertersDirectory, string convertersNamespace,
         DirectoryInfo serviceHandlersDirectory, string serviceHandlersNamespace,
         DirectoryInfo interfacesDirectory, string interfacesNamespace,
-        DirectoryInfo servicesDirectory, string servicesNamespace)
+        DirectoryInfo servicesDirectory, string servicesNamespace,
+        DirectoryInfo modelsDirectory, string modelsNamespace)
     {
         DbContextType = dbContextType;
         DtoDirectory = dtoDirectory;
@@ -27,6 +28,8 @@ public class GeneratorConfig
         InterfacesNamespace = interfacesNamespace;
         ServicesDirectory = servicesDirectory;
         ServicesNamespace = servicesNamespace;
+        ModelsDirectory = modelsDirectory;
+        ModelsNamespace = modelsNamespace;
     }
     public Type DbContextType { get; }
     public DirectoryInfo DtoDirectory { get; }
@@ -43,4 +46,6 @@ public class GeneratorConfig
     public string InterfacesNamespace { get; }
     public DirectoryInfo ServicesDirectory { get; }
     public string ServicesNamespace { get; }
+    public DirectoryInfo ModelsDirectory { get; }
+    public string ModelsNamespace { get; }
 }

@@ -1,5 +1,7 @@
-﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
-using CodeGenerator.Dtos_Converters_Services.Generators;
+﻿using CodeGenerator.Dtos_Converters_Services.Generators;
+using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
+using CodeGenerator.Step1.DtosConvertersAndServices.Generators;
+using System.Linq;
 
 namespace CodeGenerator.Step1.DtosConvertersAndServices;
 
@@ -8,11 +10,36 @@ public class Generator
     public Generator(GeneratorConfig config)
     {
         DbContext = new DbContext(config.DbContextType);
+
+        // Requests/BaseRequest
+        BaseRequest = new BaseRequestGenerator(
+            DbContext,
+            config.RequestDtoDirectory, config.RequestDtoNamespace);
+
+        // Shared/Dtos/State
+        StateDto = new StateDtoGenerator(
+            BaseRequest,
+            config.DtoDirectory, config.DtoNamespace);
+
+        BaseResponse = new BaseResponseGenerator(
+            StateDto,
+            config.RequestDtoDirectory, config.RequestDtoNamespace);
+
+        // Models/AuthenticationState
+        AuthenticationState = new AuthenticationStateGenerator(
+            BaseResponse,
+            config.ModelsDirectory, config.ModelsNamespace);
+
+        // Interfaces/IAuthenticationStateService
+        IAuthenticationStateService = new IAuthenticationStateServiceGenerator(
+            AuthenticationState,
+            config.InterfacesDirectory, config.InterfacesNamespace);
+
         // Generate DTOs
         Dtos = DbContext.DbSets
             .Where(a => !a.Entity.IsHidden)
             .Select(dbSet => new DtoGenerator(
-                dbSet,
+                IAuthenticationStateService, dbSet,
                 config.DtoDirectory, config.DtoNamespace,
                 config.RequestDtoDirectory, config.RequestDtoNamespace,
                 config.ResponseDtoDirectory, config.ResponseDtoNamespace))
@@ -49,9 +76,16 @@ public class Generator
                 config.ConvertersDirectory,
                 config.ConvertersNamespace))
             .ToArray();
+
     }
 
     public DbContext DbContext { get; }
+
+    internal BaseRequestGenerator BaseRequest { get; }
+    internal BaseResponseGenerator BaseResponse { get; }
+    internal StateDtoGenerator StateDto { get; }
+    internal AuthenticationStateGenerator AuthenticationState { get; }
+    internal IAuthenticationStateServiceGenerator IAuthenticationStateService { get; }
 
     public DtoGenerator[] Dtos { get; private set; }
     public DtoConverterGenerator[] DtoConverters { get; private set; }
@@ -61,16 +95,20 @@ public class Generator
 
     public void Run()
     {
-        // To render:
-        // Requests/BaseRequest
-        // Shared/Dtos/State
+        // RequestDtos/BaseRequest
+        BaseRequest.GenerateCode();
+
+        // Dtos/State
+        StateDto.GenerateCode();
+
+        // ResponseDtos/BaseResponse
+        BaseResponse.GenerateCode();
+
         // Models/AuthenticationState
+        AuthenticationState.GenerateCode();
+
         // Interfaces/IAuthenticationStateService
-
-
-        /// User wijst naar: 
-        /// Company, en die wijst weer naar: 
-        /// Country.
+        IAuthenticationStateService.GenerateCode();
 
         foreach (var dto in Dtos) dto.GenerateCode();
         foreach (var dtoConverter in DtoConverters) dtoConverter.GenerateCode();

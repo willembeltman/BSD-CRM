@@ -1,4 +1,5 @@
-﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
+﻿using CodeGenerator.Step1.DtosConvertersAndServices;
+using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
@@ -9,6 +10,7 @@ public class DtoConverterGenerator : BaseGenerator
         Dto = dto;
         DbSet = dto.DbSet;
         Entity = DbSet.Entity;
+        
         Directory = directory;
         Namespace = @namespace;
         Name = $"{Entity.Name}Converter";

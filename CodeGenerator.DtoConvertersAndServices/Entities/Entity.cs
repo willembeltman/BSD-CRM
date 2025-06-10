@@ -26,6 +26,9 @@ public class Entity
 
         IsAuthorize = type
             .GetCustomAttribute<AuthorizeAttribute>() != null;
+
+        IsUser = type
+            .GetCustomAttribute<UserAttribute>() != null;
     }
 
     public DbSet DbSet { get; }
@@ -34,6 +37,7 @@ public class Entity
     public string Name { get; }
     public bool IsStorageFile { get; }
     public bool IsHidden { get; }
+    public bool IsUser { get; }
     public EntityProperty[] Properties { get; }
     public bool IsAuthorize { get; }
 

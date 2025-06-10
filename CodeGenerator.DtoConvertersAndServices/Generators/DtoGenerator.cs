@@ -1,15 +1,24 @@
 ﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
+using CodeGenerator.Step1.DtosConvertersAndServices.Generators;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
 public class DtoGenerator : BaseGenerator
 {
     public DtoGenerator(
-        DbSet dbSet,
+        IAuthenticationStateServiceGenerator iAuthenticationStateService,
+        DbSet dbSet, 
         DirectoryInfo dtoDirectory, string dtoNamespace,
         DirectoryInfo requestDtoDirectory, string requestDtoNamespace,
         DirectoryInfo responseDtoDirectory, string responseDtoNamespace)
     {
+        IAuthenticationStateService = iAuthenticationStateService;
+        AuthenticationState = IAuthenticationStateService.AuthenticationState;
+        BaseResponse = AuthenticationState.BaseResponse;
+        StateDto = BaseResponse.StateDto;
+        BaseRequest = BaseResponse.BaseRequest;
+        DbContext = BaseRequest.DbContext;
+
         DbSet = dbSet;
         Entity = DbSet.Entity;
         Directory = dtoDirectory;
@@ -30,6 +39,12 @@ public class DtoGenerator : BaseGenerator
         Name = Entity.Name;
     }
 
+    public IAuthenticationStateServiceGenerator IAuthenticationStateService { get; }
+    public AuthenticationStateGenerator AuthenticationState { get; }
+    public StateDtoGenerator StateDto { get; }
+    internal BaseResponseGenerator BaseResponse { get; }
+    public BaseRequestGenerator BaseRequest { get; }
+    public DbContext DbContext { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
     public string Namespace { get; }

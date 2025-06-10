@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CodeGenerator.Shared.Attributes;
 
 namespace BSD.Data.Entities
 {
+    [User]
     public class User
     {
         [Key]
@@ -11,7 +13,6 @@ namespace BSD.Data.Entities
 
         public long? CurrentCompanyId { get; set; }
         public virtual Company? CurrentCompany { get; set; }
-
 
         [StringLength(128)]
         [Required]

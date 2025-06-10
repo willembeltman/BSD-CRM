@@ -1,25 +1,57 @@
-﻿namespace CodeGenerator.Dtos_Converters_Services.Generators;
+﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
+using CodeGenerator.Step1.DtosConvertersAndServices.Generators;
+
+namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
 public class ServiceGenerator : BaseGenerator
 {
     public ServiceGenerator(
         ServiceInterfaceGenerator serviceInterface,
-        DirectoryInfo dtoConvertersDirectory,
-        string dtoConvertersNamespace)
+        DirectoryInfo servicesDirectory,
+        string servicesNamespace)
     {
+        ServiceInterface = serviceInterface;
+        Directory = servicesDirectory;
+        Namespace = servicesNamespace;
+
+        ServiceHandler = serviceInterface.ServiceHandler;
+        DtoConverter = ServiceHandler.DtoConverter;
+        Dto = DtoConverter.Dto;
+        DbSet = Dto.DbSet;
+        Entity = DbSet.Entity;
+        IAuthenticationStateService = Dto.IAuthenticationStateService;
+        AuthenticationState = IAuthenticationStateService.AuthenticationState;
+        BaseResponse = AuthenticationState.BaseResponse;
+        StateDto = BaseResponse.StateDto;
+        BaseRequest = StateDto.BaseRequest;
+        DbContext = BaseRequest.DbContext;
+
+        Name = $"{Entity.Name}Service";
     }
+
+    public ServiceInterfaceGenerator ServiceInterface { get; }
+    public ServiceHandlerGenerator ServiceHandler { get; }
+    public DtoConverterGenerator DtoConverter { get; }
+    public DtoGenerator Dto { get; }
+    public DbSet DbSet { get; }
+    public Entity Entity { get; }
+    public IAuthenticationStateServiceGenerator IAuthenticationStateService { get; }
+    public AuthenticationStateGenerator AuthenticationState { get; private set; }
+    public BaseResponseGenerator BaseResponse { get; }
+    public StateDtoGenerator StateDto { get; }
+    public BaseRequestGenerator BaseRequest { get; }
+    public DbContext DbContext { get; }
 
     public void GenerateCode()
     {
-        //// Example output:
+        #region Example code
+        //using BSD.Business.Converters;
+        //using BSD.Business.ServiceHandlers;
         //using BSD.Business.Interfaces;
         //using BSD.Data;
-        //using BSD.Data.Converters;
-        //using BSD.Business.Interfaces;
         //using BSD.Shared.RequestDtos;
         //using BSD.Shared.ResponseDtos;
         //using CodeGenerator.Shared.Attributes;
-        //using Microsoft.EntityFrameworkCore;
 
         //namespace BSD.Business.Services;
 
@@ -28,243 +60,312 @@ public class ServiceGenerator : BaseGenerator
         //    IAuthenticationStateService authenticationService)
         //    : ICompanyService
         //{
-        //    CompanyConverter CompanyConverter = new CompanyConverter();
-
         //    [TsServiceMethod("Company", "Create")]
         //    public CompanyCreateResponse Create(CompanyCreateRequest request)
         //    {
         //        var state = authenticationService.GetState(request);
         //        if (!state.Success)
-        //            return new CompanyCreateResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
+        //            return new CompanyCreateResponse() { State = state, ErrorGettingState = true };
 
-        //        if (state.User == null)
-        //            return new CompanyCreateResponse();
-        //        if (state.DbUser == null)
-        //            return new CompanyCreateResponse();
+        //        //if (handler.Authorize)
+        //            if (state.User == null || state.DbUser == null)
+        //                return new CompanyCreateResponse() { State = state, ErrorNotAuthorized = true };
 
-        //        var dbCompany = db.Companies.FirstOrDefault(a =>
-        //            a.Name == request.Company.Name &&
-        //            a.CompanyUsers.Any(a => a.UserId == state.User.id));
-        //        if (dbCompany != null)
-        //            return new CompanyCreateResponse()
-        //            {
-        //                ErrorCompanyNameAlreadyUsed = true
-        //            };
+        //        var handler = new CompanyServiceHandler(state);
+        //        var entity = handler.FindByMatch(db, request.Company);
+        //        if (entity != null)
+        //            return new CompanyCreateResponse() { State = state, ErrorAlreadyUsed = true };
 
-        //        // Convert it to db item
-        //        dbCompany = CompanyConverter.Create(request.Company);
-        //        if (dbCompany == null)
-        //            return new CompanyCreateResponse();
-        //        db.Companies.Add(dbCompany);
+        //        entity = request.Company.ToEntity();
+        //        if (!handler.AttachToState(db, entity))
+        //            return new CompanyCreateResponse() { State = state, ErrorAttachingState = true };
+
+        //        if (!handler.CanCreate(db, entity))
+        //            return new CompanyCreateResponse() { State = state, ErrorNotAuthorized = true };
+
+        //        db.Companies.Add(entity);
         //        db.SaveChanges();
 
-        //        var dbCompanyuser = new Data.Entities.CompanyUser()
-        //        {
-        //            Company = dbCompany,
-        //            CompanyId = dbCompany.Id,
-        //            User = state.DbUser,
-        //            UserId = state.DbUser.Id,
-        //            Eigenaar = true,
-        //            Admin = true,
-        //            Actief = true,
-        //        };
-        //        db.CompanyUsers.Add(dbCompanyuser);
-        //        db.SaveChanges();
+        //        var dto = entity.ToDto();
+        //        if (!handler.UpdateToState(db, entity, dto))
+        //            return new CompanyCreateResponse() { State = state, ErrorUpdatingState = true };
 
-        //        // Convert it back
-        //        var company = CompanyConverter.Create(dbCompany);
-
-        //        state.DbUser.CurrentCompany = dbCompany;
-        //        state.DbUser.CurrentCompanyId = dbCompany.Id;
-        //        state.User.currentCompanyId = dbCompany.Id;
-        //        state.DbCurrentCompany = dbCompany;
-        //        state.CurrentCompany = company;
-        //        db.SaveChanges();
-
-        //        return new CompanyCreateResponse()
-        //        {
-        //            Success = true,
-        //            Company = company,
-        //            State = state
-        //        };
+        //        return new CompanyCreateResponse() { State = state, Company = dto, Success = true };
         //    }
 
         //    [TsServiceMethod("Company", "Read")]
         //    public CompanyReadResponse Read(CompanyReadRequest request)
         //    {
-        //        if (request == null)
-        //            return new CompanyReadResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
         //        var state = authenticationService.GetState(request);
         //        if (!state.Success)
-        //            return new CompanyReadResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
+        //            return new CompanyReadResponse() { State = state, ErrorGettingState = true };
 
-        //        // ===========================
+        //        //if (handler.Authorize)
+        //            if (state.User == null || state.DbUser == null)
+        //                return new CompanyReadResponse() { State = state, ErrorNotAuthorized = true };
 
-        //        if (state.User == null)
-        //            return new CompanyReadResponse();
+        //        var handler = new CompanyServiceHandler(state);
+        //        var entity = handler.FindById(db, request.CompanyId);
+        //        if (entity == null)
+        //            return new CompanyReadResponse() { State = state, ErrorItemNotFound = true };
 
-        //        var dbCompany = db.Companies
-        //            .Include(a => a.Country)
-        //            .FirstOrDefault(a =>
-        //                a.Id == request.CompanyId &&
-        //                a.CompanyUsers.Any(a => a.UserId == state.User.id));
-        //        if (dbCompany == null)
-        //            return new CompanyReadResponse()
-        //            {
-        //                CompanyNotFound = true
-        //            };
+        //        if (!handler.CanRead(db, entity))
+        //            return new CompanyReadResponse() { State = state, ErrorNotAuthorized = true };
 
-        //        // Convert it back
-        //        var company = CompanyConverter.Create(dbCompany);
-
-        //        return new CompanyReadResponse()
-        //        {
-        //            Success = true,
-        //            Company = company,
-        //            State = state
-        //        };
+        //        var dto = entity.ToDto();
+        //        return new CompanyReadResponse() { State = state, Company = dto, Success = true, };
         //    }
 
         //    [TsServiceMethod("Company", "Update")]
         //    public CompanyUpdateResponse Update(CompanyUpdateRequest request)
         //    {
-        //        if (request == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
         //        var state = authenticationService.GetState(request);
-        //        if (!state.Success || state.User == null || state.DbUser == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
+        //        if (!state.Success)
+        //            return new CompanyUpdateResponse() { State = state, ErrorGettingState = true };
 
-        //        var dbCompany = db.Companies.FirstOrDefault(a =>
-        //            a.Id == request.Company.Id &&
-        //            a.CompanyUsers.Any(a => a.UserId == state.User.id));
-        //        if (dbCompany == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorItemNotFound = true
-        //            };
+        //        //if (handler.Authorize)
+        //            if (state.User == null || state.DbUser == null)
+        //                return new CompanyUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
-        //        // Convert it to db item
-        //        if (CompanyConverter.Copy(request.Company, dbCompany) == true)
+        //        var handler = new CompanyServiceHandler(state);
+        //        var entity = handler.FindById(db, request.Company.Id);
+        //        if (entity == null)
+        //            return new CompanyUpdateResponse() { State = state, ErrorItemNotFound = true };
+
+        //        if (!handler.CanUpdate(db, entity))
+        //            return new CompanyUpdateResponse() { State = state, ErrorNotAuthorized = true };
+
+        //        if (request.Company.CopyTo(entity))
         //            db.SaveChanges();
 
-        //        // Convert it back
-        //        var company = CompanyConverter.Create(dbCompany);
-        //        if (company == null)
-        //            return new CompanyUpdateResponse()
-        //            {
-        //                ErrorItemNotFound = true
-        //            };
+        //        var dto = entity.ToDto();
+        //        if (!handler.UpdateToState(db, entity, dto))
+        //            return new CompanyUpdateResponse() { State = state, ErrorUpdatingState = true };
 
-        //        // Set current company to 
-        //        state.User.currentCompanyId = company.Id;
-        //        state.DbUser.CurrentCompanyId = dbCompany.Id;
-        //        state.DbUser.CurrentCompany = dbCompany;
-        //        state.CurrentCompany = company;
-        //        state.DbCurrentCompany = dbCompany;
-        //        db.SaveChanges();
-
-        //        return new CompanyUpdateResponse()
-        //        {
-        //            Success = true,
-        //            Company = company,
-        //            State = state
-        //        };
+        //        return new CompanyUpdateResponse() { State = state, Company = dto, Success = true };
         //    }
 
         //    [TsServiceMethod("Company", "Delete")]
         //    public CompanyDeleteResponse Delete(CompanyDeleteRequest request)
         //    {
-        //        if (request == null)
-        //            return new CompanyDeleteResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
         //        var state = authenticationService.GetState(request);
-        //        if (!state.Success || state.User == null || state.DbUser == null)
-        //            return new CompanyDeleteResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
+        //        if (!state.Success)
+        //            return new CompanyDeleteResponse() { State = state, ErrorGettingState = true };
 
-        //        var dbCompany = db.Companies
-        //            .Include(a => a.CompanyUsers)
-        //            .FirstOrDefault(a =>
-        //                a.Id == request.CompanyId &&
-        //                a.CompanyUsers.Any(b => b.UserId == state.User.id && (b.Admin || b.Eigenaar)));
-        //        if (dbCompany == null)
-        //            return new CompanyDeleteResponse()
-        //            {
-        //                ErrorItemNotFound = true
-        //            };
+        //        //if (handler.Authorize)
+        //            if (state.User == null || state.DbUser == null)
+        //                return new CompanyDeleteResponse() { State = state, ErrorNotAuthorized = true };
 
+        //        var handler = new CompanyServiceHandler(state);
+        //        var entity = handler.FindById(db, request.CompanyId);
+        //        if (entity == null)
+        //            return new CompanyDeleteResponse() { State = state, ErrorItemNotFound = true };
 
-        //        var userscurrentcompanywillbedeleted =
-        //            state.DbUser.CurrentCompanyId == dbCompany.Id;
+        //        if (!handler.CanDelete(db, entity))
+        //            return new CompanyDeleteResponse() { State = state, ErrorNotAuthorized = true };
 
-        //        if (userscurrentcompanywillbedeleted)
-        //        {
-        //            state.DbUser.CurrentCompany = null;
-        //            state.DbCurrentCompany = null;
-        //            state.CurrentCompany = null;
-        //            state.User.currentCompanyId = null;
-        //            state.DbUser.CurrentCompanyId = null;
-        //        }
+        //        if (!handler.DeleteFromState(db, entity))
+        //            return new CompanyDeleteResponse() { State = state, ErrorUpdatingState = true };
 
-        //        db.CompanyUsers.RemoveRange(dbCompany.CompanyUsers);
-        //        db.Companies.Remove(dbCompany);
+        //        db.CompanyUsers.RemoveRange(entity.CompanyUsers);
+        //        db.Companies.Remove(entity);
         //        db.SaveChanges();
 
-        //        return new CompanyDeleteResponse()
-        //        {
-        //            Success = true,
-        //            State = state
-        //        };
+        //        return new CompanyDeleteResponse() { State = state, Success = true };
         //    }
 
         //    [TsServiceMethod("Company", "List")]
         //    public CompanyListResponse List(CompanyListRequest request)
         //    {
-        //        if (request == null)
-        //            return new CompanyListResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
-
         //        var state = authenticationService.GetState(request);
-        //        if (!state.Success || state.User == null || state.DbUser == null)
-        //            return new CompanyListResponse()
-        //            {
-        //                ErrorAuthentication = true
-        //            };
+        //        if (!state.Success)
+        //            return new CompanyListResponse() { State = state, ErrorGettingState = true };
 
-        //        var list = db.Companies
-        //            .Where(a => a.CompanyUsers.Any(a => a.UserId == state.User.id))
-        //            .Select(a => CompanyConverter.Create(a)!)
+        //        //if (handler.Authorize)
+        //            if (state.User == null || state.DbUser == null)
+        //                return new CompanyListResponse() { State = state, ErrorNotAuthorized = true };
+
+        //        var handler = new CompanyServiceHandler(state);
+        //        if (!handler.CanList(db))
+        //            return new CompanyListResponse() { State = state, ErrorNotAuthorized = true };
+
+        //        var entities = handler.ListAll(db);
+        //        var dtos = entities
+        //            .Select(a => a.ToDto()!)
         //            .ToArray();
 
         //        return new CompanyListResponse()
         //        {
         //            Success = true,
         //            State = state,
-        //            Companies = list
+        //            Companys = dtos
         //        };
         //    }
         //}
+        #endregion
+
+        Code = $@"using {DtoConverter.Namespace};
+using {ServiceHandler.Namespace};
+using {ServiceInterface.Namespace};
+using {DbContext.Type.Namespace};
+using {BaseRequest.Namespace};
+using {BaseResponse.Namespace};
+using CodeGenerator.Shared.Attributes;
+
+namespace {Namespace};
+
+public class {Name}(
+    {DbContext.Name} db,
+    {IAuthenticationStateService.Name} authenticationService)
+    : {ServiceInterface.Name}
+{{
+    [TsServiceMethod(""{Entity.Name}"", ""Create"")]
+    public {Dto.CreateResponse.Name} Create({Dto.CreateRequest.Name} request)
+    {{
+        var state = authenticationService.GetState(request);
+        if (!state.Success)
+            return new {Dto.CreateResponse.Name}() {{ State = state, ErrorGettingState = true }};
+
+" + (Entity.IsAuthorize ? $@"
+        if (state.User == null || state.DbUser == null)
+            return new {Dto.CreateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+" : "") + $@"
+
+        var handler = new {ServiceHandler.Name}(state);
+        var entity = handler.FindByMatch(db, request.{Entity.Name});
+        if (entity != null)
+            return new {Dto.CreateResponse.Name}() {{ State = state, ErrorAlreadyUsed = true }};
+
+        entity = request.{Entity.Name}.ToEntity();
+        if (!handler.AttachToState(db, entity))
+            return new {Dto.CreateResponse.Name}() {{ State = state, ErrorAttachingState = true }};
+
+        if (!handler.CanCreate(db, entity))
+            return new {Dto.CreateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+
+        db.{DbSet.Name}.Add(entity);
+        db.SaveChanges();
+
+        var dto = entity.ToDto();
+        if (!handler.UpdateToState(db, entity, dto))
+            return new {Dto.CreateResponse.Name}() {{ State = state, ErrorUpdatingState = true }};
+
+        return new {Dto.CreateResponse.Name}() {{ State = state, {Entity.Name} = dto, Success = true }};
+    }}
+
+    [TsServiceMethod(""{Entity.Name}"", ""Read"")]
+    public {Dto.ReadResponse.Name} Read({Dto.ReadRequest.Name} request)
+    {{
+        var state = authenticationService.GetState(request);
+        if (!state.Success)
+            return new {Dto.ReadResponse.Name}() {{ State = state, ErrorGettingState = true }};
+
+" + (Entity.IsAuthorize ? $@"
+        if (state.User == null || state.DbUser == null)
+            return new {Dto.ReadResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+" : "") + $@"
+
+        var handler = new {ServiceHandler.Name}(state);
+        var entity = handler.FindById(db, request.{Entity.Name}Id);
+        if (entity == null)
+            return new {Dto.ReadResponse.Name}() {{ State = state, ErrorItemNotFound = true }};
+
+        if (!handler.CanRead(db, entity))
+            return new {Dto.ReadResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+
+        var dto = entity.ToDto();
+        return new {Dto.ReadResponse.Name}() {{ State = state, {Entity.Name} = dto, Success = true, }};
+    }}
+
+    [TsServiceMethod(""{Entity.Name}"", ""Update"")]
+    public {Dto.UpdateResponse.Name} Update({Dto.UpdateRequest.Name} request)
+    {{
+        var state = authenticationService.GetState(request);
+        if (!state.Success)
+            return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorGettingState = true }};
+
+" + (Entity.IsAuthorize ? $@"
+            if (state.User == null || state.DbUser == null)
+                return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+" : "") + $@"
+
+        var handler = new {ServiceHandler.Name}(state);
+        var entity = handler.FindById(db, request.{Entity.Name}.Id);
+        if (entity == null)
+            return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorItemNotFound = true }};
+
+        if (!handler.CanUpdate(db, entity))
+            return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+
+        if (request.{Entity.Name}.CopyTo(entity))
+            db.SaveChanges();
+
+        var dto = entity.ToDto();
+        if (!handler.UpdateToState(db, entity, dto))
+            return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorUpdatingState = true }};
+
+        return new {Dto.UpdateResponse.Name}() {{ State = state, {Entity.Name} = dto, Success = true }};
+    }}
+
+    [TsServiceMethod(""{Entity.Name}"", ""Delete"")]
+    public {Dto.DeleteResponse.Name} Delete({Dto.DeleteRequest.Name} request)
+    {{
+        var state = authenticationService.GetState(request);
+        if (!state.Success)
+            return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorGettingState = true }};
+
+" + (Entity.IsAuthorize ? $@"
+        if (state.User == null || state.DbUser == null)
+            return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+" : "") + $@"
+
+        var handler = new {ServiceHandler.Name}(state);
+        var entity = handler.FindById(db, request.{Entity.Name}Id);
+        if (entity == null)
+            return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorItemNotFound = true }};
+
+        if (!handler.CanDelete(db, entity))
+            return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+
+        if (!handler.DeleteFromState(db, entity))
+            return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorUpdatingState = true }};
+
+        db.{DbSet.Name}.Remove(entity);
+        db.SaveChanges();
+
+        return new {Dto.DeleteResponse.Name}() {{ State = state, Success = true }};
+    }}
+
+    [TsServiceMethod(""{Entity.Name}"", ""List"")]
+    public {Dto.ListResponse.Name} List({Dto.ListRequest.Name} request)
+    {{
+        var state = authenticationService.GetState(request);
+        if (!state.Success)
+            return new {Dto.ListResponse.Name}() {{ State = state, ErrorGettingState = true }};
+
+" + (Entity.IsAuthorize ? $@"
+        if (state.User == null || state.DbUser == null)
+            return new {Dto.ListResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+" : "") + $@"
+
+        var handler = new {ServiceHandler.Name}(state);
+        if (!handler.CanList(db))
+            return new {Dto.ListResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+
+        var entities = handler.ListAll(db);
+        var dtos = entities
+            .Select(a => a.ToDto()!)
+            .ToArray();
+
+        return new {Dto.ListResponse.Name}()
+        {{
+            Success = true,
+            State = state,
+            {Entity.Name}s = dtos
+        }};
+    }}
+}}";
+
+        Save(false);
     }
 }

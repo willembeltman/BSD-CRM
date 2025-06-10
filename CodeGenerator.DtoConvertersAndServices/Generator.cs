@@ -74,19 +74,19 @@ public class Generator
         Services = ServiceInterfaces
             .Select(serviceInterface => new ServiceGenerator(
                 serviceInterface,
-                config.ConvertersDirectory,
-                config.ConvertersNamespace))
+                config.ServicesDirectory,
+                config.ServicesNamespace))
             .ToArray();
 
     }
 
     public DbContext DbContext { get; }
 
-    internal BaseRequestGenerator BaseRequest { get; }
-    internal BaseResponseGenerator BaseResponse { get; }
-    internal StateDtoGenerator StateDto { get; }
-    internal AuthenticationStateGenerator AuthenticationState { get; }
-    internal IAuthenticationStateServiceGenerator IAuthenticationStateService { get; }
+    public BaseRequestGenerator BaseRequest { get; }
+    public BaseResponseGenerator BaseResponse { get; }
+    public StateDtoGenerator StateDto { get; }
+    public AuthenticationStateGenerator AuthenticationState { get; }
+    public IAuthenticationStateServiceGenerator IAuthenticationStateService { get; }
 
     public DtoGenerator[] Dtos { get; private set; }
     public DtoConverterGenerator[] DtoConverters { get; private set; }

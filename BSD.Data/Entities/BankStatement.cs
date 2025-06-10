@@ -18,10 +18,14 @@ public class BankStatement : IEntity
     public string VolgNr { get; set; } = string.Empty;
     public CreditTypeEnum CreditType { get; set; }
     public BankEnum? Bank { get; set; }
+    [Name]
     public string EigenRekeningNumber { get; set; } = string.Empty;
     public string Currency { get; set; } = string.Empty;
+    [Name]
     public DateTime Date { get; set; }
+    [Name]
     public double Price { get; set; }
+    [Name]
     public string TegenRekeningNumber { get; set; } = string.Empty;
     public string TegenName { get; set; } = string.Empty;
     public string? Description1 { get; set; } = string.Empty;
@@ -36,7 +40,6 @@ public class BankStatement : IEntity
     public virtual ICollection<BankStatementInvoice>? BankStatementInvoices { get; set; }
     public virtual ICollection<BankStatementExpense>? BankStatementExpenses { get; set; }
 
-    [Name]
     [NotMapped]
     public string Description => Description1 + Environment.NewLine + Description2 + Environment.NewLine + Description3;
     [NotMapped]

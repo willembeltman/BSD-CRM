@@ -42,25 +42,23 @@ public class DtoGenerator : BaseGenerator
     public IAuthenticationStateServiceGenerator IAuthenticationStateService { get; }
     public AuthenticationStateGenerator AuthenticationState { get; }
     public StateDtoGenerator StateDto { get; }
-    internal BaseResponseGenerator BaseResponse { get; }
+    public BaseResponseGenerator BaseResponse { get; }
     public BaseRequestGenerator BaseRequest { get; }
     public DbContext DbContext { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
 
-    internal CreateRequestDtoGenerator CreateRequest { get; }
-    internal ReadRequestDtoGenerator ReadRequest { get; }
-    internal UpdateRequestDtoGenerator UpdateRequest { get; }
-    internal DeleteRequestDtoGenerator DeleteRequest { get; }
-    internal ListRequestDtoGenerator ListRequest { get; }
+    public CreateRequestDtoGenerator CreateRequest { get; }
+    public ReadRequestDtoGenerator ReadRequest { get; }
+    public UpdateRequestDtoGenerator UpdateRequest { get; }
+    public DeleteRequestDtoGenerator DeleteRequest { get; }
+    public ListRequestDtoGenerator ListRequest { get; }
 
-    internal CreateResponseDtoGenerator CreateResponse { get; }
-    internal ReadResponseDtoGenerator ReadResponse { get; }
-    internal UpdateResponseDtoGenerator UpdateResponse { get; }
-    internal DeleteResponseDtoGenerator DeleteResponse { get; }
-    internal ListResponseDtoGenerator ListResponse { get; }
-
-    public string FullName => $"{Namespace}.{Entity.Name}";
+    public CreateResponseDtoGenerator CreateResponse { get; }
+    public ReadResponseDtoGenerator ReadResponse { get; }
+    public UpdateResponseDtoGenerator UpdateResponse { get; }
+    public DeleteResponseDtoGenerator DeleteResponse { get; }
+    public ListResponseDtoGenerator ListResponse { get; }
 
     public void GenerateCode()
     {

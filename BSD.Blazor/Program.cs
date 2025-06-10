@@ -20,17 +20,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IWorkorderService, WorkorderService>();
 builder.Services.AddScoped<IAuthenticationStateService, AuthenticationStateService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-builder.Services.AddScoped<ICompanyService, CompanyService>();
-builder.Services.AddScoped<ICountryService, CountryService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IInvoiceService, InvoiceService>();
-builder.Services.AddScoped<IRateService, RateService>();
 builder.Services.AddScoped<IDateTimeService, DateTimeService>();
+//builder.Services.AddScoped<IWorkorderService, WorkorderService>();
+//builder.Services.AddScoped<ICompanyService, CompanyService>();
+//builder.Services.AddScoped<ICountryService, CountryService>();
+//builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<IProjectService, ProjectService>();
+//builder.Services.AddScoped<ICustomerService, CustomerService>();
+//builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+//builder.Services.AddScoped<IRateService, RateService>();
 
 var app = builder.Build();
 

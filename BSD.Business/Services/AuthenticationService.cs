@@ -121,7 +121,7 @@ public class AuthenticationService(
         if (string.IsNullOrEmpty(this.IpAddress))
             return new RegisterResponse()
             {
-                ErrorAuthentication = true
+                ErrorGettingState = true
             };
 
         var username = request.Username;

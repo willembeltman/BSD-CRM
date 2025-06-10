@@ -29,7 +29,6 @@ public class Generator
         Dtos = DbContext.DbSets
             .Where(a => !a.Entity.IsHidden)
             .Select(dbSet => new DtoGenerator(
-                this, 
                 dbSet,
                 dtoDirectory, dtoNamespace,
                 requestDtoDirectory, requestDtoNamespace,
@@ -38,17 +37,26 @@ public class Generator
 
         // Generate DTO Converters
         DtoConverters = Dtos
-            .Select(dto => new DtoConverterGenerator(this, dto, dtoConvertersDirectory, dtoConvertersNamespace))
+            .Select(dto => new DtoConverterGenerator(
+                dto, 
+                dtoConvertersDirectory, 
+                dtoConvertersNamespace))
             .ToArray();
 
         // Generate Service Interfaces
         ServiceInterfaces = DtoConverters
-            .Select(dtoConverter => new ServiceInterfaceGenerator(this, dtoConverter, dtoConvertersDirectory, dtoConvertersNamespace))
+            .Select(dtoConverter => new ServiceInterfaceGenerator(
+                dtoConverter, 
+                dtoConvertersDirectory,
+                dtoConvertersNamespace))
             .ToArray();
 
         // Generate Services
         Services = ServiceInterfaces
-            .Select(serviceInterface => new ServiceGenerator(this, serviceInterface, dtoConvertersDirectory, dtoConvertersNamespace))
+            .Select(serviceInterface => new ServiceGenerator(
+                serviceInterface, 
+                dtoConvertersDirectory, 
+                dtoConvertersNamespace))
             .ToArray();
 
         foreach (var dto in Dtos) dto.GenerateCode();

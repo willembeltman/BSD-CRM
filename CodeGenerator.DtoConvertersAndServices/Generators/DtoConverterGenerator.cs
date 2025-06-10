@@ -5,9 +5,8 @@ namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
 public class DtoConverterGenerator : BaseGenerator
 {
-    public DtoConverterGenerator(Generator generator, DtoGenerator dto, DirectoryInfo directory, string @namespace)
+    public DtoConverterGenerator(DtoGenerator dto, DirectoryInfo directory, string @namespace)
     {
-        Generator = generator;
         DtoGenerator = dto;
         DbSet = dto.DbSet;
         Entity = DbSet.Entity;
@@ -16,7 +15,6 @@ public class DtoConverterGenerator : BaseGenerator
         Name = $"{Entity.Name}Converter";
     }
 
-    public Generator Generator { get;}
     public DtoGenerator DtoGenerator { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }

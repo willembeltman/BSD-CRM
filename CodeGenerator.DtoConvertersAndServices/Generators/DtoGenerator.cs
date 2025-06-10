@@ -6,13 +6,11 @@ namespace CodeGenerator.Dtos_Converters_Services.Generators;
 public class DtoGenerator : BaseGenerator
 {
     public DtoGenerator(
-        Generator generator,
         DbSet dbSet,
         DirectoryInfo dtoDirectory, string dtoNamespace,
         DirectoryInfo requestDtoDirectory, string requestDtoNamespace,
         DirectoryInfo responseDtoDirectory, string responseDtoNamespace)
     {
-        Generator = generator;
         DbSet = dbSet;
         Entity = DbSet.Entity;
         Directory = dtoDirectory;
@@ -33,7 +31,6 @@ public class DtoGenerator : BaseGenerator
         Name = Entity.Name;
     }
 
-    public Generator Generator { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
     public string Namespace { get; }
@@ -64,6 +61,7 @@ public class DtoGenerator : BaseGenerator
         ReadResponse.GenerateCode();
         UpdateResponse.GenerateCode();
         DeleteResponse.GenerateCode();
+        ListResponse.GenerateCode();
 
         //namespace BSD.Shared.Dtos;
 

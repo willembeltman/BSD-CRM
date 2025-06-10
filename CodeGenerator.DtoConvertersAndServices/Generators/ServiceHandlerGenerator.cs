@@ -1,5 +1,5 @@
 ﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
-using System.IO;
+using CodeGenerator.Step1.DtosConvertersAndServices.Generators;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
@@ -11,11 +11,20 @@ public class ServiceHandlerGenerator : BaseGenerator
         string @namespace)
     {
         DtoConverter = dtoConverter;
+        Directory = directory;
+        Namespace = @namespace;
+
         Dto = DtoConverter.Dto;
         DbSet = Dto.DbSet;
         Entity = DbSet.Entity;
-        Directory = directory;
-        Namespace = @namespace;
+
+        IAuthenticationStateService = Dto.IAuthenticationStateService;
+        AuthenticationState = IAuthenticationStateService.AuthenticationState;
+        BaseResponse = AuthenticationState.BaseResponse;
+        StateDto = BaseResponse.StateDto;
+        BaseRequest = StateDto.BaseRequest;
+        DbContext = BaseRequest.DbContext;
+
         Name = $"{Entity.Name}ServiceHander";
     }
 
@@ -23,6 +32,12 @@ public class ServiceHandlerGenerator : BaseGenerator
     public DtoGenerator Dto { get; }
     public DbSet DbSet { get; }
     public Entity Entity { get; }
+    public IAuthenticationStateServiceGenerator IAuthenticationStateService { get; }
+    public AuthenticationStateGenerator AuthenticationState { get; }
+    public BaseResponseGenerator BaseResponse { get; }
+    public StateDtoGenerator StateDto { get; }
+    public BaseRequestGenerator BaseRequest { get; }
+    public DbContext DbContext { get; }
     public string Namespace { get; private set; }
 
     public void GenerateCode()
@@ -143,17 +158,17 @@ public class ServiceHandlerGenerator : BaseGenerator
 
 
         Code = $@"
-using BSD.Business.Models;
-using BSD.Data;
-using BSD.Data.Entities;
+using {AuthenticationState.Namespace};
+using {DbContext.Type.Namespace};
+using {Entity.Type.Namespace};
 
 namespace {Namespace};
 
 public class {Name}
 {{
-    private readonly AuthenticationState State;
+    private readonly {AuthenticationState.Name} State;
 
-    public {Name}(AuthenticationState authenticationState)
+    public {Name}({AuthenticationState.Name} authenticationState)
     {{
         State = authenticationState;
     }}

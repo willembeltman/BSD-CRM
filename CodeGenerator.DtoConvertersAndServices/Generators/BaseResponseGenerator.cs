@@ -16,8 +16,9 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Generators
         }
 
         public StateDtoGenerator StateDto { get; }
-        public BaseRequestGenerator BaseRequest { get; }
         public string Namespace { get; }
+
+        public BaseRequestGenerator BaseRequest { get; }
 
         public void GenerateCode()
         {

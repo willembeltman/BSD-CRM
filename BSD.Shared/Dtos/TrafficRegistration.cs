@@ -7,6 +7,7 @@ public class TrafficRegistration
 {
     public long Id { get; set; }
     public long CompanyId { get; set; }
+    public string? CompanyName { get; set; }
     public string? Description { get; set; }
     public DateTime Date { get; set; } = DateTime.Now;
     public double KilometerStart { get; set; }

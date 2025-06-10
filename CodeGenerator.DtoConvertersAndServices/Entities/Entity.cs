@@ -1,4 +1,5 @@
 ﻿using CodeGenerator.Shared.Attributes;
+using CodeGenerator.Shared.Helpers;
 using System.Reflection;
 
 namespace CodeGenerator.DtoConvertersAndServices.Entities;
@@ -11,6 +12,11 @@ public class Entity
         Type = type;
         FullName = type.FullName ?? type.Name;
         Name = type.Name;
+
+        IsStorageFile = ReflectionHelper.IsStorageFile(Type);
+
+        IsHidden = type
+            .GetCustomAttribute<HiddenAttribute>() != null;
 
         Properties = type
             .GetProperties()
@@ -26,6 +32,8 @@ public class Entity
     public Type Type { get; }
     public string FullName { get; }
     public string Name { get; }
+    public bool IsStorageFile { get; }
+    public bool IsHidden { get; }
     public EntityProperty[] Properties { get; }
     public bool IsAuthorize { get; }
 

@@ -1,3 +1,5 @@
+using Storage.Proxy;
+
 namespace BSD.Business.Converters;
 
 public static class WorkorderAttachmentConverter
@@ -29,10 +31,12 @@ public static class WorkorderAttachmentConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.WorkorderId != source.WorkorderId) { dest.WorkorderId = source.WorkorderId; dirty = true; }
+        if (dest.WorkorderName != source.Workorder?.Name?.ToString()) { dest.WorkorderName = source.Workorder?.Name?.ToString(); dirty = true; }
         if (dest.StorageFileName != source.StorageFileName) { dest.StorageFileName = source.StorageFileName; dirty = true; }
         if (dest.StorageLength != source.StorageLength) { dest.StorageLength = source.StorageLength; dirty = true; }
         if (dest.StorageMimeType != source.StorageMimeType) { dest.StorageMimeType = source.StorageMimeType; dirty = true; }
         if (dest.StorageFolder != source.StorageFolder) { dest.StorageFolder = source.StorageFolder; dirty = true; }
+        dest.StorageFileUrl = source.GetUrl().Result;
         return dirty;
     }
 }

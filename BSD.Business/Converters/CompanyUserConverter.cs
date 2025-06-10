@@ -30,6 +30,7 @@ public static class CompanyUserConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.UserId != source.UserId) { dest.UserId = source.UserId; dirty = true; }
         if (dest.Eigenaar != source.Eigenaar) { dest.Eigenaar = source.Eigenaar; dirty = true; }
         if (dest.Admin != source.Admin) { dest.Admin = source.Admin; dirty = true; }

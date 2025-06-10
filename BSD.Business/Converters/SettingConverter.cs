@@ -29,6 +29,7 @@ public static class SettingConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
         if (dest.ValueString != source.ValueString) { dest.ValueString = source.ValueString; dirty = true; }
         if (dest.ValueDouble != source.ValueDouble) { dest.ValueDouble = source.ValueDouble; dirty = true; }

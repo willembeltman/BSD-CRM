@@ -98,11 +98,18 @@ public class DtoGenerator : BaseGenerator
         {
             if (property.IsHidden) continue;
             if (property.IsLijst) continue;
+
+
             if (property.DbSet != null)
             {
                 var foreignDbSet = property.DbSet;
                 var foreignEntity = foreignDbSet.Entity;
                 var foreignNameProperty = foreignEntity.Properties.FirstOrDefault(a => a.IsName);
+                if (foreignNameProperty == null) continue;
+
+                usingCode = AddNamespace(usingCode, $"using System;");
+                propertiesCode += $"    public string? {property.PropertyName}Name {{ get; set; }}\r\n";
+
                 continue;
             }
 
@@ -144,6 +151,12 @@ public class DtoGenerator : BaseGenerator
                     propertiesCode += $"    public {property.TypeSimpleName} {property.PropertyName} {{ get; set; }} = new();\r\n";
                 }
             }
+        }
+
+        if (Entity.IsStorageFile)
+        {
+            usingCode = AddNamespace(usingCode, $"using System;");
+            propertiesCode += $"    public string? StorageFileUrl {{ get; set; }}\r\n";
         }
 
         propertiesCode += $"}}";

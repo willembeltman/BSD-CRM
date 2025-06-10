@@ -7,6 +7,7 @@ public class Email
 {
     public long Id { get; set; }
     public long CompanyId { get; set; }
+    public string? CompanyName { get; set; }
     public DateTime? EmailDate { get; set; }
     public string? EmailFrom { get; set; }
     public string? EmailTo { get; set; }

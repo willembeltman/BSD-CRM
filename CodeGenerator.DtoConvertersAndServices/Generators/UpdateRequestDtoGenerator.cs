@@ -27,6 +27,11 @@ public class UpdateRequestDtoGenerator : BaseGenerator
 
         Code = string.Empty;
 
+        if (DtoGenerator.Entity.IsStorageFile)
+        {
+            Code += $"using Microsoft.AspNetCore.Http;\r\n";
+        }
+
         Code += $"using {DtoGenerator.Namespace};\r\n";
         Code += $"\r\n";
         Code += $"namespace {RequestDtoNamespace};\r\n";
@@ -34,6 +39,12 @@ public class UpdateRequestDtoGenerator : BaseGenerator
         Code += $"public class {Name} : BaseRequest\r\n";
         Code += $"{{\r\n";
         Code += $"    public {DtoGenerator.Entity.Name} {DtoGenerator.Entity.Name} {{ get; set; }} = new {DtoGenerator.Entity.Name}();\r\n";
+
+        if (DtoGenerator.Entity.IsStorageFile)
+        {
+            Code += $"    public IFormFile? File {{ get; set; }}\r\n";
+        }
+        
         Code += $"}}";
 
         Save();

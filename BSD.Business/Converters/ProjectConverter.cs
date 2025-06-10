@@ -29,6 +29,7 @@ public static class ProjectConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; dirty = true; }
         if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
         if (dest.Publiekelijk != source.Publiekelijk) { dest.Publiekelijk = source.Publiekelijk; dirty = true; }

@@ -30,7 +30,9 @@ public static class TaxRateConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.CountryId != source.CountryId) { dest.CountryId = source.CountryId; dirty = true; }
+        if (dest.CountryName != source.Country?.Name?.ToString()) { dest.CountryName = source.Country?.Name?.ToString(); dirty = true; }
         if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
         if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
         if (dest.Percentage != source.Percentage) { dest.Percentage = source.Percentage; dirty = true; }

@@ -48,7 +48,7 @@ public class DtoConverterGenerator : BaseGenerator
         //    }
         //}
 
-
+        Code = string.Empty;
         var toDtoCode = string.Empty;
         var toEntityCode = string.Empty;
 
@@ -56,13 +56,33 @@ public class DtoConverterGenerator : BaseGenerator
         {
             if (property.IsHidden) continue;
             if (property.IsLijst) continue;
-            if (property.DbSet != null) continue;
+            if (property.DbSet != null)
+            {
+                var foreignDbSet = property.DbSet;
+                var foreignEntity = foreignDbSet.Entity;
+                var foreignNameProperty = foreignEntity.Properties.FirstOrDefault(a => a.IsName);
+                if (foreignNameProperty == null) continue;  
+
+                toDtoCode += $"        if (dest.{property.PropertyName}Name != source.{property.PropertyName}?.{foreignNameProperty.PropertyName}?.ToString()) {{ dest.{property.PropertyName}Name = source.{property.PropertyName}?.{foreignNameProperty.PropertyName}?.ToString(); dirty = true; }}\r\n";
+
+                continue;
+            }
 
             toDtoCode += $"        if (dest.{property.PropertyName} != source.{property.PropertyName}) {{ dest.{property.PropertyName} = source.{property.PropertyName}; dirty = true; }}\r\n";
+            
+            if (property.IsReadOnly) continue;
+
             toEntityCode += $"        if (dest.{property.PropertyName} != source.{property.PropertyName}) {{ dest.{property.PropertyName} = source.{property.PropertyName}; dirty = true; }}\r\n";
         }
 
-        Code = string.Empty;
+        if (Entity.IsStorageFile)
+        {
+            Code += $"using Storage.Proxy;\r\n";
+            Code += $"\r\n";
+
+            toDtoCode += $"        dest.StorageFileUrl = source.GetUrl().Result;\r\n";
+        }
+
         Code += $"namespace {Namespace};\r\n";
         Code += $"\r\n";
         Code += $"public static class {Name}\r\n";

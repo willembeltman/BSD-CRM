@@ -35,6 +35,7 @@ public static class InvoiceEmailConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.InvoiceName != source.Invoice?.InvoiceNumber?.ToString()) { dest.InvoiceName = source.Invoice?.InvoiceNumber?.ToString(); dirty = true; }
         if (dest.EmailFrom != source.EmailFrom) { dest.EmailFrom = source.EmailFrom; dirty = true; }
         if (dest.EmailTo != source.EmailTo) { dest.EmailTo = source.EmailTo; dirty = true; }
         if (dest.Title != source.Title) { dest.Title = source.Title; dirty = true; }

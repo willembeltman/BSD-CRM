@@ -28,7 +28,9 @@ public static class ProductPriceConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.ProductId != source.ProductId) { dest.ProductId = source.ProductId; dirty = true; }
+        if (dest.ProductName != source.Product?.Name?.ToString()) { dest.ProductName = source.Product?.Name?.ToString(); dirty = true; }
         if (dest.TaxRateId != source.TaxRateId) { dest.TaxRateId = source.TaxRateId; dirty = true; }
+        if (dest.TaxRateName != source.TaxRate?.Name?.ToString()) { dest.TaxRateName = source.TaxRate?.Name?.ToString(); dirty = true; }
         if (dest.Price != source.Price) { dest.Price = source.Price; dirty = true; }
         return dirty;
     }

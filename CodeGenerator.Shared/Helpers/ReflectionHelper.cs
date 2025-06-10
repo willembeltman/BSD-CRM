@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Storage.Shared.Interfaces;
+using System.Reflection;
 
 namespace CodeGenerator.Shared.Helpers;
 
@@ -101,6 +102,11 @@ public static class ReflectionHelper
     public static Type GetIEnumerableType(PropertyInfo prop)
     {
         return prop.PropertyType.GenericTypeArguments[0];
+    }
+    public static bool IsStorageFile(Type type)
+    {
+        // Checks if the type or any of its interfaces is named "IStorageFile"
+        return type.GetInterfaces().Any(i => i.Name == nameof(IStorageFile));
     }
     public static Type GetILazyType(PropertyInfo prop)
     {
@@ -249,5 +255,6 @@ public static class ReflectionHelper
     {
         return type.Namespace ?? string.Empty;
     }
+
 }
 

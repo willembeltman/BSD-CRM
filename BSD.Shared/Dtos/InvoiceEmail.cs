@@ -7,6 +7,7 @@ public class InvoiceEmail
 {
     public long Id { get; set; }
     public long InvoiceId { get; set; }
+    public string? InvoiceName { get; set; }
     public string? EmailFrom { get; set; }
     public string? EmailTo { get; set; }
     public string? Title { get; set; }

@@ -31,6 +31,7 @@ public static class UserConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CurrentCompanyId != source.CurrentCompanyId) { dest.CurrentCompanyId = source.CurrentCompanyId; dirty = true; }
+        if (dest.CurrentCompanyName != source.CurrentCompany?.Name?.ToString()) { dest.CurrentCompanyName = source.CurrentCompany?.Name?.ToString(); dirty = true; }
         if (dest.PasswordHash != source.PasswordHash) { dest.PasswordHash = source.PasswordHash; dirty = true; }
         if (dest.LockedOut != source.LockedOut) { dest.LockedOut = source.LockedOut; dirty = true; }
         if (dest.UserName != source.UserName) { dest.UserName = source.UserName; dirty = true; }

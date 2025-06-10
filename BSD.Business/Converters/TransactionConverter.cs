@@ -32,6 +32,7 @@ public static class TransactionConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.Date != source.Date) { dest.Date = source.Date; dirty = true; }
         if (dest.Price != source.Price) { dest.Price = source.Price; dirty = true; }
         if (dest.ExternalTransactionId != source.ExternalTransactionId) { dest.ExternalTransactionId = source.ExternalTransactionId; dirty = true; }

@@ -28,7 +28,9 @@ public static class InvoicePriceConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.InvoiceName != source.Invoice?.InvoiceNumber?.ToString()) { dest.InvoiceName = source.Invoice?.InvoiceNumber?.ToString(); dirty = true; }
         if (dest.TaxRateId != source.TaxRateId) { dest.TaxRateId = source.TaxRateId; dirty = true; }
+        if (dest.TaxRateName != source.TaxRate?.Name?.ToString()) { dest.TaxRateName = source.TaxRate?.Name?.ToString(); dirty = true; }
         if (dest.Price != source.Price) { dest.Price = source.Price; dirty = true; }
         return dirty;
     }

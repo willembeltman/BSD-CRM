@@ -7,6 +7,7 @@ public class Transaction
 {
     public long Id { get; set; }
     public long CompanyId { get; set; }
+    public string? CompanyName { get; set; }
     public DateTime Date { get; set; } = DateTime.Now;
     public double Price { get; set; }
     public string? ExternalTransactionId { get; set; }

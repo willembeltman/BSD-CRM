@@ -1,3 +1,5 @@
+using Storage.Proxy;
+
 namespace BSD.Business.Converters;
 
 public static class DocumentAttachmentConverter
@@ -28,6 +30,7 @@ public static class DocumentAttachmentConverter
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.DocumentId != source.DocumentId) { dest.DocumentId = source.DocumentId; dirty = true; }
         if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
+        dest.StorageFileUrl = source.GetUrl().Result;
         return dirty;
     }
 }

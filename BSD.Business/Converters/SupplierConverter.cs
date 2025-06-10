@@ -34,7 +34,9 @@ public static class SupplierConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.CountryId != source.CountryId) { dest.CountryId = source.CountryId; dirty = true; }
+        if (dest.CountryName != source.Country?.Name?.ToString()) { dest.CountryName = source.Country?.Name?.ToString(); dirty = true; }
         if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
         if (dest.Address != source.Address) { dest.Address = source.Address; dirty = true; }
         if (dest.Postalcode != source.Postalcode) { dest.Postalcode = source.Postalcode; dirty = true; }

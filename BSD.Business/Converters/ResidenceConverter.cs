@@ -29,6 +29,7 @@ public static class ResidenceConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.StartDate != source.StartDate) { dest.StartDate = source.StartDate; dirty = true; }
         if (dest.EndDate != source.EndDate) { dest.EndDate = source.EndDate; dirty = true; }
         if (dest.WOZWaarde != source.WOZWaarde) { dest.WOZWaarde = source.WOZWaarde; dirty = true; }

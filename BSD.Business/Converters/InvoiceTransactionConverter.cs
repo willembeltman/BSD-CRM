@@ -27,6 +27,7 @@ public static class InvoiceTransactionConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.InvoiceName != source.Invoice?.InvoiceNumber?.ToString()) { dest.InvoiceName = source.Invoice?.InvoiceNumber?.ToString(); dirty = true; }
         if (dest.TransactionId != source.TransactionId) { dest.TransactionId = source.TransactionId; dirty = true; }
         return dirty;
     }

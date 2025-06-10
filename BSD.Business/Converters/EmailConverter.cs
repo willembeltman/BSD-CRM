@@ -34,6 +34,7 @@ public static class EmailConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.EmailDate != source.EmailDate) { dest.EmailDate = source.EmailDate; dirty = true; }
         if (dest.EmailFrom != source.EmailFrom) { dest.EmailFrom = source.EmailFrom; dirty = true; }
         if (dest.EmailTo != source.EmailTo) { dest.EmailTo = source.EmailTo; dirty = true; }

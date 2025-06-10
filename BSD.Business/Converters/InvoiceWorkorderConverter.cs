@@ -27,7 +27,9 @@ public static class InvoiceWorkorderConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.InvoiceName != source.Invoice?.InvoiceNumber?.ToString()) { dest.InvoiceName = source.Invoice?.InvoiceNumber?.ToString(); dirty = true; }
         if (dest.WorkorderId != source.WorkorderId) { dest.WorkorderId = source.WorkorderId; dirty = true; }
+        if (dest.WorkorderName != source.Workorder?.Name?.ToString()) { dest.WorkorderName = source.Workorder?.Name?.ToString(); dirty = true; }
         return dirty;
     }
 }

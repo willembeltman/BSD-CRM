@@ -1,3 +1,5 @@
+using Storage.Proxy;
+
 namespace BSD.Business.Converters;
 
 public static class ExperienceAttachmentConverter
@@ -35,6 +37,7 @@ public static class ExperienceAttachmentConverter
         if (dest.StorageLength != source.StorageLength) { dest.StorageLength = source.StorageLength; dirty = true; }
         if (dest.StorageMimeType != source.StorageMimeType) { dest.StorageMimeType = source.StorageMimeType; dirty = true; }
         if (dest.StorageFolder != source.StorageFolder) { dest.StorageFolder = source.StorageFolder; dirty = true; }
+        dest.StorageFileUrl = source.GetUrl().Result;
         return dirty;
     }
 }

@@ -27,7 +27,9 @@ public static class BankStatementInvoiceConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.BankStatementId != source.BankStatementId) { dest.BankStatementId = source.BankStatementId; dirty = true; }
+        if (dest.BankStatementName != source.BankStatement?.Description?.ToString()) { dest.BankStatementName = source.BankStatement?.Description?.ToString(); dirty = true; }
         if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.InvoiceName != source.Invoice?.InvoiceNumber?.ToString()) { dest.InvoiceName = source.Invoice?.InvoiceNumber?.ToString(); dirty = true; }
         return dirty;
     }
 }

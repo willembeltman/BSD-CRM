@@ -1,3 +1,5 @@
+using Storage.Proxy;
+
 namespace BSD.Business.Converters;
 
 public static class InvoiceAttachmentConverter
@@ -32,6 +34,7 @@ public static class InvoiceAttachmentConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.InvoiceName != source.Invoice?.InvoiceNumber?.ToString()) { dest.InvoiceName = source.Invoice?.InvoiceNumber?.ToString(); dirty = true; }
         if (dest.Date != source.Date) { dest.Date = source.Date; dirty = true; }
         if (dest.IsInvoicePDF != source.IsInvoicePDF) { dest.IsInvoicePDF = source.IsInvoicePDF; dirty = true; }
         if (dest.IsWorkorderPDF != source.IsWorkorderPDF) { dest.IsWorkorderPDF = source.IsWorkorderPDF; dirty = true; }
@@ -39,6 +42,7 @@ public static class InvoiceAttachmentConverter
         if (dest.StorageLength != source.StorageLength) { dest.StorageLength = source.StorageLength; dirty = true; }
         if (dest.StorageMimeType != source.StorageMimeType) { dest.StorageMimeType = source.StorageMimeType; dirty = true; }
         if (dest.StorageFolder != source.StorageFolder) { dest.StorageFolder = source.StorageFolder; dirty = true; }
+        dest.StorageFileUrl = source.GetUrl().Result;
         return dirty;
     }
 }

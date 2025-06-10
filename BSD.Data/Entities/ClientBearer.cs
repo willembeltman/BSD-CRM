@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CodeGenerator.Shared.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace BSD.Data.Entities;
 
+[Hidden]
 public class ClientBearer
 {
     [Key]

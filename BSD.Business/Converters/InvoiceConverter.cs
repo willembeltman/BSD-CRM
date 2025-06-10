@@ -34,8 +34,10 @@ public static class InvoiceConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.InvoiceTypeId != source.InvoiceTypeId) { dest.InvoiceTypeId = source.InvoiceTypeId; dirty = true; }
         if (dest.ProjectId != source.ProjectId) { dest.ProjectId = source.ProjectId; dirty = true; }
+        if (dest.ProjectName != source.Project?.Name?.ToString()) { dest.ProjectName = source.Project?.Name?.ToString(); dirty = true; }
         if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; dirty = true; }
         if (dest.IsPayedInCash_By_CompanyUserId != source.IsPayedInCash_By_CompanyUserId) { dest.IsPayedInCash_By_CompanyUserId = source.IsPayedInCash_By_CompanyUserId; dirty = true; }
         if (dest.InvoiceNumber != source.InvoiceNumber) { dest.InvoiceNumber = source.InvoiceNumber; dirty = true; }

@@ -7,6 +7,7 @@ public class Company
 {
     public long Id { get; set; }
     public long? CountryId { get; set; }
+    public string? CountryName { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string? Address { get; set; }

@@ -29,6 +29,7 @@ public static class ExpensePriceConverter
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.ExpenseId != source.ExpenseId) { dest.ExpenseId = source.ExpenseId; dirty = true; }
         if (dest.TaxRateId != source.TaxRateId) { dest.TaxRateId = source.TaxRateId; dirty = true; }
+        if (dest.TaxRateName != source.TaxRate?.Name?.ToString()) { dest.TaxRateName = source.TaxRate?.Name?.ToString(); dirty = true; }
         if (dest.Price != source.Price) { dest.Price = source.Price; dirty = true; }
         return dirty;
     }

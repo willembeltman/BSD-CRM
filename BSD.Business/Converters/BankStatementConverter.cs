@@ -43,6 +43,7 @@ public static class BankStatementConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.VolgNr != source.VolgNr) { dest.VolgNr = source.VolgNr; dirty = true; }
         if (dest.CreditType != source.CreditType) { dest.CreditType = source.CreditType; dirty = true; }
         if (dest.Bank != source.Bank) { dest.Bank = source.Bank; dirty = true; }

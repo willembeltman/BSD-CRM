@@ -38,6 +38,7 @@ public static class CompanyConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CountryId != source.CountryId) { dest.CountryId = source.CountryId; dirty = true; }
+        if (dest.CountryName != source.Country?.Name?.ToString()) { dest.CountryName = source.Country?.Name?.ToString(); dirty = true; }
         if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
         if (dest.Email != source.Email) { dest.Email = source.Email; dirty = true; }
         if (dest.Address != source.Address) { dest.Address = source.Address; dirty = true; }

@@ -8,6 +8,7 @@ public class BankStatement
 {
     public long Id { get; set; }
     public long CompanyId { get; set; }
+    public string? CompanyName { get; set; }
     public string VolgNr { get; set; } = string.Empty;
     public BSD.Shared.Enums.CreditTypeEnum CreditType { get; set; }
     public BSD.Shared.Enums.BankEnum? Bank { get; set; }

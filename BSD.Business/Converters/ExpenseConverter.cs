@@ -35,8 +35,10 @@ public static class ExpenseConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.ExpenseTypeId != source.ExpenseTypeId) { dest.ExpenseTypeId = source.ExpenseTypeId; dirty = true; }
         if (dest.ProjectId != source.ProjectId) { dest.ProjectId = source.ProjectId; dirty = true; }
+        if (dest.ProjectName != source.Project?.Name?.ToString()) { dest.ProjectName = source.Project?.Name?.ToString(); dirty = true; }
         if (dest.SupplierId != source.SupplierId) { dest.SupplierId = source.SupplierId; dirty = true; }
         if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; dirty = true; }
         if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }

@@ -28,7 +28,9 @@ public static class InvoiceProductConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.ProductName != source.Product?.Name?.ToString()) { dest.ProductName = source.Product?.Name?.ToString(); dirty = true; }
         if (dest.ProductId != source.ProductId) { dest.ProductId = source.ProductId; dirty = true; }
+        if (dest.InvoiceName != source.Invoice?.InvoiceNumber?.ToString()) { dest.InvoiceName = source.Invoice?.InvoiceNumber?.ToString(); dirty = true; }
         if (dest.Amount != source.Amount) { dest.Amount = source.Amount; dirty = true; }
         return dirty;
     }

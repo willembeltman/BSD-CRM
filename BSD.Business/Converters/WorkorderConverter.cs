@@ -33,9 +33,12 @@ public static class WorkorderConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CompanyName != source.Company?.Name?.ToString()) { dest.CompanyName = source.Company?.Name?.ToString(); dirty = true; }
         if (dest.ProjectId != source.ProjectId) { dest.ProjectId = source.ProjectId; dirty = true; }
+        if (dest.ProjectName != source.Project?.Name?.ToString()) { dest.ProjectName = source.Project?.Name?.ToString(); dirty = true; }
         if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; dirty = true; }
         if (dest.RateId != source.RateId) { dest.RateId = source.RateId; dirty = true; }
+        if (dest.RateName != source.Rate?.Name?.ToString()) { dest.RateName = source.Rate?.Name?.ToString(); dirty = true; }
         if (dest.Start != source.Start) { dest.Start = source.Start; dirty = true; }
         if (dest.Stop != source.Stop) { dest.Stop = source.Stop; dirty = true; }
         if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }

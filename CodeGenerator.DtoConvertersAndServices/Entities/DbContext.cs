@@ -10,8 +10,8 @@ namespace CodeGenerator.DtoConvertersAndServices.Entities
             FullName = type.FullName ?? type.Name;
             Name = type.Name;
             DbSets = type.GetProperties()
-                .Where(p => 
-                    p.PropertyType.IsGenericType && 
+                .Where(p =>
+                    p.PropertyType.IsGenericType &&
                     p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
                 .Select(p => new DbSet(this, p))
                 .ToArray();

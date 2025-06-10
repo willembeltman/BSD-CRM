@@ -20,5 +20,5 @@ public class DbSet
     public string Name { get; }
     public Entity Entity { get; }
 
-    public IEnumerable<EntityProperty> AllProperties => Entity.AllProperties;
+    //public IEnumerable<EntityProperty> AllProperties => Entity.AllProperties;
 }

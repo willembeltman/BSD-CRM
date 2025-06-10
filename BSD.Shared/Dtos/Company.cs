@@ -17,5 +17,4 @@ public class Company : IEntity
     public string? BtwNumber { get; set; }
     public string? KvkNumber { get; set; }
     public string? Iban { get; set; }
-
 }

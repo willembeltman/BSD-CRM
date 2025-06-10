@@ -24,9 +24,9 @@ public class BankStatement : IEntity
     public double Price { get; set; }
     public string TegenRekeningNumber { get; set; } = string.Empty;
     public string TegenName { get; set; } = string.Empty;
-    public string Description1 { get; set; } = string.Empty;
-    public string Description2 { get; set; } = string.Empty;
-    public string Description3 { get; set; } = string.Empty;
+    public string? Description1 { get; set; } = string.Empty;
+    public string? Description2 { get; set; } = string.Empty;
+    public string? Description3 { get; set; } = string.Empty;
     public double Saldo { get; set; }
     public double KleineOndernemersRegeling { get; set; }
     public bool IsHuur { get; set; }

@@ -21,7 +21,7 @@ public static class NameHelper
                 return null;
         }
     }
-    public static string GetSimpleCsType(string propertytype)
+    public static string? GetSimpleCsType(string propertytype)
     {
         switch (propertytype)
         {
@@ -40,7 +40,7 @@ public static class NameHelper
             case "System.Byte":
                 return "byte";
             default:
-                throw new ArgumentException($"Unknown type: {propertytype}");
+                return null;
         }
     }
     public static string UpperCaseFirstLetter(string value)

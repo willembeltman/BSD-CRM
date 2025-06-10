@@ -1,5 +1,4 @@
-﻿using CodeGenerator.Shared.Interfaces;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace CodeGenerator.Shared.Helpers;
 
@@ -20,38 +19,8 @@ public static class ReflectionHelper
         typeof(int),
         typeof(uint),
         typeof(long),
-        typeof(ulong),
-        typeof(string),
-        typeof(DateTime),
+        typeof(ulong)
     ];
-
-    public static Type GetUnderlyingType(Type type, IProperty entity)
-    {
-        entity.IsAsync = ReflectionHelper.IsAsync(type);
-        if (entity.IsAsync)
-        {
-            type = type.GenericTypeArguments[0];
-        }
-
-        entity.IsNullable = ReflectionHelper.IsNullable(type);
-
-        entity.IsIEnumerable = ReflectionHelper.IsIEnumerable(type);
-        entity.IsICollection = ReflectionHelper.IsICollection(type);
-        entity.IsList = ReflectionHelper.IsList(type);
-        entity.IsArray = ReflectionHelper.IsArray(type);
-
-        entity.IsLijst = entity.IsIEnumerable || entity.IsICollection || entity.IsList || entity.IsArray;
-
-        if (entity.IsArray)
-        {
-            type = type.GetElementType()!;
-        }
-        else if (entity.IsLijst)
-        {
-            type = type.GenericTypeArguments[0];
-        }
-        return type;
-    }
 
 
 
@@ -142,6 +111,7 @@ public static class ReflectionHelper
         return type.IsArray;
     }
 
+    public static bool IsAsync(PropertyInfo prop) => IsAsync(prop.PropertyType);
     public static bool IsAsync(Type type)
     {
         return type.IsGenericType &&
@@ -255,8 +225,14 @@ public static class ReflectionHelper
     }
     public static bool IsPrimitiveTypeOrEnum(Type propertyType)
     {
-        return PrimitiveTypes.Contains(propertyType) || propertyType.IsEnum;
+        return IsPrimitiveType(propertyType) || propertyType.IsEnum;
     }
+
+    public static bool IsPrimitiveType(Type propertyType)
+    {
+        return PrimitiveTypes.Contains(propertyType);
+    }
+
     //public static bool IsIEntity(Type type)
     //{
     //    if (type == typeof(string)) return false;

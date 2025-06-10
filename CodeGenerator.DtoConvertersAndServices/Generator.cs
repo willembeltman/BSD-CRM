@@ -27,6 +27,7 @@ public class Generator
     {
         // Generate DTOs
         Dtos = DbContext.DbSets
+            .Where(a => !a.Entity.IsHidden)
             .Select(dbSet => new DtoGenerator(
                 this, 
                 dbSet,

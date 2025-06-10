@@ -13,8 +13,13 @@ public class BaseGenerator
             throw new InvalidOperationException("Directory, Name, and Code must be set before saving.");
         }
         var filePath = Path.Combine(Directory.FullName, $"{Name}.cs");
-        if (overwrite || !File.Exists(filePath))
+        var fileInfo = new FileInfo(filePath);
+        if (overwrite || !fileInfo.Exists)
         {
+            if (!fileInfo.Directory.Exists)
+            {
+                fileInfo.Directory.Create();
+            }
             File.WriteAllText(filePath, Code);
         }
     }

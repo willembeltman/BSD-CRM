@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BSD.Data\BSD.Data.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,12 +1,13 @@
-﻿namespace BSD.Shared.Dtos;
+using System;
 
-public class TaxRate : IEntity
+
+namespace BSD.Shared.Dtos;
+
+public class TaxRate
 {
     public long Id { get; set; }
-
-    public long? CountryId { get; set; }
-    public string? CountryName { get; set; }
-
+    public long CompanyId { get; set; }
+    public long CountryId { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public double Percentage { get; set; }

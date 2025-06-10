@@ -1,41 +1,41 @@
-﻿namespace BSD.Data.Converters
+namespace BSD.Business.Converters;
+
+public static class UserConverter
 {
-    public class UserConverter
+    public static BSD.Shared.Dtos.User ToDto(this BSD.Data.Entities.User item)
     {
-        public static UserConverter NewInstance = new UserConverter();
-
-        public Shared.Dtos.User Create(Entities.User a)
-        {
-            return new Shared.Dtos.User
-            {
-                id = a.Id,
-                userName = a.UserName,
-                currentCompanyId = a.CurrentCompanyId,
-                phoneNumber = a.PhoneNumber,
-                email = a.Email
-            };
-        }
-        public Entities.User Create(Shared.Dtos.User a)
-        {
-            return new Entities.User
-            {
-                Id = a.id,
-                UserName = a.userName,
-                CurrentCompanyId = a.currentCompanyId,
-                PhoneNumber = a.phoneNumber,
-                Email = a.email
-            };
-        }
-
-        public bool Copy(Shared.Dtos.User source, Entities.User dest)
-        {
-            var dirty = false;
-            //if (dest.Id != source.id) { dest.Id = source.id; dirty = true; }
-            if (dest.UserName != source.userName) { dest.UserName = source.userName; dirty = true; }
-            if (dest.CurrentCompanyId != source.currentCompanyId) { dest.CurrentCompanyId = source.currentCompanyId; dirty = true; }
-            if (dest.PhoneNumber != source.phoneNumber) { dest.PhoneNumber = source.phoneNumber; dirty = true; }
-            //if (dest.Email != source.email) { dest.Email = source.email; dirty = true; }
-            return dirty;
-        }
+        var newItem = new BSD.Shared.Dtos.User();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static BSD.Data.Entities.User ToEntity(this BSD.Shared.Dtos.User item)
+    {
+        var newItem = new BSD.Data.Entities.User();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static bool CopyTo(this BSD.Shared.Dtos.User source, BSD.Data.Entities.User dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CurrentCompanyId != source.CurrentCompanyId) { dest.CurrentCompanyId = source.CurrentCompanyId; dirty = true; }
+        if (dest.PasswordHash != source.PasswordHash) { dest.PasswordHash = source.PasswordHash; dirty = true; }
+        if (dest.LockedOut != source.LockedOut) { dest.LockedOut = source.LockedOut; dirty = true; }
+        if (dest.UserName != source.UserName) { dest.UserName = source.UserName; dirty = true; }
+        if (dest.Email != source.Email) { dest.Email = source.Email; dirty = true; }
+        if (dest.PhoneNumber != source.PhoneNumber) { dest.PhoneNumber = source.PhoneNumber; dirty = true; }
+        return dirty;
+    }
+    public static bool CopyTo(this BSD.Data.Entities.User source, BSD.Shared.Dtos.User dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CurrentCompanyId != source.CurrentCompanyId) { dest.CurrentCompanyId = source.CurrentCompanyId; dirty = true; }
+        if (dest.PasswordHash != source.PasswordHash) { dest.PasswordHash = source.PasswordHash; dirty = true; }
+        if (dest.LockedOut != source.LockedOut) { dest.LockedOut = source.LockedOut; dirty = true; }
+        if (dest.UserName != source.UserName) { dest.UserName = source.UserName; dirty = true; }
+        if (dest.Email != source.Email) { dest.Email = source.Email; dirty = true; }
+        if (dest.PhoneNumber != source.PhoneNumber) { dest.PhoneNumber = source.PhoneNumber; dirty = true; }
+        return dirty;
     }
 }

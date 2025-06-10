@@ -1,54 +1,49 @@
-﻿namespace BSD.Data.Converters
-{
-    public class CustomerConverter
-    {
-        public Shared.Dtos.Customer Create(Entities.Customer a)
-        {
-            return new Shared.Dtos.Customer()
-            {
-                Id = a.Id,
-                Address = a.Address,
-                CountryId = a.CountryId,
-                CountryName = a.Country?.Name,
-                Description = a.Description,
-                InvoiceEmail = a.InvoiceEmail,
-                Place = a.Place,
-                Postalcode = a.Postalcode,
-                PhoneNumber = a.PhoneNumber,
-                Name = a.Name,
-                Publiekelijk = a.Publiekelijk,
-            };
-        }
-        public Entities.Customer Create(Shared.Dtos.Customer a)
-        {
-            return new Entities.Customer()
-            {
-                Id = a.Id,
-                Address = a.Address,
-                CountryId = a.CountryId,
-                Description = a.Description,
-                InvoiceEmail = a.InvoiceEmail,
-                Place = a.Place,
-                Postalcode = a.Postalcode,
-                PhoneNumber = a.PhoneNumber,
-                Name = a.Name,
-                Publiekelijk = a.Publiekelijk,
-            };
-        }
+namespace BSD.Business.Converters;
 
-        public bool Copy(Shared.Dtos.Customer source, Entities.Customer dest)
-        {
-            var changed = false;
-            if (dest.Address != source.Address) { dest.Address = source.Address; changed = true; }
-            if (dest.CountryId != source.CountryId) { dest.CountryId = source.CountryId; changed = true; }
-            if (dest.Description != source.Description) { dest.Description = source.Description; changed = true; }
-            if (dest.InvoiceEmail != source.InvoiceEmail) { dest.InvoiceEmail = source.InvoiceEmail; changed = true; }
-            if (dest.Place != source.Place) { dest.Place = source.Place; changed = true; }
-            if (dest.Postalcode != source.Postalcode) { dest.Postalcode = source.Postalcode; changed = true; }
-            if (dest.PhoneNumber != source.PhoneNumber) { dest.PhoneNumber = source.PhoneNumber; changed = true; }
-            if (dest.Name != source.Name) { dest.Name = source.Name; changed = true; }
-            if (dest.Publiekelijk != source.Publiekelijk) { dest.Publiekelijk = source.Publiekelijk; changed = true; }
-            return changed;
-        }
+public static class CustomerConverter
+{
+    public static BSD.Shared.Dtos.Customer ToDto(this BSD.Data.Entities.Customer item)
+    {
+        var newItem = new BSD.Shared.Dtos.Customer();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static BSD.Data.Entities.Customer ToEntity(this BSD.Shared.Dtos.Customer item)
+    {
+        var newItem = new BSD.Data.Entities.Customer();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static bool CopyTo(this BSD.Shared.Dtos.Customer source, BSD.Data.Entities.Customer dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CountryId != source.CountryId) { dest.CountryId = source.CountryId; dirty = true; }
+        if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
+        if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
+        if (dest.Address != source.Address) { dest.Address = source.Address; dirty = true; }
+        if (dest.Postalcode != source.Postalcode) { dest.Postalcode = source.Postalcode; dirty = true; }
+        if (dest.Place != source.Place) { dest.Place = source.Place; dirty = true; }
+        if (dest.PhoneNumber != source.PhoneNumber) { dest.PhoneNumber = source.PhoneNumber; dirty = true; }
+        if (dest.InvoiceEmail != source.InvoiceEmail) { dest.InvoiceEmail = source.InvoiceEmail; dirty = true; }
+        if (dest.Publiekelijk != source.Publiekelijk) { dest.Publiekelijk = source.Publiekelijk; dirty = true; }
+        return dirty;
+    }
+    public static bool CopyTo(this BSD.Data.Entities.Customer source, BSD.Shared.Dtos.Customer dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.CountryId != source.CountryId) { dest.CountryId = source.CountryId; dirty = true; }
+        if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
+        if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
+        if (dest.Address != source.Address) { dest.Address = source.Address; dirty = true; }
+        if (dest.Postalcode != source.Postalcode) { dest.Postalcode = source.Postalcode; dirty = true; }
+        if (dest.Place != source.Place) { dest.Place = source.Place; dirty = true; }
+        if (dest.PhoneNumber != source.PhoneNumber) { dest.PhoneNumber = source.PhoneNumber; dirty = true; }
+        if (dest.InvoiceEmail != source.InvoiceEmail) { dest.InvoiceEmail = source.InvoiceEmail; dirty = true; }
+        if (dest.Publiekelijk != source.Publiekelijk) { dest.Publiekelijk = source.Publiekelijk; dirty = true; }
+        return dirty;
     }
 }

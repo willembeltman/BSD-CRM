@@ -1,89 +1,39 @@
-﻿namespace BSD.Data.Converters
+namespace BSD.Business.Converters;
+
+public static class RateConverter
 {
-    public class RateConverter
+    public static BSD.Shared.Dtos.Rate ToDto(this BSD.Data.Entities.Rate item)
     {
-        public Entities.Rate Create(Shared.Dtos.Rate source, Entities.Company currentCompany, ApplicationDbContext db)
-        {
-            var dest = new Entities.Rate()
-            {
-                Id = source.Id,
-                Name = source.Name,
-                Description = source.Description,
-                Price = source.Price,
-                Company = currentCompany,
-                CompanyId = currentCompany.Id,
-            };
-
-            Copy(source, dest, currentCompany, db);
-
-            return dest;
-        }
-
-        public Shared.Dtos.Rate Create(Entities.Rate a)
-        {
-            return new Shared.Dtos.Rate
-            {
-                Id = a.Id,
-                TaxRateId = a.TaxRateId,
-                TaxRateName = a.TaxRate?.Name,
-                Name = a.Name,
-                Description = a.Description,
-                Price = a.Price,
-            };
-        }
-
-        public bool Copy(Shared.Dtos.Rate source, Entities.Rate dest, Entities.Company currentCompany, ApplicationDbContext db)
-        {
-            if (source == null ||
-                dest == null ||
-                currentCompany == null)
-                throw new NotImplementedException();
-
-            if (dest.CompanyId != currentCompany.Id)
-                throw new Exception("Cannot change companies");
-
-            var changed = false;
-
-            if (dest.Name != source.Name)
-            {
-                dest.Description = source.Description;
-                changed = true;
-            }
-            if (dest.Description != source.Description)
-            {
-                dest.Description = source.Description;
-                changed = true;
-            }
-            if (dest.Price != source.Price)
-            {
-                dest.Price = source.Price;
-                changed = true;
-            }
-
-            var taxRateNameLower = (source.TaxRateName ?? "").ToLower();
-            var taxRate = db.TaxRates.FirstOrDefault(a =>
-                a.CompanyId == currentCompany.Id &&
-                (a.Name ?? "").ToLower() == taxRateNameLower);
-
-            if (taxRate == null)
-            {
-                taxRate = new Data.Entities.TaxRate()
-                {
-                    Name = source.TaxRateName,
-                    CompanyId = currentCompany.Id,
-                    Company = currentCompany,
-                };
-                db.TaxRates.Add(taxRate);
-                changed = true;
-            }
-
-            if (dest.TaxRateId != taxRate.Id)
-            {
-                dest.TaxRateId = taxRate.Id;
-                changed = true;
-            }
-
-            return changed;
-        }
+        var newItem = new BSD.Shared.Dtos.Rate();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static BSD.Data.Entities.Rate ToEntity(this BSD.Shared.Dtos.Rate item)
+    {
+        var newItem = new BSD.Data.Entities.Rate();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static bool CopyTo(this BSD.Shared.Dtos.Rate source, BSD.Data.Entities.Rate dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.TaxRateId != source.TaxRateId) { dest.TaxRateId = source.TaxRateId; dirty = true; }
+        if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
+        if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
+        if (dest.Price != source.Price) { dest.Price = source.Price; dirty = true; }
+        return dirty;
+    }
+    public static bool CopyTo(this BSD.Data.Entities.Rate source, BSD.Shared.Dtos.Rate dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.TaxRateId != source.TaxRateId) { dest.TaxRateId = source.TaxRateId; dirty = true; }
+        if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
+        if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
+        if (dest.Price != source.Price) { dest.Price = source.Price; dirty = true; }
+        return dirty;
     }
 }

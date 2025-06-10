@@ -1,133 +1,45 @@
-﻿namespace BSD.Data.Converters
+namespace BSD.Business.Converters;
+
+public static class WorkorderConverter
 {
-    public class WorkorderConverter
+    public static BSD.Shared.Dtos.Workorder ToDto(this BSD.Data.Entities.Workorder item)
     {
-        public WorkorderConverter()
-        {
-            InvoiceWorkorderFactory = new InvoiceWorkorderConverter();
-            WorkorderAttachmentFactory = new WorkorderAttachmentConverter();
-        }
-
-        InvoiceWorkorderConverter InvoiceWorkorderFactory { get; }
-        WorkorderAttachmentConverter WorkorderAttachmentFactory { get; }
-
-        public Entities.Workorder Create(Shared.Dtos.Workorder source, Entities.Company currentCompany, ApplicationDbContext db)
-        {
-            var dest = new Entities.Workorder()
-            {
-                Id = source.Id,
-                Start = source.Start,
-                Stop = source.Stop,
-                Name = source.Name,
-                Description = source.Description,
-                CustomerId = source.CustomerId,
-                ProjectId = source.ProjectId,
-            };
-
-            Copy(source, dest, currentCompany, db);
-
-            return dest;
-        }
-
-        public async Task<Shared.Dtos.Workorder> CreateAsync(Entities.Workorder a)
-        {
-            var workorderAttachments = a.WorkorderAttachments != null
-                ? await Task.WhenAll(a.WorkorderAttachments.Select(b => WorkorderAttachmentFactory.Create(b)))
-                : null;
-
-            return new Shared.Dtos.Workorder
-            {
-                Id = a.Id,
-                Start = a.Start,
-                Stop = a.Stop,
-                Name = a.Name,
-                Description = a.Description,
-                CustomerId = a.CustomerId,
-                CustomerName = a.Customer?.Name,
-                ProjectId = a.ProjectId,
-                ProjectName = a.Project?.Name,
-                InvoiceWorkorders =
-                    a.InvoiceWorkorders?
-                        .Select(b => InvoiceWorkorderFactory.Create(b))
-                        .ToList(),
-                WorkorderAttachments = workorderAttachments?.ToList(),
-            };
-        }
-
-        public bool Copy(Shared.Dtos.Workorder source, Entities.Workorder dest, Entities.Company currentCompany, ApplicationDbContext db)
-        {
-            if (dest.CompanyId != currentCompany.Id)
-                throw new Exception("Cannot change companies");
-
-            var changed = false;
-
-            if (dest.Name != source.Name)
-            {
-                dest.Description = source.Description;
-                changed = true;
-            }
-            if (dest.Description != source.Description)
-            {
-                dest.Description = source.Description;
-                changed = true;
-            }
-
-            if (dest.Start != source.Start)
-            {
-                dest.Start = source.Start;
-                changed = true;
-            }
-
-            if (dest.Stop != source.Stop)
-            {
-                dest.Stop = source.Stop;
-                changed = true;
-            }
-
-            dest.Customer = null;
-            if (!string.IsNullOrEmpty(source.CustomerName))
-            {
-                dest.Customer = db.Customers.FirstOrDefault(a =>
-                    a.CompanyId == currentCompany.Id &&
-                    a.Name.ToLower() == source.CustomerName.ToLower());
-                if (dest.Customer == null)
-                {
-                    dest.Customer = new Data.Entities.Customer()
-                    {
-                        Name = source.CustomerName,
-                        CompanyId = currentCompany.Id,
-                        Company = currentCompany,
-                    };
-                    db.Customers.Add(dest.Customer);
-                    changed = true;
-                }
-            }
-            dest.CustomerId = dest.Customer?.Id;
-
-            dest.Project = null;
-            if (!string.IsNullOrEmpty(source.ProjectName))
-            {
-                dest.Project = db.Projects.FirstOrDefault(a =>
-                    a.CompanyId == currentCompany.Id &&
-                    a.Name.ToLower() == source.ProjectName.ToLower());
-                if (dest.Project == null)
-                {
-                    dest.Project = new Data.Entities.Project()
-                    {
-                        Name = source.ProjectName,
-                        CompanyId = currentCompany.Id,
-                        Company = currentCompany,
-                        Customer = dest.Customer,
-                        CustomerId = dest.Customer?.Id,
-                    };
-                    db.Projects.Add(dest.Project);
-                    changed = true;
-                }
-            }
-            dest.ProjectId = dest.Project?.Id;
-
-
-            return changed;
-        }
+        var newItem = new BSD.Shared.Dtos.Workorder();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static BSD.Data.Entities.Workorder ToEntity(this BSD.Shared.Dtos.Workorder item)
+    {
+        var newItem = new BSD.Data.Entities.Workorder();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static bool CopyTo(this BSD.Shared.Dtos.Workorder source, BSD.Data.Entities.Workorder dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.ProjectId != source.ProjectId) { dest.ProjectId = source.ProjectId; dirty = true; }
+        if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; dirty = true; }
+        if (dest.RateId != source.RateId) { dest.RateId = source.RateId; dirty = true; }
+        if (dest.Start != source.Start) { dest.Start = source.Start; dirty = true; }
+        if (dest.Stop != source.Stop) { dest.Stop = source.Stop; dirty = true; }
+        if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
+        if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
+        return dirty;
+    }
+    public static bool CopyTo(this BSD.Data.Entities.Workorder source, BSD.Shared.Dtos.Workorder dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.CompanyId != source.CompanyId) { dest.CompanyId = source.CompanyId; dirty = true; }
+        if (dest.ProjectId != source.ProjectId) { dest.ProjectId = source.ProjectId; dirty = true; }
+        if (dest.CustomerId != source.CustomerId) { dest.CustomerId = source.CustomerId; dirty = true; }
+        if (dest.RateId != source.RateId) { dest.RateId = source.RateId; dirty = true; }
+        if (dest.Start != source.Start) { dest.Start = source.Start; dirty = true; }
+        if (dest.Stop != source.Stop) { dest.Stop = source.Stop; dirty = true; }
+        if (dest.Name != source.Name) { dest.Name = source.Name; dirty = true; }
+        if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
+        return dirty;
     }
 }

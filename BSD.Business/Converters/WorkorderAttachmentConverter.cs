@@ -1,17 +1,38 @@
-﻿using Storage.Proxy;
+namespace BSD.Business.Converters;
 
-namespace BSD.Data.Converters
+public static class WorkorderAttachmentConverter
 {
-    public class WorkorderAttachmentConverter
+    public static BSD.Shared.Dtos.WorkorderAttachment ToDto(this BSD.Data.Entities.WorkorderAttachment item)
     {
-        public async Task<Shared.Dtos.WorkorderAttachment> Create(Entities.WorkorderAttachment a)
-        {
-            return new Shared.Dtos.WorkorderAttachment()
-            {
-                Id = a.Id,
-                WorkorderId = a.WorkorderId,
-                FileUrl = await a.GetUrl() ?? throw new ArgumentNullException(nameof(a)),
-            };
-        }
+        var newItem = new BSD.Shared.Dtos.WorkorderAttachment();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static BSD.Data.Entities.WorkorderAttachment ToEntity(this BSD.Shared.Dtos.WorkorderAttachment item)
+    {
+        var newItem = new BSD.Data.Entities.WorkorderAttachment();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static bool CopyTo(this BSD.Shared.Dtos.WorkorderAttachment source, BSD.Data.Entities.WorkorderAttachment dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.WorkorderId != source.WorkorderId) { dest.WorkorderId = source.WorkorderId; dirty = true; }
+        if (dest.StorageFileName != source.StorageFileName) { dest.StorageFileName = source.StorageFileName; dirty = true; }
+        if (dest.StorageLength != source.StorageLength) { dest.StorageLength = source.StorageLength; dirty = true; }
+        if (dest.StorageMimeType != source.StorageMimeType) { dest.StorageMimeType = source.StorageMimeType; dirty = true; }
+        return dirty;
+    }
+    public static bool CopyTo(this BSD.Data.Entities.WorkorderAttachment source, BSD.Shared.Dtos.WorkorderAttachment dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.WorkorderId != source.WorkorderId) { dest.WorkorderId = source.WorkorderId; dirty = true; }
+        if (dest.StorageFileName != source.StorageFileName) { dest.StorageFileName = source.StorageFileName; dirty = true; }
+        if (dest.StorageLength != source.StorageLength) { dest.StorageLength = source.StorageLength; dirty = true; }
+        if (dest.StorageMimeType != source.StorageMimeType) { dest.StorageMimeType = source.StorageMimeType; dirty = true; }
+        if (dest.StorageFolder != source.StorageFolder) { dest.StorageFolder = source.StorageFolder; dirty = true; }
+        return dirty;
     }
 }

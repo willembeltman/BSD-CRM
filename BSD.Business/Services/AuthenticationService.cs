@@ -1,6 +1,6 @@
 ﻿using BSD.Business.Helpers;
 using BSD.Data;
-using BSD.Data.Converters;
+using BSD.Business.Converters;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
@@ -20,8 +20,6 @@ public class AuthenticationService(
     readonly ApplicationDbContext db = db;
     readonly int ShortHoursAgo = -1;
     readonly int LongHoursAgo = -72;
-    readonly UserConverter UserConverter = new();
-    readonly CompanyConverter CompanyConverter = new();
 
     [TsServiceMethod("Auth", "Login")]
     public LoginResponse Login(LoginRequest request)
@@ -85,7 +83,7 @@ public class AuthenticationService(
             clientBearer = CreateBearer(dbuser, clientDevice, clientIpAddress);
         }
 
-        var user = UserConverter.Create(dbuser);
+        var user = dbuser.ToDto();
         if (user == null)
             return new LoginResponse()
             {
@@ -95,15 +93,15 @@ public class AuthenticationService(
         var dbcurrentcompany = db.Companies
             .Include(a => a.Country)
             .FirstOrDefault(a =>
-                a.Id == user.currentCompanyId &&
-                a.CompanyUsers.Any(a => a.UserId == user.id));
+                a.Id == user.CurrentCompanyId &&
+                a.CompanyUsers.Any(a => a.UserId == user.Id));
         if (dbcurrentcompany == null)
             return new LoginResponse()
             {
                 AuthenticationError = true
             };
 
-        var currentcompany = CompanyConverter.Create(dbcurrentcompany);
+        var currentcompany = dbcurrentcompany.ToDto();
 
         return new LoginResponse()
         {
@@ -200,7 +198,7 @@ public class AuthenticationService(
                 ErrorCouldNotCreateBearer = true
             };
 
-        var user = UserConverter.Create(dbuser);
+        var user = dbuser.ToDto();
         return new RegisterResponse()
         {
             Success = true,

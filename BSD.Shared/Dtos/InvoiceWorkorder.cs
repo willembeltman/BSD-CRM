@@ -1,9 +1,11 @@
-﻿namespace BSD.Shared.Dtos;
+using System;
 
-public class InvoiceWorkorder : IEntity
+
+namespace BSD.Shared.Dtos;
+
+public class InvoiceWorkorder
 {
     public long Id { get; set; }
-
     public long? InvoiceId { get; set; }
     public long? WorkorderId { get; set; }
 }

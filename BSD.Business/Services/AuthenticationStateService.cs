@@ -1,8 +1,7 @@
 ﻿using BSD.Business.Interfaces;
 using BSD.Business.Models;
 using BSD.Data;
-using BSD.Data.Converters;
-using BSD.Business.Interfaces;
+using BSD.Business.Converters;
 using BSD.Shared.RequestDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +18,6 @@ public class AuthenticationStateService(
     static int shorthoursago = -1;
     static int longhoursago = -72;
     ApplicationDbContext db = db;
-    UserConverter UserConverter = new UserConverter();
-    CompanyConverter CompanyConverter = new CompanyConverter();
 
     public AuthenticationState GetState(BaseRequest request)
     {
@@ -100,8 +97,8 @@ public class AuthenticationStateService(
             {
             };
 
-        var userJson = UserConverter.Create(user);
-        var companyJson = CompanyConverter.Create(currentcompany);
+        var userJson = user.ToDto();
+        var companyJson = currentcompany.ToDto();
 
         return new AuthenticationState()
         {

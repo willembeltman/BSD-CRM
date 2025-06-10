@@ -1,15 +1,33 @@
-﻿namespace BSD.Data.Converters
+namespace BSD.Business.Converters;
+
+public static class InvoiceWorkorderConverter
 {
-    public class InvoiceWorkorderConverter
+    public static BSD.Shared.Dtos.InvoiceWorkorder ToDto(this BSD.Data.Entities.InvoiceWorkorder item)
     {
-        public Shared.Dtos.InvoiceWorkorder Create(Entities.InvoiceWorkorder a)
-        {
-            return new Shared.Dtos.InvoiceWorkorder()
-            {
-                Id = a.Id,
-                InvoiceId = a.InvoiceId,
-                WorkorderId = a.WorkorderId,
-            };
-        }
+        var newItem = new BSD.Shared.Dtos.InvoiceWorkorder();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static BSD.Data.Entities.InvoiceWorkorder ToEntity(this BSD.Shared.Dtos.InvoiceWorkorder item)
+    {
+        var newItem = new BSD.Data.Entities.InvoiceWorkorder();
+        item.CopyTo(newItem);
+        return newItem;
+    }
+    public static bool CopyTo(this BSD.Shared.Dtos.InvoiceWorkorder source, BSD.Data.Entities.InvoiceWorkorder dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.WorkorderId != source.WorkorderId) { dest.WorkorderId = source.WorkorderId; dirty = true; }
+        return dirty;
+    }
+    public static bool CopyTo(this BSD.Data.Entities.InvoiceWorkorder source, BSD.Shared.Dtos.InvoiceWorkorder dest)
+    {
+        var dirty = false;
+        if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
+        if (dest.InvoiceId != source.InvoiceId) { dest.InvoiceId = source.InvoiceId; dirty = true; }
+        if (dest.WorkorderId != source.WorkorderId) { dest.WorkorderId = source.WorkorderId; dirty = true; }
+        return dirty;
     }
 }

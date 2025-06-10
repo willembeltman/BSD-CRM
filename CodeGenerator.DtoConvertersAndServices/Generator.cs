@@ -63,9 +63,14 @@ public class Generator
     {
         // To render:
         // Requests/BaseRequest
-        // Interfaces/IAuthenticationStateService
-        // Models/AuthenticationState
         // Shared/Dtos/State
+        // Models/AuthenticationState
+        // Interfaces/IAuthenticationStateService
+
+
+        /// User wijst naar: 
+        /// Company, en die wijst weer naar: 
+        /// Country.
 
         foreach (var dto in Dtos) dto.GenerateCode();
         foreach (var dtoConverter in DtoConverters) dtoConverter.GenerateCode();

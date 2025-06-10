@@ -135,11 +135,13 @@ public class ServiceHandlerGenerator : BaseGenerator
 
         #endregion
 
+        var keyType = Entity.Properties.FirstOrDefault(a => a.IsKey)?.TypeSimpleName ?? "long";
+
+
         Code = $@"
 using BSD.Business.Models;
 using BSD.Data;
 using BSD.Data.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace {Namespace};
 
@@ -152,14 +154,14 @@ public class {Name}
         State = authenticationState;
     }}
 
-    public bool CanCreate(ApplicationDbContext db, {Entity.Name} entity) => State.User != null;
+    public bool CanCreate(ApplicationDbContext db, {Entity.Name} entity) => State.DbUser != null;
     public bool CanRead(ApplicationDbContext db, {Entity.Name} entity) => true;
-    public bool CanUpdate(ApplicationDbContext db, {Entity.Name} entity) => State.User != null;
+    public bool CanUpdate(ApplicationDbContext db, {Entity.Name} entity) => State.DbUser != null;
     public bool CanDelete(ApplicationDbContext db, {Entity.Name} entity) => State.DbUser != null;
     public bool CanList(ApplicationDbContext db) => true;
 
     public {Entity.Name}? FindByMatch(ApplicationDbContext db, Shared.Dtos.{Entity.Name} dto) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == dto.Id);
-    public {Entity.Name}? FindById(ApplicationDbContext db, long id) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == id);
+    public {Entity.Name}? FindById(ApplicationDbContext db, {keyType} id) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == id);
     public IQueryable<{Entity.Name}> ListAll(ApplicationDbContext db) => db.{DbSet.Name};
 
     public bool AttachToState(ApplicationDbContext db, {Entity.Name} entity) => true;

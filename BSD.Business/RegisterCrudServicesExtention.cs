@@ -1,4 +1,6 @@
-﻿namespace BSD.Api.Extentions;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace BSD.Business;
 
 public static class RegisterCrudServicesExtention
 {

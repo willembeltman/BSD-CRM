@@ -8,7 +8,7 @@ public class UpdateResponseDtoGenerator : BaseGenerator
         DtoGenerator = dtoGenerator;
         Directory = directory;
         ResponseDtoNamespace = @namespace;
-        Name = $"Update{dtoGenerator.Entity.Name}Response";
+        Name = $"{dtoGenerator.Entity.Name}UpdateResponse";
     }
 
     public DtoGenerator DtoGenerator { get; }

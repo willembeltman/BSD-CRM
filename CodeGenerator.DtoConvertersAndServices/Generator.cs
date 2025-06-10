@@ -66,8 +66,8 @@ public class Generator
         ServiceInterfaces = ServiceHandlers
             .Select(serviceHandler => new ServiceInterfaceGenerator(
                 serviceHandler,
-                config.ConvertersDirectory,
-                config.ConvertersNamespace))
+                config.InterfacesDirectory,
+                config.InterfacesNamespace))
             .ToArray();
 
         // Generate Services

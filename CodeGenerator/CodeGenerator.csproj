@@ -20,6 +20,7 @@
     <ProjectReference Include="..\CodeGenerator.ApiAndProxies\CodeGenerator.Step2.ApisAndProxies.csproj" />
     <ProjectReference Include="..\CodeGenerator.DtoConvertersAndServices\CodeGenerator.Step1.DtosConvertersAndServices.csproj" />
     <ProjectReference Include="..\CodeGenerator.Shared\CodeGenerator.Shared.csproj" />
+    <ProjectReference Include="..\TestProject\TestProject.csproj" />
   </ItemGroup>
 
 </Project>

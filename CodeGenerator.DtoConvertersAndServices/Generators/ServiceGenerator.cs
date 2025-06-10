@@ -225,12 +225,10 @@ public class {Name}(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.CreateResponse.Name}() {{ State = state, ErrorGettingState = true }};
-
 " + (Entity.IsAuthorize ? $@"
         if (state.User == null || state.DbUser == null)
             return new {Dto.CreateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
-
         var handler = new {ServiceHandler.Name}(state);
         var entity = handler.FindByMatch(db, request.{Entity.Name});
         if (entity != null)
@@ -259,12 +257,10 @@ public class {Name}(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.ReadResponse.Name}() {{ State = state, ErrorGettingState = true }};
-
 " + (Entity.IsAuthorize ? $@"
         if (state.User == null || state.DbUser == null)
             return new {Dto.ReadResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
-
         var handler = new {ServiceHandler.Name}(state);
         var entity = handler.FindById(db, request.{Entity.Name}Id);
         if (entity == null)
@@ -283,12 +279,10 @@ public class {Name}(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorGettingState = true }};
-
 " + (Entity.IsAuthorize ? $@"
             if (state.User == null || state.DbUser == null)
                 return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
-
         var handler = new {ServiceHandler.Name}(state);
         var entity = handler.FindById(db, request.{Entity.Name}.Id);
         if (entity == null)
@@ -313,12 +307,10 @@ public class {Name}(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorGettingState = true }};
-
 " + (Entity.IsAuthorize ? $@"
         if (state.User == null || state.DbUser == null)
             return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
-
         var handler = new {ServiceHandler.Name}(state);
         var entity = handler.FindById(db, request.{Entity.Name}Id);
         if (entity == null)
@@ -342,12 +334,10 @@ public class {Name}(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.ListResponse.Name}() {{ State = state, ErrorGettingState = true }};
-
 " + (Entity.IsAuthorize ? $@"
         if (state.User == null || state.DbUser == null)
             return new {Dto.ListResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
-
         var handler = new {ServiceHandler.Name}(state);
         if (!handler.CanList(db))
             return new {Dto.ListResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};

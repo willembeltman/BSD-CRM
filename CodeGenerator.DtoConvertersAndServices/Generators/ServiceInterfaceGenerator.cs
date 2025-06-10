@@ -25,7 +25,7 @@ public class ServiceInterfaceGenerator : BaseGenerator
         BaseRequest = StateDto.BaseRequest;
         DbContext = BaseRequest.DbContext;
 
-        Name = $"{Entity.Name}Service";
+        Name = $"I{Entity.Name}Service";
     }
 
     public ServiceHandlerGenerator ServiceHandler { get; }

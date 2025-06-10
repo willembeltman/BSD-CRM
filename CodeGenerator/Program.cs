@@ -71,6 +71,38 @@ generator1.Run();
 //        Assembly: typeof(BSD.Business.Services.AuthenticationService).Assembly,
 //        CsNamespace: "BSD.Business.Services"
 //    )]);
+
+
+//config2 = new CodeGenerator.Step2.ApisAndProxies.GeneratorConfig(
+//    AngularAppDirectory: @"..\..\..\..\BSD.Angular\src\app",
+//    AngularApiServicesDirectory: @"..\..\..\..\BSD.Angular\src\app\apiservices",
+//    AngularApiServicesTsNamespace: "apiservices",
+//    DotNetControllersDirectory: @"..\..\..\..\TestProject\Controllers",
+//    DotNetControllersNamespace: "TestProject.Controllers",
+//    DotNetProxiesDirectory: @"..\..\..\..\TestProject\Proxy",
+//    DotNetProxiesNamespace: "TestProject.Proxy",
+//    ModelNamespaces:
+//    [(
+//        Assembly: typeof(TestProject.Dtos.Company).Assembly,
+//        CsNamespace: "TestProject.Dtos",
+//        TsNamespace: "interfaces"
+//    ),
+//    (
+//        Assembly: typeof(TestProject.RequestDtos.BaseRequest).Assembly,
+//        CsNamespace: "TestProject.RequestDtos",
+//        TsNamespace: "interfaces/request"
+//    ),
+//    (
+//        Assembly: typeof(TestProject.ResponseDtos.BaseResponse).Assembly,
+//        CsNamespace: "TestProject.ResponseDtos",
+//        TsNamespace: "interfaces/response"
+//    )],
+//    ServiceNamespaces:
+//    [(
+//        Assembly: typeof(TestProject.Services.CompanyService).Assembly,
+//        CsNamespace: "TestProject.Services"
+//    )]);
+
 //var generator2 = new CodeGenerator.Step2.ApisAndProxies.Generator(config2);
 //generator2.Run();
 

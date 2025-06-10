@@ -461,6 +461,10 @@ public class Generator(GeneratorConfig generatorConfig)
     private static void WriteToFile(string filename, string filecontents)
     {
         var info = new FileInfo(filename);
+        if (!info.Directory!.Exists)
+        {
+            info.Directory.Create();
+        }
         if (info.Exists)
         {
             info.Delete();

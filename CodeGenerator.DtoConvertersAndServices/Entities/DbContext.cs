@@ -49,7 +49,7 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Entities
             {
                 yield return item;
 
-                foreach (var subItem in GetList(item.DbSet.Entity))
+                foreach (var subItem in GetList(item.DbSet!.Entity))
                 {
                     yield return subItem;
                 }

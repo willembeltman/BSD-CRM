@@ -1,6 +1,5 @@
 using System;
 
-
 namespace BSD.Shared.Dtos;
 
 public class Project

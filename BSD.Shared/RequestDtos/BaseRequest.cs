@@ -1,4 +1,5 @@
-﻿using CodeGenerator.Shared.Attributes;
+
+using CodeGenerator.Shared.Attributes;
 
 namespace BSD.Shared.RequestDtos;
 
@@ -6,5 +7,4 @@ namespace BSD.Shared.RequestDtos;
 public class BaseRequest
 {
     public string? BearerId { get; set; }
-    public long? CurrentCompanyId { get; set; }
 }

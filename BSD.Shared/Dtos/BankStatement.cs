@@ -1,7 +1,6 @@
 using System;
 using BSD.Shared.Enums;
 
-
 namespace BSD.Shared.Dtos;
 
 public class BankStatement
@@ -10,8 +9,8 @@ public class BankStatement
     public long CompanyId { get; set; }
     public string? CompanyName { get; set; }
     public string VolgNr { get; set; } = string.Empty;
-    public BSD.Shared.Enums.CreditTypeEnum CreditType { get; set; }
-    public BSD.Shared.Enums.BankEnum? Bank { get; set; }
+    public CreditTypeEnum CreditType { get; set; }
+    public BankEnum? Bank { get; set; }
     public string EigenRekeningNumber { get; set; } = string.Empty;
     public string Currency { get; set; } = string.Empty;
     public DateTime Date { get; set; } = DateTime.Now;

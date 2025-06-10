@@ -1,7 +1,6 @@
 using System;
 using BSD.Shared.Enums;
 
-
 namespace BSD.Shared.Dtos;
 
 public class ExpenseType
@@ -13,6 +12,6 @@ public class ExpenseType
     public bool IsVolledigeKosten { get; set; }
     public bool IsRepresentatieKosten { get; set; }
     public bool IsHalfTellen { get; set; }
-    public BSD.Shared.Enums.BedrijfsKostenTypeEnum BedrijfsKostenType { get; set; }
-    public BSD.Shared.Enums.AfschrijfKostenTypeEnum AfschrijfKostenType { get; set; }
+    public BedrijfsKostenTypeEnum BedrijfsKostenType { get; set; }
+    public AfschrijfKostenTypeEnum AfschrijfKostenType { get; set; }
 }

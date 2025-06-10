@@ -11,8 +11,8 @@ public class Generator(GeneratorConfig generatorConfig)
     {
         ExportCsControllers();
         ExportCsProxies();
-        ExportTsModels();
-        ExportTsProxies();
+        //ExportTsModels();
+        //ExportTsProxies();
     }
 
     private void ExportCsControllers()

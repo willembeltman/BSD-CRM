@@ -27,7 +27,7 @@ public static class BankStatementExpenseConverter
         var dirty = false;
         if (dest.Id != source.Id) { dest.Id = source.Id; dirty = true; }
         if (dest.BankStatementId != source.BankStatementId) { dest.BankStatementId = source.BankStatementId; dirty = true; }
-        if (dest.BankStatementName != source.BankStatement?.Description?.ToString()) { dest.BankStatementName = source.BankStatement?.Description?.ToString(); dirty = true; }
+        if (dest.BankStatementName != source.BankStatement?.EigenRekeningNumber?.ToString()) { dest.BankStatementName = source.BankStatement?.EigenRekeningNumber?.ToString(); dirty = true; }
         if (dest.ExpenseId != source.ExpenseId) { dest.ExpenseId = source.ExpenseId; dirty = true; }
         return dirty;
     }

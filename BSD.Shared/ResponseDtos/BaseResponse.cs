@@ -1,4 +1,4 @@
-﻿using BSD.Shared.Dtos;
+using BSD.Shared.Dtos;
 using CodeGenerator.Shared.Attributes;
 
 namespace BSD.Shared.ResponseDtos;

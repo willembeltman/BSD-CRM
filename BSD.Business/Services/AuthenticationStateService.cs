@@ -72,6 +72,7 @@ public class AuthenticationStateService(
 
         // Get user from database
         var user = db.Users
+            .Include(a => a.CurrentCompany)
             .FirstOrDefault(a => a.Id == clientBearer.UserId);
         if (user == null)
             return new AuthenticationState()
@@ -91,18 +92,10 @@ public class AuthenticationStateService(
         }
 
         // Get current company from database
-        var currentcompany = db.Companies
-            .Include(a => a.Country)
-            .FirstOrDefault(a =>
-                a.CompanyUsers.Any(a => a.UserId == user.Id) &&
-                a.Id == request.CurrentCompanyId);
-        if (currentcompany == null)
-            return new AuthenticationState()
-            {
-            };
+        var currentcompany = user.CurrentCompany;
 
         var userJson = user.ToDto();
-        var companyJson = currentcompany.ToDto();
+        var companyJson = currentcompany?.ToDto();
 
         return new AuthenticationState()
         {
@@ -114,9 +107,6 @@ public class AuthenticationStateService(
 
             DbUser = user,
             DbCurrentCompany = currentcompany,
-            DbClientBearer = clientBearer,
-            DbClientDevice = clientDevice,
-            DbClientLocation = clientIpAddress,
         };
     }
 

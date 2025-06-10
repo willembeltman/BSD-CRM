@@ -159,7 +159,7 @@ public class {Name}
     public bool CanList(ApplicationDbContext db) => true;
 
     public {Entity.Name}? FindByMatch(ApplicationDbContext db, Shared.Dtos.{Entity.Name} dto) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == dto.Id);
-    public {Entity.Name}? FindById(ApplicationDbContext db, long id) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == dto.Id);
+    public {Entity.Name}? FindById(ApplicationDbContext db, long id) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == Id);
     public IQueryable<{Entity.Name}> ListAll(ApplicationDbContext db) => db.{DbSet.Name};
 
     public bool AttachToState(ApplicationDbContext db, {Entity.Name} entity) => true;

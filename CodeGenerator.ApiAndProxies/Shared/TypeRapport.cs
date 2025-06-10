@@ -1,7 +1,8 @@
 ﻿using CodeGenerator.Shared.Helpers;
-using CodeGenerator.ApiAndProxies.Models;
+using CodeGenerator.Step2.ApiAndProxies.Models;
+using CodeGenerator.Step2.ApisAndProxies;
 
-namespace CodeGenerator.ApiAndProxies.Shared
+namespace CodeGenerator.Step2.ApiAndProxies.Shared
 {
     public class TypeRapport
     {

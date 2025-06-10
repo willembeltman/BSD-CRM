@@ -1,4 +1,4 @@
-﻿namespace CodeGenerator.DtoConvertersAndServices;
+﻿namespace CodeGenerator.Step1.DtosConvertersAndServices;
 
 public class GeneratorConfig
 {

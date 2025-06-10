@@ -27,9 +27,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator", "CodeGenera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Shared", "CodeGenerator.Shared\CodeGenerator.Shared.csproj", "{A7B92E71-8EFF-C516-C2EA-33AB27A02573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Apis_Proxies", "CodeGenerator.ApiAndProxies\CodeGenerator.Apis_Proxies.csproj", "{AFB5CC5E-1CC1-92ED-7092-DFA4A090AC55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Step2.ApisAndProxies", "CodeGenerator.ApiAndProxies\CodeGenerator.Step2.ApisAndProxies.csproj", "{AFB5CC5E-1CC1-92ED-7092-DFA4A090AC55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Dtos_Converters_Services", "CodeGenerator.DtoConvertersAndServices\CodeGenerator.Dtos_Converters_Services.csproj", "{33D36376-E489-4011-8264-55706C7FFB90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Step1.DtosConvertersAndServices", "CodeGenerator.DtoConvertersAndServices\CodeGenerator.Step1.DtosConvertersAndServices.csproj", "{33D36376-E489-4011-8264-55706C7FFB90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.Data", "Storage.Data\Storage.Data.csproj", "{D92B7A52-80A4-80A6-7BC8-E1C7D517781B}"
 EndProject

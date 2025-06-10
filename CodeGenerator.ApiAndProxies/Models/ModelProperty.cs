@@ -1,8 +1,8 @@
 ﻿using CodeGenerator.Shared.Helpers;
-using CodeGenerator.ApiAndProxies.Shared;
+using CodeGenerator.Step2.ApiAndProxies.Shared;
 using System.Reflection;
 
-namespace CodeGenerator.ApiAndProxies.Models;
+namespace CodeGenerator.Step2.ApiAndProxies.Models;
 
 public class ModelProperty
 {

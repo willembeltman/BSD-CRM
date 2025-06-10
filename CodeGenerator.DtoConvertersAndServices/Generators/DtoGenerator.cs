@@ -1,5 +1,5 @@
-﻿using CodeGenerator.DtoConvertersAndServices;
-using CodeGenerator.DtoConvertersAndServices.Entities;
+﻿using CodeGenerator.Step1.DtosConvertersAndServices;
+using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 

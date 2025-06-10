@@ -1,8 +1,8 @@
 ﻿using CodeGenerator.Shared.Helpers;
-using CodeGenerator.ApiAndProxies.Shared;
+using CodeGenerator.Step2.ApiAndProxies.Shared;
 using System.Reflection;
 
-namespace CodeGenerator.ApiAndProxies.Services;
+namespace CodeGenerator.Step2.ApiAndProxies.Services;
 
 public class ServiceMethod
 {

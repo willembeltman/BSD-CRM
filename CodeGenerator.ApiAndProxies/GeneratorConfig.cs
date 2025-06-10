@@ -1,8 +1,8 @@
-﻿using CodeGenerator.ApiAndProxies.Models;
-using CodeGenerator.ApiAndProxies.Services;
+﻿using CodeGenerator.Step2.ApiAndProxies.Models;
+using CodeGenerator.Step2.ApiAndProxies.Services;
 using System.Reflection;
 
-namespace CodeGenerator.ApiAndProxies.Shared;
+namespace CodeGenerator.Step2.ApisAndProxies;
 
 public class GeneratorConfig
 {
@@ -20,7 +20,7 @@ public class GeneratorConfig
     public GeneratorConfig(
         string AngularAppDirectory,
         string AngularApiServicesDirectory,
-        string AngularApiServicesDirectoryShortName,
+        string AngularApiServicesTsNamespace,
         string DotNetControllersDirectory,
         string DotNetControllersNamespace,
         string DotNetProxiesDirectory,
@@ -29,7 +29,7 @@ public class GeneratorConfig
         (Assembly Assembly, string CsNamespace)[] ServiceNamespaces)
     {
         this.AngularApiServicesDirectory = AngularApiServicesDirectory;
-        this.AngularApiServicesDirectoryShortName = AngularApiServicesDirectoryShortName;
+        this.AngularApiServicesDirectoryShortName = AngularApiServicesTsNamespace;
         this.DotNetControllersDirectory = DotNetControllersDirectory;
         this.AngularAppDirectory = AngularAppDirectory;
         this.DotNetControllersNamespace = DotNetControllersNamespace;

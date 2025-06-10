@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace CodeGenerator.DtoConvertersAndServices.Entities;
+namespace CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 
 public class EntityProperty
 {

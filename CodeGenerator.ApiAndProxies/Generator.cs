@@ -1,7 +1,7 @@
 ﻿using CodeGenerator.Shared.Helpers;
-using CodeGenerator.ApiAndProxies.Shared;
+using CodeGenerator.Step2.ApisAndProxies;
 
-namespace CodeGenerator.ApiAndProxies;
+namespace CodeGenerator.Step2.ApisAndProxies;
 
 public class Generator(GeneratorConfig generatorConfig)
 {

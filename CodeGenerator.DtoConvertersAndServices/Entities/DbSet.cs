@@ -1,7 +1,7 @@
 ﻿
 using System.Reflection;
 
-namespace CodeGenerator.DtoConvertersAndServices.Entities;
+namespace CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 
 public class DbSet
 {

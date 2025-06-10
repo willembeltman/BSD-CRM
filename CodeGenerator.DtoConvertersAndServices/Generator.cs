@@ -1,7 +1,7 @@
-﻿using CodeGenerator.DtoConvertersAndServices.Entities;
+﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 using CodeGenerator.Dtos_Converters_Services.Generators;
 
-namespace CodeGenerator.DtoConvertersAndServices;
+namespace CodeGenerator.Step1.DtosConvertersAndServices;
 
 public class Generator
 {

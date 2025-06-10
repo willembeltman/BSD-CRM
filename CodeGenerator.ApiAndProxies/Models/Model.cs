@@ -1,6 +1,6 @@
 ﻿using CodeGenerator.Shared.Helpers;
 
-namespace CodeGenerator.ApiAndProxies.Models;
+namespace CodeGenerator.Step2.ApiAndProxies.Models;
 
 public class Model
 {

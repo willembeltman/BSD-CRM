@@ -1,5 +1,4 @@
-﻿using CodeGenerator.Step1.DtosConvertersAndServices;
-using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
+﻿using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
@@ -10,7 +9,7 @@ public class DtoConverterGenerator : BaseGenerator
         Dto = dto;
         DbSet = dto.DbSet;
         Entity = DbSet.Entity;
-        
+
         Directory = directory;
         Namespace = @namespace;
         Name = $"{Entity.Name}Converter";
@@ -59,7 +58,7 @@ public class DtoConverterGenerator : BaseGenerator
                 var foreignDbSet = property.DbSet;
                 var foreignEntity = foreignDbSet.Entity;
                 var foreignNameProperty = foreignEntity.Properties.FirstOrDefault(a => a.IsName);
-                if (foreignNameProperty == null) continue;  
+                if (foreignNameProperty == null) continue;
 
                 toDtoCode += $"        if (dest.{property.PropertyName}Name != source.{property.PropertyName}?.{foreignNameProperty.PropertyName}?.ToString()) {{ dest.{property.PropertyName}Name = source.{property.PropertyName}?.{foreignNameProperty.PropertyName}?.ToString(); dirty = true; }}\r\n";
 
@@ -67,7 +66,7 @@ public class DtoConverterGenerator : BaseGenerator
             }
 
             toDtoCode += $"        if (dest.{property.PropertyName} != source.{property.PropertyName}) {{ dest.{property.PropertyName} = source.{property.PropertyName}; dirty = true; }}\r\n";
-            
+
             if (property.IsReadOnly) continue;
 
             toEntityCode += $"        if (dest.{property.PropertyName} != source.{property.PropertyName}) {{ dest.{property.PropertyName} = source.{property.PropertyName}; dirty = true; }}\r\n";

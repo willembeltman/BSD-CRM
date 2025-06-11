@@ -1,7 +1,6 @@
 ﻿using CodeGenerator.Dtos_Converters_Services.Generators;
 using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
 using CodeGenerator.Step1.DtosConvertersAndServices.Generators;
-using System.Linq;
 
 namespace CodeGenerator.Step1.DtosConvertersAndServices;
 

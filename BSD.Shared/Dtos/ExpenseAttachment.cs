@@ -1,5 +1,3 @@
-using System;
-
 namespace BSD.Shared.Dtos;
 
 public class ExpenseAttachment

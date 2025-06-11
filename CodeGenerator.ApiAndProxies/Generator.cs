@@ -1,7 +1,4 @@
 ﻿using CodeGenerator.Shared.Helpers;
-using CodeGenerator.Step2.ApiAndProxies.Services;
-using CodeGenerator.Step2.ApisAndProxies;
-using System.Net.NetworkInformation;
 
 namespace CodeGenerator.Step2.ApisAndProxies;
 

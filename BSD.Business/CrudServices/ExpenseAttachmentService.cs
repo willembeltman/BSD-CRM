@@ -74,8 +74,8 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new ExpenseAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseAttachment.Id);

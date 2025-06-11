@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class TaxRateProxy(HttpClient httpClient)
 {
-    public async Task<TaxRateCreateResponse> Create(TaxRateCreateRequest request) 
+    public async Task<TaxRateCreateResponse> Create(TaxRateCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TaxRate/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class TaxRateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TaxRateReadResponse> Read(TaxRateReadRequest request) 
+    public async Task<TaxRateReadResponse> Read(TaxRateReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TaxRate/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class TaxRateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TaxRateUpdateResponse> Update(TaxRateUpdateRequest request) 
+    public async Task<TaxRateUpdateResponse> Update(TaxRateUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TaxRate/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class TaxRateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TaxRateDeleteResponse> Delete(TaxRateDeleteRequest request) 
+    public async Task<TaxRateDeleteResponse> Delete(TaxRateDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TaxRate/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class TaxRateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TaxRateListResponse> List(TaxRateListRequest request) 
+    public async Task<TaxRateListResponse> List(TaxRateListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TaxRate/List", request);
         response.EnsureSuccessStatusCode();

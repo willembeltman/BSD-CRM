@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ProjectProxy(HttpClient httpClient)
 {
-    public async Task<ProjectCreateResponse> Create(ProjectCreateRequest request) 
+    public async Task<ProjectCreateResponse> Create(ProjectCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Project/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ProjectProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProjectReadResponse> Read(ProjectReadRequest request) 
+    public async Task<ProjectReadResponse> Read(ProjectReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Project/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ProjectProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProjectUpdateResponse> Update(ProjectUpdateRequest request) 
+    public async Task<ProjectUpdateResponse> Update(ProjectUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Project/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ProjectProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProjectDeleteResponse> Delete(ProjectDeleteRequest request) 
+    public async Task<ProjectDeleteResponse> Delete(ProjectDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Project/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ProjectProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProjectListResponse> List(ProjectListRequest request) 
+    public async Task<ProjectListResponse> List(ProjectListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Project/List", request);
         response.EnsureSuccessStatusCode();

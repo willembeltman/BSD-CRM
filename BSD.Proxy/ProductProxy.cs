@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ProductProxy(HttpClient httpClient)
 {
-    public async Task<ProductCreateResponse> Create(ProductCreateRequest request) 
+    public async Task<ProductCreateResponse> Create(ProductCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Product/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductReadResponse> Read(ProductReadRequest request) 
+    public async Task<ProductReadResponse> Read(ProductReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Product/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductUpdateResponse> Update(ProductUpdateRequest request) 
+    public async Task<ProductUpdateResponse> Update(ProductUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Product/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductDeleteResponse> Delete(ProductDeleteRequest request) 
+    public async Task<ProductDeleteResponse> Delete(ProductDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Product/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductListResponse> List(ProductListRequest request) 
+    public async Task<ProductListResponse> List(ProductListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Product/List", request);
         response.EnsureSuccessStatusCode();

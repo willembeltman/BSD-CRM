@@ -74,8 +74,8 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new TransactionParameterUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new TransactionParameterUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionParameter.Id);

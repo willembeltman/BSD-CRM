@@ -74,8 +74,8 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new CustomerUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new CustomerUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CustomerServiceHandler(state);
         var entity = handler.FindById(db, request.Customer.Id);

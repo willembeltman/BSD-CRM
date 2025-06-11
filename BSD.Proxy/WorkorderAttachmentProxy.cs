@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class WorkorderAttachmentProxy(HttpClient httpClient)
 {
-    public async Task<WorkorderAttachmentCreateResponse> Create(WorkorderAttachmentCreateRequest request) 
+    public async Task<WorkorderAttachmentCreateResponse> Create(WorkorderAttachmentCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/WorkorderAttachment/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class WorkorderAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderAttachmentReadResponse> Read(WorkorderAttachmentReadRequest request) 
+    public async Task<WorkorderAttachmentReadResponse> Read(WorkorderAttachmentReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/WorkorderAttachment/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class WorkorderAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderAttachmentUpdateResponse> Update(WorkorderAttachmentUpdateRequest request) 
+    public async Task<WorkorderAttachmentUpdateResponse> Update(WorkorderAttachmentUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/WorkorderAttachment/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class WorkorderAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderAttachmentDeleteResponse> Delete(WorkorderAttachmentDeleteRequest request) 
+    public async Task<WorkorderAttachmentDeleteResponse> Delete(WorkorderAttachmentDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/WorkorderAttachment/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class WorkorderAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderAttachmentListResponse> List(WorkorderAttachmentListRequest request) 
+    public async Task<WorkorderAttachmentListResponse> List(WorkorderAttachmentListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/WorkorderAttachment/List", request);
         response.EnsureSuccessStatusCode();

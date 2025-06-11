@@ -74,8 +74,8 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new InvoiceEmailUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceEmailUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceEmail.Id);

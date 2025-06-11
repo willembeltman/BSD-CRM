@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class CompanyUserProxy(HttpClient httpClient)
 {
-    public async Task<CompanyUserCreateResponse> Create(CompanyUserCreateRequest request) 
+    public async Task<CompanyUserCreateResponse> Create(CompanyUserCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/CompanyUser/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class CompanyUserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyUserReadResponse> Read(CompanyUserReadRequest request) 
+    public async Task<CompanyUserReadResponse> Read(CompanyUserReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/CompanyUser/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class CompanyUserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyUserUpdateResponse> Update(CompanyUserUpdateRequest request) 
+    public async Task<CompanyUserUpdateResponse> Update(CompanyUserUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/CompanyUser/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class CompanyUserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyUserDeleteResponse> Delete(CompanyUserDeleteRequest request) 
+    public async Task<CompanyUserDeleteResponse> Delete(CompanyUserDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/CompanyUser/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class CompanyUserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyUserListResponse> List(CompanyUserListRequest request) 
+    public async Task<CompanyUserListResponse> List(CompanyUserListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/CompanyUser/List", request);
         response.EnsureSuccessStatusCode();

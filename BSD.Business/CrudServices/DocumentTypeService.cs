@@ -74,8 +74,8 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new DocumentTypeUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new DocumentTypeUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentType.Id);

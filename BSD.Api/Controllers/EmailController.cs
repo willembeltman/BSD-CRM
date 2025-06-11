@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class EmailController(IEmailService email) : ControllerBase
 {
     [HttpPost]
-    public EmailCreateResponse Create(EmailCreateRequest request) 
+    public EmailCreateResponse Create(EmailCreateRequest request)
         => email.Create(request);
 
     [HttpPost]
-    public EmailReadResponse Read(EmailReadRequest request) 
+    public EmailReadResponse Read(EmailReadRequest request)
         => email.Read(request);
 
     [HttpPost]
-    public EmailUpdateResponse Update(EmailUpdateRequest request) 
+    public EmailUpdateResponse Update(EmailUpdateRequest request)
         => email.Update(request);
 
     [HttpPost]
-    public EmailDeleteResponse Delete(EmailDeleteRequest request) 
+    public EmailDeleteResponse Delete(EmailDeleteRequest request)
         => email.Delete(request);
 
     [HttpPost]
-    public EmailListResponse List(EmailListRequest request) 
+    public EmailListResponse List(EmailListRequest request)
         => email.List(request);
 }

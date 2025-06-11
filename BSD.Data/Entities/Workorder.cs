@@ -1,5 +1,5 @@
-﻿using CodeGenerator.Shared.Attributes;
-using BSD.Shared;
+﻿using BSD.Shared;
+using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,10 +25,10 @@ public class Workorder : IEntity
     public DateTime Stop { get; set; }
     [Name]
     [StringLength(255)]
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
 
-    public virtual ICollection<InvoiceWorkorder> InvoiceWorkorders { get; set; }
-    public virtual ICollection<WorkorderAttachment> WorkorderAttachments { get; set; }
+    public virtual ICollection<InvoiceWorkorder>? InvoiceWorkorders { get; set; }
+    public virtual ICollection<WorkorderAttachment>? WorkorderAttachments { get; set; }
 
 }

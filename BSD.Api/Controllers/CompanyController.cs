@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class CompanyController(ICompanyService company) : ControllerBase
 {
     [HttpPost]
-    public CompanyCreateResponse Create(CompanyCreateRequest request) 
+    public CompanyCreateResponse Create(CompanyCreateRequest request)
         => company.Create(request);
 
     [HttpPost]
-    public CompanyReadResponse Read(CompanyReadRequest request) 
+    public CompanyReadResponse Read(CompanyReadRequest request)
         => company.Read(request);
 
     [HttpPost]
-    public CompanyUpdateResponse Update(CompanyUpdateRequest request) 
+    public CompanyUpdateResponse Update(CompanyUpdateRequest request)
         => company.Update(request);
 
     [HttpPost]
-    public CompanyDeleteResponse Delete(CompanyDeleteRequest request) 
+    public CompanyDeleteResponse Delete(CompanyDeleteRequest request)
         => company.Delete(request);
 
     [HttpPost]
-    public CompanyListResponse List(CompanyListRequest request) 
+    public CompanyListResponse List(CompanyListRequest request)
         => company.List(request);
 }

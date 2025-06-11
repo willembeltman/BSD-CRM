@@ -74,8 +74,8 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new WorkorderAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new WorkorderAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderAttachment.Id);

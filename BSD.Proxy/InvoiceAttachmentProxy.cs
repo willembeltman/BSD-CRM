@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class InvoiceAttachmentProxy(HttpClient httpClient)
 {
-    public async Task<InvoiceAttachmentCreateResponse> Create(InvoiceAttachmentCreateRequest request) 
+    public async Task<InvoiceAttachmentCreateResponse> Create(InvoiceAttachmentCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceAttachment/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class InvoiceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceAttachmentReadResponse> Read(InvoiceAttachmentReadRequest request) 
+    public async Task<InvoiceAttachmentReadResponse> Read(InvoiceAttachmentReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceAttachment/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class InvoiceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceAttachmentUpdateResponse> Update(InvoiceAttachmentUpdateRequest request) 
+    public async Task<InvoiceAttachmentUpdateResponse> Update(InvoiceAttachmentUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceAttachment/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class InvoiceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceAttachmentDeleteResponse> Delete(InvoiceAttachmentDeleteRequest request) 
+    public async Task<InvoiceAttachmentDeleteResponse> Delete(InvoiceAttachmentDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceAttachment/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class InvoiceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceAttachmentListResponse> List(InvoiceAttachmentListRequest request) 
+    public async Task<InvoiceAttachmentListResponse> List(InvoiceAttachmentListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceAttachment/List", request);
         response.EnsureSuccessStatusCode();

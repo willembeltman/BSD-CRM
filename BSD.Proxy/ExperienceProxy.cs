@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ExperienceProxy(HttpClient httpClient)
 {
-    public async Task<ExperienceCreateResponse> Create(ExperienceCreateRequest request) 
+    public async Task<ExperienceCreateResponse> Create(ExperienceCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Experience/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ExperienceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceReadResponse> Read(ExperienceReadRequest request) 
+    public async Task<ExperienceReadResponse> Read(ExperienceReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Experience/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ExperienceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceUpdateResponse> Update(ExperienceUpdateRequest request) 
+    public async Task<ExperienceUpdateResponse> Update(ExperienceUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Experience/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ExperienceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceDeleteResponse> Delete(ExperienceDeleteRequest request) 
+    public async Task<ExperienceDeleteResponse> Delete(ExperienceDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Experience/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ExperienceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceListResponse> List(ExperienceListRequest request) 
+    public async Task<ExperienceListResponse> List(ExperienceListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Experience/List", request);
         response.EnsureSuccessStatusCode();

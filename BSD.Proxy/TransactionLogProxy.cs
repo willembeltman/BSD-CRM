@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class TransactionLogProxy(HttpClient httpClient)
 {
-    public async Task<TransactionLogCreateResponse> Create(TransactionLogCreateRequest request) 
+    public async Task<TransactionLogCreateResponse> Create(TransactionLogCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLog/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class TransactionLogProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogReadResponse> Read(TransactionLogReadRequest request) 
+    public async Task<TransactionLogReadResponse> Read(TransactionLogReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLog/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class TransactionLogProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogUpdateResponse> Update(TransactionLogUpdateRequest request) 
+    public async Task<TransactionLogUpdateResponse> Update(TransactionLogUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLog/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class TransactionLogProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogDeleteResponse> Delete(TransactionLogDeleteRequest request) 
+    public async Task<TransactionLogDeleteResponse> Delete(TransactionLogDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLog/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class TransactionLogProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogListResponse> List(TransactionLogListRequest request) 
+    public async Task<TransactionLogListResponse> List(TransactionLogListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLog/List", request);
         response.EnsureSuccessStatusCode();

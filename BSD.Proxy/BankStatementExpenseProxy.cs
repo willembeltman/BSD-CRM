@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class BankStatementExpenseProxy(HttpClient httpClient)
 {
-    public async Task<BankStatementExpenseCreateResponse> Create(BankStatementExpenseCreateRequest request) 
+    public async Task<BankStatementExpenseCreateResponse> Create(BankStatementExpenseCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementExpense/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class BankStatementExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementExpenseReadResponse> Read(BankStatementExpenseReadRequest request) 
+    public async Task<BankStatementExpenseReadResponse> Read(BankStatementExpenseReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementExpense/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class BankStatementExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementExpenseUpdateResponse> Update(BankStatementExpenseUpdateRequest request) 
+    public async Task<BankStatementExpenseUpdateResponse> Update(BankStatementExpenseUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementExpense/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class BankStatementExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementExpenseDeleteResponse> Delete(BankStatementExpenseDeleteRequest request) 
+    public async Task<BankStatementExpenseDeleteResponse> Delete(BankStatementExpenseDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementExpense/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class BankStatementExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementExpenseListResponse> List(BankStatementExpenseListRequest request) 
+    public async Task<BankStatementExpenseListResponse> List(BankStatementExpenseListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementExpense/List", request);
         response.EnsureSuccessStatusCode();

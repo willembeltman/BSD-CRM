@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class TransactionLogParameterProxy(HttpClient httpClient)
 {
-    public async Task<TransactionLogParameterCreateResponse> Create(TransactionLogParameterCreateRequest request) 
+    public async Task<TransactionLogParameterCreateResponse> Create(TransactionLogParameterCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLogParameter/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class TransactionLogParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogParameterReadResponse> Read(TransactionLogParameterReadRequest request) 
+    public async Task<TransactionLogParameterReadResponse> Read(TransactionLogParameterReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLogParameter/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class TransactionLogParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogParameterUpdateResponse> Update(TransactionLogParameterUpdateRequest request) 
+    public async Task<TransactionLogParameterUpdateResponse> Update(TransactionLogParameterUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLogParameter/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class TransactionLogParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogParameterDeleteResponse> Delete(TransactionLogParameterDeleteRequest request) 
+    public async Task<TransactionLogParameterDeleteResponse> Delete(TransactionLogParameterDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLogParameter/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class TransactionLogParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionLogParameterListResponse> List(TransactionLogParameterListRequest request) 
+    public async Task<TransactionLogParameterListResponse> List(TransactionLogParameterListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionLogParameter/List", request);
         response.EnsureSuccessStatusCode();

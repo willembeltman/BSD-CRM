@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class InvoiceWorkorderProxy(HttpClient httpClient)
 {
-    public async Task<InvoiceWorkorderCreateResponse> Create(InvoiceWorkorderCreateRequest request) 
+    public async Task<InvoiceWorkorderCreateResponse> Create(InvoiceWorkorderCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceWorkorder/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class InvoiceWorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceWorkorderReadResponse> Read(InvoiceWorkorderReadRequest request) 
+    public async Task<InvoiceWorkorderReadResponse> Read(InvoiceWorkorderReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceWorkorder/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class InvoiceWorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceWorkorderUpdateResponse> Update(InvoiceWorkorderUpdateRequest request) 
+    public async Task<InvoiceWorkorderUpdateResponse> Update(InvoiceWorkorderUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceWorkorder/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class InvoiceWorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceWorkorderDeleteResponse> Delete(InvoiceWorkorderDeleteRequest request) 
+    public async Task<InvoiceWorkorderDeleteResponse> Delete(InvoiceWorkorderDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceWorkorder/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class InvoiceWorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceWorkorderListResponse> List(InvoiceWorkorderListRequest request) 
+    public async Task<InvoiceWorkorderListResponse> List(InvoiceWorkorderListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceWorkorder/List", request);
         response.EnsureSuccessStatusCode();

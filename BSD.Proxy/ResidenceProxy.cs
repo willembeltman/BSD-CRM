@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ResidenceProxy(HttpClient httpClient)
 {
-    public async Task<ResidenceCreateResponse> Create(ResidenceCreateRequest request) 
+    public async Task<ResidenceCreateResponse> Create(ResidenceCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Residence/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ResidenceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ResidenceReadResponse> Read(ResidenceReadRequest request) 
+    public async Task<ResidenceReadResponse> Read(ResidenceReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Residence/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ResidenceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ResidenceUpdateResponse> Update(ResidenceUpdateRequest request) 
+    public async Task<ResidenceUpdateResponse> Update(ResidenceUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Residence/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ResidenceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ResidenceDeleteResponse> Delete(ResidenceDeleteRequest request) 
+    public async Task<ResidenceDeleteResponse> Delete(ResidenceDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Residence/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ResidenceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ResidenceListResponse> List(ResidenceListRequest request) 
+    public async Task<ResidenceListResponse> List(ResidenceListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Residence/List", request);
         response.EnsureSuccessStatusCode();

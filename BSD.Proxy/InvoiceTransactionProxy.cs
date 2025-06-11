@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class InvoiceTransactionProxy(HttpClient httpClient)
 {
-    public async Task<InvoiceTransactionCreateResponse> Create(InvoiceTransactionCreateRequest request) 
+    public async Task<InvoiceTransactionCreateResponse> Create(InvoiceTransactionCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceTransaction/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class InvoiceTransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceTransactionReadResponse> Read(InvoiceTransactionReadRequest request) 
+    public async Task<InvoiceTransactionReadResponse> Read(InvoiceTransactionReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceTransaction/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class InvoiceTransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceTransactionUpdateResponse> Update(InvoiceTransactionUpdateRequest request) 
+    public async Task<InvoiceTransactionUpdateResponse> Update(InvoiceTransactionUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceTransaction/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class InvoiceTransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceTransactionDeleteResponse> Delete(InvoiceTransactionDeleteRequest request) 
+    public async Task<InvoiceTransactionDeleteResponse> Delete(InvoiceTransactionDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceTransaction/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class InvoiceTransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceTransactionListResponse> List(InvoiceTransactionListRequest request) 
+    public async Task<InvoiceTransactionListResponse> List(InvoiceTransactionListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceTransaction/List", request);
         response.EnsureSuccessStatusCode();

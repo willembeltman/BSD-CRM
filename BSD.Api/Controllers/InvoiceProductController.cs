@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class InvoiceProductController(IInvoiceProductService invoiceproduct) : ControllerBase
 {
     [HttpPost]
-    public InvoiceProductCreateResponse Create(InvoiceProductCreateRequest request) 
+    public InvoiceProductCreateResponse Create(InvoiceProductCreateRequest request)
         => invoiceproduct.Create(request);
 
     [HttpPost]
-    public InvoiceProductReadResponse Read(InvoiceProductReadRequest request) 
+    public InvoiceProductReadResponse Read(InvoiceProductReadRequest request)
         => invoiceproduct.Read(request);
 
     [HttpPost]
-    public InvoiceProductUpdateResponse Update(InvoiceProductUpdateRequest request) 
+    public InvoiceProductUpdateResponse Update(InvoiceProductUpdateRequest request)
         => invoiceproduct.Update(request);
 
     [HttpPost]
-    public InvoiceProductDeleteResponse Delete(InvoiceProductDeleteRequest request) 
+    public InvoiceProductDeleteResponse Delete(InvoiceProductDeleteRequest request)
         => invoiceproduct.Delete(request);
 
     [HttpPost]
-    public InvoiceProductListResponse List(InvoiceProductListRequest request) 
+    public InvoiceProductListResponse List(InvoiceProductListRequest request)
         => invoiceproduct.List(request);
 }

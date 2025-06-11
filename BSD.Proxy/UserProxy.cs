@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class UserProxy(HttpClient httpClient)
 {
-    public async Task<UserCreateResponse> Create(UserCreateRequest request) 
+    public async Task<UserCreateResponse> Create(UserCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/User/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class UserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<UserReadResponse> Read(UserReadRequest request) 
+    public async Task<UserReadResponse> Read(UserReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/User/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class UserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<UserUpdateResponse> Update(UserUpdateRequest request) 
+    public async Task<UserUpdateResponse> Update(UserUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/User/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class UserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<UserDeleteResponse> Delete(UserDeleteRequest request) 
+    public async Task<UserDeleteResponse> Delete(UserDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/User/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class UserProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<UserListResponse> List(UserListRequest request) 
+    public async Task<UserListResponse> List(UserListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/User/List", request);
         response.EnsureSuccessStatusCode();

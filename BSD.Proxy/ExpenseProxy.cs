@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ExpenseProxy(HttpClient httpClient)
 {
-    public async Task<ExpenseCreateResponse> Create(ExpenseCreateRequest request) 
+    public async Task<ExpenseCreateResponse> Create(ExpenseCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Expense/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseReadResponse> Read(ExpenseReadRequest request) 
+    public async Task<ExpenseReadResponse> Read(ExpenseReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Expense/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseUpdateResponse> Update(ExpenseUpdateRequest request) 
+    public async Task<ExpenseUpdateResponse> Update(ExpenseUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Expense/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseDeleteResponse> Delete(ExpenseDeleteRequest request) 
+    public async Task<ExpenseDeleteResponse> Delete(ExpenseDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Expense/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ExpenseProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseListResponse> List(ExpenseListRequest request) 
+    public async Task<ExpenseListResponse> List(ExpenseListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Expense/List", request);
         response.EnsureSuccessStatusCode();

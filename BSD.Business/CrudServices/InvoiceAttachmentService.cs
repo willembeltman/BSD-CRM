@@ -74,8 +74,8 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new InvoiceAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceAttachment.Id);

@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class DocumentAttachmentController(IDocumentAttachmentService documentattachment) : ControllerBase
 {
     [HttpPost]
-    public DocumentAttachmentCreateResponse Create(DocumentAttachmentCreateRequest request) 
+    public DocumentAttachmentCreateResponse Create(DocumentAttachmentCreateRequest request)
         => documentattachment.Create(request);
 
     [HttpPost]
-    public DocumentAttachmentReadResponse Read(DocumentAttachmentReadRequest request) 
+    public DocumentAttachmentReadResponse Read(DocumentAttachmentReadRequest request)
         => documentattachment.Read(request);
 
     [HttpPost]
-    public DocumentAttachmentUpdateResponse Update(DocumentAttachmentUpdateRequest request) 
+    public DocumentAttachmentUpdateResponse Update(DocumentAttachmentUpdateRequest request)
         => documentattachment.Update(request);
 
     [HttpPost]
-    public DocumentAttachmentDeleteResponse Delete(DocumentAttachmentDeleteRequest request) 
+    public DocumentAttachmentDeleteResponse Delete(DocumentAttachmentDeleteRequest request)
         => documentattachment.Delete(request);
 
     [HttpPost]
-    public DocumentAttachmentListResponse List(DocumentAttachmentListRequest request) 
+    public DocumentAttachmentListResponse List(DocumentAttachmentListRequest request)
         => documentattachment.List(request);
 }

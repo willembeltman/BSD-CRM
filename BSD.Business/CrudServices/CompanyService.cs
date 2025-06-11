@@ -74,8 +74,8 @@ public class CompanyService(
         if (!state.Success)
             return new CompanyUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new CompanyUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new CompanyUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CompanyServiceHandler(state);
         var entity = handler.FindById(db, request.Company.Id);

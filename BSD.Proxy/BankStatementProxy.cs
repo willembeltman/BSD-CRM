@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class BankStatementProxy(HttpClient httpClient)
 {
-    public async Task<BankStatementCreateResponse> Create(BankStatementCreateRequest request) 
+    public async Task<BankStatementCreateResponse> Create(BankStatementCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatement/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class BankStatementProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementReadResponse> Read(BankStatementReadRequest request) 
+    public async Task<BankStatementReadResponse> Read(BankStatementReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatement/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class BankStatementProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementUpdateResponse> Update(BankStatementUpdateRequest request) 
+    public async Task<BankStatementUpdateResponse> Update(BankStatementUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatement/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class BankStatementProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementDeleteResponse> Delete(BankStatementDeleteRequest request) 
+    public async Task<BankStatementDeleteResponse> Delete(BankStatementDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatement/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class BankStatementProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementListResponse> List(BankStatementListRequest request) 
+    public async Task<BankStatementListResponse> List(BankStatementListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatement/List", request);
         response.EnsureSuccessStatusCode();

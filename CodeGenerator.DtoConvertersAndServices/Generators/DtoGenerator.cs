@@ -7,7 +7,7 @@ public class DtoGenerator : BaseGenerator
 {
     public DtoGenerator(
         IAuthenticationStateServiceGenerator iAuthenticationStateService,
-        DbSet dbSet, 
+        DbSet dbSet,
         DirectoryInfo dtoDirectory, string dtoNamespace,
         DirectoryInfo requestDtoDirectory, string requestDtoNamespace,
         DirectoryInfo responseDtoDirectory, string responseDtoNamespace)

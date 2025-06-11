@@ -89,9 +89,7 @@ BenchmarkDotNet.Artifacts/
 /bin/
 /obj/
 
-appsettings.Main.json
-appsettings.Test.json
-appsettings.Live.json
+appsettings.Development.json
 
 StorageService.Api/Database/
 StorageService.Api/Files/

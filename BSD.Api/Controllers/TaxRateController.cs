@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class TaxRateController(ITaxRateService taxrate) : ControllerBase
 {
     [HttpPost]
-    public TaxRateCreateResponse Create(TaxRateCreateRequest request) 
+    public TaxRateCreateResponse Create(TaxRateCreateRequest request)
         => taxrate.Create(request);
 
     [HttpPost]
-    public TaxRateReadResponse Read(TaxRateReadRequest request) 
+    public TaxRateReadResponse Read(TaxRateReadRequest request)
         => taxrate.Read(request);
 
     [HttpPost]
-    public TaxRateUpdateResponse Update(TaxRateUpdateRequest request) 
+    public TaxRateUpdateResponse Update(TaxRateUpdateRequest request)
         => taxrate.Update(request);
 
     [HttpPost]
-    public TaxRateDeleteResponse Delete(TaxRateDeleteRequest request) 
+    public TaxRateDeleteResponse Delete(TaxRateDeleteRequest request)
         => taxrate.Delete(request);
 
     [HttpPost]
-    public TaxRateListResponse List(TaxRateListRequest request) 
+    public TaxRateListResponse List(TaxRateListRequest request)
         => taxrate.List(request);
 }

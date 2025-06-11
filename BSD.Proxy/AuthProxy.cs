@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class AuthProxy(HttpClient httpClient)
 {
-    public async Task<LoginResponse> Login(LoginRequest request) 
+    public async Task<LoginResponse> Login(LoginRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Auth/Login", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class AuthProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<RegisterResponse> Register(RegisterRequest request) 
+    public async Task<RegisterResponse> Register(RegisterRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Auth/Register", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class AuthProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ForgotPasswordResponse> ForgotPassword(ForgotPasswordRequest request) 
+    public async Task<ForgotPasswordResponse> ForgotPassword(ForgotPasswordRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Auth/ForgotPassword", request);
         response.EnsureSuccessStatusCode();

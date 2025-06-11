@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,14 +10,14 @@ namespace BSD.Api.Controllers;
 public class AuthController(IAuthenticationService authentication) : ControllerBase
 {
     [HttpPost]
-    public LoginResponse Login(LoginRequest request) 
+    public LoginResponse Login(LoginRequest request)
         => authentication.Login(request);
 
     [HttpPost]
-    public RegisterResponse Register(RegisterRequest request) 
+    public RegisterResponse Register(RegisterRequest request)
         => authentication.Register(request);
 
     [HttpPost]
-    public ForgotPasswordResponse ForgotPassword(ForgotPasswordRequest request) 
+    public ForgotPasswordResponse ForgotPassword(ForgotPasswordRequest request)
         => authentication.ForgotPassword(request);
 }

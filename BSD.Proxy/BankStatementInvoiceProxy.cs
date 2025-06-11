@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class BankStatementInvoiceProxy(HttpClient httpClient)
 {
-    public async Task<BankStatementInvoiceCreateResponse> Create(BankStatementInvoiceCreateRequest request) 
+    public async Task<BankStatementInvoiceCreateResponse> Create(BankStatementInvoiceCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementInvoice/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class BankStatementInvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementInvoiceReadResponse> Read(BankStatementInvoiceReadRequest request) 
+    public async Task<BankStatementInvoiceReadResponse> Read(BankStatementInvoiceReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementInvoice/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class BankStatementInvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementInvoiceUpdateResponse> Update(BankStatementInvoiceUpdateRequest request) 
+    public async Task<BankStatementInvoiceUpdateResponse> Update(BankStatementInvoiceUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementInvoice/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class BankStatementInvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementInvoiceDeleteResponse> Delete(BankStatementInvoiceDeleteRequest request) 
+    public async Task<BankStatementInvoiceDeleteResponse> Delete(BankStatementInvoiceDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementInvoice/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class BankStatementInvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<BankStatementInvoiceListResponse> List(BankStatementInvoiceListRequest request) 
+    public async Task<BankStatementInvoiceListResponse> List(BankStatementInvoiceListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/BankStatementInvoice/List", request);
         response.EnsureSuccessStatusCode();

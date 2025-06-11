@@ -74,8 +74,8 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new ResidenceUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new ResidenceUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindById(db, request.Residence.Id);

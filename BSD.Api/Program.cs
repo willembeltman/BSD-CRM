@@ -1,18 +1,18 @@
 using BSD.Business;
-using BSD.Business.CrudServices;
-using BSD.Business.Interfaces;
-using BSD.Business.Services;
 using BSD.Data;
 using Microsoft.EntityFrameworkCore;
 using Storage.Proxy;
-
-namespace BSD.Api;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+        }
 
         StorageServerConfig.Instance = builder.Configuration
                                 .GetSection("StorageServer")

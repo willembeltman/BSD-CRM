@@ -74,8 +74,8 @@ public class WorkorderService(
         if (!state.Success)
             return new WorkorderUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new WorkorderUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new WorkorderUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new WorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.Workorder.Id);

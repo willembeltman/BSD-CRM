@@ -44,7 +44,7 @@ public class ServiceHandlerGenerator : BaseGenerator
         /// User wijst naar: 
         /// Company, en die wijst weer naar: 
         /// Country.
-        
+
         #region Example code
 
         //using BSD.Business.Models;

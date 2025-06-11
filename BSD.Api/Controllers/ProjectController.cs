@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class ProjectController(IProjectService project) : ControllerBase
 {
     [HttpPost]
-    public ProjectCreateResponse Create(ProjectCreateRequest request) 
+    public ProjectCreateResponse Create(ProjectCreateRequest request)
         => project.Create(request);
 
     [HttpPost]
-    public ProjectReadResponse Read(ProjectReadRequest request) 
+    public ProjectReadResponse Read(ProjectReadRequest request)
         => project.Read(request);
 
     [HttpPost]
-    public ProjectUpdateResponse Update(ProjectUpdateRequest request) 
+    public ProjectUpdateResponse Update(ProjectUpdateRequest request)
         => project.Update(request);
 
     [HttpPost]
-    public ProjectDeleteResponse Delete(ProjectDeleteRequest request) 
+    public ProjectDeleteResponse Delete(ProjectDeleteRequest request)
         => project.Delete(request);
 
     [HttpPost]
-    public ProjectListResponse List(ProjectListRequest request) 
+    public ProjectListResponse List(ProjectListRequest request)
         => project.List(request);
 }

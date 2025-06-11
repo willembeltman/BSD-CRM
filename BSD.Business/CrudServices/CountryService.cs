@@ -74,8 +74,8 @@ public class CountryService(
         if (!state.Success)
             return new CountryUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new CountryUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new CountryUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CountryServiceHandler(state);
         var entity = handler.FindById(db, request.Country.Id);

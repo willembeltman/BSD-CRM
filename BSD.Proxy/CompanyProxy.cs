@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class CompanyProxy(HttpClient httpClient)
 {
-    public async Task<CompanyCreateResponse> Create(CompanyCreateRequest request) 
+    public async Task<CompanyCreateResponse> Create(CompanyCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Company/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class CompanyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyReadResponse> Read(CompanyReadRequest request) 
+    public async Task<CompanyReadResponse> Read(CompanyReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Company/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class CompanyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyUpdateResponse> Update(CompanyUpdateRequest request) 
+    public async Task<CompanyUpdateResponse> Update(CompanyUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Company/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class CompanyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyDeleteResponse> Delete(CompanyDeleteRequest request) 
+    public async Task<CompanyDeleteResponse> Delete(CompanyDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Company/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class CompanyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<CompanyListResponse> List(CompanyListRequest request) 
+    public async Task<CompanyListResponse> List(CompanyListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Company/List", request);
         response.EnsureSuccessStatusCode();

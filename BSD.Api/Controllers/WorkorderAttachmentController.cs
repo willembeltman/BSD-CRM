@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class WorkorderAttachmentController(IWorkorderAttachmentService workorderattachment) : ControllerBase
 {
     [HttpPost]
-    public WorkorderAttachmentCreateResponse Create(WorkorderAttachmentCreateRequest request) 
+    public WorkorderAttachmentCreateResponse Create(WorkorderAttachmentCreateRequest request)
         => workorderattachment.Create(request);
 
     [HttpPost]
-    public WorkorderAttachmentReadResponse Read(WorkorderAttachmentReadRequest request) 
+    public WorkorderAttachmentReadResponse Read(WorkorderAttachmentReadRequest request)
         => workorderattachment.Read(request);
 
     [HttpPost]
-    public WorkorderAttachmentUpdateResponse Update(WorkorderAttachmentUpdateRequest request) 
+    public WorkorderAttachmentUpdateResponse Update(WorkorderAttachmentUpdateRequest request)
         => workorderattachment.Update(request);
 
     [HttpPost]
-    public WorkorderAttachmentDeleteResponse Delete(WorkorderAttachmentDeleteRequest request) 
+    public WorkorderAttachmentDeleteResponse Delete(WorkorderAttachmentDeleteRequest request)
         => workorderattachment.Delete(request);
 
     [HttpPost]
-    public WorkorderAttachmentListResponse List(WorkorderAttachmentListRequest request) 
+    public WorkorderAttachmentListResponse List(WorkorderAttachmentListRequest request)
         => workorderattachment.List(request);
 }

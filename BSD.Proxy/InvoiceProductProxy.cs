@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class InvoiceProductProxy(HttpClient httpClient)
 {
-    public async Task<InvoiceProductCreateResponse> Create(InvoiceProductCreateRequest request) 
+    public async Task<InvoiceProductCreateResponse> Create(InvoiceProductCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceProduct/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class InvoiceProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceProductReadResponse> Read(InvoiceProductReadRequest request) 
+    public async Task<InvoiceProductReadResponse> Read(InvoiceProductReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceProduct/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class InvoiceProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceProductUpdateResponse> Update(InvoiceProductUpdateRequest request) 
+    public async Task<InvoiceProductUpdateResponse> Update(InvoiceProductUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceProduct/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class InvoiceProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceProductDeleteResponse> Delete(InvoiceProductDeleteRequest request) 
+    public async Task<InvoiceProductDeleteResponse> Delete(InvoiceProductDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceProduct/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class InvoiceProductProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceProductListResponse> List(InvoiceProductListRequest request) 
+    public async Task<InvoiceProductListResponse> List(InvoiceProductListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceProduct/List", request);
         response.EnsureSuccessStatusCode();

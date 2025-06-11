@@ -74,8 +74,8 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new TaxRateUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new TaxRateUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindById(db, request.TaxRate.Id);

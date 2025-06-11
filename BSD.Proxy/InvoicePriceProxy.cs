@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class InvoicePriceProxy(HttpClient httpClient)
 {
-    public async Task<InvoicePriceCreateResponse> Create(InvoicePriceCreateRequest request) 
+    public async Task<InvoicePriceCreateResponse> Create(InvoicePriceCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoicePrice/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class InvoicePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoicePriceReadResponse> Read(InvoicePriceReadRequest request) 
+    public async Task<InvoicePriceReadResponse> Read(InvoicePriceReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoicePrice/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class InvoicePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoicePriceUpdateResponse> Update(InvoicePriceUpdateRequest request) 
+    public async Task<InvoicePriceUpdateResponse> Update(InvoicePriceUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoicePrice/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class InvoicePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoicePriceDeleteResponse> Delete(InvoicePriceDeleteRequest request) 
+    public async Task<InvoicePriceDeleteResponse> Delete(InvoicePriceDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoicePrice/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class InvoicePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoicePriceListResponse> List(InvoicePriceListRequest request) 
+    public async Task<InvoicePriceListResponse> List(InvoicePriceListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoicePrice/List", request);
         response.EnsureSuccessStatusCode();

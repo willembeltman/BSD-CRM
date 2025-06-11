@@ -1,0 +1,65 @@
+﻿@page "/account/login"
+@using BSD.Shared.RequestDtos
+@using BSD.Business.Interfaces
+@inject NavigationManager NavigationManager
+@inject IAuthenticationService AuthenticationService
+
+<PageTitle>Login</PageTitle>
+
+<h1>Login</h1>
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger">@ErrorMessage</div>
+}
+
+<EditForm Model="this" OnValidSubmit="LoginClicked">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <InputText id="username" class="form-control" @bind-Value="UserName" />
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="Password" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@code {
+    private string? UserName { get; set; }
+    private string? Password { get; set; }
+    private string? ErrorMessage { get; set; }
+
+    private void LoginClicked()
+    {
+        ErrorMessage = null;
+
+        if (string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(Password))
+        {
+            ErrorMessage = "Username and password cannot be empty.";
+            return;
+        }
+
+        var loginRequest = new LoginRequest
+        {
+            UserName = UserName ?? string.Empty,
+            Password = Password ?? string.Empty
+        };
+
+        var loginResponse = AuthenticationService.Login(loginRequest);
+
+        if (loginResponse.Success)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            ErrorMessage = "Login failed. Please try again.";
+        }
+    }
+}

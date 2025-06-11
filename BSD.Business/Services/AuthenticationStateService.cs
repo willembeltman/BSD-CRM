@@ -138,7 +138,23 @@ public class AuthenticationStateService(
         }
         return clientBearer;
     }
-
+    public User CreateUser(string username, string email, string phoneNumber, string password)
+    {
+        // Create user
+        var passwordHash = StringHelper.HashString(password);
+        var userid = HashGeneratorHelper.GenerateCode(64);
+        var dbuser = new User()
+        {
+            Id = userid,
+            UserName = username,
+            Email = email,
+            PhoneNumber = phoneNumber,
+            PasswordHash = passwordHash,
+        };
+        db.Users.Add(dbuser);
+        db.SaveChanges();
+        return dbuser;
+    }
 
     public string? IpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
     internal KeyValuePair<string, string?>[]? Headers => httpContextAccessor.HttpContext!.Request.Headers

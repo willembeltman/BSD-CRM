@@ -74,8 +74,8 @@ public class BankStatementExpenseService(
         if (!state.Success)
             return new BankStatementExpenseUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new BankStatementExpenseUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementExpenseUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementExpense.Id);

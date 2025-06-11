@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class SettingProxy(HttpClient httpClient)
 {
-    public async Task<SettingCreateResponse> Create(SettingCreateRequest request) 
+    public async Task<SettingCreateResponse> Create(SettingCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Setting/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class SettingProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<SettingReadResponse> Read(SettingReadRequest request) 
+    public async Task<SettingReadResponse> Read(SettingReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Setting/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class SettingProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<SettingUpdateResponse> Update(SettingUpdateRequest request) 
+    public async Task<SettingUpdateResponse> Update(SettingUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Setting/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class SettingProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<SettingDeleteResponse> Delete(SettingDeleteRequest request) 
+    public async Task<SettingDeleteResponse> Delete(SettingDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Setting/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class SettingProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<SettingListResponse> List(SettingListRequest request) 
+    public async Task<SettingListResponse> List(SettingListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Setting/List", request);
         response.EnsureSuccessStatusCode();

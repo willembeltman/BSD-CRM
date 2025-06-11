@@ -1,7 +1,4 @@
-﻿
-using CodeGenerator.Step1.DtosConvertersAndServices.Entities;
-
-namespace CodeGenerator.Dtos_Converters_Services.Generators;
+﻿namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
 public class CreateRequestDtoGenerator : BaseGenerator
 {

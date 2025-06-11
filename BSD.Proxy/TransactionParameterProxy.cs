@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class TransactionParameterProxy(HttpClient httpClient)
 {
-    public async Task<TransactionParameterCreateResponse> Create(TransactionParameterCreateRequest request) 
+    public async Task<TransactionParameterCreateResponse> Create(TransactionParameterCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionParameter/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class TransactionParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionParameterReadResponse> Read(TransactionParameterReadRequest request) 
+    public async Task<TransactionParameterReadResponse> Read(TransactionParameterReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionParameter/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class TransactionParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionParameterUpdateResponse> Update(TransactionParameterUpdateRequest request) 
+    public async Task<TransactionParameterUpdateResponse> Update(TransactionParameterUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionParameter/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class TransactionParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionParameterDeleteResponse> Delete(TransactionParameterDeleteRequest request) 
+    public async Task<TransactionParameterDeleteResponse> Delete(TransactionParameterDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionParameter/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class TransactionParameterProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionParameterListResponse> List(TransactionParameterListRequest request) 
+    public async Task<TransactionParameterListResponse> List(TransactionParameterListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/TransactionParameter/List", request);
         response.EnsureSuccessStatusCode();

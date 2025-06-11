@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class TransactionLogController(ITransactionLogService transactionlog) : ControllerBase
 {
     [HttpPost]
-    public TransactionLogCreateResponse Create(TransactionLogCreateRequest request) 
+    public TransactionLogCreateResponse Create(TransactionLogCreateRequest request)
         => transactionlog.Create(request);
 
     [HttpPost]
-    public TransactionLogReadResponse Read(TransactionLogReadRequest request) 
+    public TransactionLogReadResponse Read(TransactionLogReadRequest request)
         => transactionlog.Read(request);
 
     [HttpPost]
-    public TransactionLogUpdateResponse Update(TransactionLogUpdateRequest request) 
+    public TransactionLogUpdateResponse Update(TransactionLogUpdateRequest request)
         => transactionlog.Update(request);
 
     [HttpPost]
-    public TransactionLogDeleteResponse Delete(TransactionLogDeleteRequest request) 
+    public TransactionLogDeleteResponse Delete(TransactionLogDeleteRequest request)
         => transactionlog.Delete(request);
 
     [HttpPost]
-    public TransactionLogListResponse List(TransactionLogListRequest request) 
+    public TransactionLogListResponse List(TransactionLogListRequest request)
         => transactionlog.List(request);
 }

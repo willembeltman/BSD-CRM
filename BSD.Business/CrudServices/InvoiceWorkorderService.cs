@@ -74,8 +74,8 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new InvoiceWorkorderUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceWorkorderUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceWorkorder.Id);

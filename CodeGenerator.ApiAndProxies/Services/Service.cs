@@ -1,6 +1,4 @@
-﻿using CodeGenerator.Step2.ApiAndProxies.Services;
-
-namespace CodeGenerator.Step2.ApiAndProxies.Services;
+﻿namespace CodeGenerator.Step2.ApiAndProxies.Services;
 
 public class Service
 {

@@ -43,7 +43,7 @@ public class UpdateRequestDtoGenerator : BaseGenerator
         {
             Code += $"    public IFormFile? File {{ get; set; }}\r\n";
         }
-        
+
         Code += $"}}";
 
         Save();

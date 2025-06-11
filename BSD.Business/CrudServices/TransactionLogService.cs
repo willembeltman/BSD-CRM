@@ -74,8 +74,8 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new TransactionLogUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new TransactionLogUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLog.Id);

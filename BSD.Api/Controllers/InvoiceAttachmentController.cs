@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class InvoiceAttachmentController(IInvoiceAttachmentService invoiceattachment) : ControllerBase
 {
     [HttpPost]
-    public InvoiceAttachmentCreateResponse Create(InvoiceAttachmentCreateRequest request) 
+    public InvoiceAttachmentCreateResponse Create(InvoiceAttachmentCreateRequest request)
         => invoiceattachment.Create(request);
 
     [HttpPost]
-    public InvoiceAttachmentReadResponse Read(InvoiceAttachmentReadRequest request) 
+    public InvoiceAttachmentReadResponse Read(InvoiceAttachmentReadRequest request)
         => invoiceattachment.Read(request);
 
     [HttpPost]
-    public InvoiceAttachmentUpdateResponse Update(InvoiceAttachmentUpdateRequest request) 
+    public InvoiceAttachmentUpdateResponse Update(InvoiceAttachmentUpdateRequest request)
         => invoiceattachment.Update(request);
 
     [HttpPost]
-    public InvoiceAttachmentDeleteResponse Delete(InvoiceAttachmentDeleteRequest request) 
+    public InvoiceAttachmentDeleteResponse Delete(InvoiceAttachmentDeleteRequest request)
         => invoiceattachment.Delete(request);
 
     [HttpPost]
-    public InvoiceAttachmentListResponse List(InvoiceAttachmentListRequest request) 
+    public InvoiceAttachmentListResponse List(InvoiceAttachmentListRequest request)
         => invoiceattachment.List(request);
 }

@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class InvoiceEmailController(IInvoiceEmailService invoiceemail) : ControllerBase
 {
     [HttpPost]
-    public InvoiceEmailCreateResponse Create(InvoiceEmailCreateRequest request) 
+    public InvoiceEmailCreateResponse Create(InvoiceEmailCreateRequest request)
         => invoiceemail.Create(request);
 
     [HttpPost]
-    public InvoiceEmailReadResponse Read(InvoiceEmailReadRequest request) 
+    public InvoiceEmailReadResponse Read(InvoiceEmailReadRequest request)
         => invoiceemail.Read(request);
 
     [HttpPost]
-    public InvoiceEmailUpdateResponse Update(InvoiceEmailUpdateRequest request) 
+    public InvoiceEmailUpdateResponse Update(InvoiceEmailUpdateRequest request)
         => invoiceemail.Update(request);
 
     [HttpPost]
-    public InvoiceEmailDeleteResponse Delete(InvoiceEmailDeleteRequest request) 
+    public InvoiceEmailDeleteResponse Delete(InvoiceEmailDeleteRequest request)
         => invoiceemail.Delete(request);
 
     [HttpPost]
-    public InvoiceEmailListResponse List(InvoiceEmailListRequest request) 
+    public InvoiceEmailListResponse List(InvoiceEmailListRequest request)
         => invoiceemail.List(request);
 }

@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ExpenseTypeProxy(HttpClient httpClient)
 {
-    public async Task<ExpenseTypeCreateResponse> Create(ExpenseTypeCreateRequest request) 
+    public async Task<ExpenseTypeCreateResponse> Create(ExpenseTypeCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseType/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ExpenseTypeProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseTypeReadResponse> Read(ExpenseTypeReadRequest request) 
+    public async Task<ExpenseTypeReadResponse> Read(ExpenseTypeReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseType/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ExpenseTypeProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseTypeUpdateResponse> Update(ExpenseTypeUpdateRequest request) 
+    public async Task<ExpenseTypeUpdateResponse> Update(ExpenseTypeUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseType/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ExpenseTypeProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseTypeDeleteResponse> Delete(ExpenseTypeDeleteRequest request) 
+    public async Task<ExpenseTypeDeleteResponse> Delete(ExpenseTypeDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseType/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ExpenseTypeProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseTypeListResponse> List(ExpenseTypeListRequest request) 
+    public async Task<ExpenseTypeListResponse> List(ExpenseTypeListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseType/List", request);
         response.EnsureSuccessStatusCode();

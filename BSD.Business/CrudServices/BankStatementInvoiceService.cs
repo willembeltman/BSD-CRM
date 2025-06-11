@@ -74,8 +74,8 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new BankStatementInvoiceUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementInvoiceUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementInvoice.Id);

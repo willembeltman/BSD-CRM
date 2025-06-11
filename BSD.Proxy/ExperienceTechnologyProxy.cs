@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ExperienceTechnologyProxy(HttpClient httpClient)
 {
-    public async Task<ExperienceTechnologyCreateResponse> Create(ExperienceTechnologyCreateRequest request) 
+    public async Task<ExperienceTechnologyCreateResponse> Create(ExperienceTechnologyCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceTechnology/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ExperienceTechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceTechnologyReadResponse> Read(ExperienceTechnologyReadRequest request) 
+    public async Task<ExperienceTechnologyReadResponse> Read(ExperienceTechnologyReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceTechnology/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ExperienceTechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceTechnologyUpdateResponse> Update(ExperienceTechnologyUpdateRequest request) 
+    public async Task<ExperienceTechnologyUpdateResponse> Update(ExperienceTechnologyUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceTechnology/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ExperienceTechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceTechnologyDeleteResponse> Delete(ExperienceTechnologyDeleteRequest request) 
+    public async Task<ExperienceTechnologyDeleteResponse> Delete(ExperienceTechnologyDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceTechnology/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ExperienceTechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceTechnologyListResponse> List(ExperienceTechnologyListRequest request) 
+    public async Task<ExperienceTechnologyListResponse> List(ExperienceTechnologyListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceTechnology/List", request);
         response.EnsureSuccessStatusCode();

@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class InvoiceProxy(HttpClient httpClient)
 {
-    public async Task<InvoiceCreateResponse> Create(InvoiceCreateRequest request) 
+    public async Task<InvoiceCreateResponse> Create(InvoiceCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Invoice/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class InvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceReadResponse> Read(InvoiceReadRequest request) 
+    public async Task<InvoiceReadResponse> Read(InvoiceReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Invoice/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class InvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceUpdateResponse> Update(InvoiceUpdateRequest request) 
+    public async Task<InvoiceUpdateResponse> Update(InvoiceUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Invoice/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class InvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceDeleteResponse> Delete(InvoiceDeleteRequest request) 
+    public async Task<InvoiceDeleteResponse> Delete(InvoiceDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Invoice/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class InvoiceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceListResponse> List(InvoiceListRequest request) 
+    public async Task<InvoiceListResponse> List(InvoiceListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Invoice/List", request);
         response.EnsureSuccessStatusCode();

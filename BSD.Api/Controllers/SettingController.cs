@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class SettingController(ISettingService setting) : ControllerBase
 {
     [HttpPost]
-    public SettingCreateResponse Create(SettingCreateRequest request) 
+    public SettingCreateResponse Create(SettingCreateRequest request)
         => setting.Create(request);
 
     [HttpPost]
-    public SettingReadResponse Read(SettingReadRequest request) 
+    public SettingReadResponse Read(SettingReadRequest request)
         => setting.Read(request);
 
     [HttpPost]
-    public SettingUpdateResponse Update(SettingUpdateRequest request) 
+    public SettingUpdateResponse Update(SettingUpdateRequest request)
         => setting.Update(request);
 
     [HttpPost]
-    public SettingDeleteResponse Delete(SettingDeleteRequest request) 
+    public SettingDeleteResponse Delete(SettingDeleteRequest request)
         => setting.Delete(request);
 
     [HttpPost]
-    public SettingListResponse List(SettingListRequest request) 
+    public SettingListResponse List(SettingListRequest request)
         => setting.List(request);
 }

@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BSD.Business.Interfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSD.Api.Controllers;
 
@@ -10,22 +10,22 @@ namespace BSD.Api.Controllers;
 public class RateController(IRateService rate) : ControllerBase
 {
     [HttpPost]
-    public RateCreateResponse Create(RateCreateRequest request) 
+    public RateCreateResponse Create(RateCreateRequest request)
         => rate.Create(request);
 
     [HttpPost]
-    public RateReadResponse Read(RateReadRequest request) 
+    public RateReadResponse Read(RateReadRequest request)
         => rate.Read(request);
 
     [HttpPost]
-    public RateUpdateResponse Update(RateUpdateRequest request) 
+    public RateUpdateResponse Update(RateUpdateRequest request)
         => rate.Update(request);
 
     [HttpPost]
-    public RateDeleteResponse Delete(RateDeleteRequest request) 
+    public RateDeleteResponse Delete(RateDeleteRequest request)
         => rate.Delete(request);
 
     [HttpPost]
-    public RateListResponse List(RateListRequest request) 
+    public RateListResponse List(RateListRequest request)
         => rate.List(request);
 }

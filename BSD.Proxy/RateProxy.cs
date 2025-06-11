@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class RateProxy(HttpClient httpClient)
 {
-    public async Task<RateCreateResponse> Create(RateCreateRequest request) 
+    public async Task<RateCreateResponse> Create(RateCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Rate/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class RateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<RateReadResponse> Read(RateReadRequest request) 
+    public async Task<RateReadResponse> Read(RateReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Rate/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class RateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<RateUpdateResponse> Update(RateUpdateRequest request) 
+    public async Task<RateUpdateResponse> Update(RateUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Rate/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class RateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<RateDeleteResponse> Delete(RateDeleteRequest request) 
+    public async Task<RateDeleteResponse> Delete(RateDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Rate/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class RateProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<RateListResponse> List(RateListRequest request) 
+    public async Task<RateListResponse> List(RateListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Rate/List", request);
         response.EnsureSuccessStatusCode();

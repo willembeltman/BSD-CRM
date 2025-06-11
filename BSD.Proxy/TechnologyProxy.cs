@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class TechnologyProxy(HttpClient httpClient)
 {
-    public async Task<TechnologyCreateResponse> Create(TechnologyCreateRequest request) 
+    public async Task<TechnologyCreateResponse> Create(TechnologyCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Technology/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class TechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TechnologyReadResponse> Read(TechnologyReadRequest request) 
+    public async Task<TechnologyReadResponse> Read(TechnologyReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Technology/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class TechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TechnologyUpdateResponse> Update(TechnologyUpdateRequest request) 
+    public async Task<TechnologyUpdateResponse> Update(TechnologyUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Technology/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class TechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TechnologyDeleteResponse> Delete(TechnologyDeleteRequest request) 
+    public async Task<TechnologyDeleteResponse> Delete(TechnologyDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Technology/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class TechnologyProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TechnologyListResponse> List(TechnologyListRequest request) 
+    public async Task<TechnologyListResponse> List(TechnologyListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Technology/List", request);
         response.EnsureSuccessStatusCode();

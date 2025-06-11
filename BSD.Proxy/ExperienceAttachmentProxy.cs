@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ExperienceAttachmentProxy(HttpClient httpClient)
 {
-    public async Task<ExperienceAttachmentCreateResponse> Create(ExperienceAttachmentCreateRequest request) 
+    public async Task<ExperienceAttachmentCreateResponse> Create(ExperienceAttachmentCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceAttachment/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ExperienceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceAttachmentReadResponse> Read(ExperienceAttachmentReadRequest request) 
+    public async Task<ExperienceAttachmentReadResponse> Read(ExperienceAttachmentReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceAttachment/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ExperienceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceAttachmentUpdateResponse> Update(ExperienceAttachmentUpdateRequest request) 
+    public async Task<ExperienceAttachmentUpdateResponse> Update(ExperienceAttachmentUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceAttachment/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ExperienceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceAttachmentDeleteResponse> Delete(ExperienceAttachmentDeleteRequest request) 
+    public async Task<ExperienceAttachmentDeleteResponse> Delete(ExperienceAttachmentDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceAttachment/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ExperienceAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExperienceAttachmentListResponse> List(ExperienceAttachmentListRequest request) 
+    public async Task<ExperienceAttachmentListResponse> List(ExperienceAttachmentListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExperienceAttachment/List", request);
         response.EnsureSuccessStatusCode();

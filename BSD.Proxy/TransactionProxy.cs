@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class TransactionProxy(HttpClient httpClient)
 {
-    public async Task<TransactionCreateResponse> Create(TransactionCreateRequest request) 
+    public async Task<TransactionCreateResponse> Create(TransactionCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Transaction/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class TransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionReadResponse> Read(TransactionReadRequest request) 
+    public async Task<TransactionReadResponse> Read(TransactionReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Transaction/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class TransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionUpdateResponse> Update(TransactionUpdateRequest request) 
+    public async Task<TransactionUpdateResponse> Update(TransactionUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Transaction/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class TransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionDeleteResponse> Delete(TransactionDeleteRequest request) 
+    public async Task<TransactionDeleteResponse> Delete(TransactionDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Transaction/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class TransactionProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<TransactionListResponse> List(TransactionListRequest request) 
+    public async Task<TransactionListResponse> List(TransactionListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Transaction/List", request);
         response.EnsureSuccessStatusCode();

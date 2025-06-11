@@ -1,6 +1,6 @@
 ﻿using CodeGenerator.Shared.Attributes;
-using System.Reflection;
 using CodeGenerator.Step2.ApisAndProxies;
+using System.Reflection;
 
 namespace CodeGenerator.Step2.ApiAndProxies.Services
 {

@@ -74,8 +74,8 @@ public class ExpensePriceService(
         if (!state.Success)
             return new ExpensePriceUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new ExpensePriceUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new ExpensePriceUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpensePriceServiceHandler(state);
         var entity = handler.FindById(db, request.ExpensePrice.Id);

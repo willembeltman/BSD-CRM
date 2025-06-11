@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class WorkorderProxy(HttpClient httpClient)
 {
-    public async Task<WorkorderCreateResponse> Create(WorkorderCreateRequest request) 
+    public async Task<WorkorderCreateResponse> Create(WorkorderCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Workorder/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class WorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderReadResponse> Read(WorkorderReadRequest request) 
+    public async Task<WorkorderReadResponse> Read(WorkorderReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Workorder/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class WorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderUpdateResponse> Update(WorkorderUpdateRequest request) 
+    public async Task<WorkorderUpdateResponse> Update(WorkorderUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Workorder/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class WorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderDeleteResponse> Delete(WorkorderDeleteRequest request) 
+    public async Task<WorkorderDeleteResponse> Delete(WorkorderDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Workorder/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class WorkorderProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<WorkorderListResponse> List(WorkorderListRequest request) 
+    public async Task<WorkorderListResponse> List(WorkorderListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Workorder/List", request);
         response.EnsureSuccessStatusCode();

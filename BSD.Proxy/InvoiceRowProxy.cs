@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class InvoiceRowProxy(HttpClient httpClient)
 {
-    public async Task<InvoiceRowCreateResponse> Create(InvoiceRowCreateRequest request) 
+    public async Task<InvoiceRowCreateResponse> Create(InvoiceRowCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceRow/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class InvoiceRowProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceRowReadResponse> Read(InvoiceRowReadRequest request) 
+    public async Task<InvoiceRowReadResponse> Read(InvoiceRowReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceRow/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class InvoiceRowProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceRowUpdateResponse> Update(InvoiceRowUpdateRequest request) 
+    public async Task<InvoiceRowUpdateResponse> Update(InvoiceRowUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceRow/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class InvoiceRowProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceRowDeleteResponse> Delete(InvoiceRowDeleteRequest request) 
+    public async Task<InvoiceRowDeleteResponse> Delete(InvoiceRowDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceRow/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class InvoiceRowProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<InvoiceRowListResponse> List(InvoiceRowListRequest request) 
+    public async Task<InvoiceRowListResponse> List(InvoiceRowListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/InvoiceRow/List", request);
         response.EnsureSuccessStatusCode();

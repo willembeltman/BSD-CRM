@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ExpenseAttachmentProxy(HttpClient httpClient)
 {
-    public async Task<ExpenseAttachmentCreateResponse> Create(ExpenseAttachmentCreateRequest request) 
+    public async Task<ExpenseAttachmentCreateResponse> Create(ExpenseAttachmentCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseAttachment/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ExpenseAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseAttachmentReadResponse> Read(ExpenseAttachmentReadRequest request) 
+    public async Task<ExpenseAttachmentReadResponse> Read(ExpenseAttachmentReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseAttachment/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ExpenseAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseAttachmentUpdateResponse> Update(ExpenseAttachmentUpdateRequest request) 
+    public async Task<ExpenseAttachmentUpdateResponse> Update(ExpenseAttachmentUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseAttachment/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ExpenseAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseAttachmentDeleteResponse> Delete(ExpenseAttachmentDeleteRequest request) 
+    public async Task<ExpenseAttachmentDeleteResponse> Delete(ExpenseAttachmentDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseAttachment/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ExpenseAttachmentProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpenseAttachmentListResponse> List(ExpenseAttachmentListRequest request) 
+    public async Task<ExpenseAttachmentListResponse> List(ExpenseAttachmentListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpenseAttachment/List", request);
         response.EnsureSuccessStatusCode();

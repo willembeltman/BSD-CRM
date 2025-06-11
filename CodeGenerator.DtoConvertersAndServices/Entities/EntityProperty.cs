@@ -1,6 +1,5 @@
 ﻿using CodeGenerator.Shared.Attributes;
 using CodeGenerator.Shared.Helpers;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 

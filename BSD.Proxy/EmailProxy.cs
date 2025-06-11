@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class EmailProxy(HttpClient httpClient)
 {
-    public async Task<EmailCreateResponse> Create(EmailCreateRequest request) 
+    public async Task<EmailCreateResponse> Create(EmailCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Email/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class EmailProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<EmailReadResponse> Read(EmailReadRequest request) 
+    public async Task<EmailReadResponse> Read(EmailReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Email/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class EmailProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<EmailUpdateResponse> Update(EmailUpdateRequest request) 
+    public async Task<EmailUpdateResponse> Update(EmailUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Email/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class EmailProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<EmailDeleteResponse> Delete(EmailDeleteRequest request) 
+    public async Task<EmailDeleteResponse> Delete(EmailDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Email/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class EmailProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<EmailListResponse> List(EmailListRequest request) 
+    public async Task<EmailListResponse> List(EmailListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/Email/List", request);
         response.EnsureSuccessStatusCode();

@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ExpensePriceProxy(HttpClient httpClient)
 {
-    public async Task<ExpensePriceCreateResponse> Create(ExpensePriceCreateRequest request) 
+    public async Task<ExpensePriceCreateResponse> Create(ExpensePriceCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpensePrice/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ExpensePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpensePriceReadResponse> Read(ExpensePriceReadRequest request) 
+    public async Task<ExpensePriceReadResponse> Read(ExpensePriceReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpensePrice/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ExpensePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpensePriceUpdateResponse> Update(ExpensePriceUpdateRequest request) 
+    public async Task<ExpensePriceUpdateResponse> Update(ExpensePriceUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpensePrice/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ExpensePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpensePriceDeleteResponse> Delete(ExpensePriceDeleteRequest request) 
+    public async Task<ExpensePriceDeleteResponse> Delete(ExpensePriceDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpensePrice/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ExpensePriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ExpensePriceListResponse> List(ExpensePriceListRequest request) 
+    public async Task<ExpensePriceListResponse> List(ExpensePriceListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ExpensePrice/List", request);
         response.EnsureSuccessStatusCode();

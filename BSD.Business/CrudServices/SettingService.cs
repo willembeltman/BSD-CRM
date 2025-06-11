@@ -74,8 +74,8 @@ public class SettingService(
         if (!state.Success)
             return new SettingUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new SettingUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new SettingUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new SettingServiceHandler(state);
         var entity = handler.FindById(db, request.Setting.Id);

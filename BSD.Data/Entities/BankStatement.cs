@@ -1,6 +1,6 @@
-﻿using CodeGenerator.Shared.Attributes;
-using BSD.Shared;
+﻿using BSD.Shared;
 using BSD.Shared.Enums;
+using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -35,7 +35,7 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Generators
             //    public Country? Country { get; set; }
             //}
 
-            var propertieCode  = string.Join("", DbContext.UserPointers
+            var propertieCode = string.Join("", DbContext.UserPointers
                 .Select(a => $"    public {a.Type.Name}? {a.PropertyName} {{ get; set; }}\r\n"));
             Code = $@"namespace {Namespace};
 

@@ -74,8 +74,8 @@ public class InvoiceTypeService(
         if (!state.Success)
             return new InvoiceTypeUpdateResponse() { State = state, ErrorGettingState = true };
 
-            if (state.User == null || state.DbUser == null)
-                return new InvoiceTypeUpdateResponse() { State = state, ErrorNotAuthorized = true };
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceTypeUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceTypeServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceType.Id);

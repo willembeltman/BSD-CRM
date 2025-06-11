@@ -1,12 +1,12 @@
-using System.Net.Http.Json;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
+using System.Net.Http.Json;
 
 namespace BSD.Proxy;
 
 public class ProductPriceProxy(HttpClient httpClient)
 {
-    public async Task<ProductPriceCreateResponse> Create(ProductPriceCreateRequest request) 
+    public async Task<ProductPriceCreateResponse> Create(ProductPriceCreateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ProductPrice/Create", request);
         response.EnsureSuccessStatusCode();
@@ -15,7 +15,7 @@ public class ProductPriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductPriceReadResponse> Read(ProductPriceReadRequest request) 
+    public async Task<ProductPriceReadResponse> Read(ProductPriceReadRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ProductPrice/Read", request);
         response.EnsureSuccessStatusCode();
@@ -24,7 +24,7 @@ public class ProductPriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductPriceUpdateResponse> Update(ProductPriceUpdateRequest request) 
+    public async Task<ProductPriceUpdateResponse> Update(ProductPriceUpdateRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ProductPrice/Update", request);
         response.EnsureSuccessStatusCode();
@@ -33,7 +33,7 @@ public class ProductPriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductPriceDeleteResponse> Delete(ProductPriceDeleteRequest request) 
+    public async Task<ProductPriceDeleteResponse> Delete(ProductPriceDeleteRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ProductPrice/Delete", request);
         response.EnsureSuccessStatusCode();
@@ -42,7 +42,7 @@ public class ProductPriceProxy(HttpClient httpClient)
         return responseData;
     }
 
-    public async Task<ProductPriceListResponse> List(ProductPriceListRequest request) 
+    public async Task<ProductPriceListResponse> List(ProductPriceListRequest request)
     {
         var response = await httpClient.PostAsJsonAsync("/ProductPrice/List", request);
         response.EnsureSuccessStatusCode();

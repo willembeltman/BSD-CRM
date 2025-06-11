@@ -25,7 +25,7 @@ public class AuthenticationService(
         var email = request.UserName;
         var password = request.Password;
 
-        if (!AuthenticationStateService.EmailAddressHelper.IsEmailAddress(email))
+        if (!EmailAddressHelper.IsEmailAddress(email))
             return new LoginResponse()
             {
                 ErrorEmailNotValid = true
@@ -44,7 +44,7 @@ public class AuthenticationService(
             };
 
         // Password correct?
-        var passwordHash = AuthenticationStateService.StringHelper.HashString(password);
+        var passwordHash = StringHelper.HashString(password);
         if (dbuser.PasswordHash != passwordHash)
             return new LoginResponse()
             {
@@ -99,7 +99,7 @@ public class AuthenticationService(
                 ErrorGettingState = true
             };
 
-        var username = request.Username;
+        var username = request.UserName;
         var email = request.Email;
         var phoneNumber = request.PhoneNumber;
         var password = request.Password;
@@ -110,7 +110,7 @@ public class AuthenticationService(
             {
                 ErrorEmailNotValid = true
             };
-        if (!AuthenticationStateService.EmailAddressHelper.IsEmailAddress(email))
+        if (!EmailAddressHelper.IsEmailAddress(email))
             return new RegisterResponse()
             {
                 ErrorEmailNotValid = true
@@ -145,7 +145,7 @@ public class AuthenticationService(
                 ErrorEmailInUse = true
             };
 
-        var dbuser = CreateUser(username, email, phoneNumber, password);
+        var dbuser = authenticationStateService.CreateUser(username, email, phoneNumber, password);
         if (dbuser == null)
             return new RegisterResponse()
             {
@@ -206,23 +206,6 @@ public class AuthenticationService(
         {
             Success = true
         };
-    }
-    private User CreateUser(string username, string email, string phoneNumber, string password)
-    {
-        // Create user
-        var passwordHash = StringHelper.HashString(password);
-        var userid = HashGeneratorHelper.GenerateCode(64);
-        var dbuser = new User()
-        {
-            Id = userid,
-            UserName = username,
-            Email = email,
-            PhoneNumber = phoneNumber,
-            PasswordHash = passwordHash,
-        };
-        db.Users.Add(dbuser);
-        db.SaveChanges();
-        return dbuser;
     }
 
 }

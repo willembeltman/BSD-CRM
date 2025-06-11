@@ -7,9 +7,7 @@ namespace BSD.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class AuthController(
-    IAuthenticationService authentication,
-    IForgotPasswordService forgotPassword) : ControllerBase
+public class AuthController(IAuthenticationService authentication) : ControllerBase
 {
     [HttpPost]
     public LoginResponse Login(LoginRequest request) 

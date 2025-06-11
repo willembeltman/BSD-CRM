@@ -28,32 +28,10 @@ namespace CodeGenerator.Step1.DtosConvertersAndServices.Entities
             .Select(a => a.Entity)
             .FirstOrDefault(d => d.IsUser) ?? throw new InvalidOperationException("No User DbSet found.");
 
-        public IEnumerable<EntityProperty> UserPointers
-        {
-            get
-            {
-                return GetList(UserEntity);
-            }
-        }
-
-        private IEnumerable<EntityProperty> GetList(Entity entity)
-        {
-            //yield return entity;
-
-            var list = entity
+        public IEnumerable<EntityProperty> UserPointers =>
+            UserEntity
                 .Properties
                 .Where(p => p.DbSet != null && p.IsLijst == false)
                 .ToArray();
-
-            foreach (var item in list)
-            {
-                yield return item;
-
-                foreach (var subItem in GetList(item.DbSet!.Entity))
-                {
-                    yield return subItem;
-                }
-            }
-        }
     }
 }

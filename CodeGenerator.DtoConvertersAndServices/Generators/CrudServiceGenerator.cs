@@ -223,7 +223,7 @@ public class {Name}(
     [TsServiceMethod(""{Entity.Name}"", ""Create"")]
     public async Task<{Dto.CreateResponse.Name}> Create({Dto.CreateRequest.Name} request)
     {{
-        var state = authenticationService.GetState(request);
+        var state = await authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.CreateResponse.Name}() {{ State = state, ErrorGettingState = true }};
 " + (Entity.IsAuthorize ? $@"
@@ -231,7 +231,7 @@ public class {Name}(
             return new {Dto.CreateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
         var handler = new {ServiceHandler.Name}(state);
-        var entity = handler.FindByMatch(db, request.{Entity.Name});
+        var entity = await handler.FindByMatch(db, request.{Entity.Name});
         if (entity != null)
             return new {Dto.CreateResponse.Name}() {{ State = state, ErrorAlreadyUsed = true }};
 
@@ -242,8 +242,8 @@ public class {Name}(
         if (!handler.CanCreate(db, entity))
             return new {Dto.CreateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 
-        db.{DbSet.Name}.Add(entity);
-        db.SaveChanges();
+        await db.{DbSet.Name}.AddAsync(entity);
+        await db.SaveChangesAsync();
 
         var dto = entity.ToDto();
         if (!handler.UpdateToState(db, entity, dto))
@@ -255,7 +255,7 @@ public class {Name}(
     [TsServiceMethod(""{Entity.Name}"", ""Read"")]
     public async Task<{Dto.ReadResponse.Name}> Read({Dto.ReadRequest.Name} request)
     {{
-        var state = authenticationService.GetState(request);
+        var state = await authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.ReadResponse.Name}() {{ State = state, ErrorGettingState = true }};
 " + (Entity.IsAuthorize ? $@"
@@ -263,7 +263,7 @@ public class {Name}(
             return new {Dto.ReadResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
         var handler = new {ServiceHandler.Name}(state);
-        var entity = handler.FindById(db, request.{Entity.Name}Id);
+        var entity = await handler.FindById(db, request.{Entity.Name}Id);
         if (entity == null)
             return new {Dto.ReadResponse.Name}() {{ State = state, ErrorItemNotFound = true }};
 
@@ -277,15 +277,15 @@ public class {Name}(
     [TsServiceMethod(""{Entity.Name}"", ""Update"")]
     public async Task<{Dto.UpdateResponse.Name}> Update({Dto.UpdateRequest.Name} request)
     {{
-        var state = authenticationService.GetState(request);
+        var state = await authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorGettingState = true }};
 " + (Entity.IsAuthorize ? $@"
-            if (state.User == null || state.DbUser == null)
-                return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
+        if (state.User == null || state.DbUser == null)
+            return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
         var handler = new {ServiceHandler.Name}(state);
-        var entity = handler.FindById(db, request.{Entity.Name}.Id);
+        var entity = await handler.FindById(db, request.{Entity.Name}.Id);
         if (entity == null)
             return new {Dto.UpdateResponse.Name}() {{ State = state, ErrorItemNotFound = true }};
 
@@ -305,7 +305,7 @@ public class {Name}(
     [TsServiceMethod(""{Entity.Name}"", ""Delete"")]
     public async Task<{Dto.DeleteResponse.Name}> Delete({Dto.DeleteRequest.Name} request)
     {{
-        var state = authenticationService.GetState(request);
+        var state = await authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorGettingState = true }};
 " + (Entity.IsAuthorize ? $@"
@@ -313,7 +313,7 @@ public class {Name}(
             return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 " : "") + $@"
         var handler = new {ServiceHandler.Name}(state);
-        var entity = handler.FindById(db, request.{Entity.Name}Id);
+        var entity = await handler.FindById(db, request.{Entity.Name}Id);
         if (entity == null)
             return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorItemNotFound = true }};
 
@@ -323,8 +323,8 @@ public class {Name}(
         if (!handler.DeleteFromState(db, entity))
             return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorUpdatingState = true }};
 
-        db.{DbSet.Name}.Remove(entity);
-        db.SaveChanges();
+        await db.{DbSet.Name}.RemoveAsync(entity);
+        await db.SaveChangesAsync();
 
         return new {Dto.DeleteResponse.Name}() {{ State = state, Success = true }};
     }}
@@ -332,7 +332,7 @@ public class {Name}(
     [TsServiceMethod(""{Entity.Name}"", ""List"")]
     public async Task<{Dto.ListResponse.Name}> List({Dto.ListRequest.Name} request)
     {{
-        var state = authenticationService.GetState(request);
+        var state = await authenticationService.GetState(request);
         if (!state.Success)
             return new {Dto.ListResponse.Name}() {{ State = state, ErrorGettingState = true }};
 " + (Entity.IsAuthorize ? $@"
@@ -343,7 +343,7 @@ public class {Name}(
         if (!handler.CanList(db))
             return new {Dto.ListResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 
-        var entities = handler.ListAll(db);
+        var entities = await handler.ListAll(db);
         var dtos = entities
             .Select(a => a.ToDto()!)
             .ToArray();

@@ -20,7 +20,7 @@ public class InvoiceProductService(
         if (!state.Success)
             return new InvoiceProductCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceProductServiceHander(state);
+        var handler = new InvoiceProductServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceProduct);
         if (entity != null)
             return new InvoiceProductCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class InvoiceProductService(
         if (!state.Success)
             return new InvoiceProductReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceProductServiceHander(state);
+        var handler = new InvoiceProductServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceProductId);
         if (entity == null)
             return new InvoiceProductReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class InvoiceProductService(
         if (!state.Success)
             return new InvoiceProductUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceProductServiceHander(state);
+        var handler = new InvoiceProductServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceProduct.Id);
         if (entity == null)
             return new InvoiceProductUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class InvoiceProductService(
         if (!state.Success)
             return new InvoiceProductDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceProductServiceHander(state);
+        var handler = new InvoiceProductServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceProductId);
         if (entity == null)
             return new InvoiceProductDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class InvoiceProductService(
         if (!state.Success)
             return new InvoiceProductListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceProductServiceHander(state);
+        var handler = new InvoiceProductServiceHandler(state);
         if (!handler.CanList(db))
             return new InvoiceProductListResponse() { State = state, ErrorNotAuthorized = true };
 

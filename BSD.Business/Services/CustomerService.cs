@@ -20,7 +20,7 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CustomerServiceHander(state);
+        var handler = new CustomerServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Customer);
         if (entity != null)
             return new CustomerCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CustomerServiceHander(state);
+        var handler = new CustomerServiceHandler(state);
         var entity = handler.FindById(db, request.CustomerId);
         if (entity == null)
             return new CustomerReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CustomerServiceHander(state);
+        var handler = new CustomerServiceHandler(state);
         var entity = handler.FindById(db, request.Customer.Id);
         if (entity == null)
             return new CustomerUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CustomerServiceHander(state);
+        var handler = new CustomerServiceHandler(state);
         var entity = handler.FindById(db, request.CustomerId);
         if (entity == null)
             return new CustomerDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CustomerServiceHander(state);
+        var handler = new CustomerServiceHandler(state);
         if (!handler.CanList(db))
             return new CustomerListResponse() { State = state, ErrorNotAuthorized = true };
 

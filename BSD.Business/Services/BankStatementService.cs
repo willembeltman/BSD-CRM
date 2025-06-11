@@ -20,7 +20,7 @@ public class BankStatementService(
         if (!state.Success)
             return new BankStatementCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementServiceHander(state);
+        var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindByMatch(db, request.BankStatement);
         if (entity != null)
             return new BankStatementCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class BankStatementService(
         if (!state.Success)
             return new BankStatementReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementServiceHander(state);
+        var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementId);
         if (entity == null)
             return new BankStatementReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class BankStatementService(
         if (!state.Success)
             return new BankStatementUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementServiceHander(state);
+        var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatement.Id);
         if (entity == null)
             return new BankStatementUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class BankStatementService(
         if (!state.Success)
             return new BankStatementDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementServiceHander(state);
+        var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementId);
         if (entity == null)
             return new BankStatementDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class BankStatementService(
         if (!state.Success)
             return new BankStatementListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementServiceHander(state);
+        var handler = new BankStatementServiceHandler(state);
         if (!handler.CanList(db))
             return new BankStatementListResponse() { State = state, ErrorNotAuthorized = true };
 

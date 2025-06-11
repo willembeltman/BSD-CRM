@@ -20,7 +20,7 @@ public class DocumentAttachmentService(
         if (!state.Success)
             return new DocumentAttachmentCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentAttachmentServiceHander(state);
+        var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.DocumentAttachment);
         if (entity != null)
             return new DocumentAttachmentCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class DocumentAttachmentService(
         if (!state.Success)
             return new DocumentAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentAttachmentServiceHander(state);
+        var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentAttachmentId);
         if (entity == null)
             return new DocumentAttachmentReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class DocumentAttachmentService(
         if (!state.Success)
             return new DocumentAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentAttachmentServiceHander(state);
+        var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentAttachment.Id);
         if (entity == null)
             return new DocumentAttachmentUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class DocumentAttachmentService(
         if (!state.Success)
             return new DocumentAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentAttachmentServiceHander(state);
+        var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentAttachmentId);
         if (entity == null)
             return new DocumentAttachmentDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class DocumentAttachmentService(
         if (!state.Success)
             return new DocumentAttachmentListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentAttachmentServiceHander(state);
+        var handler = new DocumentAttachmentServiceHandler(state);
         if (!handler.CanList(db))
             return new DocumentAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 

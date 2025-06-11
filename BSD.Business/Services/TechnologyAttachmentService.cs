@@ -20,7 +20,7 @@ public class TechnologyAttachmentService(
         if (!state.Success)
             return new TechnologyAttachmentCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyAttachmentServiceHander(state);
+        var handler = new TechnologyAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TechnologyAttachment);
         if (entity != null)
             return new TechnologyAttachmentCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TechnologyAttachmentService(
         if (!state.Success)
             return new TechnologyAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyAttachmentServiceHander(state);
+        var handler = new TechnologyAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.TechnologyAttachmentId);
         if (entity == null)
             return new TechnologyAttachmentReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TechnologyAttachmentService(
         if (!state.Success)
             return new TechnologyAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyAttachmentServiceHander(state);
+        var handler = new TechnologyAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.TechnologyAttachment.Id);
         if (entity == null)
             return new TechnologyAttachmentUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TechnologyAttachmentService(
         if (!state.Success)
             return new TechnologyAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyAttachmentServiceHander(state);
+        var handler = new TechnologyAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.TechnologyAttachmentId);
         if (entity == null)
             return new TechnologyAttachmentDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TechnologyAttachmentService(
         if (!state.Success)
             return new TechnologyAttachmentListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyAttachmentServiceHander(state);
+        var handler = new TechnologyAttachmentServiceHandler(state);
         if (!handler.CanList(db))
             return new TechnologyAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 

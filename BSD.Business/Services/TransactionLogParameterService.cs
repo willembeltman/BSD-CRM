@@ -20,7 +20,7 @@ public class TransactionLogParameterService(
         if (!state.Success)
             return new TransactionLogParameterCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogParameterServiceHander(state);
+        var handler = new TransactionLogParameterServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TransactionLogParameter);
         if (entity != null)
             return new TransactionLogParameterCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TransactionLogParameterService(
         if (!state.Success)
             return new TransactionLogParameterReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogParameterServiceHander(state);
+        var handler = new TransactionLogParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLogParameterId);
         if (entity == null)
             return new TransactionLogParameterReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TransactionLogParameterService(
         if (!state.Success)
             return new TransactionLogParameterUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogParameterServiceHander(state);
+        var handler = new TransactionLogParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLogParameter.Id);
         if (entity == null)
             return new TransactionLogParameterUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TransactionLogParameterService(
         if (!state.Success)
             return new TransactionLogParameterDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogParameterServiceHander(state);
+        var handler = new TransactionLogParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLogParameterId);
         if (entity == null)
             return new TransactionLogParameterDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TransactionLogParameterService(
         if (!state.Success)
             return new TransactionLogParameterListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogParameterServiceHander(state);
+        var handler = new TransactionLogParameterServiceHandler(state);
         if (!handler.CanList(db))
             return new TransactionLogParameterListResponse() { State = state, ErrorNotAuthorized = true };
 

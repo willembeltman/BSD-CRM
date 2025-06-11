@@ -20,7 +20,7 @@ public class BankStatementExpenseService(
         if (!state.Success)
             return new BankStatementExpenseCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementExpenseServiceHander(state);
+        var handler = new BankStatementExpenseServiceHandler(state);
         var entity = handler.FindByMatch(db, request.BankStatementExpense);
         if (entity != null)
             return new BankStatementExpenseCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class BankStatementExpenseService(
         if (!state.Success)
             return new BankStatementExpenseReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementExpenseServiceHander(state);
+        var handler = new BankStatementExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementExpenseId);
         if (entity == null)
             return new BankStatementExpenseReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class BankStatementExpenseService(
         if (!state.Success)
             return new BankStatementExpenseUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementExpenseServiceHander(state);
+        var handler = new BankStatementExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementExpense.Id);
         if (entity == null)
             return new BankStatementExpenseUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class BankStatementExpenseService(
         if (!state.Success)
             return new BankStatementExpenseDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementExpenseServiceHander(state);
+        var handler = new BankStatementExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementExpenseId);
         if (entity == null)
             return new BankStatementExpenseDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class BankStatementExpenseService(
         if (!state.Success)
             return new BankStatementExpenseListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementExpenseServiceHander(state);
+        var handler = new BankStatementExpenseServiceHandler(state);
         if (!handler.CanList(db))
             return new BankStatementExpenseListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class ProductService(
         if (!state.Success)
             return new ProductCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductServiceHander(state);
+        var handler = new ProductServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Product);
         if (entity != null)
             return new ProductCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ProductService(
         if (!state.Success)
             return new ProductReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductServiceHander(state);
+        var handler = new ProductServiceHandler(state);
         var entity = handler.FindById(db, request.ProductId);
         if (entity == null)
             return new ProductReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ProductService(
         if (!state.Success)
             return new ProductUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductServiceHander(state);
+        var handler = new ProductServiceHandler(state);
         var entity = handler.FindById(db, request.Product.Id);
         if (entity == null)
             return new ProductUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ProductService(
         if (!state.Success)
             return new ProductDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductServiceHander(state);
+        var handler = new ProductServiceHandler(state);
         var entity = handler.FindById(db, request.ProductId);
         if (entity == null)
             return new ProductDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ProductService(
         if (!state.Success)
             return new ProductListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductServiceHander(state);
+        var handler = new ProductServiceHandler(state);
         if (!handler.CanList(db))
             return new ProductListResponse() { State = state, ErrorNotAuthorized = true };
 

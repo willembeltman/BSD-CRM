@@ -20,7 +20,7 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseAttachmentServiceHander(state);
+        var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.ExpenseAttachment);
         if (entity != null)
             return new ExpenseAttachmentCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseAttachmentServiceHander(state);
+        var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseAttachmentId);
         if (entity == null)
             return new ExpenseAttachmentReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseAttachmentServiceHander(state);
+        var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseAttachment.Id);
         if (entity == null)
             return new ExpenseAttachmentUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseAttachmentServiceHander(state);
+        var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseAttachmentId);
         if (entity == null)
             return new ExpenseAttachmentDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseAttachmentServiceHander(state);
+        var handler = new ExpenseAttachmentServiceHandler(state);
         if (!handler.CanList(db))
             return new ExpenseAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 

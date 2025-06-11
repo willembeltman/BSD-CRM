@@ -20,7 +20,7 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceWorkorderServiceHander(state);
+        var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceWorkorder);
         if (entity != null)
             return new InvoiceWorkorderCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceWorkorderServiceHander(state);
+        var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceWorkorderId);
         if (entity == null)
             return new InvoiceWorkorderReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceWorkorderServiceHander(state);
+        var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceWorkorder.Id);
         if (entity == null)
             return new InvoiceWorkorderUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceWorkorderServiceHander(state);
+        var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceWorkorderId);
         if (entity == null)
             return new InvoiceWorkorderDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceWorkorderServiceHander(state);
+        var handler = new InvoiceWorkorderServiceHandler(state);
         if (!handler.CanList(db))
             return new InvoiceWorkorderListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderAttachmentServiceHander(state);
+        var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.WorkorderAttachment);
         if (entity != null)
             return new WorkorderAttachmentCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderAttachmentServiceHander(state);
+        var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderAttachmentId);
         if (entity == null)
             return new WorkorderAttachmentReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderAttachmentServiceHander(state);
+        var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderAttachment.Id);
         if (entity == null)
             return new WorkorderAttachmentUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderAttachmentServiceHander(state);
+        var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderAttachmentId);
         if (entity == null)
             return new WorkorderAttachmentDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderAttachmentServiceHander(state);
+        var handler = new WorkorderAttachmentServiceHandler(state);
         if (!handler.CanList(db))
             return new WorkorderAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceAttachmentServiceHander(state);
+        var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceAttachment);
         if (entity != null)
             return new InvoiceAttachmentCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceAttachmentServiceHander(state);
+        var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceAttachmentId);
         if (entity == null)
             return new InvoiceAttachmentReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceAttachmentServiceHander(state);
+        var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceAttachment.Id);
         if (entity == null)
             return new InvoiceAttachmentUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceAttachmentServiceHander(state);
+        var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceAttachmentId);
         if (entity == null)
             return new InvoiceAttachmentDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceAttachmentServiceHander(state);
+        var handler = new InvoiceAttachmentServiceHandler(state);
         if (!handler.CanList(db))
             return new InvoiceAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 

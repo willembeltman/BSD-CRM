@@ -20,7 +20,7 @@ public class SettingService(
         if (!state.Success)
             return new SettingCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SettingServiceHander(state);
+        var handler = new SettingServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Setting);
         if (entity != null)
             return new SettingCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class SettingService(
         if (!state.Success)
             return new SettingReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SettingServiceHander(state);
+        var handler = new SettingServiceHandler(state);
         var entity = handler.FindById(db, request.SettingId);
         if (entity == null)
             return new SettingReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class SettingService(
         if (!state.Success)
             return new SettingUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SettingServiceHander(state);
+        var handler = new SettingServiceHandler(state);
         var entity = handler.FindById(db, request.Setting.Id);
         if (entity == null)
             return new SettingUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class SettingService(
         if (!state.Success)
             return new SettingDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SettingServiceHander(state);
+        var handler = new SettingServiceHandler(state);
         var entity = handler.FindById(db, request.SettingId);
         if (entity == null)
             return new SettingDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class SettingService(
         if (!state.Success)
             return new SettingListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SettingServiceHander(state);
+        var handler = new SettingServiceHandler(state);
         if (!handler.CanList(db))
             return new SettingListResponse() { State = state, ErrorNotAuthorized = true };
 

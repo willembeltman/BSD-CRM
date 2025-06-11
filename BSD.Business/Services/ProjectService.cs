@@ -20,7 +20,7 @@ public class ProjectService(
         if (!state.Success)
             return new ProjectCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProjectServiceHander(state);
+        var handler = new ProjectServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Project);
         if (entity != null)
             return new ProjectCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ProjectService(
         if (!state.Success)
             return new ProjectReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProjectServiceHander(state);
+        var handler = new ProjectServiceHandler(state);
         var entity = handler.FindById(db, request.ProjectId);
         if (entity == null)
             return new ProjectReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ProjectService(
         if (!state.Success)
             return new ProjectUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProjectServiceHander(state);
+        var handler = new ProjectServiceHandler(state);
         var entity = handler.FindById(db, request.Project.Id);
         if (entity == null)
             return new ProjectUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ProjectService(
         if (!state.Success)
             return new ProjectDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProjectServiceHander(state);
+        var handler = new ProjectServiceHandler(state);
         var entity = handler.FindById(db, request.ProjectId);
         if (entity == null)
             return new ProjectDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ProjectService(
         if (!state.Success)
             return new ProjectListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProjectServiceHander(state);
+        var handler = new ProjectServiceHandler(state);
         if (!handler.CanList(db))
             return new ProjectListResponse() { State = state, ErrorNotAuthorized = true };
 

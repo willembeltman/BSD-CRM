@@ -20,7 +20,7 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionParameterServiceHander(state);
+        var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TransactionParameter);
         if (entity != null)
             return new TransactionParameterCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionParameterServiceHander(state);
+        var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionParameterId);
         if (entity == null)
             return new TransactionParameterReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionParameterServiceHander(state);
+        var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionParameter.Id);
         if (entity == null)
             return new TransactionParameterUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionParameterServiceHander(state);
+        var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionParameterId);
         if (entity == null)
             return new TransactionParameterDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionParameterServiceHander(state);
+        var handler = new TransactionParameterServiceHandler(state);
         if (!handler.CanList(db))
             return new TransactionParameterListResponse() { State = state, ErrorNotAuthorized = true };
 

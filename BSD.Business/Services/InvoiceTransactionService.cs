@@ -20,7 +20,7 @@ public class InvoiceTransactionService(
         if (!state.Success)
             return new InvoiceTransactionCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceTransactionServiceHander(state);
+        var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceTransaction);
         if (entity != null)
             return new InvoiceTransactionCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class InvoiceTransactionService(
         if (!state.Success)
             return new InvoiceTransactionReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceTransactionServiceHander(state);
+        var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTransactionId);
         if (entity == null)
             return new InvoiceTransactionReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class InvoiceTransactionService(
         if (!state.Success)
             return new InvoiceTransactionUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceTransactionServiceHander(state);
+        var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTransaction.Id);
         if (entity == null)
             return new InvoiceTransactionUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class InvoiceTransactionService(
         if (!state.Success)
             return new InvoiceTransactionDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceTransactionServiceHander(state);
+        var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTransactionId);
         if (entity == null)
             return new InvoiceTransactionDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class InvoiceTransactionService(
         if (!state.Success)
             return new InvoiceTransactionListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceTransactionServiceHander(state);
+        var handler = new InvoiceTransactionServiceHandler(state);
         if (!handler.CanList(db))
             return new InvoiceTransactionListResponse() { State = state, ErrorNotAuthorized = true };
 

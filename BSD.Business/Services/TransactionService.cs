@@ -20,7 +20,7 @@ public class TransactionService(
         if (!state.Success)
             return new TransactionCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionServiceHander(state);
+        var handler = new TransactionServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Transaction);
         if (entity != null)
             return new TransactionCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TransactionService(
         if (!state.Success)
             return new TransactionReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionServiceHander(state);
+        var handler = new TransactionServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionId);
         if (entity == null)
             return new TransactionReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TransactionService(
         if (!state.Success)
             return new TransactionUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionServiceHander(state);
+        var handler = new TransactionServiceHandler(state);
         var entity = handler.FindById(db, request.Transaction.Id);
         if (entity == null)
             return new TransactionUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TransactionService(
         if (!state.Success)
             return new TransactionDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionServiceHander(state);
+        var handler = new TransactionServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionId);
         if (entity == null)
             return new TransactionDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TransactionService(
         if (!state.Success)
             return new TransactionListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionServiceHander(state);
+        var handler = new TransactionServiceHandler(state);
         if (!handler.CanList(db))
             return new TransactionListResponse() { State = state, ErrorNotAuthorized = true };
 

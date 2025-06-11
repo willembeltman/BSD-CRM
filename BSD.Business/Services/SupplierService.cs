@@ -20,7 +20,7 @@ public class SupplierService(
         if (!state.Success)
             return new SupplierCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SupplierServiceHander(state);
+        var handler = new SupplierServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Supplier);
         if (entity != null)
             return new SupplierCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class SupplierService(
         if (!state.Success)
             return new SupplierReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SupplierServiceHander(state);
+        var handler = new SupplierServiceHandler(state);
         var entity = handler.FindById(db, request.SupplierId);
         if (entity == null)
             return new SupplierReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class SupplierService(
         if (!state.Success)
             return new SupplierUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SupplierServiceHander(state);
+        var handler = new SupplierServiceHandler(state);
         var entity = handler.FindById(db, request.Supplier.Id);
         if (entity == null)
             return new SupplierUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class SupplierService(
         if (!state.Success)
             return new SupplierDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SupplierServiceHander(state);
+        var handler = new SupplierServiceHandler(state);
         var entity = handler.FindById(db, request.SupplierId);
         if (entity == null)
             return new SupplierDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class SupplierService(
         if (!state.Success)
             return new SupplierListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new SupplierServiceHander(state);
+        var handler = new SupplierServiceHandler(state);
         if (!handler.CanList(db))
             return new SupplierListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class InvoiceRowService(
         if (!state.Success)
             return new InvoiceRowCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceRowServiceHander(state);
+        var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceRow);
         if (entity != null)
             return new InvoiceRowCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class InvoiceRowService(
         if (!state.Success)
             return new InvoiceRowReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceRowServiceHander(state);
+        var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceRowId);
         if (entity == null)
             return new InvoiceRowReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class InvoiceRowService(
         if (!state.Success)
             return new InvoiceRowUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceRowServiceHander(state);
+        var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceRow.Id);
         if (entity == null)
             return new InvoiceRowUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class InvoiceRowService(
         if (!state.Success)
             return new InvoiceRowDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceRowServiceHander(state);
+        var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceRowId);
         if (entity == null)
             return new InvoiceRowDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class InvoiceRowService(
         if (!state.Success)
             return new InvoiceRowListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceRowServiceHander(state);
+        var handler = new InvoiceRowServiceHandler(state);
         if (!handler.CanList(db))
             return new InvoiceRowListResponse() { State = state, ErrorNotAuthorized = true };
 

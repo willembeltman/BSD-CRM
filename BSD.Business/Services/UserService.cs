@@ -20,7 +20,7 @@ public class UserService(
         if (!state.Success)
             return new UserCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new UserServiceHander(state);
+        var handler = new UserServiceHandler(state);
         var entity = handler.FindByMatch(db, request.User);
         if (entity != null)
             return new UserCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class UserService(
         if (!state.Success)
             return new UserReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new UserServiceHander(state);
+        var handler = new UserServiceHandler(state);
         var entity = handler.FindById(db, request.UserId);
         if (entity == null)
             return new UserReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class UserService(
         if (!state.Success)
             return new UserUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new UserServiceHander(state);
+        var handler = new UserServiceHandler(state);
         var entity = handler.FindById(db, request.User.Id);
         if (entity == null)
             return new UserUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class UserService(
         if (!state.Success)
             return new UserDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new UserServiceHander(state);
+        var handler = new UserServiceHandler(state);
         var entity = handler.FindById(db, request.UserId);
         if (entity == null)
             return new UserDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class UserService(
         if (!state.Success)
             return new UserListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new UserServiceHander(state);
+        var handler = new UserServiceHandler(state);
         if (!handler.CanList(db))
             return new UserListResponse() { State = state, ErrorNotAuthorized = true };
 

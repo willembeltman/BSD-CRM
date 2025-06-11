@@ -20,7 +20,7 @@ public class CountryService(
         if (!state.Success)
             return new CountryCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CountryServiceHander(state);
+        var handler = new CountryServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Country);
         if (entity != null)
             return new CountryCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class CountryService(
         if (!state.Success)
             return new CountryReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CountryServiceHander(state);
+        var handler = new CountryServiceHandler(state);
         var entity = handler.FindById(db, request.CountryId);
         if (entity == null)
             return new CountryReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class CountryService(
         if (!state.Success)
             return new CountryUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CountryServiceHander(state);
+        var handler = new CountryServiceHandler(state);
         var entity = handler.FindById(db, request.Country.Id);
         if (entity == null)
             return new CountryUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class CountryService(
         if (!state.Success)
             return new CountryDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CountryServiceHander(state);
+        var handler = new CountryServiceHandler(state);
         var entity = handler.FindById(db, request.CountryId);
         if (entity == null)
             return new CountryDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class CountryService(
         if (!state.Success)
             return new CountryListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CountryServiceHander(state);
+        var handler = new CountryServiceHandler(state);
         if (!handler.CanList(db))
             return new CountryListResponse() { State = state, ErrorNotAuthorized = true };
 

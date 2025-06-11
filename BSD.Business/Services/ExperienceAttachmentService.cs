@@ -20,7 +20,7 @@ public class ExperienceAttachmentService(
         if (!state.Success)
             return new ExperienceAttachmentCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceAttachmentServiceHander(state);
+        var handler = new ExperienceAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.ExperienceAttachment);
         if (entity != null)
             return new ExperienceAttachmentCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ExperienceAttachmentService(
         if (!state.Success)
             return new ExperienceAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceAttachmentServiceHander(state);
+        var handler = new ExperienceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExperienceAttachmentId);
         if (entity == null)
             return new ExperienceAttachmentReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ExperienceAttachmentService(
         if (!state.Success)
             return new ExperienceAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceAttachmentServiceHander(state);
+        var handler = new ExperienceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExperienceAttachment.Id);
         if (entity == null)
             return new ExperienceAttachmentUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ExperienceAttachmentService(
         if (!state.Success)
             return new ExperienceAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceAttachmentServiceHander(state);
+        var handler = new ExperienceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExperienceAttachmentId);
         if (entity == null)
             return new ExperienceAttachmentDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ExperienceAttachmentService(
         if (!state.Success)
             return new ExperienceAttachmentListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceAttachmentServiceHander(state);
+        var handler = new ExperienceAttachmentServiceHandler(state);
         if (!handler.CanList(db))
             return new ExperienceAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 

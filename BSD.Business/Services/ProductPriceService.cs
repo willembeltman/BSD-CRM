@@ -20,7 +20,7 @@ public class ProductPriceService(
         if (!state.Success)
             return new ProductPriceCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductPriceServiceHander(state);
+        var handler = new ProductPriceServiceHandler(state);
         var entity = handler.FindByMatch(db, request.ProductPrice);
         if (entity != null)
             return new ProductPriceCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ProductPriceService(
         if (!state.Success)
             return new ProductPriceReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductPriceServiceHander(state);
+        var handler = new ProductPriceServiceHandler(state);
         var entity = handler.FindById(db, request.ProductPriceId);
         if (entity == null)
             return new ProductPriceReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ProductPriceService(
         if (!state.Success)
             return new ProductPriceUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductPriceServiceHander(state);
+        var handler = new ProductPriceServiceHandler(state);
         var entity = handler.FindById(db, request.ProductPrice.Id);
         if (entity == null)
             return new ProductPriceUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ProductPriceService(
         if (!state.Success)
             return new ProductPriceDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductPriceServiceHander(state);
+        var handler = new ProductPriceServiceHandler(state);
         var entity = handler.FindById(db, request.ProductPriceId);
         if (entity == null)
             return new ProductPriceDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ProductPriceService(
         if (!state.Success)
             return new ProductPriceListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ProductPriceServiceHander(state);
+        var handler = new ProductPriceServiceHandler(state);
         if (!handler.CanList(db))
             return new ProductPriceListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class EmailService(
         if (!state.Success)
             return new EmailCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new EmailServiceHander(state);
+        var handler = new EmailServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Email);
         if (entity != null)
             return new EmailCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class EmailService(
         if (!state.Success)
             return new EmailReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new EmailServiceHander(state);
+        var handler = new EmailServiceHandler(state);
         var entity = handler.FindById(db, request.EmailId);
         if (entity == null)
             return new EmailReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class EmailService(
         if (!state.Success)
             return new EmailUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new EmailServiceHander(state);
+        var handler = new EmailServiceHandler(state);
         var entity = handler.FindById(db, request.Email.Id);
         if (entity == null)
             return new EmailUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class EmailService(
         if (!state.Success)
             return new EmailDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new EmailServiceHander(state);
+        var handler = new EmailServiceHandler(state);
         var entity = handler.FindById(db, request.EmailId);
         if (entity == null)
             return new EmailDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class EmailService(
         if (!state.Success)
             return new EmailListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new EmailServiceHander(state);
+        var handler = new EmailServiceHandler(state);
         if (!handler.CanList(db))
             return new EmailListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class WorkorderService(
         if (!state.Success)
             return new WorkorderCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderServiceHander(state);
+        var handler = new WorkorderServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Workorder);
         if (entity != null)
             return new WorkorderCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class WorkorderService(
         if (!state.Success)
             return new WorkorderReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderServiceHander(state);
+        var handler = new WorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderId);
         if (entity == null)
             return new WorkorderReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class WorkorderService(
         if (!state.Success)
             return new WorkorderUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderServiceHander(state);
+        var handler = new WorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.Workorder.Id);
         if (entity == null)
             return new WorkorderUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class WorkorderService(
         if (!state.Success)
             return new WorkorderDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderServiceHander(state);
+        var handler = new WorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderId);
         if (entity == null)
             return new WorkorderDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class WorkorderService(
         if (!state.Success)
             return new WorkorderListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new WorkorderServiceHander(state);
+        var handler = new WorkorderServiceHandler(state);
         if (!handler.CanList(db))
             return new WorkorderListResponse() { State = state, ErrorNotAuthorized = true };
 

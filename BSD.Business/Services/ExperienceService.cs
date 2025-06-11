@@ -20,7 +20,7 @@ public class ExperienceService(
         if (!state.Success)
             return new ExperienceCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceServiceHander(state);
+        var handler = new ExperienceServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Experience);
         if (entity != null)
             return new ExperienceCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ExperienceService(
         if (!state.Success)
             return new ExperienceReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceServiceHander(state);
+        var handler = new ExperienceServiceHandler(state);
         var entity = handler.FindById(db, request.ExperienceId);
         if (entity == null)
             return new ExperienceReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ExperienceService(
         if (!state.Success)
             return new ExperienceUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceServiceHander(state);
+        var handler = new ExperienceServiceHandler(state);
         var entity = handler.FindById(db, request.Experience.Id);
         if (entity == null)
             return new ExperienceUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ExperienceService(
         if (!state.Success)
             return new ExperienceDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceServiceHander(state);
+        var handler = new ExperienceServiceHandler(state);
         var entity = handler.FindById(db, request.ExperienceId);
         if (entity == null)
             return new ExperienceDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ExperienceService(
         if (!state.Success)
             return new ExperienceListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExperienceServiceHander(state);
+        var handler = new ExperienceServiceHandler(state);
         if (!handler.CanList(db))
             return new ExperienceListResponse() { State = state, ErrorNotAuthorized = true };
 

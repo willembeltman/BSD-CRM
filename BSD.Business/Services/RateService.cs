@@ -20,7 +20,7 @@ public class RateService(
         if (!state.Success)
             return new RateCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new RateServiceHander(state);
+        var handler = new RateServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Rate);
         if (entity != null)
             return new RateCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class RateService(
         if (!state.Success)
             return new RateReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new RateServiceHander(state);
+        var handler = new RateServiceHandler(state);
         var entity = handler.FindById(db, request.RateId);
         if (entity == null)
             return new RateReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class RateService(
         if (!state.Success)
             return new RateUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new RateServiceHander(state);
+        var handler = new RateServiceHandler(state);
         var entity = handler.FindById(db, request.Rate.Id);
         if (entity == null)
             return new RateUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class RateService(
         if (!state.Success)
             return new RateDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new RateServiceHander(state);
+        var handler = new RateServiceHandler(state);
         var entity = handler.FindById(db, request.RateId);
         if (entity == null)
             return new RateDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class RateService(
         if (!state.Success)
             return new RateListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new RateServiceHander(state);
+        var handler = new RateServiceHandler(state);
         if (!handler.CanList(db))
             return new RateListResponse() { State = state, ErrorNotAuthorized = true };
 

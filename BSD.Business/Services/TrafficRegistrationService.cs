@@ -20,7 +20,7 @@ public class TrafficRegistrationService(
         if (!state.Success)
             return new TrafficRegistrationCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TrafficRegistrationServiceHander(state);
+        var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TrafficRegistration);
         if (entity != null)
             return new TrafficRegistrationCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TrafficRegistrationService(
         if (!state.Success)
             return new TrafficRegistrationReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TrafficRegistrationServiceHander(state);
+        var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindById(db, request.TrafficRegistrationId);
         if (entity == null)
             return new TrafficRegistrationReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TrafficRegistrationService(
         if (!state.Success)
             return new TrafficRegistrationUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TrafficRegistrationServiceHander(state);
+        var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindById(db, request.TrafficRegistration.Id);
         if (entity == null)
             return new TrafficRegistrationUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TrafficRegistrationService(
         if (!state.Success)
             return new TrafficRegistrationDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TrafficRegistrationServiceHander(state);
+        var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindById(db, request.TrafficRegistrationId);
         if (entity == null)
             return new TrafficRegistrationDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TrafficRegistrationService(
         if (!state.Success)
             return new TrafficRegistrationListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TrafficRegistrationServiceHander(state);
+        var handler = new TrafficRegistrationServiceHandler(state);
         if (!handler.CanList(db))
             return new TrafficRegistrationListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class CompanyUserService(
         if (!state.Success)
             return new CompanyUserCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CompanyUserServiceHander(state);
+        var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindByMatch(db, request.CompanyUser);
         if (entity != null)
             return new CompanyUserCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class CompanyUserService(
         if (!state.Success)
             return new CompanyUserReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CompanyUserServiceHander(state);
+        var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyUserId);
         if (entity == null)
             return new CompanyUserReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class CompanyUserService(
         if (!state.Success)
             return new CompanyUserUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CompanyUserServiceHander(state);
+        var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyUser.Id);
         if (entity == null)
             return new CompanyUserUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class CompanyUserService(
         if (!state.Success)
             return new CompanyUserDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CompanyUserServiceHander(state);
+        var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyUserId);
         if (entity == null)
             return new CompanyUserDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class CompanyUserService(
         if (!state.Success)
             return new CompanyUserListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new CompanyUserServiceHander(state);
+        var handler = new CompanyUserServiceHandler(state);
         if (!handler.CanList(db))
             return new CompanyUserListResponse() { State = state, ErrorNotAuthorized = true };
 

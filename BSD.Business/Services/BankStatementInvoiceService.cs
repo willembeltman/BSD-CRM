@@ -20,7 +20,7 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementInvoiceServiceHander(state);
+        var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindByMatch(db, request.BankStatementInvoice);
         if (entity != null)
             return new BankStatementInvoiceCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementInvoiceServiceHander(state);
+        var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementInvoiceId);
         if (entity == null)
             return new BankStatementInvoiceReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementInvoiceServiceHander(state);
+        var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementInvoice.Id);
         if (entity == null)
             return new BankStatementInvoiceUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementInvoiceServiceHander(state);
+        var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementInvoiceId);
         if (entity == null)
             return new BankStatementInvoiceDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new BankStatementInvoiceServiceHander(state);
+        var handler = new BankStatementInvoiceServiceHandler(state);
         if (!handler.CanList(db))
             return new BankStatementInvoiceListResponse() { State = state, ErrorNotAuthorized = true };
 

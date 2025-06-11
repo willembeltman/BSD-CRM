@@ -20,7 +20,7 @@ public class TechnologyService(
         if (!state.Success)
             return new TechnologyCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyServiceHander(state);
+        var handler = new TechnologyServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Technology);
         if (entity != null)
             return new TechnologyCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TechnologyService(
         if (!state.Success)
             return new TechnologyReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyServiceHander(state);
+        var handler = new TechnologyServiceHandler(state);
         var entity = handler.FindById(db, request.TechnologyId);
         if (entity == null)
             return new TechnologyReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TechnologyService(
         if (!state.Success)
             return new TechnologyUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyServiceHander(state);
+        var handler = new TechnologyServiceHandler(state);
         var entity = handler.FindById(db, request.Technology.Id);
         if (entity == null)
             return new TechnologyUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TechnologyService(
         if (!state.Success)
             return new TechnologyDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyServiceHander(state);
+        var handler = new TechnologyServiceHandler(state);
         var entity = handler.FindById(db, request.TechnologyId);
         if (entity == null)
             return new TechnologyDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TechnologyService(
         if (!state.Success)
             return new TechnologyListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TechnologyServiceHander(state);
+        var handler = new TechnologyServiceHandler(state);
         if (!handler.CanList(db))
             return new TechnologyListResponse() { State = state, ErrorNotAuthorized = true };
 

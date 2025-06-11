@@ -23,7 +23,7 @@ public class InvoiceTypeService(
         if (state.User == null || state.DbUser == null)
             return new InvoiceTypeCreateResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new InvoiceTypeServiceHander(state);
+        var handler = new InvoiceTypeServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceType);
         if (entity != null)
             return new InvoiceTypeCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -55,7 +55,7 @@ public class InvoiceTypeService(
         if (state.User == null || state.DbUser == null)
             return new InvoiceTypeReadResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new InvoiceTypeServiceHander(state);
+        var handler = new InvoiceTypeServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTypeId);
         if (entity == null)
             return new InvoiceTypeReadResponse() { State = state, ErrorItemNotFound = true };
@@ -77,7 +77,7 @@ public class InvoiceTypeService(
             if (state.User == null || state.DbUser == null)
                 return new InvoiceTypeUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new InvoiceTypeServiceHander(state);
+        var handler = new InvoiceTypeServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceType.Id);
         if (entity == null)
             return new InvoiceTypeUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -105,7 +105,7 @@ public class InvoiceTypeService(
         if (state.User == null || state.DbUser == null)
             return new InvoiceTypeDeleteResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new InvoiceTypeServiceHander(state);
+        var handler = new InvoiceTypeServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTypeId);
         if (entity == null)
             return new InvoiceTypeDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -132,7 +132,7 @@ public class InvoiceTypeService(
         if (state.User == null || state.DbUser == null)
             return new InvoiceTypeListResponse() { State = state, ErrorNotAuthorized = true };
 
-        var handler = new InvoiceTypeServiceHander(state);
+        var handler = new InvoiceTypeServiceHandler(state);
         if (!handler.CanList(db))
             return new InvoiceTypeListResponse() { State = state, ErrorNotAuthorized = true };
 

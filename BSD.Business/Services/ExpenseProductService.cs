@@ -20,7 +20,7 @@ public class ExpenseProductService(
         if (!state.Success)
             return new ExpenseProductCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseProductServiceHander(state);
+        var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindByMatch(db, request.ExpenseProduct);
         if (entity != null)
             return new ExpenseProductCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ExpenseProductService(
         if (!state.Success)
             return new ExpenseProductReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseProductServiceHander(state);
+        var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseProductId);
         if (entity == null)
             return new ExpenseProductReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ExpenseProductService(
         if (!state.Success)
             return new ExpenseProductUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseProductServiceHander(state);
+        var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseProduct.Id);
         if (entity == null)
             return new ExpenseProductUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ExpenseProductService(
         if (!state.Success)
             return new ExpenseProductDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseProductServiceHander(state);
+        var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseProductId);
         if (entity == null)
             return new ExpenseProductDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ExpenseProductService(
         if (!state.Success)
             return new ExpenseProductListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseProductServiceHander(state);
+        var handler = new ExpenseProductServiceHandler(state);
         if (!handler.CanList(db))
             return new ExpenseProductListResponse() { State = state, ErrorNotAuthorized = true };
 

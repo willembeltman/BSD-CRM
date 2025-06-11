@@ -20,7 +20,7 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentTypeServiceHander(state);
+        var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindByMatch(db, request.DocumentType);
         if (entity != null)
             return new DocumentTypeCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentTypeServiceHander(state);
+        var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentTypeId);
         if (entity == null)
             return new DocumentTypeReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentTypeServiceHander(state);
+        var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentType.Id);
         if (entity == null)
             return new DocumentTypeUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentTypeServiceHander(state);
+        var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentTypeId);
         if (entity == null)
             return new DocumentTypeDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new DocumentTypeServiceHander(state);
+        var handler = new DocumentTypeServiceHandler(state);
         if (!handler.CanList(db))
             return new DocumentTypeListResponse() { State = state, ErrorNotAuthorized = true };
 

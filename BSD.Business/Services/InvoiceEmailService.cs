@@ -20,7 +20,7 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceEmailServiceHander(state);
+        var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceEmail);
         if (entity != null)
             return new InvoiceEmailCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceEmailServiceHander(state);
+        var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceEmailId);
         if (entity == null)
             return new InvoiceEmailReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceEmailServiceHander(state);
+        var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceEmail.Id);
         if (entity == null)
             return new InvoiceEmailUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceEmailServiceHander(state);
+        var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceEmailId);
         if (entity == null)
             return new InvoiceEmailDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new InvoiceEmailServiceHander(state);
+        var handler = new InvoiceEmailServiceHandler(state);
         if (!handler.CanList(db))
             return new InvoiceEmailListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ResidenceServiceHander(state);
+        var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Residence);
         if (entity != null)
             return new ResidenceCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ResidenceServiceHander(state);
+        var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindById(db, request.ResidenceId);
         if (entity == null)
             return new ResidenceReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ResidenceServiceHander(state);
+        var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindById(db, request.Residence.Id);
         if (entity == null)
             return new ResidenceUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ResidenceServiceHander(state);
+        var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindById(db, request.ResidenceId);
         if (entity == null)
             return new ResidenceDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ResidenceServiceHander(state);
+        var handler = new ResidenceServiceHandler(state);
         if (!handler.CanList(db))
             return new ResidenceListResponse() { State = state, ErrorNotAuthorized = true };
 

@@ -20,7 +20,7 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TaxRateServiceHander(state);
+        var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TaxRate);
         if (entity != null)
             return new TaxRateCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TaxRateServiceHander(state);
+        var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindById(db, request.TaxRateId);
         if (entity == null)
             return new TaxRateReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TaxRateServiceHander(state);
+        var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindById(db, request.TaxRate.Id);
         if (entity == null)
             return new TaxRateUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TaxRateServiceHander(state);
+        var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindById(db, request.TaxRateId);
         if (entity == null)
             return new TaxRateDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TaxRateServiceHander(state);
+        var handler = new TaxRateServiceHandler(state);
         if (!handler.CanList(db))
             return new TaxRateListResponse() { State = state, ErrorNotAuthorized = true };
 

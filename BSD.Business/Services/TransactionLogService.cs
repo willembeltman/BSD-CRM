@@ -20,7 +20,7 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogServiceHander(state);
+        var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TransactionLog);
         if (entity != null)
             return new TransactionLogCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogServiceHander(state);
+        var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLogId);
         if (entity == null)
             return new TransactionLogReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogServiceHander(state);
+        var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLog.Id);
         if (entity == null)
             return new TransactionLogUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogServiceHander(state);
+        var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLogId);
         if (entity == null)
             return new TransactionLogDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new TransactionLogServiceHander(state);
+        var handler = new TransactionLogServiceHandler(state);
         if (!handler.CanList(db))
             return new TransactionLogListResponse() { State = state, ErrorNotAuthorized = true };
 

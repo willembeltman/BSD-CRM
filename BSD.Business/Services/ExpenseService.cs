@@ -20,7 +20,7 @@ public class ExpenseService(
         if (!state.Success)
             return new ExpenseCreateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseServiceHander(state);
+        var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Expense);
         if (entity != null)
             return new ExpenseCreateResponse() { State = state, ErrorAlreadyUsed = true };
@@ -49,7 +49,7 @@ public class ExpenseService(
         if (!state.Success)
             return new ExpenseReadResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseServiceHander(state);
+        var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseId);
         if (entity == null)
             return new ExpenseReadResponse() { State = state, ErrorItemNotFound = true };
@@ -68,7 +68,7 @@ public class ExpenseService(
         if (!state.Success)
             return new ExpenseUpdateResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseServiceHander(state);
+        var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.Expense.Id);
         if (entity == null)
             return new ExpenseUpdateResponse() { State = state, ErrorItemNotFound = true };
@@ -93,7 +93,7 @@ public class ExpenseService(
         if (!state.Success)
             return new ExpenseDeleteResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseServiceHander(state);
+        var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseId);
         if (entity == null)
             return new ExpenseDeleteResponse() { State = state, ErrorItemNotFound = true };
@@ -117,7 +117,7 @@ public class ExpenseService(
         if (!state.Success)
             return new ExpenseListResponse() { State = state, ErrorGettingState = true };
 
-        var handler = new ExpenseServiceHander(state);
+        var handler = new ExpenseServiceHandler(state);
         if (!handler.CanList(db))
             return new ExpenseListResponse() { State = state, ErrorNotAuthorized = true };
 

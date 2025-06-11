@@ -58,5 +58,6 @@ public static class AddBusinessServicesExtention
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IAuthenticationStateService, AuthenticationStateService>();
         services.AddScoped<IDateTimeService, DateTimeService>();
+        services.AddScoped<IForgotPasswordService, ForgetPasswordService>();
     }
 }

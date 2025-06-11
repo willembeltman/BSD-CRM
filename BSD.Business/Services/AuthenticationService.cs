@@ -1,30 +1,26 @@
 ﻿using BSD.Business.Converters;
 using BSD.Business.Interfaces;
 using BSD.Data;
+using BSD.Data.Entities;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
 using CodeGenerator.Shared.Attributes;
 using Microsoft.EntityFrameworkCore;
+using static BSD.Business.Services.AuthenticationStateService;
 
 namespace BSD.Business.Services;
 
 public class AuthenticationService(
     IForgotPasswordService forgotPasswordService,
-    AuthenticationStateService authenticationStateService,
-    ApplicationDbContext db,
-    IDateTimeService dateTime)
+    IAuthenticationStateService authenticationStateService,
+    ApplicationDbContext db)
     : IAuthenticationService
 {
     readonly ApplicationDbContext db = db;
-    readonly int ShortHoursAgo = -1;
-    readonly int LongHoursAgo = -72;
 
     [TsServiceMethod("Auth", "Login")]
     public LoginResponse Login(LoginRequest request)
     {
-        var now = dateTime.GetNow();
-        var shortago = now.AddHours(ShortHoursAgo);
-        var longago = now.AddHours(LongHoursAgo);
 
         var email = request.UserName;
         var password = request.Password;
@@ -55,32 +51,12 @@ public class AuthenticationService(
                 AuthenticationError = true // Security?
             };
 
-        var clientDevice = authenticationStateService.GetClientDevice();
-        if (clientDevice == null)
-            return new LoginResponse()
-            {
-                AuthenticationError = true
-            };
-
-        var clientIpAddress = authenticationStateService.GetIpAddress();
-        if (clientIpAddress == null)
-            return new LoginResponse()
-            {
-                AuthenticationError = true
-            };
-
-        var clientBearer = db.ClientBearers
-            .OrderByDescending(a => a.Date)
-            .FirstOrDefault(a =>
-                a.UserId == dbuser.Id &&
-                a.ClientIpAddressId == clientIpAddress.Id &&
-                a.ClientDeviceId == clientDevice.Id &&
-                a.Date > shortago);
+        var clientBearer = authenticationStateService.GetClientBearer(dbuser);
         if (clientBearer == null)
-        {
-            // Automatisch vernieuwen
-            clientBearer = authenticationStateService.CreateBearer(dbuser, clientDevice, clientIpAddress);
-        }
+            return new LoginResponse()
+            {
+                AuthenticationError = true
+            };
 
         var user = dbuser.ToDto();
         if (user == null)
@@ -169,28 +145,14 @@ public class AuthenticationService(
                 ErrorEmailInUse = true
             };
 
-        var dbuser = authenticationStateService.CreateUser(username, email, phoneNumber, password);
+        var dbuser = CreateUser(username, email, phoneNumber, password);
         if (dbuser == null)
             return new RegisterResponse()
             {
                 ErrorCouldNotCreateUser = true
             };
 
-        var device = authenticationStateService.GetClientDevice();
-        if (device == null)
-            return new RegisterResponse()
-            {
-                ErrorCouldNotGetDevice = true
-            };
-
-        var ipAddress = authenticationStateService.GetIpAddress();
-        if (ipAddress == null)
-            return new RegisterResponse()
-            {
-                ErrorEmailInUse = true
-            };
-
-        var bearer = authenticationStateService.CreateBearer(dbuser, device, ipAddress);
+        var bearer = authenticationStateService.GetClientBearer(dbuser);
         if (bearer == null)
             return new RegisterResponse()
             {
@@ -244,6 +206,23 @@ public class AuthenticationService(
         {
             Success = true
         };
+    }
+    private User CreateUser(string username, string email, string phoneNumber, string password)
+    {
+        // Create user
+        var passwordHash = StringHelper.HashString(password);
+        var userid = HashGeneratorHelper.GenerateCode(64);
+        var dbuser = new User()
+        {
+            Id = userid,
+            UserName = username,
+            Email = email,
+            PhoneNumber = phoneNumber,
+            PasswordHash = passwordHash,
+        };
+        db.Users.Add(dbuser);
+        db.SaveChanges();
+        return dbuser;
     }
 
 }

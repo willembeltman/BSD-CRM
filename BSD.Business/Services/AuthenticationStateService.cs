@@ -110,7 +110,37 @@ public class AuthenticationStateService(
         };
     }
 
-    internal string? IpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+    readonly int ShortHoursAgo = -1;
+    readonly int LongHoursAgo = -72;
+    public ClientBearer? GetClientBearer(User dbuser)
+    {
+        var now = dateTime.GetNow();
+        var shortago = now.AddHours(ShortHoursAgo);
+        var longago = now.AddHours(LongHoursAgo);
+
+        var clientDevice = GetClientDevice();
+        if (clientDevice == null) return null;
+
+        var clientIpAddress = GetIpAddress();
+        if (clientIpAddress == null) return null;
+
+        var clientBearer = db.ClientBearers
+            .OrderByDescending(a => a.Date)
+            .FirstOrDefault(a =>
+                a.UserId == dbuser.Id &&
+                a.ClientIpAddressId == clientIpAddress.Id &&
+                a.ClientDeviceId == clientDevice.Id &&
+                a.Date > shortago);
+        if (clientBearer == null)
+        {
+            // Automatisch vernieuwen
+            clientBearer = CreateBearer(dbuser, clientDevice, clientIpAddress);
+        }
+        return clientBearer;
+    }
+
+
+    public string? IpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
     internal KeyValuePair<string, string?>[]? Headers => httpContextAccessor.HttpContext!.Request.Headers
         .Select(a => new KeyValuePair<string, string?>(a.Key, a.Value))
         .ToArray();
@@ -132,23 +162,6 @@ public class AuthenticationStateService(
         db.ClientBearers.Add(bearer);
         db.SaveChanges();
         return bearer;
-    }
-    internal User CreateUser(string username, string email, string phoneNumber, string password)
-    {
-        // Create user
-        var passwordHash = StringHelper.HashString(password);
-        var userid = HashGeneratorHelper.GenerateCode(64);
-        var dbuser = new User()
-        {
-            Id = userid,
-            UserName = username,
-            Email = email,
-            PhoneNumber = phoneNumber,
-            PasswordHash = passwordHash,
-        };
-        db.Users.Add(dbuser);
-        db.SaveChanges();
-        return dbuser;
     }
     internal ClientIpAddress? GetIpAddress()
     {

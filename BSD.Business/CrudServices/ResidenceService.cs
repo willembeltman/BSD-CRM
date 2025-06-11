@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class ResidenceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ResidenceCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ResidenceCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Residence);
@@ -49,6 +52,9 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ResidenceReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindById(db, request.ResidenceId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class ResidenceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ResidenceUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new ResidenceUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindById(db, request.Residence.Id);
@@ -93,6 +102,9 @@ public class ResidenceService(
         if (!state.Success)
             return new ResidenceDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ResidenceDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ResidenceServiceHandler(state);
         var entity = handler.FindById(db, request.ResidenceId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class ResidenceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ResidenceListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ResidenceListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ResidenceServiceHandler(state);
         if (!handler.CanList(db))

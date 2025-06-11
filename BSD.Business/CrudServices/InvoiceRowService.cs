@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class InvoiceRowService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceRowCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceRowCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceRow);
@@ -49,6 +52,9 @@ public class InvoiceRowService(
         if (!state.Success)
             return new InvoiceRowReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceRowReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceRowId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class InvoiceRowService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceRowUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new InvoiceRowUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceRow.Id);
@@ -93,6 +102,9 @@ public class InvoiceRowService(
         if (!state.Success)
             return new InvoiceRowDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceRowDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceRowServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceRowId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class InvoiceRowService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceRowListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceRowListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceRowServiceHandler(state);
         if (!handler.CanList(db))

@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class SupplierService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new SupplierCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new SupplierCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new SupplierServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Supplier);
@@ -49,6 +52,9 @@ public class SupplierService(
         if (!state.Success)
             return new SupplierReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new SupplierReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new SupplierServiceHandler(state);
         var entity = handler.FindById(db, request.SupplierId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class SupplierService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new SupplierUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new SupplierUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new SupplierServiceHandler(state);
         var entity = handler.FindById(db, request.Supplier.Id);
@@ -93,6 +102,9 @@ public class SupplierService(
         if (!state.Success)
             return new SupplierDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new SupplierDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new SupplierServiceHandler(state);
         var entity = handler.FindById(db, request.SupplierId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class SupplierService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new SupplierListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new SupplierListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new SupplierServiceHandler(state);
         if (!handler.CanList(db))

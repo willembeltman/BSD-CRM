@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class ExpenseService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Expense);
@@ -49,6 +52,9 @@ public class ExpenseService(
         if (!state.Success)
             return new ExpenseReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class ExpenseService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new ExpenseUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.Expense.Id);
@@ -93,6 +102,9 @@ public class ExpenseService(
         if (!state.Success)
             return new ExpenseDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ExpenseServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class ExpenseService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseServiceHandler(state);
         if (!handler.CanList(db))

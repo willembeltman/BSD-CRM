@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class TrafficRegistrationService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TrafficRegistrationCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TrafficRegistrationCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TrafficRegistration);
@@ -49,6 +52,9 @@ public class TrafficRegistrationService(
         if (!state.Success)
             return new TrafficRegistrationReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TrafficRegistrationReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindById(db, request.TrafficRegistrationId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class TrafficRegistrationService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TrafficRegistrationUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new TrafficRegistrationUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindById(db, request.TrafficRegistration.Id);
@@ -93,6 +102,9 @@ public class TrafficRegistrationService(
         if (!state.Success)
             return new TrafficRegistrationDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TrafficRegistrationDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TrafficRegistrationServiceHandler(state);
         var entity = handler.FindById(db, request.TrafficRegistrationId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class TrafficRegistrationService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TrafficRegistrationListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TrafficRegistrationListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TrafficRegistrationServiceHandler(state);
         if (!handler.CanList(db))

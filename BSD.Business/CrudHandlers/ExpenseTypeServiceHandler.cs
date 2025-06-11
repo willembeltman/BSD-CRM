@@ -2,7 +2,7 @@ using BSD.Business.Models;
 using BSD.Data;
 using BSD.Data.Entities;
 
-namespace BSD.Business.ServiceHandlers;
+namespace BSD.Business.CrudHandlers;
 
 public class ExpenseTypeServiceHandler
 {

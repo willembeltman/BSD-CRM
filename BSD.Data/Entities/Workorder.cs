@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
-#nullable disable
-
+[Authorize]
 public class Workorder : IEntity
 {
     [Key]
@@ -14,13 +13,13 @@ public class Workorder : IEntity
     public long Id { get; set; }
 
     public long CompanyId { get; set; }
-    public virtual Company Company { get; set; }
+    public virtual Company Company { get; set; } = new Company();
     public long? ProjectId { get; set; }
-    public virtual Project Project { get; set; }
+    public virtual Project? Project { get; set; }
     public long? CustomerId { get; set; }
-    public virtual Customer Customer { get; set; }
+    public virtual Customer? Customer { get; set; }
     public long? RateId { get; set; }
-    public virtual Rate Rate { get; set; }
+    public virtual Rate? Rate { get; set; }
 
     public DateTime Start { get; set; }
     public DateTime Stop { get; set; }

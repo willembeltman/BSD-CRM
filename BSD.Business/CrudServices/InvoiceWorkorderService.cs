@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class InvoiceWorkorderService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceWorkorderCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceWorkorderCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceWorkorder);
@@ -49,6 +52,9 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceWorkorderReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceWorkorderId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class InvoiceWorkorderService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceWorkorderUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new InvoiceWorkorderUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceWorkorder.Id);
@@ -93,6 +102,9 @@ public class InvoiceWorkorderService(
         if (!state.Success)
             return new InvoiceWorkorderDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceWorkorderDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceWorkorderServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceWorkorderId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class InvoiceWorkorderService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceWorkorderListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceWorkorderListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceWorkorderServiceHandler(state);
         if (!handler.CanList(db))

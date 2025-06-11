@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class BankStatementService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new BankStatementCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindByMatch(db, request.BankStatement);
@@ -49,6 +52,9 @@ public class BankStatementService(
         if (!state.Success)
             return new BankStatementReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class BankStatementService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new BankStatementUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new BankStatementUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatement.Id);
@@ -93,6 +102,9 @@ public class BankStatementService(
         if (!state.Success)
             return new BankStatementDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new BankStatementServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class BankStatementService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new BankStatementListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementServiceHandler(state);
         if (!handler.CanList(db))

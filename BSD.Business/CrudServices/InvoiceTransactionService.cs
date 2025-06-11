@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class InvoiceTransactionService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceTransactionCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceTransactionCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceTransaction);
@@ -49,6 +52,9 @@ public class InvoiceTransactionService(
         if (!state.Success)
             return new InvoiceTransactionReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceTransactionReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTransactionId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class InvoiceTransactionService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceTransactionUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new InvoiceTransactionUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTransaction.Id);
@@ -93,6 +102,9 @@ public class InvoiceTransactionService(
         if (!state.Success)
             return new InvoiceTransactionDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceTransactionDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceTransactionServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceTransactionId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class InvoiceTransactionService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceTransactionListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceTransactionListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceTransactionServiceHandler(state);
         if (!handler.CanList(db))

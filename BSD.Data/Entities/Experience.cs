@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
-
 public class Experience : IEntity
 {
     [Key]

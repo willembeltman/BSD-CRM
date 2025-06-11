@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
+[Authorize]
 public class BankStatement : IEntity
 {
     [Key]

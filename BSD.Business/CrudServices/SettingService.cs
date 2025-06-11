@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class SettingService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new SettingCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new SettingCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new SettingServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Setting);
@@ -49,6 +52,9 @@ public class SettingService(
         if (!state.Success)
             return new SettingReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new SettingReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new SettingServiceHandler(state);
         var entity = handler.FindById(db, request.SettingId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class SettingService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new SettingUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new SettingUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new SettingServiceHandler(state);
         var entity = handler.FindById(db, request.Setting.Id);
@@ -93,6 +102,9 @@ public class SettingService(
         if (!state.Success)
             return new SettingDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new SettingDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new SettingServiceHandler(state);
         var entity = handler.FindById(db, request.SettingId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class SettingService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new SettingListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new SettingListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new SettingServiceHandler(state);
         if (!handler.CanList(db))

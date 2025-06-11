@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class CompanyUserService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyUserCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new CompanyUserCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindByMatch(db, request.CompanyUser);
@@ -49,6 +52,9 @@ public class CompanyUserService(
         if (!state.Success)
             return new CompanyUserReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new CompanyUserReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyUserId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class CompanyUserService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyUserUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new CompanyUserUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyUser.Id);
@@ -93,6 +102,9 @@ public class CompanyUserService(
         if (!state.Success)
             return new CompanyUserDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new CompanyUserDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new CompanyUserServiceHandler(state);
         var entity = handler.FindById(db, request.CompanyUserId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class CompanyUserService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CompanyUserListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new CompanyUserListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CompanyUserServiceHandler(state);
         if (!handler.CanList(db))

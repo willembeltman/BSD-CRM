@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class InvoiceEmailService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceEmailCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceEmailCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceEmail);
@@ -49,6 +52,9 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceEmailReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceEmailId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class InvoiceEmailService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceEmailUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new InvoiceEmailUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceEmail.Id);
@@ -93,6 +102,9 @@ public class InvoiceEmailService(
         if (!state.Success)
             return new InvoiceEmailDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceEmailDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceEmailServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceEmailId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class InvoiceEmailService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceEmailListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceEmailListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceEmailServiceHandler(state);
         if (!handler.CanList(db))

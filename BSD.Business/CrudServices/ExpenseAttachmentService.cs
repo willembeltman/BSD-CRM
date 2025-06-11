@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class ExpenseAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseAttachmentCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseAttachmentCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.ExpenseAttachment);
@@ -49,6 +52,9 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseAttachmentReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseAttachmentId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class ExpenseAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new ExpenseAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseAttachment.Id);
@@ -93,6 +102,9 @@ public class ExpenseAttachmentService(
         if (!state.Success)
             return new ExpenseAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseAttachmentDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ExpenseAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseAttachmentId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class ExpenseAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseAttachmentListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseAttachmentServiceHandler(state);
         if (!handler.CanList(db))

@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class DocumentAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new DocumentAttachmentCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new DocumentAttachmentCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.DocumentAttachment);
@@ -49,6 +52,9 @@ public class DocumentAttachmentService(
         if (!state.Success)
             return new DocumentAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new DocumentAttachmentReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentAttachmentId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class DocumentAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new DocumentAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new DocumentAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentAttachment.Id);
@@ -93,6 +102,9 @@ public class DocumentAttachmentService(
         if (!state.Success)
             return new DocumentAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new DocumentAttachmentDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new DocumentAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentAttachmentId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class DocumentAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new DocumentAttachmentListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new DocumentAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new DocumentAttachmentServiceHandler(state);
         if (!handler.CanList(db))

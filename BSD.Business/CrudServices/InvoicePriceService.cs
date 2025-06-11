@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class InvoicePriceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoicePriceCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoicePriceCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoicePriceServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoicePrice);
@@ -49,6 +52,9 @@ public class InvoicePriceService(
         if (!state.Success)
             return new InvoicePriceReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoicePriceReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoicePriceServiceHandler(state);
         var entity = handler.FindById(db, request.InvoicePriceId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class InvoicePriceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoicePriceUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new InvoicePriceUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoicePriceServiceHandler(state);
         var entity = handler.FindById(db, request.InvoicePrice.Id);
@@ -93,6 +102,9 @@ public class InvoicePriceService(
         if (!state.Success)
             return new InvoicePriceDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoicePriceDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoicePriceServiceHandler(state);
         var entity = handler.FindById(db, request.InvoicePriceId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class InvoicePriceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoicePriceListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoicePriceListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoicePriceServiceHandler(state);
         if (!handler.CanList(db))

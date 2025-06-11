@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class TransactionLogService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionLogCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TransactionLogCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TransactionLog);
@@ -49,6 +52,9 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TransactionLogReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLogId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class TransactionLogService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionLogUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new TransactionLogUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLog.Id);
@@ -93,6 +102,9 @@ public class TransactionLogService(
         if (!state.Success)
             return new TransactionLogDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TransactionLogDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TransactionLogServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionLogId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class TransactionLogService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionLogListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TransactionLogListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionLogServiceHandler(state);
         if (!handler.CanList(db))

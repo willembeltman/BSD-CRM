@@ -3,7 +3,7 @@ using BSD.Data;
 using BSD.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BSD.Business.ServiceHandlers;
+namespace BSD.Business.CrudHandlers;
 
 public class CompanyServiceHandler
 {

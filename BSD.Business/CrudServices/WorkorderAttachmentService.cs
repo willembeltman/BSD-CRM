@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class WorkorderAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new WorkorderAttachmentCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new WorkorderAttachmentCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.WorkorderAttachment);
@@ -49,6 +52,9 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new WorkorderAttachmentReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderAttachmentId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class WorkorderAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new WorkorderAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new WorkorderAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderAttachment.Id);
@@ -93,6 +102,9 @@ public class WorkorderAttachmentService(
         if (!state.Success)
             return new WorkorderAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new WorkorderAttachmentDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new WorkorderAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.WorkorderAttachmentId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class WorkorderAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new WorkorderAttachmentListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new WorkorderAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new WorkorderAttachmentServiceHandler(state);
         if (!handler.CanList(db))

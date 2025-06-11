@@ -2,7 +2,6 @@
 using Storage.Shared.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using NotMappedAttribute = System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute;
 
 namespace BSD.Data.Entities;
 

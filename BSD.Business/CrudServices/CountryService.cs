@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class CountryService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CountryCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new CountryCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CountryServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Country);
@@ -49,6 +52,9 @@ public class CountryService(
         if (!state.Success)
             return new CountryReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new CountryReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new CountryServiceHandler(state);
         var entity = handler.FindById(db, request.CountryId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class CountryService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CountryUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new CountryUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CountryServiceHandler(state);
         var entity = handler.FindById(db, request.Country.Id);
@@ -93,6 +102,9 @@ public class CountryService(
         if (!state.Success)
             return new CountryDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new CountryDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new CountryServiceHandler(state);
         var entity = handler.FindById(db, request.CountryId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class CountryService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CountryListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new CountryListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CountryServiceHandler(state);
         if (!handler.CanList(db))

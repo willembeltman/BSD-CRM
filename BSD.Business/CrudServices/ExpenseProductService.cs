@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class ExpenseProductService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseProductCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseProductCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindByMatch(db, request.ExpenseProduct);
@@ -49,6 +52,9 @@ public class ExpenseProductService(
         if (!state.Success)
             return new ExpenseProductReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseProductReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseProductId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class ExpenseProductService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseProductUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new ExpenseProductUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseProduct.Id);
@@ -93,6 +102,9 @@ public class ExpenseProductService(
         if (!state.Success)
             return new ExpenseProductDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseProductDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new ExpenseProductServiceHandler(state);
         var entity = handler.FindById(db, request.ExpenseProductId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class ExpenseProductService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new ExpenseProductListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new ExpenseProductListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new ExpenseProductServiceHandler(state);
         if (!handler.CanList(db))

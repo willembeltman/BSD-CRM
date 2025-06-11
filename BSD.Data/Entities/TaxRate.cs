@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
+[Authorize]
 public class TaxRate : IEntity
 {
     [Key]

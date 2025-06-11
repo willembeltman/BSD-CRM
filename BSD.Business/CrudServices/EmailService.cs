@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class EmailService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new EmailCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new EmailCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new EmailServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Email);
@@ -49,6 +52,9 @@ public class EmailService(
         if (!state.Success)
             return new EmailReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new EmailReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new EmailServiceHandler(state);
         var entity = handler.FindById(db, request.EmailId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class EmailService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new EmailUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new EmailUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new EmailServiceHandler(state);
         var entity = handler.FindById(db, request.Email.Id);
@@ -93,6 +102,9 @@ public class EmailService(
         if (!state.Success)
             return new EmailDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new EmailDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new EmailServiceHandler(state);
         var entity = handler.FindById(db, request.EmailId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class EmailService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new EmailListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new EmailListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new EmailServiceHandler(state);
         if (!handler.CanList(db))

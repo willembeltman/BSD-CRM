@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class InvoiceAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceAttachmentCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceAttachmentCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindByMatch(db, request.InvoiceAttachment);
@@ -49,6 +52,9 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceAttachmentReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceAttachmentId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class InvoiceAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceAttachmentUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new InvoiceAttachmentUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceAttachment.Id);
@@ -93,6 +102,9 @@ public class InvoiceAttachmentService(
         if (!state.Success)
             return new InvoiceAttachmentDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceAttachmentDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new InvoiceAttachmentServiceHandler(state);
         var entity = handler.FindById(db, request.InvoiceAttachmentId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class InvoiceAttachmentService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new InvoiceAttachmentListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new InvoiceAttachmentListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new InvoiceAttachmentServiceHandler(state);
         if (!handler.CanList(db))

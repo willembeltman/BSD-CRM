@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class CustomerService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CustomerCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new CustomerCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CustomerServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Customer);
@@ -49,6 +52,9 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new CustomerReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new CustomerServiceHandler(state);
         var entity = handler.FindById(db, request.CustomerId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class CustomerService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CustomerUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new CustomerUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CustomerServiceHandler(state);
         var entity = handler.FindById(db, request.Customer.Id);
@@ -93,6 +102,9 @@ public class CustomerService(
         if (!state.Success)
             return new CustomerDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new CustomerDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new CustomerServiceHandler(state);
         var entity = handler.FindById(db, request.CustomerId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class CustomerService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new CustomerListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new CustomerListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new CustomerServiceHandler(state);
         if (!handler.CanList(db))

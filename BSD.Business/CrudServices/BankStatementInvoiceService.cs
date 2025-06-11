@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class BankStatementInvoiceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new BankStatementInvoiceCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementInvoiceCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindByMatch(db, request.BankStatementInvoice);
@@ -49,6 +52,9 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementInvoiceReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementInvoiceId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class BankStatementInvoiceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new BankStatementInvoiceUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new BankStatementInvoiceUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementInvoice.Id);
@@ -93,6 +102,9 @@ public class BankStatementInvoiceService(
         if (!state.Success)
             return new BankStatementInvoiceDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementInvoiceDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new BankStatementInvoiceServiceHandler(state);
         var entity = handler.FindById(db, request.BankStatementInvoiceId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class BankStatementInvoiceService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new BankStatementInvoiceListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new BankStatementInvoiceListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new BankStatementInvoiceServiceHandler(state);
         if (!handler.CanList(db))

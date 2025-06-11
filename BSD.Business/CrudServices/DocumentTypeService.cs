@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class DocumentTypeService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new DocumentTypeCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new DocumentTypeCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindByMatch(db, request.DocumentType);
@@ -49,6 +52,9 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new DocumentTypeReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentTypeId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class DocumentTypeService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new DocumentTypeUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new DocumentTypeUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentType.Id);
@@ -93,6 +102,9 @@ public class DocumentTypeService(
         if (!state.Success)
             return new DocumentTypeDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new DocumentTypeDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new DocumentTypeServiceHandler(state);
         var entity = handler.FindById(db, request.DocumentTypeId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class DocumentTypeService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new DocumentTypeListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new DocumentTypeListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new DocumentTypeServiceHandler(state);
         if (!handler.CanList(db))

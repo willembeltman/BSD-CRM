@@ -8,9 +8,11 @@ public class GeneratorConfig
 {
     public string AngularAppDirectory { get; }
     public string AngularApiServicesDirectory { get; }
-    public string AngularApiServicesDirectoryShortName { get; }
+    public string AngularApiServicesDirectoryTsNamespace { get; }
     public string DotNetControllersDirectory { get; }
     public string DotNetControllersNamespace { get; }
+    public string DotNetAddBusinessServicesFileName { get; }
+    public string DotNetAddBusinessServicesNamespace { get; }
     public string DotNetProxiesDirectory { get; }
     public string DotNetProxiesNamespace { get; }
 
@@ -23,16 +25,20 @@ public class GeneratorConfig
         string AngularApiServicesTsNamespace,
         string DotNetControllersDirectory,
         string DotNetControllersNamespace,
+        string DotNetAddBusinessServicesFileName,
+        string DotNetAddBusinessServicesNamespace,
         string DotNetProxiesDirectory,
         string DotNetProxiesNamespace,
         (Assembly Assembly, string CsNamespace, string TsNamespace)[] ModelNamespaces,
         (Assembly Assembly, string CsNamespace)[] ServiceNamespaces)
     {
         this.AngularApiServicesDirectory = AngularApiServicesDirectory;
-        this.AngularApiServicesDirectoryShortName = AngularApiServicesTsNamespace;
+        this.AngularApiServicesDirectoryTsNamespace = AngularApiServicesTsNamespace;
         this.DotNetControllersDirectory = DotNetControllersDirectory;
         this.AngularAppDirectory = AngularAppDirectory;
         this.DotNetControllersNamespace = DotNetControllersNamespace;
+        this.DotNetAddBusinessServicesFileName = DotNetAddBusinessServicesFileName;
+        this.DotNetAddBusinessServicesNamespace = DotNetAddBusinessServicesNamespace;
         this.DotNetProxiesDirectory = DotNetProxiesDirectory;
         this.DotNetProxiesNamespace = DotNetProxiesNamespace;
 

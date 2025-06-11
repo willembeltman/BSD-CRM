@@ -1,9 +1,11 @@
 ﻿using BSD.Shared;
+using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
+[Authorize]
 public class Setting : IEntity
 {
     [Key]

@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class RateService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new RateCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new RateCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new RateServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Rate);
@@ -49,6 +52,9 @@ public class RateService(
         if (!state.Success)
             return new RateReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new RateReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new RateServiceHandler(state);
         var entity = handler.FindById(db, request.RateId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class RateService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new RateUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new RateUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new RateServiceHandler(state);
         var entity = handler.FindById(db, request.Rate.Id);
@@ -93,6 +102,9 @@ public class RateService(
         if (!state.Success)
             return new RateDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new RateDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new RateServiceHandler(state);
         var entity = handler.FindById(db, request.RateId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class RateService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new RateListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new RateListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new RateServiceHandler(state);
         if (!handler.CanList(db))

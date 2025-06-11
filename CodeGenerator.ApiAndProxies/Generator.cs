@@ -1,5 +1,7 @@
 ﻿using CodeGenerator.Shared.Helpers;
+using CodeGenerator.Step2.ApiAndProxies.Services;
 using CodeGenerator.Step2.ApisAndProxies;
+using System.Net.NetworkInformation;
 
 namespace CodeGenerator.Step2.ApisAndProxies;
 
@@ -13,6 +15,7 @@ public class Generator(GeneratorConfig generatorConfig)
         ExportCsProxies();
         //ExportTsModels();
         //ExportTsProxies();
+        ExportAddBusinessServicesExtention();
     }
 
     private void ExportCsControllers()
@@ -321,7 +324,7 @@ public class Generator(GeneratorConfig generatorConfig)
     }
     private void ExportTsProxies()
     {
-        var huidigeTsFolder = Config.AngularApiServicesDirectoryShortName;
+        var huidigeTsFolder = Config.AngularApiServicesDirectoryTsNamespace;
 
         var allmethods = Config.ServiceNamespaces
             .SelectMany(a => a.Services)
@@ -417,6 +420,75 @@ public class Generator(GeneratorConfig generatorConfig)
         }
     }
 
+    public void ExportAddBusinessServicesExtention()
+    {
+        //// Example output:
+        //using Microsoft.Extensions.DependencyInjection;
+
+        //namespace BSD.Business;
+
+        //public static class AddBusinessServicesExtention
+        //{
+        //    public static void AddBusinessServices(this IServiceCollection services)
+        //    {
+        //        //builder.Services.AddScoped<IWorkorderService, WorkorderService>();
+        //        //builder.Services.AddScoped<ICompanyService, CompanyService>();
+        //        //builder.Services.AddScoped<ICountryService, CountryService>();
+        //        //builder.Services.AddScoped<IUserService, UserService>();
+        //        //builder.Services.AddScoped<IProjectService, ProjectService>();
+        //        //builder.Services.AddScoped<ICustomerService, CustomerService>();
+        //        //builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+        //        //builder.Services.AddScoped<IRateService, RateService>();
+        //    }
+        //}
+
+        var usingCode = "using Microsoft.Extensions.DependencyInjection;\r\n";
+        var propertiesCode = "";
+        foreach (var serviceNamespace in Config.ServiceNamespaces)
+        {
+            var @using = $"using {serviceNamespace.Name};";
+            if (!usingCode.Contains(@using))
+            {
+                usingCode += $"{@using}\r\n";
+            }
+
+            foreach (var service in serviceNamespace.Services)
+            {
+                foreach (var @interface in service.Interfaces)
+                {
+                    var interfaceUsing = $"using {@interface.Namespace};";
+                    if (!usingCode.Contains(interfaceUsing))
+                    {
+                        usingCode += $"{interfaceUsing}\r\n";
+                    }
+                    propertiesCode += $"        services.AddScoped<{@interface.Name}, {service.Name}Service>();\r\n";
+                }
+            }
+        }
+
+        //var properties = Config.ServiceNamespaces
+        //    .SelectMany(a => a.Services)
+        //    .Select(a => $"        services.AddScoped<I{a.Name}Service, {a.Name}Service>();");
+
+        var code = $@"{usingCode}
+namespace {Config.DotNetAddBusinessServicesNamespace};
+
+public static class AddBusinessServicesExtention
+{{
+    public static void AddBusinessServices(this IServiceCollection services)
+    {{
+{propertiesCode}    }}
+}}";
+
+        #region Saven
+
+        var filename = Config.DotNetAddBusinessServicesFileName;
+        WriteToFile(filename, code);
+
+        Console.WriteLine(filename + Environment.NewLine + code + Environment.NewLine);
+
+        #endregion
+    }
 
     private static string GetFolderPath(string huidige, string target)
     {

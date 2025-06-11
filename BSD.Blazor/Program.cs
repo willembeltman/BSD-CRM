@@ -22,10 +22,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IAuthenticationStateService, AuthenticationStateService>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-builder.Services.AddScoped<IDateTimeService, DateTimeService>();
-builder.Services.AddCrudServices();
+builder.Services.AddBusinessServices();
 
 var app = builder.Build();
 

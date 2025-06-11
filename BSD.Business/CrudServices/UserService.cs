@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class UserService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new UserCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new UserCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new UserServiceHandler(state);
         var entity = handler.FindByMatch(db, request.User);
@@ -49,6 +52,9 @@ public class UserService(
         if (!state.Success)
             return new UserReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new UserReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new UserServiceHandler(state);
         var entity = handler.FindById(db, request.UserId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class UserService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new UserUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new UserUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new UserServiceHandler(state);
         var entity = handler.FindById(db, request.User.Id);
@@ -93,6 +102,9 @@ public class UserService(
         if (!state.Success)
             return new UserDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new UserDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new UserServiceHandler(state);
         var entity = handler.FindById(db, request.UserId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class UserService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new UserListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new UserListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new UserServiceHandler(state);
         if (!handler.CanList(db))

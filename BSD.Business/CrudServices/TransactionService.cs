@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class TransactionService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TransactionCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionServiceHandler(state);
         var entity = handler.FindByMatch(db, request.Transaction);
@@ -49,6 +52,9 @@ public class TransactionService(
         if (!state.Success)
             return new TransactionReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TransactionReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TransactionServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class TransactionService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new TransactionUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionServiceHandler(state);
         var entity = handler.FindById(db, request.Transaction.Id);
@@ -93,6 +102,9 @@ public class TransactionService(
         if (!state.Success)
             return new TransactionDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TransactionDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TransactionServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class TransactionService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TransactionListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionServiceHandler(state);
         if (!handler.CanList(db))

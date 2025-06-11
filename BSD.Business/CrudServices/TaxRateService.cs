@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class TaxRateService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TaxRateCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TaxRateCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TaxRate);
@@ -49,6 +52,9 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TaxRateReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindById(db, request.TaxRateId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class TaxRateService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TaxRateUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new TaxRateUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindById(db, request.TaxRate.Id);
@@ -93,6 +102,9 @@ public class TaxRateService(
         if (!state.Success)
             return new TaxRateDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TaxRateDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TaxRateServiceHandler(state);
         var entity = handler.FindById(db, request.TaxRateId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class TaxRateService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TaxRateListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TaxRateListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TaxRateServiceHandler(state);
         if (!handler.CanList(db))

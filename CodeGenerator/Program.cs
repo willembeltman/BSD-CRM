@@ -48,6 +48,8 @@ var config2 = new CodeGenerator.Step2.ApisAndProxies.GeneratorConfig(
     AngularApiServicesTsNamespace: "apiservices",
     DotNetControllersDirectory: @"..\..\..\..\BSD.Api\Controllers",
     DotNetControllersNamespace: "BSD.Api.Controllers",
+    DotNetAddBusinessServicesFileName: @"..\..\..\..\BSD.Business\AddBusinessServicesExtention.cs",
+    DotNetAddBusinessServicesNamespace: "BSD.Business",
     DotNetProxiesDirectory: @"..\..\..\..\BSD.Proxy",
     DotNetProxiesNamespace: "BSD.Proxy",
     ModelNamespaces:

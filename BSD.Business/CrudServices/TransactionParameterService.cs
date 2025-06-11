@@ -1,5 +1,5 @@
 using BSD.Business.Converters;
-using BSD.Business.ServiceHandlers;
+using BSD.Business.CrudHandlers;
 using BSD.Business.Interfaces;
 using BSD.Data;
 using BSD.Shared.RequestDtos;
@@ -19,6 +19,9 @@ public class TransactionParameterService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionParameterCreateResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TransactionParameterCreateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindByMatch(db, request.TransactionParameter);
@@ -49,6 +52,9 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterReadResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TransactionParameterReadResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionParameterId);
         if (entity == null)
@@ -67,6 +73,9 @@ public class TransactionParameterService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionParameterUpdateResponse() { State = state, ErrorGettingState = true };
+
+            if (state.User == null || state.DbUser == null)
+                return new TransactionParameterUpdateResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionParameter.Id);
@@ -93,6 +102,9 @@ public class TransactionParameterService(
         if (!state.Success)
             return new TransactionParameterDeleteResponse() { State = state, ErrorGettingState = true };
 
+        if (state.User == null || state.DbUser == null)
+            return new TransactionParameterDeleteResponse() { State = state, ErrorNotAuthorized = true };
+
         var handler = new TransactionParameterServiceHandler(state);
         var entity = handler.FindById(db, request.TransactionParameterId);
         if (entity == null)
@@ -116,6 +128,9 @@ public class TransactionParameterService(
         var state = authenticationService.GetState(request);
         if (!state.Success)
             return new TransactionParameterListResponse() { State = state, ErrorGettingState = true };
+
+        if (state.User == null || state.DbUser == null)
+            return new TransactionParameterListResponse() { State = state, ErrorNotAuthorized = true };
 
         var handler = new TransactionParameterServiceHandler(state);
         if (!handler.CanList(db))

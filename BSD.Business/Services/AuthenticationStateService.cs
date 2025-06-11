@@ -18,11 +18,11 @@ public class AuthenticationStateService(
     IDateTimeService dateTime)
     : IAuthenticationStateService
 {
-    static int shorthoursago = -1;
-    static int longhoursago = -72;
+    static int ShortHoursAgo = -1;
+    static int LongHoursAgo = -72;
     ApplicationDbContext db = db;
 
-    public AuthenticationState GetState(BaseRequest request)
+    public async Task<AuthenticationState> GetState(BaseRequest request)
     {
         if (IpAddress == null)
             return new AuthenticationState()
@@ -35,24 +35,24 @@ public class AuthenticationStateService(
             };
 
         var now = dateTime.GetNow();
-        var shortago = now.AddHours(shorthoursago);
-        var longago = now.AddHours(longhoursago);
+        var shortago = now.AddHours(ShortHoursAgo);
+        var longago = now.AddHours(LongHoursAgo);
 
-        var clientDevice = GetClientDevice();
+        var clientDevice = await GetClientDevice();
         if (clientDevice == null)
             return new AuthenticationState()
             {
             };
 
-        var clientIpAddress = GetIpAddress();
+        var clientIpAddress = await GetIpAddress();
         if (clientIpAddress == null)
             return new AuthenticationState()
             {
             };
 
-        var clientBearer = db.ClientBearers
+        var clientBearer = await db.ClientBearers
             .OrderByDescending(a => a.Date)
-            .FirstOrDefault(a =>
+            .FirstOrDefaultAsync(a =>
                 a.Id == request.BearerId &&
                 a.Date > longago);
         if (clientBearer == null || clientBearer.UserId == null)
@@ -71,9 +71,9 @@ public class AuthenticationStateService(
             };
 
         // Get user from database
-        var user = db.Users
+        var user = await db.Users
             .Include(a => a.CurrentCompany)
-            .FirstOrDefault(a => a.Id == clientBearer.UserId);
+            .FirstOrDefaultAsync(a => a.Id == clientBearer.UserId);
         if (user == null)
             return new AuthenticationState()
             {
@@ -82,13 +82,13 @@ public class AuthenticationStateService(
         if (clientBearer.ClientIpAddressId != clientIpAddress.Id)
         {
             // Ip veranderd, toch automatisch vernieuwen
-            clientBearer = CreateBearer(user, clientDevice, clientIpAddress);
+            clientBearer = await CreateBearer(user, clientDevice, clientIpAddress);
         }
 
         if (clientBearer.Date < shortago && clientBearer.Date > longago)
         {
             // Automatisch vernieuwen
-            clientBearer = CreateBearer(user, clientDevice, clientIpAddress);
+            clientBearer = await CreateBearer(user, clientDevice, clientIpAddress);
         }
 
         // Get current company from database
@@ -109,19 +109,16 @@ public class AuthenticationStateService(
             DbCurrentCompany = currentcompany,
         };
     }
-
-    readonly int ShortHoursAgo = -1;
-    readonly int LongHoursAgo = -72;
-    public ClientBearer? GetClientBearer(User dbuser)
+    public async Task<ClientBearer?> GetClientBearer(User dbuser)
     {
         var now = dateTime.GetNow();
         var shortago = now.AddHours(ShortHoursAgo);
         var longago = now.AddHours(LongHoursAgo);
 
-        var clientDevice = GetClientDevice();
+        var clientDevice = await GetClientDevice();
         if (clientDevice == null) return null;
 
-        var clientIpAddress = GetIpAddress();
+        var clientIpAddress = await GetIpAddress();
         if (clientIpAddress == null) return null;
 
         var clientBearer = db.ClientBearers
@@ -134,15 +131,15 @@ public class AuthenticationStateService(
         if (clientBearer == null)
         {
             // Automatisch vernieuwen
-            clientBearer = CreateBearer(dbuser, clientDevice, clientIpAddress);
+            clientBearer = await CreateBearer(dbuser, clientDevice, clientIpAddress);
         }
         return clientBearer;
     }
-    public User CreateUser(string username, string email, string phoneNumber, string password)
+    public async Task<User> CreateUser(string username, string email, string phoneNumber, string password)
     {
         // Create user
-        var passwordHash = StringHelper.HashString(password);
-        var userid = HashGeneratorHelper.GenerateCode(64);
+        var passwordHash = await StringHelper.HashString(password);
+        var userid = await HashGeneratorHelper.GenerateCode(64);
         var dbuser = new User()
         {
             Id = userid,
@@ -151,20 +148,20 @@ public class AuthenticationStateService(
             PhoneNumber = phoneNumber,
             PasswordHash = passwordHash,
         };
-        db.Users.Add(dbuser);
-        db.SaveChanges();
+        await db.Users.AddAsync(dbuser);
+        await db.SaveChangesAsync();
         return dbuser;
     }
 
     public string? IpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-    internal KeyValuePair<string, string?>[]? Headers => httpContextAccessor.HttpContext!.Request.Headers
+    public KeyValuePair<string, string?>[]? Headers => httpContextAccessor.HttpContext!.Request.Headers
         .Select(a => new KeyValuePair<string, string?>(a.Key, a.Value))
         .ToArray();
 
-    internal ClientBearer CreateBearer(User user, ClientDevice clientDevice, ClientIpAddress clientIpAddress)
+    internal async Task<ClientBearer> CreateBearer(User user, ClientDevice clientDevice, ClientIpAddress clientIpAddress)
     {
         // Te oud, vernieuwen
-        var bearerid = HashGeneratorHelper.GenerateCode(64);
+        var bearerid = await HashGeneratorHelper.GenerateCode(64);
         var bearer = new ClientBearer()
         {
             Id = bearerid,
@@ -175,29 +172,29 @@ public class AuthenticationStateService(
             User = user,
             UserId = user.Id,
         };
-        db.ClientBearers.Add(bearer);
-        db.SaveChanges();
+        await db.ClientBearers.AddAsync(bearer);
+        await db.SaveChangesAsync();
         return bearer;
     }
-    internal ClientIpAddress? GetIpAddress()
+    internal async Task<ClientIpAddress?> GetIpAddress()
     {
         if (IpAddress == null)
             return null;
 
-        var location = db.ClientLocations.FirstOrDefault(a => a.IpAddress == IpAddress);
+        var location = await db.ClientLocations.FirstOrDefaultAsync(a => a.IpAddress == IpAddress);
         if (location == null)
         {
             location = new ClientIpAddress()
             {
                 IpAddress = IpAddress,
             };
-            db.ClientLocations.Add(location);
-            db.SaveChanges();
+            await db.ClientLocations.AddAsync(location);
+            await db.SaveChangesAsync();
         }
 
         return location;
     }
-    internal ClientDevice? GetClientDevice()
+    internal async Task<ClientDevice?> GetClientDevice()
     {
         if (Headers == null)
             return null;
@@ -211,8 +208,8 @@ public class AuthenticationStateService(
         if (useragent == null)
             return null;
 
-        var deviceHash = StringHelper.HashString(useragent);
-        var device = db.ClientDevices.FirstOrDefault(a => a.DeviceHash == deviceHash);
+        var deviceHash = await StringHelper.HashString(useragent);
+        var device = await db.ClientDevices.FirstOrDefaultAsync(a => a.DeviceHash == deviceHash);
         if (device == null)
         {
             device = new ClientDevice()
@@ -227,8 +224,8 @@ public class AuthenticationStateService(
                     },
                 }
             };
-            db.ClientDevices.Add(device);
-            db.SaveChanges();
+            await db.ClientDevices.AddAsync(device);
+            await db.SaveChangesAsync();
         }
 
         return device;
@@ -238,33 +235,37 @@ public class AuthenticationStateService(
     {
         static Random random = new Random();
         static string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        internal static string GenerateCode(int length)
+        internal static async Task<string> GenerateCode(int length)
         {
-            char[] code = new char[length];
-            for (int i = 0; i < length; i++)
+            return await Task.Run(() =>
             {
-                code[i] = chars[random.Next(chars.Length)];
-            }
-            return new string(code);
+                char[] code = new char[length];
+                for (int i = 0; i < length; i++)
+                {
+                    code[i] = chars[random.Next(chars.Length)];
+                }
+                return new string(code);
+            });
         }
     }
     internal static class StringHelper
     {
-        internal static string HashString(string input)
+        internal static async Task<string> HashString(string input)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // Convert the input string to a byte array and compute the hash.
-                byte[] data = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+            using var sha256Hash = SHA256.Create();
 
-                // Convert the byte array to a hexadecimal string.
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < data.Length; i++)
-                {
-                    builder.Append(data[i].ToString("x2"));
-                }
-                return builder.ToString();
+            // Convert the input string to a byte array and compute the hash.
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(input));
+            var data = await sha256Hash.ComputeHashAsync(stream);
+
+            // Convert the byte array to a hexadecimal string.
+            var builder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                builder.Append(data[i].ToString("x2"));
             }
+            return builder.ToString();
+
         }
     }
     internal static class EmailAddressHelper

@@ -5,7 +5,7 @@ namespace BSD.Business.Services;
 
 public class ForgetPasswordService : IForgotPasswordService
 {
-    public void Handle(User dbuser)
+    public async Task Handle(User dbuser)
     {
         throw new NotImplementedException();
     }

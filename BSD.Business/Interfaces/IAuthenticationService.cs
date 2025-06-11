@@ -5,7 +5,7 @@ namespace BSD.Business.Interfaces;
 
 public interface IAuthenticationService
 {
-    ForgotPasswordResponse ForgotPassword(ForgotPasswordRequest request);
-    LoginResponse Login(LoginRequest request);
-    RegisterResponse Register(RegisterRequest request);
+    Task<ForgotPasswordResponse> ForgotPassword(ForgotPasswordRequest request);
+    Task<LoginResponse> Login(LoginRequest request);
+    Task<RegisterResponse> Register(RegisterRequest request);
 }

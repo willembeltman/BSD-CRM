@@ -35,7 +35,7 @@
     private string? Password { get; set; }
     private string? ErrorMessage { get; set; }
 
-    private void LoginClicked()
+    private async Task LoginClicked()
     {
         ErrorMessage = null;
 
@@ -51,7 +51,7 @@
             Password = Password ?? string.Empty
         };
 
-        var loginResponse = AuthenticationService.Login(loginRequest);
+        var loginResponse = await AuthenticationService.Login(loginRequest);
 
         if (loginResponse.Success)
         {

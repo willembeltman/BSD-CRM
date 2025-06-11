@@ -1,11 +1,12 @@
-﻿using BSD.Business.Models;
+﻿using BSD.Business.Interfaces;
+using BSD.Business.Models;
 using BSD.Data;
 using BSD.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BSD.Business.CrudHandlers;
 
-public class CompanyCrudHandler
+public class CompanyCrudHandler 
 {
     private readonly AuthenticationState State;
 
@@ -24,21 +25,21 @@ public class CompanyCrudHandler
         State.DbUser.CompanyUsers.Any(a => (a.Admin || a.Eigenaar) && a.CompanyId == entity.Id);
     public bool CanList(ApplicationDbContext db) => true;
 
-    public Company? FindByMatch(ApplicationDbContext db, Shared.Dtos.Company dto)
+    public async Task<Company?> FindByMatch(ApplicationDbContext db, Shared.Dtos.Company dto)
     {
         var userId = State.User?.Id;
-        return db.Companies
+        return await db.Companies
             .Include(a => a.Country)
-            .FirstOrDefault(a =>
+            .FirstOrDefaultAsync(a =>
                 (a.Id == dto.Id || a.Name == dto.Name) &&
                 a.CompanyUsers.Any(a => a.UserId == userId));
     }
-    public Company? FindById(ApplicationDbContext db, long id)
+    public async Task<Company?> FindById(ApplicationDbContext db, long id)
     {
         var userId = State.User?.Id;
-        return db.Companies
+        return await db.Companies
             .Include(a => a.Country)
-            .FirstOrDefault(a =>
+            .FirstOrDefaultAsync(a =>
                 a.Id == id &&
                 a.CompanyUsers.Any(a => a.UserId == userId));
     }

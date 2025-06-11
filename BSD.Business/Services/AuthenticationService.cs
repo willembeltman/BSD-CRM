@@ -19,7 +19,7 @@ public class AuthenticationService(
     readonly ApplicationDbContext db = db;
 
     [TsServiceMethod("Auth", "Login")]
-    public LoginResponse Login(LoginRequest request)
+    public async Task<LoginResponse> Login(LoginRequest request)
     {
 
         var email = request.UserName;
@@ -36,7 +36,7 @@ public class AuthenticationService(
                 AuthenticationError = true
             };
 
-        var dbuser = db.Users.FirstOrDefault(a => a.Email == email);
+        var dbuser = await db.Users.FirstOrDefaultAsync(a => a.Email == email);
         if (dbuser == null)
             return new LoginResponse()
             {
@@ -44,14 +44,14 @@ public class AuthenticationService(
             };
 
         // Password correct?
-        var passwordHash = StringHelper.HashString(password);
+        var passwordHash = await StringHelper.HashString(password);
         if (dbuser.PasswordHash != passwordHash)
             return new LoginResponse()
             {
                 AuthenticationError = true // Security?
             };
 
-        var clientBearer = authenticationStateService.GetClientBearer(dbuser);
+        var clientBearer = await authenticationStateService.GetClientBearer(dbuser);
         if (clientBearer == null)
             return new LoginResponse()
             {
@@ -91,7 +91,7 @@ public class AuthenticationService(
     }
 
     [TsServiceMethod("Auth", "Register")]
-    public RegisterResponse Register(RegisterRequest request)
+    public async Task<RegisterResponse> Register(RegisterRequest request)
     {
         if (string.IsNullOrEmpty(authenticationStateService.IpAddress))
             return new RegisterResponse()
@@ -131,28 +131,28 @@ public class AuthenticationService(
                 ErrorPhoneNumberEmpty = true
             };
 
-        var usernameUser = db.Users.FirstOrDefault(a => a.UserName.ToLower() == username.ToLower());
+        var usernameUser = await db.Users.FirstOrDefaultAsync(a => a.UserName.ToLower() == username.ToLower());
         if (usernameUser != null)
             return new RegisterResponse()
             {
                 ErrorUsernameInUse = true
             };
 
-        var emailUser = db.Users.FirstOrDefault(a => a.Email.ToLower() == email.ToLower());
+        var emailUser = await db.Users.FirstOrDefaultAsync(a => a.Email.ToLower() == email.ToLower());
         if (emailUser != null)
             return new RegisterResponse()
             {
                 ErrorEmailInUse = true
             };
 
-        var dbuser = authenticationStateService.CreateUser(username, email, phoneNumber, password);
+        var dbuser = await authenticationStateService.CreateUser(username, email, phoneNumber, password);
         if (dbuser == null)
             return new RegisterResponse()
             {
                 ErrorCouldNotCreateUser = true
             };
 
-        var bearer = authenticationStateService.GetClientBearer(dbuser);
+        var bearer = await authenticationStateService.GetClientBearer(dbuser);
         if (bearer == null)
             return new RegisterResponse()
             {
@@ -172,7 +172,7 @@ public class AuthenticationService(
     }
 
     [TsServiceMethod("Auth", "ForgotPassword")]
-    public ForgotPasswordResponse ForgotPassword(ForgotPasswordRequest request)
+    public async Task<ForgotPasswordResponse> ForgotPassword(ForgotPasswordRequest request)
     {
         if (string.IsNullOrEmpty(authenticationStateService.IpAddress))
             return new ForgotPasswordResponse()
@@ -188,20 +188,20 @@ public class AuthenticationService(
             {
                 ErrorEmailNotValid = true
             };
-        if (!AuthenticationStateService.EmailAddressHelper.IsEmailAddress(email))
+        if (!EmailAddressHelper.IsEmailAddress(email))
             return new ForgotPasswordResponse()
             {
                 ErrorEmailNotValid = true
             };
 
-        var dbuser = db.Users.FirstOrDefault(a => a.Email.ToLower() == email.ToLower());
+        var dbuser = await db.Users.FirstOrDefaultAsync(a => a.Email.ToLower() == email.ToLower());
         if (dbuser == null)
             return new ForgotPasswordResponse()
             {
                 Success = true, // Security? Don't tell if email exists
             };
 
-        forgotPasswordService.Handle(dbuser);
+        await forgotPasswordService.Handle(dbuser);
         return new ForgotPasswordResponse()
         {
             Success = true

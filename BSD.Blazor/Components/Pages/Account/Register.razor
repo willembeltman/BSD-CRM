@@ -68,7 +68,7 @@
         public string? PasswordAgain { get; set; }
     }
 
-    private void RegisterClicked()
+    private async Task RegisterClicked()
     {
         ErrorMessage = null;
 
@@ -80,7 +80,7 @@
             PhoneNumber = null // Alleen 4 velden, telefoonnummer leeg laten
         };
 
-        var response = AuthenticationService.Register(registerRequest);
+        var response = await AuthenticationService.Register(registerRequest);
 
         if (response.Success)
         {

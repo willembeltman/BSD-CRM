@@ -8,7 +8,7 @@ public interface IAuthenticationStateService
 {
     string? IpAddress { get; }
 
-    User CreateUser(string username, string email, string phoneNumber, string password);
-    ClientBearer? GetClientBearer(User dbuser);
-    AuthenticationState GetState(BaseRequest request);
+    Task<User> CreateUser(string username, string email, string phoneNumber, string password);
+    Task<ClientBearer?> GetClientBearer(User dbuser);
+    Task<AuthenticationState> GetState(BaseRequest request);
 }

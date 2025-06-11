@@ -25,7 +25,7 @@ public class CrudInterfaceGenerator : BaseGenerator
         BaseRequest = StateDto.BaseRequest;
         DbContext = BaseRequest.DbContext;
 
-        Name = $"I{Entity.Name}Service";
+        Name = $"I{Entity.Name}CrudService";
     }
 
     public CrudHandlerGenerator ServiceHandler { get; }

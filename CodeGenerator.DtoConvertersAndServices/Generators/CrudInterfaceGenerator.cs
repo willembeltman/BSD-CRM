@@ -65,11 +65,11 @@ namespace {Namespace};
 
 public interface {Name}
 {{
-    {Dto.CreateResponse.Name} Create({Dto.CreateRequest.Name} request);
-    {Dto.DeleteResponse.Name} Delete({Dto.DeleteRequest.Name} request);
-    {Dto.ListResponse.Name} List({Dto.ListRequest.Name} request);
-    {Dto.ReadResponse.Name} Read({Dto.ReadRequest.Name} request);
-    {Dto.UpdateResponse.Name} Update({Dto.UpdateRequest.Name} request);
+    Task<{Dto.CreateResponse.Name}> Create({Dto.CreateRequest.Name} request);
+    Task<{Dto.DeleteResponse.Name}> Delete({Dto.DeleteRequest.Name} request);
+    Task<{Dto.ListResponse.Name}> List({Dto.ListRequest.Name} request);
+    Task<{Dto.ReadResponse.Name}> Read({Dto.ReadRequest.Name} request);
+    Task<{Dto.UpdateResponse.Name}> Update({Dto.UpdateRequest.Name} request);
 }}";
         Save();
     }

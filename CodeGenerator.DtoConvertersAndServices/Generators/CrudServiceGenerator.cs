@@ -221,7 +221,7 @@ public class {Name}(
     : {ServiceInterface.Name}
 {{
     [TsServiceMethod(""{Entity.Name}"", ""Create"")]
-    public {Dto.CreateResponse.Name} Create({Dto.CreateRequest.Name} request)
+    public async Task<{Dto.CreateResponse.Name}> Create({Dto.CreateRequest.Name} request)
     {{
         var state = authenticationService.GetState(request);
         if (!state.Success)
@@ -253,7 +253,7 @@ public class {Name}(
     }}
 
     [TsServiceMethod(""{Entity.Name}"", ""Read"")]
-    public {Dto.ReadResponse.Name} Read({Dto.ReadRequest.Name} request)
+    public async Task<{Dto.ReadResponse.Name}> Read({Dto.ReadRequest.Name} request)
     {{
         var state = authenticationService.GetState(request);
         if (!state.Success)
@@ -275,7 +275,7 @@ public class {Name}(
     }}
 
     [TsServiceMethod(""{Entity.Name}"", ""Update"")]
-    public {Dto.UpdateResponse.Name} Update({Dto.UpdateRequest.Name} request)
+    public async Task<{Dto.UpdateResponse.Name}> Update({Dto.UpdateRequest.Name} request)
     {{
         var state = authenticationService.GetState(request);
         if (!state.Success)
@@ -303,7 +303,7 @@ public class {Name}(
     }}
 
     [TsServiceMethod(""{Entity.Name}"", ""Delete"")]
-    public {Dto.DeleteResponse.Name} Delete({Dto.DeleteRequest.Name} request)
+    public async Task<{Dto.DeleteResponse.Name}> Delete({Dto.DeleteRequest.Name} request)
     {{
         var state = authenticationService.GetState(request);
         if (!state.Success)
@@ -330,7 +330,7 @@ public class {Name}(
     }}
 
     [TsServiceMethod(""{Entity.Name}"", ""List"")]
-    public {Dto.ListResponse.Name} List({Dto.ListRequest.Name} request)
+    public async Task<{Dto.ListResponse.Name}> List({Dto.ListRequest.Name} request)
     {{
         var state = authenticationService.GetState(request);
         if (!state.Success)

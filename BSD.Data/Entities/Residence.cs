@@ -1,4 +1,3 @@
-using BSD.Shared;
 using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BSD.Data.Entities;
 
 [Authorize]
-public partial class Residence : IEntity
+public partial class Residence
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

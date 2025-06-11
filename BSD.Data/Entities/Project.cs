@@ -1,5 +1,4 @@
-﻿using BSD.Shared;
-using CodeGenerator.Shared.Attributes;
+﻿using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
@@ -7,7 +6,7 @@ using System.Diagnostics;
 namespace BSD.Data.Entities;
 
 [DebuggerDisplay("Id = {Id}, Name = {Name}")]
-public class Project : IEntity
+public class Project
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -1,12 +1,11 @@
-﻿using BSD.Shared;
-using CodeGenerator.Shared.Attributes;
+﻿using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
 [Authorize]
-public class TaxRate : IEntity
+public class TaxRate
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

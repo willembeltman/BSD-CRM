@@ -1,11 +1,10 @@
-﻿using BSD.Shared;
-using Storage.Shared.Interfaces;
+﻿using Storage.Shared.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
-public class TechnologyAttachment : IStorageFile, IEntity
+public class TechnologyAttachment : IStorageFile
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,13 +13,5 @@ public class TechnologyAttachment : IStorageFile, IEntity
     public long TechnologyId { get; set; }
     //public virtual Technology Technology { get; set; }
 
-
-    [StringLength(255)]
-    public string? StorageFileName { get; set; }
-    public long? StorageLength { get; set; }
-    [StringLength(128)]
-    public string? StorageMimeType { get; set; }
-
-    [NotMapped]
-    public string StorageFolder { get => "TechnologyAttachment"; }
+    string IStorageFile.Id => Id.ToString();
 }

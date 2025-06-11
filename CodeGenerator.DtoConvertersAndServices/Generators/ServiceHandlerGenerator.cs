@@ -55,6 +55,7 @@ public class ServiceHandlerGenerator : BaseGenerator
         //namespace BSD.Business.ServiceHandlers;
 
         //public class CompanyServiceHandler
+        //    : ICrudHandler<ApplicationDbContext, BankStatementExpense, BSD.Shared.Dtos.BankStatementExpense>
         //{
         //    private readonly AuthenticationState State;
 

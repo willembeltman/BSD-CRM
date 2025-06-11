@@ -1,11 +1,10 @@
-﻿using BSD.Shared;
-using CodeGenerator.Shared.Attributes;
+﻿using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace BSD.Data.Entities;
 
 [Hidden]
-public class ClientDevice : IEntity
+public class ClientDevice
 {
     [Key]
     public long Id { get; set; }

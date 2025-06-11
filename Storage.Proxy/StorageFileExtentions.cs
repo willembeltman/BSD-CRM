@@ -10,7 +10,7 @@ public static class StorageFileExtentions
 {
     public static async Task<string> GetUrl(this IStorageFile storageFile)
     {
-        if (storageFile.Id <= 0)
+        if (string.IsNullOrEmpty(storageFile.Id) || storageFile.Id == "0")
             throw new ArgumentException(
                 $"Cannot use storage file server for entities with Id = 0, this indicates the entity has not been attached to the dbcontext jet.");
 
@@ -38,7 +38,7 @@ public static class StorageFileExtentions
     }
     public static async Task<bool> Exists(this IStorageFile storageFile)
     {
-        if (storageFile.Id <= 0)
+        if (string.IsNullOrEmpty(storageFile.Id) || storageFile.Id == "0")
             throw new ArgumentException(
                 $"Cannot use storage file server for entities with Id = 0, this indicates the entity has not been attached to the dbcontext jet.");
 
@@ -64,7 +64,7 @@ public static class StorageFileExtentions
     }
     public static async Task<Stream> Open(this IStorageFile storageFile)
     {
-        if (storageFile.Id <= 0)
+        if (string.IsNullOrEmpty(storageFile.Id) || storageFile.Id == "0")
             throw new ArgumentException(
                 $"Cannot use storage file server for entities with Id = 0, this indicates the entity has not been attached to the dbcontext jet.");
 
@@ -84,7 +84,7 @@ public static class StorageFileExtentions
     }
     public static async Task Save(this IStorageFile storageFile, string fileName, string mimeType, Stream stream, bool allowOverwrite = true)
     {
-        if (storageFile.Id <= 0)
+        if (string.IsNullOrEmpty(storageFile.Id) || storageFile.Id == "0")
             throw new ArgumentException(
                 $"Cannot use storage file server for entities with Id = 0, this indicates the entity has not been attached to the dbcontext jet.");
         if (string.IsNullOrEmpty(fileName))
@@ -131,7 +131,7 @@ public static class StorageFileExtentions
     }
     public static async Task<bool> Delete(this IStorageFile storageFile, bool throwIfNotFound = true)
     {
-        if (storageFile.Id <= 0)
+        if (string.IsNullOrEmpty(storageFile.Id) || storageFile.Id == "0")
             throw new ArgumentException(
                 $"Cannot use storage file server for entities with Id = 0, this indicates the entity has not been attached to the dbcontext jet.");
 

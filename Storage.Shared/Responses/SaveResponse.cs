@@ -4,7 +4,7 @@ public class SaveResponse : Response
 {
     public long Length { get; set; }
     public long StorageFileId { get; set; }
-    public long EntityId { get; set; }
+    public string EntityId { get; set; } = string.Empty;
     public string? EntityFileName { get; set; }
     public string? FileName { get; set; }
     public string? MimeType { get; set; }

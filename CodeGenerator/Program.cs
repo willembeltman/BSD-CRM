@@ -18,7 +18,9 @@ var config1 = new CodeGenerator.Step1.DtosConvertersAndServices.GeneratorConfig(
     crudServicesDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\CrudServices"),
     crudServicesNamespace: "BSD.Business.CrudServices",
     modelsDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Models"),
-    modelsNamespace: "BSD.Business.Models");
+    modelsNamespace: "BSD.Business.Models",
+    crudInterfacesDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\CrudInterfaces"),
+    crudInterfacesNamespace: "BSD.Business.CrudInterfaces");
 
 //config1 = new CodeGenerator.Step1.DtosConvertersAndServices.GeneratorConfig(
 //    dbContextType: typeof(ApplicationDbContext),

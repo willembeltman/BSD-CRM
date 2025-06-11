@@ -4,7 +4,7 @@ using BSD.Data.Entities;
 
 namespace BSD.Business.CrudHandlers;
 
-public class BankStatementExpenseServiceHandler
+public class BankStatementExpenseServiceHandler 
 {
     private readonly AuthenticationState State;
 

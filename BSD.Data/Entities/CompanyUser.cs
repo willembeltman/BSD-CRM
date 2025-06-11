@@ -1,5 +1,4 @@
 //------------------------------------------------------------------------------
-using BSD.Shared;
 using CodeGenerator.Shared.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BSD.Data.Entities;
 
 [Authorize]
-public class CompanyUser : IEntity
+public class CompanyUser
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

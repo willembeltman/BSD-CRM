@@ -1,5 +1,4 @@
-﻿using BSD.Shared;
-using CodeGenerator.Shared.Attributes;
+﻿using CodeGenerator.Shared.Attributes;
 using Storage.Shared.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BSD.Data.Entities;
 
 [Authorize]
-public class DocumentAttachment : IStorageFile, IEntity
+public class DocumentAttachment : IStorageFile
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,4 +16,6 @@ public class DocumentAttachment : IStorageFile, IEntity
     public virtual Document? Document { get; set; }
 
     public string? Description { get; set; }
+
+    string IStorageFile.Id => Id.ToString();
 }

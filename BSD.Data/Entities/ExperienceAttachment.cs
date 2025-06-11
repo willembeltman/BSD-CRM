@@ -1,11 +1,10 @@
-﻿using BSD.Shared;
-using Storage.Shared.Interfaces;
+﻿using Storage.Shared.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
-public class ExperienceAttachment : IStorageFile, IEntity
+public class ExperienceAttachment : IStorageFile
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,13 +15,5 @@ public class ExperienceAttachment : IStorageFile, IEntity
 
     public bool Spotlight { get; set; }
 
-    [StringLength(255)]
-    public string? StorageFileName { get; set; }
-    public long? StorageLength { get; set; }
-    [StringLength(128)]
-    public string? StorageMimeType { get; set; }
-
-    [NotMapped]
-    public string StorageFolder { get => "ExperienceAttachment"; }
-
+    string IStorageFile.Id => Id.ToString();
 }

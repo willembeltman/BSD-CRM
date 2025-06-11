@@ -10,7 +10,7 @@ public class StorageFile : IEntity
     public long? StorageFolderId { set; get; }
 
     public string EntityFileName { set; get; }
-    public long EntityId { get; set; }
+    public string EntityId { get; set; }
     public string FileName { get; set; }
     public long Length { set; get; }
     public string MimeType { set; get; }

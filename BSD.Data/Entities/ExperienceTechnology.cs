@@ -1,10 +1,9 @@
-﻿using BSD.Shared;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSD.Data.Entities;
 
-public class ExperienceTechnology : IEntity
+public class ExperienceTechnology
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Storage.Shared\Storage.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

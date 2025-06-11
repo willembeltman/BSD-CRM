@@ -23,9 +23,6 @@ public static class ExpenseAttachmentConverter
         if (dest.ExpenseId != source.ExpenseId) { dest.ExpenseId = source.ExpenseId; dirty = true; }
         if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
         if (dest.EmailUniqueId != source.EmailUniqueId) { dest.EmailUniqueId = source.EmailUniqueId; dirty = true; }
-        if (dest.StorageFileName != source.StorageFileName) { dest.StorageFileName = source.StorageFileName; dirty = true; }
-        if (dest.StorageLength != source.StorageLength) { dest.StorageLength = source.StorageLength; dirty = true; }
-        if (dest.StorageMimeType != source.StorageMimeType) { dest.StorageMimeType = source.StorageMimeType; dirty = true; }
         return dirty;
     }
     public static bool CopyTo(this BSD.Data.Entities.ExpenseAttachment source, BSD.Shared.Dtos.ExpenseAttachment dest)
@@ -35,10 +32,6 @@ public static class ExpenseAttachmentConverter
         if (dest.ExpenseId != source.ExpenseId) { dest.ExpenseId = source.ExpenseId; dirty = true; }
         if (dest.Description != source.Description) { dest.Description = source.Description; dirty = true; }
         if (dest.EmailUniqueId != source.EmailUniqueId) { dest.EmailUniqueId = source.EmailUniqueId; dirty = true; }
-        if (dest.StorageFileName != source.StorageFileName) { dest.StorageFileName = source.StorageFileName; dirty = true; }
-        if (dest.StorageLength != source.StorageLength) { dest.StorageLength = source.StorageLength; dirty = true; }
-        if (dest.StorageMimeType != source.StorageMimeType) { dest.StorageMimeType = source.StorageMimeType; dirty = true; }
-        if (dest.StorageFolder != source.StorageFolder) { dest.StorageFolder = source.StorageFolder; dirty = true; }
         dest.StorageFileUrl = source.GetUrl().Result;
         return dirty;
     }

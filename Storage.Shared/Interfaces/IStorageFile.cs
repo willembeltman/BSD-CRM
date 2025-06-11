@@ -1,7 +1,6 @@
-﻿namespace Storage.Shared.Interfaces
+﻿namespace Storage.Shared.Interfaces;
+
+public interface IStorageFile
 {
-    public interface IStorageFile
-    {
-        long Id { get; set; }
-    }
+    string Id { get; }
 }

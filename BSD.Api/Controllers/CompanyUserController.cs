@@ -1,4 +1,4 @@
-using BSD.Business.Interfaces;
+using BSD.Business.CrudInterfaces;
 using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
 using Microsoft.AspNetCore.Mvc;

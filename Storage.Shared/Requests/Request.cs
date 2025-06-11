@@ -2,7 +2,7 @@
 {
     public class Request
     {
-        public long Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         public string TypeName { get; set; } = string.Empty;
     }
 }

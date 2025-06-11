@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BSD.Business.CrudHandlers;
 
-public class CompanyServiceHandler
+public class CompanyCrudHandler
 {
     private readonly AuthenticationState State;
 
-    public CompanyServiceHandler(AuthenticationState authenticationState)
+    public CompanyCrudHandler(AuthenticationState authenticationState)
     {
         State = authenticationState;
     }

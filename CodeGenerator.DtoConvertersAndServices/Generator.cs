@@ -55,7 +55,7 @@ public class Generator
 
         // Generate Service Handlers
         ServiceHandlers = DtoConverters
-            .Select(dtoConverter => new ServiceHandlerGenerator(
+            .Select(dtoConverter => new CrudHandlerGenerator(
                 dtoConverter,
                 config.CrudHandlersDirectory,
                 config.CrudHandlersNamespace))
@@ -63,7 +63,7 @@ public class Generator
 
         // Generate Service Interfaces
         ServiceInterfaces = ServiceHandlers
-            .Select(serviceHandler => new ServiceInterfaceGenerator(
+            .Select(serviceHandler => new CrudInterfaceGenerator(
                 serviceHandler,
                 config.CrudInterfacesDirectory,
                 config.CrudInterfacesNamespace))
@@ -71,7 +71,7 @@ public class Generator
 
         // Generate Services
         Services = ServiceInterfaces
-            .Select(serviceInterface => new ServiceGenerator(
+            .Select(serviceInterface => new CrudServiceGenerator(
                 serviceInterface,
                 config.CrudServicesDirectory,
                 config.CrudServicesNamespace))
@@ -89,9 +89,9 @@ public class Generator
 
     public DtoGenerator[] Dtos { get; private set; }
     public DtoConverterGenerator[] DtoConverters { get; private set; }
-    public ServiceHandlerGenerator[] ServiceHandlers { get; private set; }
-    public ServiceInterfaceGenerator[] ServiceInterfaces { get; private set; }
-    public ServiceGenerator[] Services { get; private set; }
+    public CrudHandlerGenerator[] ServiceHandlers { get; private set; }
+    public CrudInterfaceGenerator[] ServiceInterfaces { get; private set; }
+    public CrudServiceGenerator[] Services { get; private set; }
 
     public void Run()
     {

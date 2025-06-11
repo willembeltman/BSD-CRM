@@ -3,10 +3,10 @@ using CodeGenerator.Step1.DtosConvertersAndServices.Generators;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
-public class ServiceInterfaceGenerator : BaseGenerator
+public class CrudInterfaceGenerator : BaseGenerator
 {
-    public ServiceInterfaceGenerator(
-        ServiceHandlerGenerator serviceHandler,
+    public CrudInterfaceGenerator(
+        CrudHandlerGenerator serviceHandler,
         DirectoryInfo dtoConvertersDirectory,
         string dtoConvertersNamespace)
     {
@@ -28,7 +28,7 @@ public class ServiceInterfaceGenerator : BaseGenerator
         Name = $"I{Entity.Name}Service";
     }
 
-    public ServiceHandlerGenerator ServiceHandler { get; }
+    public CrudHandlerGenerator ServiceHandler { get; }
     public DtoConverterGenerator DtoConverter { get; }
     public DtoGenerator Dto { get; }
     public DbSet DbSet { get; }

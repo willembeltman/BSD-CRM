@@ -3,9 +3,9 @@ using CodeGenerator.Step1.DtosConvertersAndServices.Generators;
 
 namespace CodeGenerator.Dtos_Converters_Services.Generators;
 
-public class ServiceHandlerGenerator : BaseGenerator
+public class CrudHandlerGenerator : BaseGenerator
 {
-    public ServiceHandlerGenerator(
+    public CrudHandlerGenerator(
         DtoConverterGenerator dtoConverter,
         DirectoryInfo directory,
         string @namespace)
@@ -25,7 +25,7 @@ public class ServiceHandlerGenerator : BaseGenerator
         BaseRequest = StateDto.BaseRequest;
         DbContext = BaseRequest.DbContext;
 
-        Name = $"{Entity.Name}ServiceHandler";
+        Name = $"{Entity.Name}CrudHandler";
     }
 
     public DtoConverterGenerator DtoConverter { get; }

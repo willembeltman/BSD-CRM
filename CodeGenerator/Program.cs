@@ -72,7 +72,7 @@ var config2 = new CodeGenerator.Step2.ApisAndProxies.GeneratorConfig(
     )],
     ServiceNamespaces:
     [(
-        Assembly: typeof(BSD.Business.CrudServices.CompanyService).Assembly,
+        Assembly: typeof(BSD.Business.Services.AuthenticationService).Assembly,
         CsNamespace: "BSD.Business.CrudServices"
     ),
     (

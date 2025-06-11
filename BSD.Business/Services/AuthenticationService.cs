@@ -5,9 +5,6 @@ using BSD.Shared.RequestDtos;
 using BSD.Shared.ResponseDtos;
 using CodeGenerator.Shared.Attributes;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace BSD.Business.Services;
 

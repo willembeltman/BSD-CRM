@@ -4,7 +4,7 @@ namespace BSD.Business;
 
 public static class RegisterCrudServicesExtention
 {
-    public static void RegisterCrudServices(this IServiceCollection services)
+    public static void AddCrudServices(this IServiceCollection services)
     {
         //builder.Services.AddScoped<IWorkorderService, WorkorderService>();
         //builder.Services.AddScoped<ICompanyService, CompanyService>();

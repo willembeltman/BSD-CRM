@@ -11,12 +11,12 @@ var config1 = new CodeGenerator.Step1.DtosConvertersAndServices.GeneratorConfig(
     responseDtoNamespace: "BSD.Shared.ResponseDtos",
     convertersDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Converters"),
     convertersNamespace: "BSD.Business.Converters",
-    serviceHandlersDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\ServiceHandlers"),
-    serviceHandlersNamespace: "BSD.Business.ServiceHandlers",
+    crudHandlersDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\CrudHandlers"),
+    crudHandlersNamespace: "BSD.Business.CrudHandlers",
     interfacesDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Interfaces"),
     interfacesNamespace: "BSD.Business.Interfaces",
-    servicesDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Services"),
-    servicesNamespace: "BSD.Business.Services",
+    crudServicesDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\CrudServices"),
+    crudServicesNamespace: "BSD.Business.CrudServices",
     modelsDirectory: new DirectoryInfo("..\\..\\..\\..\\BSD.Business\\Models"),
     modelsNamespace: "BSD.Business.Models");
 
@@ -68,6 +68,10 @@ var config2 = new CodeGenerator.Step2.ApisAndProxies.GeneratorConfig(
     )],
     ServiceNamespaces:
     [(
+        Assembly: typeof(BSD.Business.CrudServices.CompanyService).Assembly,
+        CsNamespace: "BSD.Business.CrudServices"
+    ),
+    (
         Assembly: typeof(BSD.Business.Services.AuthenticationService).Assembly,
         CsNamespace: "BSD.Business.Services"
     )]);

@@ -8,9 +8,9 @@ public class GeneratorConfig
         DirectoryInfo requestDtoDirectory, string requestDtoNamespace,
         DirectoryInfo responseDtoDirectory, string responseDtoNamespace,
         DirectoryInfo convertersDirectory, string convertersNamespace,
-        DirectoryInfo serviceHandlersDirectory, string serviceHandlersNamespace,
+        DirectoryInfo crudHandlersDirectory, string crudHandlersNamespace,
         DirectoryInfo interfacesDirectory, string interfacesNamespace,
-        DirectoryInfo servicesDirectory, string servicesNamespace,
+        DirectoryInfo crudServicesDirectory, string crudServicesNamespace,
         DirectoryInfo modelsDirectory, string modelsNamespace)
     {
         DbContextType = dbContextType;
@@ -22,12 +22,12 @@ public class GeneratorConfig
         ResponseDtoNamespace = responseDtoNamespace;
         ConvertersDirectory = convertersDirectory;
         ConvertersNamespace = convertersNamespace;
-        ServiceHandlersDirectory = serviceHandlersDirectory;
-        ServiceHandlersNamespace = serviceHandlersNamespace;
+        CrudHandlersDirectory = crudHandlersDirectory;
+        CrudHandlersNamespace = crudHandlersNamespace;
         InterfacesDirectory = interfacesDirectory;
         InterfacesNamespace = interfacesNamespace;
-        ServicesDirectory = servicesDirectory;
-        ServicesNamespace = servicesNamespace;
+        CrudServicesDirectory = crudServicesDirectory;
+        CrudServicesNamespace = crudServicesNamespace;
         ModelsDirectory = modelsDirectory;
         ModelsNamespace = modelsNamespace;
     }
@@ -40,12 +40,12 @@ public class GeneratorConfig
     public string ResponseDtoNamespace { get; }
     public DirectoryInfo ConvertersDirectory { get; }
     public string ConvertersNamespace { get; }
-    public DirectoryInfo ServiceHandlersDirectory { get; }
-    public string ServiceHandlersNamespace { get; }
+    public DirectoryInfo CrudHandlersDirectory { get; }
+    public string CrudHandlersNamespace { get; }
     public DirectoryInfo InterfacesDirectory { get; }
     public string InterfacesNamespace { get; }
-    public DirectoryInfo ServicesDirectory { get; }
-    public string ServicesNamespace { get; }
+    public DirectoryInfo CrudServicesDirectory { get; }
+    public string CrudServicesNamespace { get; }
     public DirectoryInfo ModelsDirectory { get; }
     public string ModelsNamespace { get; }
 }

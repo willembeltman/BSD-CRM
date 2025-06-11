@@ -58,8 +58,8 @@ public class Generator
         ServiceHandlers = DtoConverters
             .Select(dtoConverter => new ServiceHandlerGenerator(
                 dtoConverter,
-                config.ServiceHandlersDirectory,
-                config.ServiceHandlersNamespace))
+                config.CrudHandlersDirectory,
+                config.CrudHandlersNamespace))
             .ToArray();
 
         // Generate Service Interfaces
@@ -74,8 +74,8 @@ public class Generator
         Services = ServiceInterfaces
             .Select(serviceInterface => new ServiceGenerator(
                 serviceInterface,
-                config.ServicesDirectory,
-                config.ServicesNamespace))
+                config.CrudServicesDirectory,
+                config.CrudServicesNamespace))
             .ToArray();
 
     }

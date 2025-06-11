@@ -1,9 +1,11 @@
 using BSD.Blazor.Components;
-using BSD.Business.Services;
+using BSD.Business.CrudServices;
 using BSD.Data;
 using BSD.Business.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Storage.Proxy;
+using BSD.Business.Services;
+using BSD.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,14 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IAuthenticationStateService, AuthenticationStateService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IDateTimeService, DateTimeService>();
-//builder.Services.AddScoped<IWorkorderService, WorkorderService>();
-//builder.Services.AddScoped<ICompanyService, CompanyService>();
-//builder.Services.AddScoped<ICountryService, CountryService>();
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IProjectService, ProjectService>();
-//builder.Services.AddScoped<ICustomerService, CustomerService>();
-//builder.Services.AddScoped<IInvoiceService, InvoiceService>();
-//builder.Services.AddScoped<IRateService, RateService>();
+builder.Services.AddCrudServices();
 
 var app = builder.Build();
 

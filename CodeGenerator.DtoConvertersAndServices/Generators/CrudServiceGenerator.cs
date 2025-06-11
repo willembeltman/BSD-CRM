@@ -343,10 +343,9 @@ public class {Name}(
         if (!handler.CanList(db))
             return new {Dto.ListResponse.Name}() {{ State = state, ErrorNotAuthorized = true }};
 
-        var entities = await handler.ListAll(db);
+        var entities = handler.ListAll(db);
         var dtos = entities
-            .Select(a => a.ToDto()!)
-            .ToArray();
+            .Select(a => a.ToDto()!);;
 
         return new {Dto.ListResponse.Name}()
         {{

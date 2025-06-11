@@ -210,6 +210,7 @@ using {ServiceInterface.Namespace};
 using {DbContext.Type.Namespace};
 using {BaseRequest.Namespace};
 using {BaseResponse.Namespace};
+using {IAuthenticationStateService.Namespace};
 using CodeGenerator.Shared.Attributes;
 
 namespace {Namespace};

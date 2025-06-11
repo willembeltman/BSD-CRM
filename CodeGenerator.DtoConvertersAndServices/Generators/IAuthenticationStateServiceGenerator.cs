@@ -47,6 +47,6 @@ public interface {Name}
     {AuthenticationState.Name} GetState({BaseRequest.Name} request);
 }}";
 
-        Save();
+        Save(false);
     }
 }

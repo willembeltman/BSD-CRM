@@ -32,7 +32,7 @@ public class ListResponseDtoGenerator : BaseGenerator
         Code += $"\r\n";
         Code += $"public class {Name} : BaseResponse\r\n";
         Code += $"{{\r\n";
-        Code += $"    public IQueryable<{DtoGenerator.Entity.Name}> {DtoGenerator.Entity.Name}s {{ get; set; }} = [];\r\n";
+        Code += $"    public IQueryable<{DtoGenerator.Entity.Name}>? {DtoGenerator.Entity.Name}s {{ get; set; }}\r\n";
         Code += $"}}";
 
         Save();

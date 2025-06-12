@@ -29,6 +29,8 @@ public class ReadRequestDtoGenerator : BaseGenerator
 
         Code += $"namespace {Namespace};\r\n";
         Code += $"\r\n";
+        Code += $"#nullable disable\r\n";
+        Code += $"\r\n";
         Code += $"public class {Name} : BaseRequest\r\n";
         Code += $"{{\r\n";
         Code += $"    public {id.TypeSimpleName} {DtoGenerator.Entity.Name}{id.PropertyName} {{ get; set; }}\r\n";

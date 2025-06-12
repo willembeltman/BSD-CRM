@@ -26,6 +26,8 @@ public class DeleteRequestDtoGenerator : BaseGenerator
 
         Code = @$"namespace {Namespace};
 
+#nullable disable
+
 public class {Name} : BaseRequest
 {{
     public {id.TypeSimpleName} {DtoGenerator.Entity.Name}{id.PropertyName} {{ get; set; }}

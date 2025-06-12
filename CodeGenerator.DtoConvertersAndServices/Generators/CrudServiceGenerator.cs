@@ -323,7 +323,7 @@ public class {Name}(
         if (!handler.DeleteFromState(db, entity))
             return new {Dto.DeleteResponse.Name}() {{ State = state, ErrorUpdatingState = true }};
 
-        await db.{DbSet.Name}.RemoveAsync(entity);
+        db.{DbSet.Name}.Remove(entity);
         await db.SaveChangesAsync();
 
         return new {Dto.DeleteResponse.Name}() {{ State = state, Success = true }};

@@ -47,6 +47,7 @@ public class CrudHandlerGenerator : BaseGenerator
         Code = $@"using {AuthenticationState.Namespace};
 using {DbContext.Type.Namespace};
 using {Entity.Type.Namespace};
+using Microsoft.EntityFrameworkCore;
 
 namespace {Namespace};
 
@@ -65,8 +66,8 @@ public class {Name}
     public bool CanDelete(ApplicationDbContext db, {Entity.Name} entity) => State.DbUser != null;
     public bool CanList(ApplicationDbContext db) => true;
 
-    public async Task<{Entity.Name}?> FindByMatch(ApplicationDbContext db, {Dto.FullName} dto) => null;
-    public async Task<{Entity.Name}?> FindById(ApplicationDbContext db, {keyType} id) => db.{DbSet.Name}.FirstOrDefault(a => a.Id == id);
+    public async Task<{Entity.Name}?> FindByMatch(ApplicationDbContext db, {Dto.FullName} dto) => await Task.Run(() => ({Entity.Name}?)null);
+    public async Task<{Entity.Name}?> FindById(ApplicationDbContext db, {keyType} id) => await db.{DbSet.Name}.FirstOrDefaultAsync(a => a.Id == id);
     public IQueryable<{Entity.Name}> ListAll(ApplicationDbContext db) => db.{DbSet.Name};
 
     public bool AttachToState(ApplicationDbContext db, {Entity.Name} entity) => true;
